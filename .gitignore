@@ -1,3 +1,21 @@
+# Datasets & Data Cache (Never commit raw or downloaded clinical datasets)
+data/
+*.csv
+*.tsv
+*.parquet
+*.zip
+*.tar.gz
+*.csv.gz
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
+# Environments
+.venv/
+env/
+venv/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
@@ -218,3 +236,11 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Transformer Model Checkpoints & Large Binary Weights
+checkpoints/
+models/sbdh_transformer/pytorch_model.bin
+models/sbdh_transformer/*.safetensors
+models/sbdh_transformer/*.pt
+*.safetensors
+*.bin

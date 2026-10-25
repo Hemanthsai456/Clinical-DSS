@@ -1,0 +1,50 @@
+{
+  "train": {
+    "split_name": "train",
+    "total_notes": 6136,
+    "total_annotations": 10022,
+    "resolved_intervals_total": 9988,
+    "multi_label_identical_intervals_count": 33,
+    "case_insensitive_intervals_count": 0,
+    "contextual_resolved_intervals_count": 0,
+    "ambiguous_annotations_count": 1,
+    "unmatched_annotations_count": 0,
+    "unresolved_cases_total": 1
+  },
+  "val": {
+    "split_name": "val",
+    "total_notes": 876,
+    "total_annotations": 1443,
+    "resolved_intervals_total": 1437,
+    "multi_label_identical_intervals_count": 6,
+    "case_insensitive_intervals_count": 0,
+    "contextual_resolved_intervals_count": 0,
+    "ambiguous_annotations_count": 0,
+    "unmatched_annotations_count": 0,
+    "unresolved_cases_total": 0
+  },
+  "test": {
+    "split_name": "test",
+    "total_notes": 1755,
+    "total_annotations": 2877,
+    "resolved_intervals_total": 2866,
+    "multi_label_identical_intervals_count": 11,
+    "case_insensitive_intervals_count": 0,
+    "contextual_resolved_intervals_count": 0,
+    "ambiguous_annotations_count": 0,
+    "unmatched_annotations_count": 0,
+    "unresolved_cases_total": 0
+  },
+  "test_reviewed": {
+    "split_name": "test_reviewed",
+    "total_notes": 1732,
+    "total_annotations": 3345,
+    "resolved_intervals_total": 3303,
+    "multi_label_identical_intervals_count": 37,
+    "case_insensitive_intervals_count": 92,
+    "contextual_resolved_intervals_count": 3,
+    "ambiguous_annotations_count": 5,
+    "unmatched_annotations_count": 0,
+    "unresolved_cases_total": 5
+  }
+}

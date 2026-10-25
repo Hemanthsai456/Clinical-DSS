@@ -1,0 +1,19 @@
+{
+  "model_name": "distilbert/distilroberta-base",
+  "epochs": 1,
+  "batch_size": 4,
+  "learning_rate": 3e-05,
+  "sample_limit": 60,
+  "best_val_relaxed_f1": 0.0094,
+  "total_training_duration_sec": 24.7,
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.6199,
+      "val_exact_f1": 0.0,
+      "val_relaxed_f1": 0.0094,
+      "val_micro_f1": 0.1107,
+      "epoch_duration_sec": 17.6
+    }
+  ]
+}

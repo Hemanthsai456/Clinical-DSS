@@ -1,0 +1,20 @@
+# Evernorth Clinical CDS - Milestone 1: Data Audit
+# Dependencies for reproducible data auditing, exploration, and validation
+
+# Core Data Manipulation & Analysis
+pandas>=2.0.0,<3.0.0
+numpy>=1.24.0,<2.0.0
+scikit-learn>=1.3.0,<2.0.0
+
+# HTTP & Data Fetching
+requests>=2.31.0
+ucimlrepo>=0.0.6
+
+# Visualization
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# Deep Learning & NLP (Milestone 3)
+torch>=2.0.0
+transformers>=4.30.0
+scipy>=1.10.0

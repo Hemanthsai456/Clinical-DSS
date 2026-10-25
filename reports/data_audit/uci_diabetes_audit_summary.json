@@ -1,0 +1,300 @@
+{
+  "dataset_name": "UCI Diabetes 130-US Hospitals (1999-2008)",
+  "total_rows": 101766,
+  "total_columns": 50,
+  "full_duplicate_rows": 0,
+  "duplicate_encounter_ids": 0,
+  "patient_statistics": {
+    "unique_patients": 71518,
+    "total_encounters": 101766,
+    "encounters_per_patient_mean": 1.4229424760200229,
+    "encounters_per_patient_median": 1.0,
+    "encounters_per_patient_std": 1.0907404993062544,
+    "encounters_per_patient_max": 40,
+    "patients_with_single_encounter": 54745,
+    "patients_with_single_encounter_pct": 76.54716295198412,
+    "patients_with_multiple_encounters": 16773,
+    "patients_with_multiple_encounters_pct": 23.452837048015883,
+    "patients_with_gt_5_encounters": 873
+  },
+  "target_audit": {
+    "expected_values": [
+      "<30",
+      ">30",
+      "NO"
+    ],
+    "actual_values": [
+      "<30",
+      ">30",
+      "NO"
+    ],
+    "unexpected_values": [],
+    "distribution_counts": {
+      "NO": 54864,
+      ">30": 35545,
+      "<30": 11357
+    },
+    "distribution_percentages": {
+      "NO": 53.91,
+      ">30": 34.93,
+      "<30": 11.16
+    },
+    "proposed_binary_target": {
+      "positive_class": "<30 (readmitted within 30 days)",
+      "negative_class": ">=30 or NO (not readmitted within 30 days in dataset)",
+      "positive_count": 11357,
+      "positive_pct": 11.16,
+      "negative_count": 90409,
+      "negative_pct": 88.84,
+      "imbalance_ratio": 7.96,
+      "clinical_definition_note": "Positive class indicates an early unplanned readmission (<30 days). Negative class represents encounters with either late readmission (>30 days) or NO recorded readmission. Crucially, 'NO' signifies no recorded readmission within the 130 participating hospitals during the 1999-2008 study window, NOT medical proof that the patient was never hospitalized elsewhere."
+    }
+  },
+  "cohort_policy_and_filtering": {
+    "verified_exclusion_codes": {
+      "11": "Expired",
+      "13": "Hospice / home",
+      "14": "Hospice / medical facility",
+      "19": "Expired at home. Medicaid only, hospice.",
+      "20": "Expired in a medical facility. Medicaid only, hospice.",
+      "21": "Expired, place unknown. Medicaid only, hospice."
+    },
+    "unfiltered_cohort": {
+      "total_encounters": 101766,
+      "unique_patients": 71518,
+      "target_counts": {
+        "NO": 54864,
+        ">30": 35545,
+        "<30": 11357
+      },
+      "positive_count_lt30": 11357,
+      "positive_prevalence_pct": 11.16
+    },
+    "excluded_mortality_hospice": {
+      "total_encounters": 2423,
+      "unique_patients": 2399,
+      "target_counts": {
+        "NO": 2337,
+        "<30": 43,
+        ">30": 43
+      },
+      "positive_count_lt30": 43,
+      "positive_prevalence_pct": 1.77,
+      "hospice_86_breakdown": {
+        "total_readmitted_fatal_or_hospice": 86,
+        "breakdown_by_disposition": {
+          "13 (Hospice / home)": {
+            "<30": 19,
+            ">30": 36,
+            "total": 399
+          },
+          "14 (Hospice / medical facility)": {
+            "<30": 24,
+            ">30": 7,
+            "total": 372
+          },
+          "11, 19, 20, 21 (Expired / In-Hospital Death)": {
+            "<30": 0,
+            ">30": 0,
+            "NO": 1652,
+            "total": 1652
+          }
+        },
+        "miscoded_status_evaluation": "NOT MISCODED. All 86 encounters belong to disposition 13 (Hospice/home: 55 cases) or 14 (Hospice/facility: 31 cases). Exactly ZERO in-hospital deaths (codes 11, 19, 20, 21) have readmission labels (all 2,337 true in-hospital deaths have readmitted='NO'). Patients discharged to hospice are alive at discharge; these 86 cases represent genuine clinical palliative crises, hospice revocations, or symptom flare-ups leading to acute readmission. They are excluded under standard health-plan quality metric policies (e.g. CMS HRRP), which exclude all hospice discharges from readmission penalty benchmarks, not because of database error."
+      },
+      "policy_rationale": "Patients who expired in-hospital cannot be readmitted, introducing fatal survivorship bias. Patients transferred to hospice have fundamentally different palliative care goals and are excluded under CMS and health-plan readmission benchmark standards."
+    },
+    "eligible_modeling_cohort": {
+      "total_encounters": 99343,
+      "unique_patients": 69990,
+      "target_counts": {
+        "NO": 52527,
+        ">30": 35502,
+        "<30": 11314
+      },
+      "positive_count_lt30": 11314,
+      "positive_prevalence_pct": 11.39,
+      "imbalance_ratio": 7.78
+    }
+  },
+  "prediction_time_policy": {
+    "intended_prediction_time": "Discharge (Transitional Care Management Planning)",
+    "rationale": "The model is intended to run at the time of discharge planning to flag high-risk diabetic patients who require intensive outpatient care coordination, medication reconciliation, or post-discharge home health monitoring. At discharge, full inpatient duration (time_in_hospital), procedure counts, in-hospital lab tests, and medication changes are known.",
+    "identifier_policy": "Identifiers ('encounter_id', 'patient_nbr') are STRICTLY EXCLUDED from model features. They are retained solely for longitudinal linkage, patient-grouped cross-validation, and audit.",
+    "discharge_disposition_sensitivity_plan": "In Milestone 2, baseline modeling will execute an explicit sensitivity comparison: Model A (Clinical Baseline without discharge_disposition_id) versus Model B (Augmented Model with discharge_disposition_id). Even after excluding death/hospice codes, disposition codes (e.g. SNF vs home health) reflect post-acute placement decisions negotiated during stay, which could introduce circular placement leakage. The sensitivity comparison will quantify this impact.",
+    "diagnosis_coding_sensitivity_plan": "Similarly, final billed ICD-9 diagnoses (diag_1, diag_2, diag_3) are typically assigned post-discharge by professional medical coders. Milestone 2 will evaluate models with and without these discharge ICD-9 codes to assess lookahead coding bias.",
+    "administrative_missing_features": "weight (96.86% missing) and payer_code (39.56% missing) are dropped from clinical modeling due to non-random administrative missingness."
+  },
+  "missing_values": {
+    "race": {
+      "missing_count": 2273,
+      "missing_pct": 2.23
+    },
+    "weight": {
+      "missing_count": 98569,
+      "missing_pct": 96.86
+    },
+    "payer_code": {
+      "missing_count": 40256,
+      "missing_pct": 39.56
+    },
+    "medical_specialty": {
+      "missing_count": 49949,
+      "missing_pct": 49.08
+    },
+    "diag_1": {
+      "missing_count": 21,
+      "missing_pct": 0.02
+    },
+    "diag_2": {
+      "missing_count": 358,
+      "missing_pct": 0.35
+    },
+    "diag_3": {
+      "missing_count": 1423,
+      "missing_pct": 1.4
+    }
+  },
+  "lab_distributions": {
+    "max_glu_serum": {
+      "None": 96420,
+      "Norm": 2597,
+      ">200": 1485,
+      ">300": 1264
+    },
+    "A1Cresult": {
+      "None": 84748,
+      ">8": 8216,
+      "Norm": 4990,
+      ">7": 3812
+    },
+    "clinical_category_note": "The category 'None' in max_glu_serum (96,420 encounters) and A1Cresult (84,748 encounters) represents 'Test Not Performed/Measured'. It is a valid, clinically informative category, not a corrupted missing value."
+  },
+  "column_types": {
+    "numeric_count": 13,
+    "numeric_columns": [
+      "encounter_id",
+      "patient_nbr",
+      "admission_type_id",
+      "discharge_disposition_id",
+      "admission_source_id",
+      "time_in_hospital",
+      "num_lab_procedures",
+      "num_procedures",
+      "num_medications",
+      "number_outpatient",
+      "number_emergency",
+      "number_inpatient",
+      "number_diagnoses"
+    ],
+    "categorical_count": 37,
+    "categorical_columns": [
+      "race",
+      "gender",
+      "age",
+      "weight",
+      "payer_code",
+      "medical_specialty",
+      "diag_1",
+      "diag_2",
+      "diag_3",
+      "max_glu_serum",
+      "A1Cresult",
+      "metformin",
+      "repaglinide",
+      "nateglinide",
+      "chlorpropamide",
+      "glimepiride",
+      "acetohexamide",
+      "glipizide",
+      "glyburide",
+      "tolbutamide",
+      "pioglitazone",
+      "rosiglitazone",
+      "acarbose",
+      "miglitol",
+      "troglitazone",
+      "tolazamide",
+      "examide",
+      "citoglipton",
+      "insulin",
+      "glyburide-metformin",
+      "glipizide-metformin",
+      "glimepiride-pioglitazone",
+      "metformin-rosiglitazone",
+      "metformin-pioglitazone",
+      "change",
+      "diabetesMed",
+      "readmitted"
+    ]
+  },
+  "feature_temporal_taxonomy": {
+    "identifiers": [
+      "encounter_id",
+      "patient_nbr"
+    ],
+    "baseline_demographics": [
+      "race",
+      "gender",
+      "age"
+    ],
+    "prior_utilization": [
+      "number_outpatient",
+      "number_emergency",
+      "number_inpatient"
+    ],
+    "admission_context": [
+      "admission_type_id",
+      "admission_source_id"
+    ],
+    "inpatient_treatment_and_labs": [
+      "time_in_hospital",
+      "num_lab_procedures",
+      "num_procedures",
+      "num_medications",
+      "number_diagnoses",
+      "max_glu_serum",
+      "A1Cresult",
+      "metformin",
+      "repaglinide",
+      "nateglinide",
+      "chlorpropamide",
+      "glimepiride",
+      "acetohexamide",
+      "glipizide",
+      "glyburide",
+      "tolbutamide",
+      "pioglitazone",
+      "rosiglitazone",
+      "acarbose",
+      "miglitol",
+      "troglitazone",
+      "tolazamide",
+      "examide",
+      "citoglipton",
+      "insulin",
+      "glyburide-metformin",
+      "glipizide-metformin",
+      "glimepiride-pioglitazone",
+      "metformin-rosiglitazone",
+      "metformin-gluconate",
+      "metformin-pioglitazone",
+      "change",
+      "diabetesMed"
+    ],
+    "discharge_and_coding": [
+      "discharge_disposition_id",
+      "diag_1",
+      "diag_2",
+      "diag_3"
+    ],
+    "administrative_or_heavily_missing": [
+      "weight",
+      "payer_code",
+      "medical_specialty"
+    ],
+    "target": [
+      "readmitted"
+    ]
+  }
+}

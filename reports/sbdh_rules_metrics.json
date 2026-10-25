@@ -1,0 +1,255 @@
+{
+  "dataset": "Synth-SBDH (synth_sbdh_test_reviewed.csv)",
+  "total_test_notes": 1732,
+  "total_raw_gold_annotations": 3345,
+  "resolvable_gold_annotations_count": 3340,
+  "unique_resolvable_gold_intervals": 3303,
+  "unresolved_ambiguous_annotations_count": 5,
+  "unresolved_ambiguous_cases": [
+    {
+      "ex_no": 7556,
+      "span": "pain",
+      "sbdh": "pain",
+      "ann_idx": 1,
+      "candidates_count": 2,
+      "reason": "Annotated span 'pain' appears 2 times in text; multiple alignments remain plausible."
+    },
+    {
+      "ex_no": 7589,
+      "span": "home",
+      "sbdh": "housing insecurity",
+      "ann_idx": 2,
+      "candidates_count": 2,
+      "reason": "Annotated span 'home' appears 2 times in text; multiple alignments remain plausible."
+    },
+    {
+      "ex_no": 7843,
+      "span": "wheelchair",
+      "sbdh": "patient disability",
+      "ann_idx": 2,
+      "candidates_count": 2,
+      "reason": "Annotated span 'wheelchair' appears 2 times in text; multiple alignments remain plausible."
+    },
+    {
+      "ex_no": 8581,
+      "span": "pain",
+      "sbdh": "pain",
+      "ann_idx": 1,
+      "candidates_count": 2,
+      "reason": "Annotated span 'pain' appears 2 times in text; multiple alignments remain plausible."
+    },
+    {
+      "ex_no": 8654,
+      "span": "pain",
+      "sbdh": "pain",
+      "ann_idx": 3,
+      "candidates_count": 2,
+      "reason": "Annotated span 'pain' appears 2 times in text; multiple alignments remain plausible."
+    }
+  ],
+  "total_pred_spans": 1444,
+  "tasks_evaluated": {
+    "task_1_span_location": "EVALUATED (exact boundary character offsets and relaxed character overlap)",
+    "task_2_sbdh_category": "EVALUATED (15 social determinant categories assigned to matched intervals)",
+    "task_3_presence": "UNEVALUATED (Polarity yes/no assertion not predicted by regex rules baseline)",
+    "task_4_temporal_period": "UNEVALUATED (Period current/history not predicted by regex rules baseline)"
+  },
+  "rules_independence": "Extraction rules were derived exclusively from domain clinical guidelines (PRAPARE, AHC-HRSN, ICD-10 Z-codes) and training partition patterns. The expert-reviewed test set was frozen and was NOT used to develop, tune, or optimize extraction patterns.",
+  "aggregate_classification_metrics": {
+    "micro": {
+      "precision": 0.9331,
+      "recall": 0.4245,
+      "f1_score": 0.5835
+    },
+    "macro": {
+      "precision": 0.9316,
+      "recall": 0.386,
+      "f1_score": 0.5278
+    },
+    "weighted": {
+      "f1_score": 0.5751
+    }
+  },
+  "span_level_exact_matching": {
+    "resolvable_subset": {
+      "tp": 632,
+      "fp": 812,
+      "fn": 2708,
+      "precision": 0.4377,
+      "recall": 0.1892,
+      "f1_score": 0.2642,
+      "total_eval_gold": 3340,
+      "definition": "Exact character start, end, and SBDH category match."
+    },
+    "worst_case_bound_with_ambiguous_as_fn": {
+      "tp": 632,
+      "fp": 812,
+      "fn": 2713,
+      "precision": 0.4377,
+      "recall": 0.1889,
+      "f1_score": 0.2639,
+      "total_eval_gold": 3345,
+      "definition": "Worst-case sensitivity bound treating all 5 unresolved ambiguous annotations as False Negatives."
+    }
+  },
+  "span_level_relaxed_matching": {
+    "resolvable_subset": {
+      "tp": 1235,
+      "fp": 209,
+      "fn": 2105,
+      "precision": 0.8553,
+      "recall": 0.3698,
+      "f1_score": 0.5163,
+      "total_eval_gold": 3340,
+      "definition": "Overlapping character interval (intersection > 0) and matching SBDH category (1-to-1 matching)."
+    },
+    "worst_case_bound_with_ambiguous_as_fn": {
+      "tp": 1235,
+      "fp": 209,
+      "fn": 2110,
+      "precision": 0.8553,
+      "recall": 0.3692,
+      "f1_score": 0.5158,
+      "total_eval_gold": 3345,
+      "definition": "Worst-case sensitivity bound treating all 5 unresolved ambiguous annotations as False Negatives."
+    }
+  },
+  "per_category_metrics": {
+    "barriers to care": {
+      "support": 107,
+      "tp": 24,
+      "fp": 0,
+      "fn": 83,
+      "precision": 1.0,
+      "recall": 0.2243,
+      "f1_score": 0.3664
+    },
+    "financial insecurity": {
+      "support": 243,
+      "tp": 63,
+      "fp": 3,
+      "fn": 180,
+      "precision": 0.9545,
+      "recall": 0.2593,
+      "f1_score": 0.4078
+    },
+    "food insecurity": {
+      "support": 125,
+      "tp": 27,
+      "fp": 2,
+      "fn": 98,
+      "precision": 0.931,
+      "recall": 0.216,
+      "f1_score": 0.3506
+    },
+    "housing insecurity": {
+      "support": 209,
+      "tp": 102,
+      "fp": 0,
+      "fn": 107,
+      "precision": 1.0,
+      "recall": 0.488,
+      "f1_score": 0.6559
+    },
+    "job insecurity": {
+      "support": 304,
+      "tp": 186,
+      "fp": 0,
+      "fn": 118,
+      "precision": 1.0,
+      "recall": 0.6118,
+      "f1_score": 0.7592
+    },
+    "legal problems": {
+      "support": 107,
+      "tp": 37,
+      "fp": 0,
+      "fn": 70,
+      "precision": 1.0,
+      "recall": 0.3458,
+      "f1_score": 0.5139
+    },
+    "loss of relationship": {
+      "support": 243,
+      "tp": 109,
+      "fp": 0,
+      "fn": 134,
+      "precision": 1.0,
+      "recall": 0.4486,
+      "f1_score": 0.6193
+    },
+    "pain": {
+      "support": 202,
+      "tp": 126,
+      "fp": 0,
+      "fn": 76,
+      "precision": 1.0,
+      "recall": 0.6238,
+      "f1_score": 0.7683
+    },
+    "patient disability": {
+      "support": 139,
+      "tp": 67,
+      "fp": 1,
+      "fn": 72,
+      "precision": 0.9853,
+      "recall": 0.482,
+      "f1_score": 0.6473
+    },
+    "physical isolation": {
+      "support": 71,
+      "tp": 16,
+      "fp": 77,
+      "fn": 55,
+      "precision": 0.172,
+      "recall": 0.2254,
+      "f1_score": 0.1951
+    },
+    "psychiatric symptoms or disorders": {
+      "support": 289,
+      "tp": 158,
+      "fp": 0,
+      "fn": 131,
+      "precision": 1.0,
+      "recall": 0.5467,
+      "f1_score": 0.7069
+    },
+    "social isolation": {
+      "support": 303,
+      "tp": 152,
+      "fp": 0,
+      "fn": 151,
+      "precision": 1.0,
+      "recall": 0.5017,
+      "f1_score": 0.6681
+    },
+    "substance abuse": {
+      "support": 203,
+      "tp": 66,
+      "fp": 2,
+      "fn": 137,
+      "precision": 0.9706,
+      "recall": 0.3251,
+      "f1_score": 0.4871
+    },
+    "transitions of care": {
+      "support": 128,
+      "tp": 43,
+      "fp": 0,
+      "fn": 85,
+      "precision": 1.0,
+      "recall": 0.3359,
+      "f1_score": 0.5029
+    },
+    "violence": {
+      "support": 154,
+      "tp": 24,
+      "fp": 1,
+      "fn": 130,
+      "precision": 0.96,
+      "recall": 0.1558,
+      "f1_score": 0.2682
+    }
+  },
+  "methodology_and_regulatory_notice": "This rules-based baseline is a deterministic heuristic keyword/regex system, NOT a machine learning or deep-learning model. Performance on synthetic clinical notes generated via LLM prompt templates does NOT establish real-world clinical validity or generalizability to authentic EHR notes. Rules were frozen prior to evaluation and were not tuned against test errors."
+}

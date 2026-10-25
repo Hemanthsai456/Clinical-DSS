@@ -1,0 +1,146 @@
+[
+  {
+    "ex_no": 1192,
+    "span": "pain",
+    "sbdh": "pain",
+    "presence": "yes",
+    "period": "current",
+    "ann_idx": 0,
+    "num_candidates": 2,
+    "candidates": [
+      {
+        "start_char": 10,
+        "end_char": 14,
+        "context_snippet": "Patient's pain is severe and "
+      },
+      {
+        "start_char": 61,
+        "end_char": 65,
+        "context_snippet": "ed opioids for pain management."
+      }
+    ],
+    "text": "Patient's pain is severe and has been prescribed opioids for pain management.",
+    "reason": "Annotated span 'pain' appears 2 times in text; multiple alignments remain plausible.",
+    "split": "train"
+  },
+  {
+    "ex_no": 7556,
+    "span": "pain",
+    "sbdh": "pain",
+    "presence": "yes",
+    "period": "current",
+    "ann_idx": 1,
+    "num_candidates": 2,
+    "candidates": [
+      {
+        "start_char": 32,
+        "end_char": 36,
+        "context_snippet": "g with chronic pain due to arthrit"
+      },
+      {
+        "start_char": 76,
+        "end_char": 80,
+        "context_snippet": "ies heavily on pain medications."
+      }
+    ],
+    "text": "Patient is dealing with chronic pain due to arthritis and relies heavily on pain medications.",
+    "reason": "Annotated span 'pain' appears 2 times in text; multiple alignments remain plausible.",
+    "split": "test_reviewed"
+  },
+  {
+    "ex_no": 7589,
+    "span": "home",
+    "sbdh": "housing insecurity",
+    "presence": "yes",
+    "period": "current",
+    "ann_idx": 2,
+    "num_candidates": 2,
+    "candidates": [
+      {
+        "start_char": 44,
+        "end_char": 48,
+        "context_snippet": "closure on his home and is current"
+      },
+      {
+        "start_char": 66,
+        "end_char": 70,
+        "context_snippet": "d is currently homeless."
+      }
+    ],
+    "text": "Patient disclosed recent foreclosure on his home and is currently homeless.",
+    "reason": "Annotated span 'home' appears 2 times in text; multiple alignments remain plausible.",
+    "split": "test_reviewed"
+  },
+  {
+    "ex_no": 7843,
+    "span": "wheelchair",
+    "sbdh": "patient disability",
+    "presence": "yes",
+    "period": "current",
+    "ann_idx": 2,
+    "num_candidates": 2,
+    "candidates": [
+      {
+        "start_char": 31,
+        "end_char": 41,
+        "context_snippet": "led and uses a wheelchair. She is unable"
+      },
+      {
+        "start_char": 95,
+        "end_char": 105,
+        "context_snippet": "to the lack of wheelchair ramps."
+      }
+    ],
+    "text": "Patient is disabled and uses a wheelchair. She is unable to leave her house due to the lack of wheelchair ramps.",
+    "reason": "Annotated span 'wheelchair' appears 2 times in text; multiple alignments remain plausible.",
+    "split": "test_reviewed"
+  },
+  {
+    "ex_no": 8581,
+    "span": "pain",
+    "sbdh": "pain",
+    "presence": "yes",
+    "period": "current",
+    "ann_idx": 1,
+    "num_candidates": 2,
+    "candidates": [
+      {
+        "start_char": 29,
+        "end_char": 33,
+        "context_snippet": "s from chronic pain due to a past "
+      },
+      {
+        "start_char": 103,
+        "end_char": 107,
+        "context_snippet": " to manage the pain."
+      }
+    ],
+    "text": "Patient suffers from chronic pain due to a past car accident and uses prescribed opioids to manage the pain.",
+    "reason": "Annotated span 'pain' appears 2 times in text; multiple alignments remain plausible.",
+    "split": "test_reviewed"
+  },
+  {
+    "ex_no": 8654,
+    "span": "pain",
+    "sbdh": "pain",
+    "presence": "yes",
+    "period": "current",
+    "ann_idx": 3,
+    "num_candidates": 2,
+    "candidates": [
+      {
+        "start_char": 49,
+        "end_char": 53,
+        "context_snippet": "vere abdominal pain, and will be d"
+      },
+      {
+        "start_char": 83,
+        "end_char": 87,
+        "context_snippet": "ischarged when pain is managed."
+      }
+    ],
+    "text": "The patient was admitted due to severe abdominal pain, and will be discharged when pain is managed.",
+    "reason": "Annotated span 'pain' appears 2 times in text; multiple alignments remain plausible.",
+    "split": "test_reviewed"
+  }
+]

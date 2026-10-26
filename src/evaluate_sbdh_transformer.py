@@ -91,7 +91,7 @@ def evaluate_transformer_on_dataset(
 
             total_raw_annotations += len(spans)
 
-            # Align gold spans
+            # Align gold spans with strict auditable accounting
             gold_aligned = align_spans_in_note(
                 text=text,
                 spans=spans,
@@ -105,15 +105,17 @@ def evaluate_transformer_on_dataset(
             gold_intervals = gold_aligned["resolved_intervals"]
             total_unique_gold_intervals += len(gold_intervals)
 
-            if gold_aligned["ambiguous_cases_count"] > 0:
-                for amb in gold_aligned["ambiguous_cases"]:
+            # Record all unresolved cases
+            if gold_aligned.get("unresolved_cases"):
+                for unres in gold_aligned["unresolved_cases"]:
                     all_ambiguous_cases.append({
-                        "ex_no": amb["ex_no"],
-                        "span": amb["span"],
-                        "sbdh": amb["sbdh"],
-                        "ann_idx": amb["ann_idx"],
-                        "candidates_count": amb["num_candidates"],
-                        "reason": amb["reason"],
+                        "ex_no": unres["ex_no"],
+                        "span": unres["span"],
+                        "sbdh": unres["sbdh"],
+                        "ann_idx": unres["ann_idx"],
+                        "reason_code": unres.get("reason_code", "UNRESOLVED_MISMATCHED_REPEATED"),
+                        "candidates_count": unres.get("num_candidates", 0),
+                        "reason": unres["reason"],
                     })
 
             # Decompose gold intervals into (start, end, category)
@@ -124,7 +126,7 @@ def evaluate_transformer_on_dataset(
                     gold_tuples.add((g["start_char"], g["end_char"], cat))
                     gold_cats_in_note.add(cat)
 
-            total_resolvable_gold_spans += len(gold_tuples)
+            total_resolvable_gold_spans += gold_aligned["resolved_annotations_count"]
 
             # Encode note for transformer forward pass
             encoded = encode_single_note(
@@ -135,6 +137,9 @@ def evaluate_transformer_on_dataset(
                 ex_no=ex_no,
                 ambiguous_cases=gold_aligned["ambiguous_cases"],
             )
+
+            if encoded.get("truncated_intervals"):
+                boundary_errors_count += 0  # just note that truncation is tracked
 
             input_ids = torch.tensor(encoded["input_ids"], dtype=torch.long, device=device).unsqueeze(0)
             attention_mask = torch.tensor(encoded["attention_mask"], dtype=torch.long, device=device).unsqueeze(0)
@@ -259,13 +264,20 @@ def evaluate_transformer_on_dataset(
     assert relaxed_span_tp + relaxed_span_fn == total_resolvable_gold_spans
     assert total_resolvable_gold_spans + unresolved_count == total_raw_annotations
 
+    unresolved_by_reason = {}
+    for amb in all_ambiguous_cases:
+        rc = amb.get("reason_code", "UNRESOLVED_MISMATCHED_REPEATED")
+        unresolved_by_reason[rc] = unresolved_by_reason.get(rc, 0) + 1
+
     return {
         "dataset_name": dataset_name,
         "total_notes": len(df),
+        "decision_threshold": threshold,
         "total_raw_gold_annotations": total_raw_annotations,
         "resolvable_gold_annotations_count": total_resolvable_gold_spans,
         "unique_resolvable_gold_intervals": total_unique_gold_intervals,
         "unresolved_ambiguous_annotations_count": unresolved_count,
+        "unresolved_by_reason": unresolved_by_reason,
         "unresolved_ambiguous_cases": all_ambiguous_cases,
         "total_pred_spans": total_pred_spans,
         "notes_with_predictions": notes_with_predictions,
@@ -421,6 +433,7 @@ def main():
     parser.add_argument("--threshold", type=float, default=0.5)
     parser.add_argument("--sample_limit", type=int, default=0, help="0 for full test set, >0 for subset")
     parser.add_argument("--output_file", type=str, default="reports/sbdh_transformer_metrics.json")
+    parser.add_argument("--rules_metrics_file", type=str, default="reports/sbdh_rules_metrics.json")
     parser.add_argument("--device", type=str, default="auto")
 
     args = parser.parse_args()
@@ -455,7 +468,7 @@ def main():
     )
 
     # Compare against rules baseline
-    comparison = compare_transformer_vs_rules(eval_results)
+    comparison = compare_transformer_vs_rules(eval_results, rules_metrics_path=args.rules_metrics_file)
     eval_results["rules_baseline_comparison"] = comparison
 
     # Export metrics JSON

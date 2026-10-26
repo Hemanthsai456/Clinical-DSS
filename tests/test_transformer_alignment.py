@@ -245,3 +245,83 @@ def test_transformer_forward_pass_and_loss():
     assert out["loss"] is not None
     assert not torch.isnan(out["loss"])
     assert out["loss"].item() > 0.0
+
+
+def test_token_truncation_detection(tokenizer):
+    """
+    Test that spans located beyond max_length tokens are detected in truncated_intervals
+    without being silently dropped or mislabeled.
+    """
+    long_text = ("The patient had a routine checkup. " * 30) + "Finally reports severe chronic pain."
+    # The span 'chronic pain' is way past 64 tokens
+    pain_start = long_text.find("chronic pain")
+    pain_end = pain_start + len("chronic pain")
+    gold_intervals = [
+        {
+            "start_char": pain_start,
+            "end_char": pain_end,
+            "span_text": "chronic pain",
+            "categories": ["pain"],
+            "ex_no": 9991,
+        }
+    ]
+
+    encoded = encode_single_note(
+        text=long_text,
+        gold_intervals=gold_intervals,
+        tokenizer=tokenizer,
+        max_length=64,
+        ex_no=9991,
+    )
+
+    assert len(encoded["truncated_intervals"]) == 1
+    assert encoded["truncated_intervals"][0]["start_char"] == pain_start
+    # Active tokens should not have B or I for pain since it was truncated
+    pain_idx = CAT_TO_IDX["pain"]
+    b_col = pain_idx * 3
+    i_col = pain_idx * 3 + 1
+    assert (encoded["targets"][:, b_col] == 1.0).sum() == 0
+    assert (encoded["targets"][:, i_col] == 1.0).sum() == 0
+
+
+def test_deterministic_bio_decoding_and_whitespace_trimming(tokenizer):
+    """
+    Verify that decode_predictions_to_spans correctly resolves BPE leading space offsets
+    and trims whitespace against raw text.
+    """
+    text = "Patient feels severe anxiety."
+    gold_intervals = [
+        {
+            "start_char": 21,
+            "end_char": 28,
+            "span_text": "anxiety",
+            "categories": ["psychiatric symptoms or disorders"],
+            "ex_no": 9992,
+        }
+    ]
+    encoded = encode_single_note(
+        text=text,
+        gold_intervals=gold_intervals,
+        tokenizer=tokenizer,
+        max_length=32,
+        ex_no=9992,
+    )
+
+    # Convert targets directly to pseudo-logits (+10 for active, -10 for inactive)
+    pseudo_logits = np.where(encoded["targets"] == 1.0, 10.0, -10.0)
+
+    decoded = decode_predictions_to_spans(
+        logits=pseudo_logits,
+        active_mask=encoded["active_mask"],
+        offset_mapping=encoded["offset_mapping"],
+        text=text,
+        threshold=0.3,
+    )
+
+    assert len(decoded) == 1
+    d_start, d_end, d_cat = list(decoded)[0]
+    assert d_cat == "psychiatric symptoms or disorders"
+    assert text[d_start:d_end] == "anxiety"
+    assert d_start == 21
+    assert d_end == 28
+

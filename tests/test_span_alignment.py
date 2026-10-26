@@ -221,4 +221,70 @@ def test_ambiguous_repeated_mentions_flagging():
     ambig = result["ambiguous_cases"][0]
     assert ambig["num_candidates"] == 2
     assert len(ambig["candidates"]) == 2
-    assert "multiple alignments remain plausible" in ambig["reason"]
+    assert ambig["reason_code"] == "UNRESOLVED_MISMATCHED_REPEATED"
+
+
+def test_repeated_mentions_mismatched_occurrence_count():
+    """Verify that repeated text mentions with mismatched annotation counts are marked UNRESOLVED_MISMATCHED_REPEATED."""
+    text = "Patient experienced severe pain during the day and persistent pain at night."
+    # 2 text occurrences of 'pain', but only 1 annotation
+    result = align_spans_in_note(text=text, spans=["pain"], sbdhs=["pain"], ex_no=9901)
+    assert result["resolved_annotations_count"] == 0
+    assert result["unresolved_count"] == 1
+    assert result["unresolved_cases"][0]["reason_code"] == "UNRESOLVED_MISMATCHED_REPEATED"
+    assert result["unresolved_cases"][0]["num_candidates"] == 2
+    # Invariant holds
+    assert result["resolved_annotations_count"] + result["unresolved_count"] == result["total_annotations"]
+
+
+def test_missing_spans_unresolved_span_not_found():
+    """Verify that spans not found in the note are explicitly recorded as UNRESOLVED_SPAN_NOT_FOUND without silent drop."""
+    text = "Patient is resting comfortably with no complaints."
+    result = align_spans_in_note(text=text, spans=["severe back pain"], sbdhs=["pain"], ex_no=9902)
+    assert result["resolved_annotations_count"] == 0
+    assert result["unresolved_count"] == 1
+    assert result["unresolved_cases"][0]["reason_code"] == "UNRESOLVED_SPAN_NOT_FOUND"
+    assert result["resolved_annotations_count"] + result["unresolved_count"] == result["total_annotations"]
+
+
+def test_duplicate_annotations_on_single_candidate():
+    """Verify that duplicate annotations of identical category on single candidate are recorded as UNRESOLVED_DUPLICATE_ANNOTATION."""
+    text = "Patient reports feeling depressed."
+    # 2 annotations of the exact same category on the exact same span
+    result = align_spans_in_note(
+        text=text,
+        spans=["depressed", "depressed"],
+        sbdhs=["psychiatric symptoms or disorders", "psychiatric symptoms or disorders"],
+        ex_no=9903
+    )
+    assert result["resolved_annotations_count"] == 1
+    assert result["unresolved_count"] == 1
+    assert result["unresolved_cases"][0]["reason_code"] == "UNRESOLVED_DUPLICATE_ANNOTATION"
+    assert result["resolved_annotations_count"] + result["unresolved_count"] == result["total_annotations"]
+
+
+def test_annotation_accounting_invariant():
+    """Verify that the accounting invariant resolved + unresolved == total holds across multiple edge cases."""
+    text = "Patient has severe pain, reports pain at night, and feels depressed."
+    spans = [
+        "pain",                  # Repeated span (2 occurrences vs 1 annotation -> UNRESOLVED_MISMATCHED_REPEATED)
+        "depressed",             # Single candidate -> RESOLVED
+        "depressed",             # Duplicate identical category -> UNRESOLVED_DUPLICATE_ANNOTATION
+        "food insecurity"        # Not found in note -> UNRESOLVED_SPAN_NOT_FOUND
+    ]
+    sbdhs = [
+        "pain",
+        "psychiatric symptoms or disorders",
+        "psychiatric symptoms or disorders",
+        "food insecurity"
+    ]
+    result = align_spans_in_note(text=text, spans=spans, sbdhs=sbdhs, ex_no=9904)
+    assert result["total_annotations"] == 4
+    assert result["resolved_annotations_count"] == 1
+    assert result["unresolved_count"] == 3
+    assert result["resolved_annotations_count"] + result["unresolved_count"] == result["total_annotations"]
+    reasons = [u["reason_code"] for u in result["unresolved_cases"]]
+    assert "UNRESOLVED_MISMATCHED_REPEATED" in reasons
+    assert "UNRESOLVED_DUPLICATE_ANNOTATION" in reasons
+    assert "UNRESOLVED_SPAN_NOT_FOUND" in reasons
+

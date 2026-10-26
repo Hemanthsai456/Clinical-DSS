@@ -6,6 +6,7 @@ data/
 *.zip
 *.tar.gz
 *.csv.gz
+evernorth_m3_results
 
 # Jupyter Notebook checkpoints
 .ipynb_checkpoints/

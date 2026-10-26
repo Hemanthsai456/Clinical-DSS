@@ -1,0 +1,390 @@
+{
+  "dataset_name": "test_reviewed",
+  "total_notes": 1732,
+  "decision_threshold": 0.3,
+  "total_raw_gold_annotations": 3345,
+  "resolvable_gold_annotations_count": 3340,
+  "unique_resolvable_gold_intervals": 3303,
+  "unresolved_ambiguous_annotations_count": 5,
+  "unresolved_by_reason": {
+    "UNRESOLVED_MISMATCHED_REPEATED": 5
+  },
+  "unresolved_ambiguous_cases": [
+    {
+      "ex_no": 7556,
+      "span": "pain",
+      "sbdh": "pain",
+      "ann_idx": 1,
+      "reason_code": "UNRESOLVED_MISMATCHED_REPEATED",
+      "candidates_count": 2,
+      "reason": "Annotated span 'pain' appears 2 times in text, but has 1 annotation(s); no unambiguous contextual anchor."
+    },
+    {
+      "ex_no": 7589,
+      "span": "home",
+      "sbdh": "housing insecurity",
+      "ann_idx": 2,
+      "reason_code": "UNRESOLVED_MISMATCHED_REPEATED",
+      "candidates_count": 2,
+      "reason": "Annotated span 'home' appears 2 times in text, but has 1 annotation(s); no unambiguous contextual anchor."
+    },
+    {
+      "ex_no": 7843,
+      "span": "wheelchair",
+      "sbdh": "patient disability",
+      "ann_idx": 2,
+      "reason_code": "UNRESOLVED_MISMATCHED_REPEATED",
+      "candidates_count": 2,
+      "reason": "Annotated span 'wheelchair' appears 2 times in text, but has 1 annotation(s); no unambiguous contextual anchor."
+    },
+    {
+      "ex_no": 8581,
+      "span": "pain",
+      "sbdh": "pain",
+      "ann_idx": 1,
+      "reason_code": "UNRESOLVED_MISMATCHED_REPEATED",
+      "candidates_count": 2,
+      "reason": "Annotated span 'pain' appears 2 times in text, but has 1 annotation(s); no unambiguous contextual anchor."
+    },
+    {
+      "ex_no": 8654,
+      "span": "pain",
+      "sbdh": "pain",
+      "ann_idx": 3,
+      "reason_code": "UNRESOLVED_MISMATCHED_REPEATED",
+      "candidates_count": 2,
+      "reason": "Annotated span 'pain' appears 2 times in text, but has 1 annotation(s); no unambiguous contextual anchor."
+    }
+  ],
+  "total_pred_spans": 40618,
+  "notes_with_predictions": 1732,
+  "tasks_evaluated": {
+    "task_1_span_location": "EVALUATED (exact boundary offsets & relaxed maximum bipartite character overlap)",
+    "task_2_sbdh_category": "EVALUATED (15 social determinant categories)",
+    "task_3_presence": "UNEVALUATED in span extraction phase (reserved for polarity/assertion modules)",
+    "task_4_temporal_period": "UNEVALUATED in span extraction phase (reserved for temporal classification)"
+  },
+  "aggregate_classification_metrics": {
+    "micro": {
+      "precision": 0.1131,
+      "recall": 0.6339,
+      "f1_score": 0.192
+    },
+    "macro": {
+      "precision": 0.077,
+      "recall": 0.6273,
+      "f1_score": 0.1347
+    },
+    "weighted": {
+      "f1_score": 0.15
+    }
+  },
+  "span_level_exact_matching": {
+    "resolvable_subset": {
+      "tp": 36,
+      "fp": 40582,
+      "fn": 3304,
+      "precision": 0.0009,
+      "recall": 0.0108,
+      "f1_score": 0.0016,
+      "total_eval_gold": 3340
+    },
+    "worst_case_bound_with_ambiguous_as_fn": {
+      "tp": 36,
+      "fp": 40582,
+      "fn": 3309,
+      "precision": 0.0009,
+      "recall": 0.0108,
+      "f1_score": 0.0016,
+      "total_eval_gold": 3345
+    }
+  },
+  "span_level_relaxed_matching": {
+    "resolvable_subset": {
+      "tp": 344,
+      "fp": 40274,
+      "fn": 2996,
+      "precision": 0.0085,
+      "recall": 0.103,
+      "f1_score": 0.0157,
+      "total_eval_gold": 3340,
+      "matching_algorithm": "Maximum Bipartite Matching (Kuhn's Augmenting Path, strictly order-invariant)"
+    },
+    "worst_case_bound_with_ambiguous_as_fn": {
+      "tp": 344,
+      "fp": 40274,
+      "fn": 3001,
+      "precision": 0.0085,
+      "recall": 0.1028,
+      "f1_score": 0.0156,
+      "total_eval_gold": 3345
+    }
+  },
+  "error_analysis": {
+    "boundary_mismatches_relaxed_not_exact": 308,
+    "boundary_mismatch_rate": 0.8953,
+    "false_positive_spans": 40582,
+    "false_negative_spans": 3304
+  },
+  "per_category_metrics": {
+    "barriers to care": {
+      "support": 107,
+      "tp": 0,
+      "fp": 0,
+      "fn": 107,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0
+    },
+    "financial insecurity": {
+      "support": 243,
+      "tp": 242,
+      "fp": 1484,
+      "fn": 1,
+      "precision": 0.1402,
+      "recall": 0.9959,
+      "f1_score": 0.2458
+    },
+    "food insecurity": {
+      "support": 125,
+      "tp": 124,
+      "fp": 1602,
+      "fn": 1,
+      "precision": 0.0718,
+      "recall": 0.992,
+      "f1_score": 0.134
+    },
+    "housing insecurity": {
+      "support": 209,
+      "tp": 209,
+      "fp": 1517,
+      "fn": 0,
+      "precision": 0.1211,
+      "recall": 1.0,
+      "f1_score": 0.216
+    },
+    "job insecurity": {
+      "support": 304,
+      "tp": 0,
+      "fp": 0,
+      "fn": 304,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0
+    },
+    "legal problems": {
+      "support": 107,
+      "tp": 61,
+      "fp": 380,
+      "fn": 46,
+      "precision": 0.1383,
+      "recall": 0.5701,
+      "f1_score": 0.2226
+    },
+    "loss of relationship": {
+      "support": 243,
+      "tp": 243,
+      "fp": 1489,
+      "fn": 0,
+      "precision": 0.1403,
+      "recall": 1.0,
+      "f1_score": 0.2461
+    },
+    "pain": {
+      "support": 202,
+      "tp": 0,
+      "fp": 0,
+      "fn": 202,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0
+    },
+    "patient disability": {
+      "support": 139,
+      "tp": 139,
+      "fp": 1587,
+      "fn": 0,
+      "precision": 0.0805,
+      "recall": 1.0,
+      "f1_score": 0.1491
+    },
+    "physical isolation": {
+      "support": 71,
+      "tp": 71,
+      "fp": 1659,
+      "fn": 0,
+      "precision": 0.041,
+      "recall": 1.0,
+      "f1_score": 0.0788
+    },
+    "psychiatric symptoms or disorders": {
+      "support": 289,
+      "tp": 248,
+      "fp": 1314,
+      "fn": 41,
+      "precision": 0.1588,
+      "recall": 0.8581,
+      "f1_score": 0.268
+    },
+    "social isolation": {
+      "support": 303,
+      "tp": 301,
+      "fp": 1425,
+      "fn": 2,
+      "precision": 0.1744,
+      "recall": 0.9934,
+      "f1_score": 0.2967
+    },
+    "substance abuse": {
+      "support": 203,
+      "tp": 0,
+      "fp": 0,
+      "fn": 203,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0
+    },
+    "transitions of care": {
+      "support": 128,
+      "tp": 0,
+      "fp": 21,
+      "fn": 128,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0
+    },
+    "violence": {
+      "support": 154,
+      "tp": 154,
+      "fp": 1572,
+      "fn": 0,
+      "precision": 0.0892,
+      "recall": 1.0,
+      "f1_score": 0.1638
+    }
+  },
+  "rules_baseline_comparison": {
+    "note_level_micro_f1": {
+      "rules": 0.5835,
+      "transformer": 0.192,
+      "delta": -0.3915
+    },
+    "note_level_macro_f1": {
+      "rules": 0.5278,
+      "transformer": 0.1347,
+      "delta": -0.3931
+    },
+    "span_level_exact_f1": {
+      "rules": 0.2642,
+      "transformer": 0.0016,
+      "delta": -0.2626
+    },
+    "span_level_exact_recall": {
+      "rules": 0.1892,
+      "transformer": 0.0108,
+      "delta": -0.1784
+    },
+    "span_level_relaxed_f1": {
+      "rules": 0.5163,
+      "transformer": 0.0157,
+      "delta": -0.5006
+    },
+    "span_level_relaxed_recall": {
+      "rules": 0.3698,
+      "transformer": 0.103,
+      "delta": -0.2668
+    },
+    "per_category_deltas": {
+      "barriers to care": {
+        "support": 107,
+        "rules_f1": 0.3664,
+        "transformer_f1": 0.0,
+        "delta_f1": -0.3664
+      },
+      "financial insecurity": {
+        "support": 243,
+        "rules_f1": 0.4078,
+        "transformer_f1": 0.2458,
+        "delta_f1": -0.162
+      },
+      "food insecurity": {
+        "support": 125,
+        "rules_f1": 0.3506,
+        "transformer_f1": 0.134,
+        "delta_f1": -0.2166
+      },
+      "housing insecurity": {
+        "support": 209,
+        "rules_f1": 0.6559,
+        "transformer_f1": 0.216,
+        "delta_f1": -0.4399
+      },
+      "job insecurity": {
+        "support": 304,
+        "rules_f1": 0.7592,
+        "transformer_f1": 0.0,
+        "delta_f1": -0.7592
+      },
+      "legal problems": {
+        "support": 107,
+        "rules_f1": 0.5139,
+        "transformer_f1": 0.2226,
+        "delta_f1": -0.2913
+      },
+      "loss of relationship": {
+        "support": 243,
+        "rules_f1": 0.6193,
+        "transformer_f1": 0.2461,
+        "delta_f1": -0.3732
+      },
+      "pain": {
+        "support": 202,
+        "rules_f1": 0.7683,
+        "transformer_f1": 0.0,
+        "delta_f1": -0.7683
+      },
+      "patient disability": {
+        "support": 139,
+        "rules_f1": 0.6473,
+        "transformer_f1": 0.1491,
+        "delta_f1": -0.4982
+      },
+      "physical isolation": {
+        "support": 71,
+        "rules_f1": 0.1951,
+        "transformer_f1": 0.0788,
+        "delta_f1": -0.1163
+      },
+      "psychiatric symptoms or disorders": {
+        "support": 289,
+        "rules_f1": 0.7069,
+        "transformer_f1": 0.268,
+        "delta_f1": -0.4389
+      },
+      "social isolation": {
+        "support": 303,
+        "rules_f1": 0.6681,
+        "transformer_f1": 0.2967,
+        "delta_f1": -0.3714
+      },
+      "substance abuse": {
+        "support": 203,
+        "rules_f1": 0.4871,
+        "transformer_f1": 0.0,
+        "delta_f1": -0.4871
+      },
+      "transitions of care": {
+        "support": 128,
+        "rules_f1": 0.5029,
+        "transformer_f1": 0.0,
+        "delta_f1": -0.5029
+      },
+      "violence": {
+        "support": 154,
+        "rules_f1": 0.2682,
+        "transformer_f1": 0.1638,
+        "delta_f1": -0.1044
+      }
+    }
+  }
+}

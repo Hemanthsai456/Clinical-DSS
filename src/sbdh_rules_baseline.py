@@ -578,6 +578,11 @@ def evaluate_rules_on_test_reviewed(test_reviewed_df: pd.DataFrame) -> Dict[str,
 
 
 def main():
+    import argparse
+    parser = argparse.ArgumentParser(description="Evaluate Rules-Based SBDH Baseline")
+    parser.add_argument("--output_file", type=str, default="reports/sbdh_rules_metrics.json")
+    args = parser.parse_args()
+
     print("=" * 80)
     print("TRACK B: RULES-BASED SBDH BASELINE EVALUATION (SYNTH-SBDH)")
     print("=" * 80)
@@ -590,10 +595,9 @@ def main():
     results = evaluate_rules_on_test_reviewed(test_reviewed_df)
 
     # Save artifact
-    os.makedirs("reports", exist_ok=True)
-    out_file = "reports/sbdh_rules_metrics.json"
-    save_json(results, out_file)
-    print(f"\n[EXPORT] Rules baseline metrics saved to: {out_file}")
+    os.makedirs(os.path.dirname(args.output_file) or ".", exist_ok=True)
+    save_json(results, args.output_file)
+    print(f"\n[EXPORT] Rules baseline metrics saved to: {args.output_file}")
 
     # Display results
     print("\n" + "=" * 80)

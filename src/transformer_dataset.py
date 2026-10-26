@@ -116,6 +116,10 @@ def encode_single_note(
     # Allows category-specific masking for ungrounded/ambiguous cases
     loss_mask = np.ones((seq_len, NUM_CATEGORIES), dtype=np.float32)
 
+    # Track any intervals that fall outside tokenizer max_length (truncation)
+    max_char_offset = max([e for s, e in offset_mapping if e > s]) if any(e > s for s, e in offset_mapping) else 0
+    truncated_intervals = []
+
     # Populate B and I targets from resolved gold intervals
     for interval in gold_intervals:
         int_start = interval["start_char"]
@@ -132,6 +136,8 @@ def encode_single_note(
                     overlapping_token_indices.append(i)
 
         if not overlapping_token_indices:
+            if int_start >= max_char_offset:
+                truncated_intervals.append(interval)
             continue
 
         for cat in cats:
@@ -150,7 +156,7 @@ def encode_single_note(
                 targets[sub_tok, i_idx] = 1.0
                 targets[sub_tok, o_idx] = 0.0
 
-    # Explicit Handling of Ambiguous Training Annotations (e.g. ex_no 1192):
+    # Explicit Handling of Ambiguous Annotations (e.g. ex_no 1192):
     # If the note contains ambiguous repeated mentions, do NOT guess the offset.
     # Mask out candidate tokens for that specific category in loss_mask.
     if ambiguous_cases:
@@ -175,6 +181,7 @@ def encode_single_note(
         "active_mask": active_mask,
         "targets": targets,
         "loss_mask": loss_mask,
+        "truncated_intervals": truncated_intervals,
     }
 
 
@@ -182,18 +189,26 @@ def decode_predictions_to_spans(
     logits: np.ndarray,
     active_mask: np.ndarray,
     offset_mapping: np.ndarray,
-    text: str,
+    text: Optional[str] = None,
     threshold: float = 0.5,
 ) -> Set[Tuple[int, int, str]]:
     """
     Decode multi-label token logits into character-level spans and SBDH categories.
 
-    Arguments:
-    - logits: (seq_len, 45) float array of raw prediction logits.
-    - active_mask: (seq_len,) 1.0 for valid text tokens, 0.0 for special/padding.
-    - offset_mapping: (seq_len, 2) character offsets.
-    - text: Original raw clinical note text.
-    - threshold: Sigmoid probability threshold for binary BIO activation.
+    Decision Rules:
+    1. Outside (O) Condition:
+       Token t is O if p_O >= max(p_B, p_I) or max(p_B, p_I) <= threshold.
+       Any currently active span is closed and emitted.
+    2. Active Beginning (B) Condition:
+       Token t is B if max(p_B, p_I) > threshold and p_B >= p_I.
+       Any previously open span is closed and emitted; a new span starts at t.
+    3. Active Continuation (I) Condition:
+       Token t is I if max(p_B, p_I) > threshold and p_I > p_B.
+       If a span is open, it continues. If no span is open (orphan I), deterministic
+       BIO repair treats it as B.
+    4. Exact Character Boundary Refinement:
+       Subword token offsets that span whitespace (e.g. leading spaces in BPE tokens)
+       are cleanly trimmed against the raw text to match exact word boundaries.
 
     Returns:
     - Set of (start_char, end_char, category) tuples.
@@ -212,49 +227,71 @@ def decode_predictions_to_spans(
         for t in range(seq_len):
             if active_mask[t] != 1.0:
                 if in_span:
-                    # Close existing span before special/pad token
                     s_char = int(offset_mapping[span_start_tok][0])
                     e_char = int(offset_mapping[span_end_tok][1])
                     if s_char < e_char:
-                        predicted_spans.add((s_char, e_char, cat))
+                        if text:
+                            sub = text[s_char:e_char]
+                            s_char += len(sub) - len(sub.lstrip())
+                            e_char -= len(sub) - len(sub.rstrip())
+                        if s_char < e_char:
+                            predicted_spans.add((s_char, e_char, cat))
                     in_span = False
                 continue
 
-            b_prob = probs[t, b_idx]
-            i_prob = probs[t, i_idx]
-            o_prob = probs[t, o_idx]
+            p_b = probs[t, b_idx]
+            p_i = probs[t, i_idx]
+            p_o = probs[t, o_idx]
 
-            # Decision rule: Tag is B if B is higher than O and exceeds threshold
-            is_b = (b_prob > threshold) and (b_prob > o_prob)
-            is_i = (i_prob > threshold) and (i_prob > o_prob)
-
-            if is_b:
+            # 1. Outside condition
+            if p_o >= max(p_b, p_i) or max(p_b, p_i) <= threshold:
                 if in_span:
-                    # Close previous span and start new one
                     s_char = int(offset_mapping[span_start_tok][0])
                     e_char = int(offset_mapping[span_end_tok][1])
                     if s_char < e_char:
-                        predicted_spans.add((s_char, e_char, cat))
+                        if text:
+                            sub = text[s_char:e_char]
+                            s_char += len(sub) - len(sub.lstrip())
+                            e_char -= len(sub) - len(sub.rstrip())
+                        if s_char < e_char:
+                            predicted_spans.add((s_char, e_char, cat))
+                    in_span = False
+                continue
+
+            # 2. Active Beginning condition
+            if p_b >= p_i:
+                if in_span:
+                    s_char = int(offset_mapping[span_start_tok][0])
+                    e_char = int(offset_mapping[span_end_tok][1])
+                    if s_char < e_char:
+                        if text:
+                            sub = text[s_char:e_char]
+                            s_char += len(sub) - len(sub.lstrip())
+                            e_char -= len(sub) - len(sub.rstrip())
+                        if s_char < e_char:
+                            predicted_spans.add((s_char, e_char, cat))
                 in_span = True
                 span_start_tok = t
                 span_end_tok = t
-            elif is_i and in_span:
-                # Continue existing span
-                span_end_tok = t
             else:
+                # 3. Active Inside condition (with orphan I repair)
                 if in_span:
-                    # Close span
-                    s_char = int(offset_mapping[span_start_tok][0])
-                    e_char = int(offset_mapping[span_end_tok][1])
-                    if s_char < e_char:
-                        predicted_spans.add((s_char, e_char, cat))
-                    in_span = False
+                    span_end_tok = t
+                else:
+                    in_span = True
+                    span_start_tok = t
+                    span_end_tok = t
 
         if in_span:
             s_char = int(offset_mapping[span_start_tok][0])
             e_char = int(offset_mapping[span_end_tok][1])
             if s_char < e_char:
-                predicted_spans.add((s_char, e_char, cat))
+                if text:
+                    sub = text[s_char:e_char]
+                    s_char += len(sub) - len(sub.lstrip())
+                    e_char -= len(sub) - len(sub.rstrip())
+                if s_char < e_char:
+                    predicted_spans.add((s_char, e_char, cat))
 
     return predicted_spans
 

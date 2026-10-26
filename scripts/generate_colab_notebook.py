@@ -356,7 +356,7 @@ def find_all_occurrences(text: str, span: str):
         start = idx + 1
     return ci_matches
 
-def align_spans_in_note(text: str, spans: list, sbdhs: list, presences: list = None, periods: list = None, ex_no: int = None):
+def align_spans_in_note(text: str, spans: list, sbdhs: list, presences: list = None, periods: list = None, ex_no: int = None, disambiguate_context: bool = True):
     n_spans = len(spans)
     annotations = []
     for i in range(n_spans):
@@ -376,7 +376,10 @@ def align_spans_in_note(text: str, spans: list, sbdhs: list, presences: list = N
         span_groups[norm_span].append(ann)
 
     resolved_intervals = []
+    unresolved_cases = []
     ambiguous_cases = []
+    unmatched_cases = []
+    resolved_annotations_count = 0
 
     for norm_span, ann_list in span_groups.items():
         if not norm_span:
@@ -386,67 +389,171 @@ def align_spans_in_note(text: str, spans: list, sbdhs: list, presences: list = N
         num_candidates = len(candidates)
         num_annotations = len(ann_list)
 
+        # Case 1: Span not found in note (0 candidates) - No silent drops!
         if num_candidates == 0:
+            for ann in ann_list:
+                unres_record = {
+                    "ex_no": ex_no,
+                    "span": ann["span"],
+                    "sbdh": ann["sbdh"],
+                    "presence": ann["presence"],
+                    "period": ann["period"],
+                    "ann_idx": ann["ann_idx"],
+                    "reason_code": "UNRESOLVED_SPAN_NOT_FOUND",
+                    "reason": f"Span '{ann['span']}' not found in note text even with case-insensitive search.",
+                    "num_candidates": 0,
+                    "candidates": [],
+                }
+                unresolved_cases.append(unres_record)
+                unmatched_cases.append(unres_record)
             continue
-        elif num_candidates == 1:
-            # Multi-label identical span (e.g. ex_no 7062)
-            c_start, c_end, m_type = candidates[0]
-            cats = list(dict.fromkeys([ann["sbdh"] for ann in ann_list if ann["sbdh"] in CAT_TO_IDX]))
-            resolved_intervals.append({
-                "start_char": c_start,
-                "end_char": c_end,
-                "span_text": text[c_start:c_end],
-                "categories": cats,
-                "is_multi_label": len(cats) > 1
-            })
-        else:
-            # Repeated mentions
-            if ex_no == 1192 and norm_span == "pain":
-                ambiguous_cases.append({
-                    "ex_no": ex_no,
-                    "span": raw_span_rep,
-                    "sbdh": "pain",
-                    "num_candidates": num_candidates,
-                    "candidates": [{"start_char": c[0], "end_char": c[1]} for c in candidates],
-                    "reason": "ex_no 1192 ungrounded repeated mention; candidates masked from loss."
-                })
-                continue
-                
-            if ex_no in [7556, 7589, 7843, 8581, 8654]:
-                ambiguous_cases.append({
-                    "ex_no": ex_no,
-                    "span": raw_span_rep,
-                    "sbdh": ann_list[0]["sbdh"],
-                    "num_candidates": num_candidates,
-                    "candidates": [{"start_char": c[0], "end_char": c[1]} for c in candidates],
-                    "reason": f"Test set ambiguous case ex_no={ex_no}."
-                })
-                continue
-                
-            # Disambiguate: if candidate count matches annotation count, map 1-to-1
-            if num_candidates == num_annotations:
-                for cand, ann in zip(candidates, ann_list):
-                    if ann["sbdh"] in CAT_TO_IDX:
-                        resolved_intervals.append({
-                            "start_char": cand[0],
-                            "end_char": cand[1],
-                            "span_text": text[cand[0]:cand[1]],
-                            "categories": [ann["sbdh"]],
-                            "is_multi_label": False
-                        })
-            else:
-                # Default map to candidate 0 and record
+
+        # Case 2: Exactly 1 candidate occurrence in note
+        if num_candidates == 1:
+            cand_start, cand_end, m_type = candidates[0]
+            matched_text = text[cand_start:cand_end]
+            cats = []
+            seen_cats = set()
+
+            for ann in ann_list:
+                cat = ann["sbdh"]
+                if cat in seen_cats:
+                    # Duplicate identical annotation on single candidate
+                    unres_record = {
+                        "ex_no": ex_no,
+                        "span": ann["span"],
+                        "sbdh": cat,
+                        "presence": ann["presence"],
+                        "period": ann["period"],
+                        "ann_idx": ann["ann_idx"],
+                        "reason_code": "UNRESOLVED_DUPLICATE_ANNOTATION",
+                        "reason": f"Duplicate annotation of category '{cat}' on identical interval [{cand_start}:{cand_end}].",
+                        "num_candidates": 1,
+                        "candidates": [{"start_char": cand_start, "end_char": cand_end}],
+                    }
+                    unresolved_cases.append(unres_record)
+                else:
+                    seen_cats.add(cat)
+                    cats.append(cat)
+                    resolved_annotations_count += 1
+
+            valid_cats = [c for c in cats if c in CAT_TO_IDX]
+            if valid_cats:
                 resolved_intervals.append({
-                    "start_char": candidates[0][0],
-                    "end_char": candidates[0][1],
-                    "span_text": text[candidates[0][0]:candidates[0][1]],
+                    "start_char": cand_start,
+                    "end_char": cand_end,
+                    "span_text": matched_text,
+                    "categories": valid_cats,
+                    "is_multi_label": len(valid_cats) > 1
+                })
+            continue
+
+        # Case 3: Multiple candidate occurrences in text (num_candidates > 1)
+        handled_contextually = False
+
+        if disambiguate_context:
+            # ex_no 7411: 'home' in 'her own home' vs 'nursing home'
+            if ex_no == 7411 and norm_span == "home" and num_annotations == 1:
+                cand_target = candidates[1]  # [59:63]
+                resolved_intervals.append({
+                    "start_char": cand_target[0],
+                    "end_char": cand_target[1],
+                    "span_text": text[cand_target[0]:cand_target[1]],
                     "categories": [ann_list[0]["sbdh"]],
                     "is_multi_label": False
                 })
+                resolved_annotations_count += 1
+                handled_contextually = True
+
+            # ex_no 7611: 'pain' in 'abdominal pain' (current) vs 'pain management' (history)
+            elif ex_no == 7611 and norm_span == "pain" and num_annotations == 2 and num_candidates == 2:
+                for c in candidates:
+                    resolved_intervals.append({
+                        "start_char": c[0],
+                        "end_char": c[1],
+                        "span_text": text[c[0]:c[1]],
+                        "categories": ["pain"],
+                        "is_multi_label": False
+                    })
+                    resolved_annotations_count += 1
+                handled_contextually = True
+
+        if not handled_contextually:
+            if num_candidates == num_annotations:
+                ann_cats = [a["sbdh"] for a in ann_list]
+                if len(set(ann_cats)) == 1:
+                    for cand, ann in zip(candidates, ann_list):
+                        if ann["sbdh"] in CAT_TO_IDX:
+                            resolved_intervals.append({
+                                "start_char": cand[0],
+                                "end_char": cand[1],
+                                "span_text": text[cand[0]:cand[1]],
+                                "categories": [ann["sbdh"]],
+                                "is_multi_label": False
+                            })
+                            resolved_annotations_count += 1
+                    continue
+                else:
+                    for ann in ann_list:
+                        unres_record = {
+                            "ex_no": ex_no,
+                            "span": ann["span"],
+                            "sbdh": ann["sbdh"],
+                            "presence": ann["presence"],
+                            "period": ann["period"],
+                            "ann_idx": ann["ann_idx"],
+                            "reason_code": "UNRESOLVED_AMBIGUOUS_ORDER",
+                            "reason": f"Annotated span '{ann['span']}' appears {num_candidates} times with differing categories {ann_cats}; mapping order ambiguous.",
+                            "num_candidates": num_candidates,
+                            "candidates": [{"start_char": c[0], "end_char": c[1]} for c in candidates],
+                        }
+                        unresolved_cases.append(unres_record)
+                        ambiguous_cases.append(unres_record)
+                    continue
+
+            # Mismatched occurrence counts (num_candidates != num_annotations):
+            # NO ARBITRARY FALLBACK TO candidates[0]!
+            for ann in ann_list:
+                unres_record = {
+                    "ex_no": ex_no,
+                    "span": ann["span"],
+                    "sbdh": ann["sbdh"],
+                    "presence": ann["presence"],
+                    "period": ann["period"],
+                    "ann_idx": ann["ann_idx"],
+                    "reason_code": "UNRESOLVED_MISMATCHED_REPEATED",
+                    "reason": f"Annotated span '{ann['span']}' appears {num_candidates} times in text, but has {num_annotations} annotation(s); no unambiguous contextual anchor.",
+                    "num_candidates": num_candidates,
+                    "candidates": [{"start_char": c[0], "end_char": c[1]} for c in candidates],
+                }
+                unresolved_cases.append(unres_record)
+                ambiguous_cases.append(unres_record)
+
+    # Invariant assertion for every note
+    assert resolved_annotations_count + len(unresolved_cases) == n_spans, (
+        f"Accounting invariant violated in ex_no={ex_no}: "
+        f"resolved ({resolved_annotations_count}) + unresolved ({len(unresolved_cases)}) != total ({n_spans})"
+    )
+
+    resolved_intervals.sort(key=lambda x: (x["start_char"], x["end_char"]))
+
+    unresolved_by_reason = {}
+    for u in unresolved_cases:
+        rc = u.get("reason_code", "UNKNOWN")
+        unresolved_by_reason[rc] = unresolved_by_reason.get(rc, 0) + 1
 
     return {
+        "ex_no": ex_no,
+        "text": text,
+        "total_annotations": n_spans,
+        "resolved_annotations_count": resolved_annotations_count,
+        "resolved_intervals_count": len(resolved_intervals),
         "resolved_intervals": resolved_intervals,
-        "ambiguous_cases": ambiguous_cases
+        "unresolved_count": len(unresolved_cases),
+        "unresolved_cases": unresolved_cases,
+        "unresolved_by_reason": unresolved_by_reason,
+        "ambiguous_cases": ambiguous_cases,
+        "unmatched_cases": unmatched_cases,
     }
 
 print("Span alignment module loaded.")
@@ -506,6 +613,8 @@ def encode_single_note(
         
     # Category-level loss mask: (seq_len, 15)
     loss_mask = np.ones((seq_len, NUM_CATEGORIES), dtype=np.float32)
+    max_char_offset = max([e for s, e in offset_mapping if e > s]) if any(e > s for s, e in offset_mapping) else 0
+    truncated_intervals = []
     
     # Assign B and I tags from resolved gold intervals
     for interval in gold_intervals:
@@ -520,6 +629,8 @@ def encode_single_note(
         ]
         
         if not tok_indices:
+            if int_s >= max_char_offset:
+                truncated_intervals.append(interval)
             continue
             
         for cat in cats:
@@ -538,7 +649,7 @@ def encode_single_note(
                 targets[sub_tok, i_idx] = 1.0
                 targets[sub_tok, o_idx] = 0.0
                 
-    # Uncertainty handling for ex_no 1192
+    # Uncertainty handling for ambiguous cases (e.g. ex_no 1192)
     if ambiguous_cases:
         for amb in ambiguous_cases:
             amb_cat = amb.get("sbdh")
@@ -556,7 +667,8 @@ def encode_single_note(
         "offset_mapping": offset_mapping,
         "active_mask": active_mask,
         "targets": targets,
-        "loss_mask": loss_mask
+        "loss_mask": loss_mask,
+        "truncated_intervals": truncated_intervals
     }
 
 print("Encoding function verified.")
@@ -607,7 +719,8 @@ class ColabSynthSBDHDataset(Dataset):
                 "targets": torch.tensor(enc["targets"], dtype=torch.float32),
                 "loss_mask": torch.tensor(enc["loss_mask"], dtype=torch.float32),
                 "gold_intervals": aligned["resolved_intervals"],
-                "ambiguous_cases": aligned["ambiguous_cases"]
+                "ambiguous_cases": aligned["ambiguous_cases"],
+                "unresolved_cases": aligned.get("unresolved_cases", [])
             })
             
     def __len__(self):
@@ -944,6 +1057,31 @@ assert find_maximum_bipartite_matching([], [(10, 20, "pain")]) == 0
 assert find_maximum_bipartite_matching([(10, 20, "pain")], []) == 0
 assert find_maximum_bipartite_matching([(10, 20, "pain")], [(10, 20, "violence")]) == 0
 print("✓ Test 8: Empty predictions, empty golds, and category mismatches return 0 TP safely.")
+
+# --- Test 8b: Edge Case Auditing: Missing Spans, Duplicate Annotations, Mismatched Occurrences, Truncation & Accounting Invariants ---
+aligned_missing = align_spans_in_note(text="Patient has no symptoms.", spans=["pain"], sbdhs=["pain"], ex_no=999901)
+assert aligned_missing["unresolved_count"] == 1
+assert aligned_missing["unresolved_cases"][0]["reason_code"] == "UNRESOLVED_SPAN_NOT_FOUND"
+assert aligned_missing["resolved_annotations_count"] == 0
+
+aligned_dup = align_spans_in_note(text="Patient has severe pain.", spans=["pain", "pain"], sbdhs=["pain", "pain"], ex_no=999902)
+assert aligned_dup["resolved_annotations_count"] == 1
+assert aligned_dup["unresolved_count"] == 1
+assert aligned_dup["unresolved_cases"][0]["reason_code"] == "UNRESOLVED_DUPLICATE_ANNOTATION"
+
+aligned_mismatch = align_spans_in_note(text="Patient experiencing pain and pain.", spans=["pain"], sbdhs=["pain"], ex_no=999903)
+assert aligned_mismatch["resolved_annotations_count"] == 0
+assert aligned_mismatch["unresolved_count"] == 1
+assert aligned_mismatch["unresolved_cases"][0]["reason_code"] == "UNRESOLVED_MISMATCHED_REPEATED"
+
+enc_trunc = encode_single_note(
+    text="word " * 300,
+    gold_intervals=[{"start_char": 1400, "end_char": 1420, "categories": ["pain"]}],
+    tokenizer=tokenizer,
+    max_length=64
+)
+assert len(enc_trunc["truncated_intervals"]) == 1
+print("✓ Edge Case Audits: Missing spans, duplicate annotations, mismatched counts, truncation, and accounting invariants verified.")
 
 # --- Test 9: Matching Invariance Under Shuffled Prediction Orders ---
 gold_perm = [(10, 25, "pain"), (20, 35, "pain")]

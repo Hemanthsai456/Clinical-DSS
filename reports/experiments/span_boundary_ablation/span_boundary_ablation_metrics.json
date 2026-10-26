@@ -1,0 +1,4967 @@
+{
+  "metadata": {
+    "experiment": "Experiment 2.2: Span Boundary and Fragmentation Ablation",
+    "date": "2026-10-26T14:36:39Z",
+    "checkpoint_path": "evernorth_m3_results/models/sbdh_transformer/best_model.pt",
+    "sha256": "0cb00010631b089746fdd97ff3f9019e1bcc29012a7c093b33501a9c30186ba4",
+    "validation_notes_count": 876,
+    "total_gold_spans": 1443
+  },
+  "arms_benchmarks": {
+    "arm_1_strategy_a_control": {
+      "arm_name": "Arm 1: Strategy A (Control, th=0.30)",
+      "decode_kwargs": {
+        "threshold": 0.3
+      },
+      "do_snap": false,
+      "do_fuse": false,
+      "max_gap": 0,
+      "runtime_seconds": 0.57,
+      "total_gold_spans": 1443,
+      "total_pred_spans": 1507,
+      "snaps_count": 0,
+      "merges_count": 0,
+      "invalid_spans_count": 0,
+      "overlapping_spans_count": 0,
+      "exact_matching": {
+        "tp": 748,
+        "fp": 759,
+        "fn": 695,
+        "precision": 0.4964,
+        "recall": 0.5184,
+        "f1_score": 0.5071
+      },
+      "relaxed_matching": {
+        "tp": 1227,
+        "fp": 280,
+        "fn": 216,
+        "precision": 0.8142,
+        "recall": 0.8503,
+        "f1_score": 0.8319
+      },
+      "boundary_errors_count": 479,
+      "boundary_error_rate_pct": 39.04,
+      "note_micro": {
+        "precision": 0.9293,
+        "recall": 0.8738,
+        "f1_score": 0.9007
+      },
+      "per_category": {
+        "barriers to care": {
+          "gold_support": 60,
+          "predicted_count": 49,
+          "relaxed_tp": 38,
+          "relaxed_fp": 11,
+          "relaxed_fn": 22,
+          "relaxed_precision": 0.7755,
+          "relaxed_recall": 0.6333,
+          "relaxed_f1": 0.6972,
+          "exact_tp": 15,
+          "exact_fp": 34,
+          "exact_fn": 45,
+          "exact_precision": 0.3061,
+          "exact_recall": 0.25,
+          "exact_f1": 0.2752
+        },
+        "financial insecurity": {
+          "gold_support": 101,
+          "predicted_count": 111,
+          "relaxed_tp": 85,
+          "relaxed_fp": 26,
+          "relaxed_fn": 16,
+          "relaxed_precision": 0.7658,
+          "relaxed_recall": 0.8416,
+          "relaxed_f1": 0.8019,
+          "exact_tp": 56,
+          "exact_fp": 55,
+          "exact_fn": 45,
+          "exact_precision": 0.5045,
+          "exact_recall": 0.5545,
+          "exact_f1": 0.5283
+        },
+        "food insecurity": {
+          "gold_support": 79,
+          "predicted_count": 89,
+          "relaxed_tp": 77,
+          "relaxed_fp": 12,
+          "relaxed_fn": 2,
+          "relaxed_precision": 0.8652,
+          "relaxed_recall": 0.9747,
+          "relaxed_f1": 0.9167,
+          "exact_tp": 46,
+          "exact_fp": 43,
+          "exact_fn": 33,
+          "exact_precision": 0.5169,
+          "exact_recall": 0.5823,
+          "exact_f1": 0.5476
+        },
+        "housing insecurity": {
+          "gold_support": 101,
+          "predicted_count": 126,
+          "relaxed_tp": 91,
+          "relaxed_fp": 35,
+          "relaxed_fn": 10,
+          "relaxed_precision": 0.7222,
+          "relaxed_recall": 0.901,
+          "relaxed_f1": 0.8018,
+          "exact_tp": 53,
+          "exact_fp": 73,
+          "exact_fn": 48,
+          "exact_precision": 0.4206,
+          "exact_recall": 0.5248,
+          "exact_f1": 0.467
+        },
+        "job insecurity": {
+          "gold_support": 126,
+          "predicted_count": 143,
+          "relaxed_tp": 120,
+          "relaxed_fp": 23,
+          "relaxed_fn": 6,
+          "relaxed_precision": 0.8392,
+          "relaxed_recall": 0.9524,
+          "relaxed_f1": 0.8922,
+          "exact_tp": 86,
+          "exact_fp": 57,
+          "exact_fn": 40,
+          "exact_precision": 0.6014,
+          "exact_recall": 0.6825,
+          "exact_f1": 0.6394
+        },
+        "legal problems": {
+          "gold_support": 56,
+          "predicted_count": 56,
+          "relaxed_tp": 46,
+          "relaxed_fp": 10,
+          "relaxed_fn": 10,
+          "relaxed_precision": 0.8214,
+          "relaxed_recall": 0.8214,
+          "relaxed_f1": 0.8214,
+          "exact_tp": 22,
+          "exact_fp": 34,
+          "exact_fn": 34,
+          "exact_precision": 0.3929,
+          "exact_recall": 0.3929,
+          "exact_f1": 0.3929
+        },
+        "loss of relationship": {
+          "gold_support": 103,
+          "predicted_count": 109,
+          "relaxed_tp": 97,
+          "relaxed_fp": 12,
+          "relaxed_fn": 6,
+          "relaxed_precision": 0.8899,
+          "relaxed_recall": 0.9417,
+          "relaxed_f1": 0.9151,
+          "exact_tp": 56,
+          "exact_fp": 53,
+          "exact_fn": 47,
+          "exact_precision": 0.5138,
+          "exact_recall": 0.5437,
+          "exact_f1": 0.5283
+        },
+        "pain": {
+          "gold_support": 100,
+          "predicted_count": 101,
+          "relaxed_tp": 91,
+          "relaxed_fp": 10,
+          "relaxed_fn": 9,
+          "relaxed_precision": 0.901,
+          "relaxed_recall": 0.91,
+          "relaxed_f1": 0.9055,
+          "exact_tp": 69,
+          "exact_fp": 32,
+          "exact_fn": 31,
+          "exact_precision": 0.6832,
+          "exact_recall": 0.69,
+          "exact_f1": 0.6866
+        },
+        "patient disability": {
+          "gold_support": 79,
+          "predicted_count": 84,
+          "relaxed_tp": 58,
+          "relaxed_fp": 26,
+          "relaxed_fn": 21,
+          "relaxed_precision": 0.6905,
+          "relaxed_recall": 0.7342,
+          "relaxed_f1": 0.7117,
+          "exact_tp": 35,
+          "exact_fp": 49,
+          "exact_fn": 44,
+          "exact_precision": 0.4167,
+          "exact_recall": 0.443,
+          "exact_f1": 0.4294
+        },
+        "physical isolation": {
+          "gold_support": 46,
+          "predicted_count": 23,
+          "relaxed_tp": 14,
+          "relaxed_fp": 9,
+          "relaxed_fn": 32,
+          "relaxed_precision": 0.6087,
+          "relaxed_recall": 0.3043,
+          "relaxed_f1": 0.4058,
+          "exact_tp": 6,
+          "exact_fp": 17,
+          "exact_fn": 40,
+          "exact_precision": 0.2609,
+          "exact_recall": 0.1304,
+          "exact_f1": 0.1739
+        },
+        "psychiatric symptoms or disorders": {
+          "gold_support": 135,
+          "predicted_count": 134,
+          "relaxed_tp": 111,
+          "relaxed_fp": 23,
+          "relaxed_fn": 24,
+          "relaxed_precision": 0.8284,
+          "relaxed_recall": 0.8222,
+          "relaxed_f1": 0.8253,
+          "exact_tp": 66,
+          "exact_fp": 68,
+          "exact_fn": 69,
+          "exact_precision": 0.4925,
+          "exact_recall": 0.4889,
+          "exact_f1": 0.4907
+        },
+        "social isolation": {
+          "gold_support": 159,
+          "predicted_count": 172,
+          "relaxed_tp": 146,
+          "relaxed_fp": 26,
+          "relaxed_fn": 13,
+          "relaxed_precision": 0.8488,
+          "relaxed_recall": 0.9182,
+          "relaxed_f1": 0.8822,
+          "exact_tp": 104,
+          "exact_fp": 68,
+          "exact_fn": 55,
+          "exact_precision": 0.6047,
+          "exact_recall": 0.6541,
+          "exact_f1": 0.6284
+        },
+        "substance abuse": {
+          "gold_support": 139,
+          "predicted_count": 155,
+          "relaxed_tp": 133,
+          "relaxed_fp": 22,
+          "relaxed_fn": 6,
+          "relaxed_precision": 0.8581,
+          "relaxed_recall": 0.9568,
+          "relaxed_f1": 0.9048,
+          "exact_tp": 80,
+          "exact_fp": 75,
+          "exact_fn": 59,
+          "exact_precision": 0.5161,
+          "exact_recall": 0.5755,
+          "exact_f1": 0.5442
+        },
+        "transitions of care": {
+          "gold_support": 82,
+          "predicted_count": 79,
+          "relaxed_tp": 58,
+          "relaxed_fp": 21,
+          "relaxed_fn": 24,
+          "relaxed_precision": 0.7342,
+          "relaxed_recall": 0.7073,
+          "relaxed_f1": 0.7205,
+          "exact_tp": 29,
+          "exact_fp": 50,
+          "exact_fn": 53,
+          "exact_precision": 0.3671,
+          "exact_recall": 0.3537,
+          "exact_f1": 0.3602
+        },
+        "violence": {
+          "gold_support": 77,
+          "predicted_count": 76,
+          "relaxed_tp": 62,
+          "relaxed_fp": 14,
+          "relaxed_fn": 15,
+          "relaxed_precision": 0.8158,
+          "relaxed_recall": 0.8052,
+          "relaxed_f1": 0.8105,
+          "exact_tp": 25,
+          "exact_fp": 51,
+          "exact_fn": 52,
+          "exact_precision": 0.3289,
+          "exact_recall": 0.3247,
+          "exact_f1": 0.3268
+        }
+      },
+      "audited_snap_samples": [],
+      "audited_merge_samples": []
+    },
+    "arm_2_strategy_b_th_0.30": {
+      "arm_name": "Arm 2: Strategy B (th=0.30, raw)",
+      "decode_kwargs": {
+        "threshold": 0.3
+      },
+      "do_snap": false,
+      "do_fuse": false,
+      "max_gap": 0,
+      "runtime_seconds": 0.48,
+      "total_gold_spans": 1443,
+      "total_pred_spans": 1614,
+      "snaps_count": 0,
+      "merges_count": 0,
+      "invalid_spans_count": 0,
+      "overlapping_spans_count": 0,
+      "exact_matching": {
+        "tp": 794,
+        "fp": 820,
+        "fn": 649,
+        "precision": 0.4919,
+        "recall": 0.5502,
+        "f1_score": 0.5195
+      },
+      "relaxed_matching": {
+        "tp": 1275,
+        "fp": 339,
+        "fn": 168,
+        "precision": 0.79,
+        "recall": 0.8836,
+        "f1_score": 0.8342
+      },
+      "boundary_errors_count": 481,
+      "boundary_error_rate_pct": 37.73,
+      "note_micro": {
+        "precision": 0.9105,
+        "recall": 0.9078,
+        "f1_score": 0.9092
+      },
+      "per_category": {
+        "barriers to care": {
+          "gold_support": 60,
+          "predicted_count": 55,
+          "relaxed_tp": 41,
+          "relaxed_fp": 14,
+          "relaxed_fn": 19,
+          "relaxed_precision": 0.7455,
+          "relaxed_recall": 0.6833,
+          "relaxed_f1": 0.713,
+          "exact_tp": 19,
+          "exact_fp": 36,
+          "exact_fn": 41,
+          "exact_precision": 0.3455,
+          "exact_recall": 0.3167,
+          "exact_f1": 0.3304
+        },
+        "financial insecurity": {
+          "gold_support": 101,
+          "predicted_count": 117,
+          "relaxed_tp": 89,
+          "relaxed_fp": 28,
+          "relaxed_fn": 12,
+          "relaxed_precision": 0.7607,
+          "relaxed_recall": 0.8812,
+          "relaxed_f1": 0.8165,
+          "exact_tp": 65,
+          "exact_fp": 52,
+          "exact_fn": 36,
+          "exact_precision": 0.5556,
+          "exact_recall": 0.6436,
+          "exact_f1": 0.5963
+        },
+        "food insecurity": {
+          "gold_support": 79,
+          "predicted_count": 93,
+          "relaxed_tp": 79,
+          "relaxed_fp": 14,
+          "relaxed_fn": 0,
+          "relaxed_precision": 0.8495,
+          "relaxed_recall": 1.0,
+          "relaxed_f1": 0.9186,
+          "exact_tp": 48,
+          "exact_fp": 45,
+          "exact_fn": 31,
+          "exact_precision": 0.5161,
+          "exact_recall": 0.6076,
+          "exact_f1": 0.5581
+        },
+        "housing insecurity": {
+          "gold_support": 101,
+          "predicted_count": 137,
+          "relaxed_tp": 96,
+          "relaxed_fp": 41,
+          "relaxed_fn": 5,
+          "relaxed_precision": 0.7007,
+          "relaxed_recall": 0.9505,
+          "relaxed_f1": 0.8067,
+          "exact_tp": 51,
+          "exact_fp": 86,
+          "exact_fn": 50,
+          "exact_precision": 0.3723,
+          "exact_recall": 0.505,
+          "exact_f1": 0.4286
+        },
+        "job insecurity": {
+          "gold_support": 126,
+          "predicted_count": 145,
+          "relaxed_tp": 120,
+          "relaxed_fp": 25,
+          "relaxed_fn": 6,
+          "relaxed_precision": 0.8276,
+          "relaxed_recall": 0.9524,
+          "relaxed_f1": 0.8856,
+          "exact_tp": 88,
+          "exact_fp": 57,
+          "exact_fn": 38,
+          "exact_precision": 0.6069,
+          "exact_recall": 0.6984,
+          "exact_f1": 0.6494
+        },
+        "legal problems": {
+          "gold_support": 56,
+          "predicted_count": 62,
+          "relaxed_tp": 49,
+          "relaxed_fp": 13,
+          "relaxed_fn": 7,
+          "relaxed_precision": 0.7903,
+          "relaxed_recall": 0.875,
+          "relaxed_f1": 0.8305,
+          "exact_tp": 21,
+          "exact_fp": 41,
+          "exact_fn": 35,
+          "exact_precision": 0.3387,
+          "exact_recall": 0.375,
+          "exact_f1": 0.3559
+        },
+        "loss of relationship": {
+          "gold_support": 103,
+          "predicted_count": 109,
+          "relaxed_tp": 98,
+          "relaxed_fp": 11,
+          "relaxed_fn": 5,
+          "relaxed_precision": 0.8991,
+          "relaxed_recall": 0.9515,
+          "relaxed_f1": 0.9245,
+          "exact_tp": 64,
+          "exact_fp": 45,
+          "exact_fn": 39,
+          "exact_precision": 0.5872,
+          "exact_recall": 0.6214,
+          "exact_f1": 0.6038
+        },
+        "pain": {
+          "gold_support": 100,
+          "predicted_count": 104,
+          "relaxed_tp": 92,
+          "relaxed_fp": 12,
+          "relaxed_fn": 8,
+          "relaxed_precision": 0.8846,
+          "relaxed_recall": 0.92,
+          "relaxed_f1": 0.902,
+          "exact_tp": 66,
+          "exact_fp": 38,
+          "exact_fn": 34,
+          "exact_precision": 0.6346,
+          "exact_recall": 0.66,
+          "exact_f1": 0.6471
+        },
+        "patient disability": {
+          "gold_support": 79,
+          "predicted_count": 99,
+          "relaxed_tp": 63,
+          "relaxed_fp": 36,
+          "relaxed_fn": 16,
+          "relaxed_precision": 0.6364,
+          "relaxed_recall": 0.7975,
+          "relaxed_f1": 0.7079,
+          "exact_tp": 42,
+          "exact_fp": 57,
+          "exact_fn": 37,
+          "exact_precision": 0.4242,
+          "exact_recall": 0.5316,
+          "exact_f1": 0.4719
+        },
+        "physical isolation": {
+          "gold_support": 46,
+          "predicted_count": 31,
+          "relaxed_tp": 18,
+          "relaxed_fp": 13,
+          "relaxed_fn": 28,
+          "relaxed_precision": 0.5806,
+          "relaxed_recall": 0.3913,
+          "relaxed_f1": 0.4675,
+          "exact_tp": 9,
+          "exact_fp": 22,
+          "exact_fn": 37,
+          "exact_precision": 0.2903,
+          "exact_recall": 0.1957,
+          "exact_f1": 0.2338
+        },
+        "psychiatric symptoms or disorders": {
+          "gold_support": 135,
+          "predicted_count": 142,
+          "relaxed_tp": 115,
+          "relaxed_fp": 27,
+          "relaxed_fn": 20,
+          "relaxed_precision": 0.8099,
+          "relaxed_recall": 0.8519,
+          "relaxed_f1": 0.8303,
+          "exact_tp": 66,
+          "exact_fp": 76,
+          "exact_fn": 69,
+          "exact_precision": 0.4648,
+          "exact_recall": 0.4889,
+          "exact_f1": 0.4765
+        },
+        "social isolation": {
+          "gold_support": 159,
+          "predicted_count": 196,
+          "relaxed_tp": 152,
+          "relaxed_fp": 44,
+          "relaxed_fn": 7,
+          "relaxed_precision": 0.7755,
+          "relaxed_recall": 0.956,
+          "relaxed_f1": 0.8563,
+          "exact_tp": 106,
+          "exact_fp": 90,
+          "exact_fn": 53,
+          "exact_precision": 0.5408,
+          "exact_recall": 0.6667,
+          "exact_f1": 0.5972
+        },
+        "substance abuse": {
+          "gold_support": 139,
+          "predicted_count": 159,
+          "relaxed_tp": 135,
+          "relaxed_fp": 24,
+          "relaxed_fn": 4,
+          "relaxed_precision": 0.8491,
+          "relaxed_recall": 0.9712,
+          "relaxed_f1": 0.906,
+          "exact_tp": 89,
+          "exact_fp": 70,
+          "exact_fn": 50,
+          "exact_precision": 0.5597,
+          "exact_recall": 0.6403,
+          "exact_f1": 0.5973
+        },
+        "transitions of care": {
+          "gold_support": 82,
+          "predicted_count": 86,
+          "relaxed_tp": 64,
+          "relaxed_fp": 22,
+          "relaxed_fn": 18,
+          "relaxed_precision": 0.7442,
+          "relaxed_recall": 0.7805,
+          "relaxed_f1": 0.7619,
+          "exact_tp": 38,
+          "exact_fp": 48,
+          "exact_fn": 44,
+          "exact_precision": 0.4419,
+          "exact_recall": 0.4634,
+          "exact_f1": 0.4524
+        },
+        "violence": {
+          "gold_support": 77,
+          "predicted_count": 79,
+          "relaxed_tp": 64,
+          "relaxed_fp": 15,
+          "relaxed_fn": 13,
+          "relaxed_precision": 0.8101,
+          "relaxed_recall": 0.8312,
+          "relaxed_f1": 0.8205,
+          "exact_tp": 22,
+          "exact_fp": 57,
+          "exact_fn": 55,
+          "exact_precision": 0.2785,
+          "exact_recall": 0.2857,
+          "exact_f1": 0.2821
+        }
+      },
+      "audited_snap_samples": [],
+      "audited_merge_samples": []
+    },
+    "arm_3_strategy_b_th_0.40": {
+      "arm_name": "Arm 3: Strategy B (th=0.40, raw)",
+      "decode_kwargs": {
+        "threshold": 0.4
+      },
+      "do_snap": false,
+      "do_fuse": false,
+      "max_gap": 0,
+      "runtime_seconds": 0.54,
+      "total_gold_spans": 1443,
+      "total_pred_spans": 1520,
+      "snaps_count": 0,
+      "merges_count": 0,
+      "invalid_spans_count": 0,
+      "overlapping_spans_count": 0,
+      "exact_matching": {
+        "tp": 758,
+        "fp": 762,
+        "fn": 685,
+        "precision": 0.4987,
+        "recall": 0.5253,
+        "f1_score": 0.5116
+      },
+      "relaxed_matching": {
+        "tp": 1237,
+        "fp": 283,
+        "fn": 206,
+        "precision": 0.8138,
+        "recall": 0.8572,
+        "f1_score": 0.835
+      },
+      "boundary_errors_count": 479,
+      "boundary_error_rate_pct": 38.72,
+      "note_micro": {
+        "precision": 0.9283,
+        "recall": 0.8806,
+        "f1_score": 0.9038
+      },
+      "per_category": {
+        "barriers to care": {
+          "gold_support": 60,
+          "predicted_count": 50,
+          "relaxed_tp": 40,
+          "relaxed_fp": 10,
+          "relaxed_fn": 20,
+          "relaxed_precision": 0.8,
+          "relaxed_recall": 0.6667,
+          "relaxed_f1": 0.7273,
+          "exact_tp": 17,
+          "exact_fp": 33,
+          "exact_fn": 43,
+          "exact_precision": 0.34,
+          "exact_recall": 0.2833,
+          "exact_f1": 0.3091
+        },
+        "financial insecurity": {
+          "gold_support": 101,
+          "predicted_count": 112,
+          "relaxed_tp": 85,
+          "relaxed_fp": 27,
+          "relaxed_fn": 16,
+          "relaxed_precision": 0.7589,
+          "relaxed_recall": 0.8416,
+          "relaxed_f1": 0.7981,
+          "exact_tp": 58,
+          "exact_fp": 54,
+          "exact_fn": 43,
+          "exact_precision": 0.5179,
+          "exact_recall": 0.5743,
+          "exact_f1": 0.5446
+        },
+        "food insecurity": {
+          "gold_support": 79,
+          "predicted_count": 93,
+          "relaxed_tp": 77,
+          "relaxed_fp": 16,
+          "relaxed_fn": 2,
+          "relaxed_precision": 0.828,
+          "relaxed_recall": 0.9747,
+          "relaxed_f1": 0.8953,
+          "exact_tp": 49,
+          "exact_fp": 44,
+          "exact_fn": 30,
+          "exact_precision": 0.5269,
+          "exact_recall": 0.6203,
+          "exact_f1": 0.5698
+        },
+        "housing insecurity": {
+          "gold_support": 101,
+          "predicted_count": 121,
+          "relaxed_tp": 91,
+          "relaxed_fp": 30,
+          "relaxed_fn": 10,
+          "relaxed_precision": 0.7521,
+          "relaxed_recall": 0.901,
+          "relaxed_f1": 0.8198,
+          "exact_tp": 54,
+          "exact_fp": 67,
+          "exact_fn": 47,
+          "exact_precision": 0.4463,
+          "exact_recall": 0.5347,
+          "exact_f1": 0.4865
+        },
+        "job insecurity": {
+          "gold_support": 126,
+          "predicted_count": 143,
+          "relaxed_tp": 119,
+          "relaxed_fp": 24,
+          "relaxed_fn": 7,
+          "relaxed_precision": 0.8322,
+          "relaxed_recall": 0.9444,
+          "relaxed_f1": 0.8848,
+          "exact_tp": 85,
+          "exact_fp": 58,
+          "exact_fn": 41,
+          "exact_precision": 0.5944,
+          "exact_recall": 0.6746,
+          "exact_f1": 0.632
+        },
+        "legal problems": {
+          "gold_support": 56,
+          "predicted_count": 56,
+          "relaxed_tp": 47,
+          "relaxed_fp": 9,
+          "relaxed_fn": 9,
+          "relaxed_precision": 0.8393,
+          "relaxed_recall": 0.8393,
+          "relaxed_f1": 0.8393,
+          "exact_tp": 21,
+          "exact_fp": 35,
+          "exact_fn": 35,
+          "exact_precision": 0.375,
+          "exact_recall": 0.375,
+          "exact_f1": 0.375
+        },
+        "loss of relationship": {
+          "gold_support": 103,
+          "predicted_count": 109,
+          "relaxed_tp": 97,
+          "relaxed_fp": 12,
+          "relaxed_fn": 6,
+          "relaxed_precision": 0.8899,
+          "relaxed_recall": 0.9417,
+          "relaxed_f1": 0.9151,
+          "exact_tp": 59,
+          "exact_fp": 50,
+          "exact_fn": 44,
+          "exact_precision": 0.5413,
+          "exact_recall": 0.5728,
+          "exact_f1": 0.5566
+        },
+        "pain": {
+          "gold_support": 100,
+          "predicted_count": 101,
+          "relaxed_tp": 91,
+          "relaxed_fp": 10,
+          "relaxed_fn": 9,
+          "relaxed_precision": 0.901,
+          "relaxed_recall": 0.91,
+          "relaxed_f1": 0.9055,
+          "exact_tp": 67,
+          "exact_fp": 34,
+          "exact_fn": 33,
+          "exact_precision": 0.6634,
+          "exact_recall": 0.67,
+          "exact_f1": 0.6667
+        },
+        "patient disability": {
+          "gold_support": 79,
+          "predicted_count": 85,
+          "relaxed_tp": 58,
+          "relaxed_fp": 27,
+          "relaxed_fn": 21,
+          "relaxed_precision": 0.6824,
+          "relaxed_recall": 0.7342,
+          "relaxed_f1": 0.7073,
+          "exact_tp": 35,
+          "exact_fp": 50,
+          "exact_fn": 44,
+          "exact_precision": 0.4118,
+          "exact_recall": 0.443,
+          "exact_f1": 0.4268
+        },
+        "physical isolation": {
+          "gold_support": 46,
+          "predicted_count": 23,
+          "relaxed_tp": 16,
+          "relaxed_fp": 7,
+          "relaxed_fn": 30,
+          "relaxed_precision": 0.6957,
+          "relaxed_recall": 0.3478,
+          "relaxed_f1": 0.4638,
+          "exact_tp": 8,
+          "exact_fp": 15,
+          "exact_fn": 38,
+          "exact_precision": 0.3478,
+          "exact_recall": 0.1739,
+          "exact_f1": 0.2319
+        },
+        "psychiatric symptoms or disorders": {
+          "gold_support": 135,
+          "predicted_count": 136,
+          "relaxed_tp": 113,
+          "relaxed_fp": 23,
+          "relaxed_fn": 22,
+          "relaxed_precision": 0.8309,
+          "relaxed_recall": 0.837,
+          "relaxed_f1": 0.8339,
+          "exact_tp": 65,
+          "exact_fp": 71,
+          "exact_fn": 70,
+          "exact_precision": 0.4779,
+          "exact_recall": 0.4815,
+          "exact_f1": 0.4797
+        },
+        "social isolation": {
+          "gold_support": 159,
+          "predicted_count": 178,
+          "relaxed_tp": 147,
+          "relaxed_fp": 31,
+          "relaxed_fn": 12,
+          "relaxed_precision": 0.8258,
+          "relaxed_recall": 0.9245,
+          "relaxed_f1": 0.8724,
+          "exact_tp": 104,
+          "exact_fp": 74,
+          "exact_fn": 55,
+          "exact_precision": 0.5843,
+          "exact_recall": 0.6541,
+          "exact_f1": 0.6172
+        },
+        "substance abuse": {
+          "gold_support": 139,
+          "predicted_count": 156,
+          "relaxed_tp": 133,
+          "relaxed_fp": 23,
+          "relaxed_fn": 6,
+          "relaxed_precision": 0.8526,
+          "relaxed_recall": 0.9568,
+          "relaxed_f1": 0.9017,
+          "exact_tp": 81,
+          "exact_fp": 75,
+          "exact_fn": 58,
+          "exact_precision": 0.5192,
+          "exact_recall": 0.5827,
+          "exact_f1": 0.5492
+        },
+        "transitions of care": {
+          "gold_support": 82,
+          "predicted_count": 81,
+          "relaxed_tp": 60,
+          "relaxed_fp": 21,
+          "relaxed_fn": 22,
+          "relaxed_precision": 0.7407,
+          "relaxed_recall": 0.7317,
+          "relaxed_f1": 0.7362,
+          "exact_tp": 31,
+          "exact_fp": 50,
+          "exact_fn": 51,
+          "exact_precision": 0.3827,
+          "exact_recall": 0.378,
+          "exact_f1": 0.3804
+        },
+        "violence": {
+          "gold_support": 77,
+          "predicted_count": 76,
+          "relaxed_tp": 63,
+          "relaxed_fp": 13,
+          "relaxed_fn": 14,
+          "relaxed_precision": 0.8289,
+          "relaxed_recall": 0.8182,
+          "relaxed_f1": 0.8235,
+          "exact_tp": 24,
+          "exact_fp": 52,
+          "exact_fn": 53,
+          "exact_precision": 0.3158,
+          "exact_recall": 0.3117,
+          "exact_f1": 0.3137
+        }
+      },
+      "audited_snap_samples": [],
+      "audited_merge_samples": []
+    },
+    "arm_4_strategy_b_snap_only": {
+      "arm_name": "Arm 4: Strategy B (th=0.30) + Snapping Only",
+      "decode_kwargs": {
+        "threshold": 0.3
+      },
+      "do_snap": true,
+      "do_fuse": false,
+      "max_gap": 0,
+      "runtime_seconds": 0.55,
+      "total_gold_spans": 1443,
+      "total_pred_spans": 1614,
+      "snaps_count": 52,
+      "merges_count": 0,
+      "invalid_spans_count": 0,
+      "overlapping_spans_count": 0,
+      "exact_matching": {
+        "tp": 807,
+        "fp": 807,
+        "fn": 636,
+        "precision": 0.5,
+        "recall": 0.5593,
+        "f1_score": 0.528
+      },
+      "relaxed_matching": {
+        "tp": 1275,
+        "fp": 339,
+        "fn": 168,
+        "precision": 0.79,
+        "recall": 0.8836,
+        "f1_score": 0.8342
+      },
+      "boundary_errors_count": 468,
+      "boundary_error_rate_pct": 36.71,
+      "note_micro": {
+        "precision": 0.9105,
+        "recall": 0.9078,
+        "f1_score": 0.9092
+      },
+      "per_category": {
+        "barriers to care": {
+          "gold_support": 60,
+          "predicted_count": 55,
+          "relaxed_tp": 41,
+          "relaxed_fp": 14,
+          "relaxed_fn": 19,
+          "relaxed_precision": 0.7455,
+          "relaxed_recall": 0.6833,
+          "relaxed_f1": 0.713,
+          "exact_tp": 20,
+          "exact_fp": 35,
+          "exact_fn": 40,
+          "exact_precision": 0.3636,
+          "exact_recall": 0.3333,
+          "exact_f1": 0.3478
+        },
+        "financial insecurity": {
+          "gold_support": 101,
+          "predicted_count": 117,
+          "relaxed_tp": 89,
+          "relaxed_fp": 28,
+          "relaxed_fn": 12,
+          "relaxed_precision": 0.7607,
+          "relaxed_recall": 0.8812,
+          "relaxed_f1": 0.8165,
+          "exact_tp": 66,
+          "exact_fp": 51,
+          "exact_fn": 35,
+          "exact_precision": 0.5641,
+          "exact_recall": 0.6535,
+          "exact_f1": 0.6055
+        },
+        "food insecurity": {
+          "gold_support": 79,
+          "predicted_count": 93,
+          "relaxed_tp": 79,
+          "relaxed_fp": 14,
+          "relaxed_fn": 0,
+          "relaxed_precision": 0.8495,
+          "relaxed_recall": 1.0,
+          "relaxed_f1": 0.9186,
+          "exact_tp": 51,
+          "exact_fp": 42,
+          "exact_fn": 28,
+          "exact_precision": 0.5484,
+          "exact_recall": 0.6456,
+          "exact_f1": 0.593
+        },
+        "housing insecurity": {
+          "gold_support": 101,
+          "predicted_count": 137,
+          "relaxed_tp": 96,
+          "relaxed_fp": 41,
+          "relaxed_fn": 5,
+          "relaxed_precision": 0.7007,
+          "relaxed_recall": 0.9505,
+          "relaxed_f1": 0.8067,
+          "exact_tp": 52,
+          "exact_fp": 85,
+          "exact_fn": 49,
+          "exact_precision": 0.3796,
+          "exact_recall": 0.5149,
+          "exact_f1": 0.437
+        },
+        "job insecurity": {
+          "gold_support": 126,
+          "predicted_count": 145,
+          "relaxed_tp": 120,
+          "relaxed_fp": 25,
+          "relaxed_fn": 6,
+          "relaxed_precision": 0.8276,
+          "relaxed_recall": 0.9524,
+          "relaxed_f1": 0.8856,
+          "exact_tp": 88,
+          "exact_fp": 57,
+          "exact_fn": 38,
+          "exact_precision": 0.6069,
+          "exact_recall": 0.6984,
+          "exact_f1": 0.6494
+        },
+        "legal problems": {
+          "gold_support": 56,
+          "predicted_count": 62,
+          "relaxed_tp": 49,
+          "relaxed_fp": 13,
+          "relaxed_fn": 7,
+          "relaxed_precision": 0.7903,
+          "relaxed_recall": 0.875,
+          "relaxed_f1": 0.8305,
+          "exact_tp": 23,
+          "exact_fp": 39,
+          "exact_fn": 33,
+          "exact_precision": 0.371,
+          "exact_recall": 0.4107,
+          "exact_f1": 0.3898
+        },
+        "loss of relationship": {
+          "gold_support": 103,
+          "predicted_count": 109,
+          "relaxed_tp": 98,
+          "relaxed_fp": 11,
+          "relaxed_fn": 5,
+          "relaxed_precision": 0.8991,
+          "relaxed_recall": 0.9515,
+          "relaxed_f1": 0.9245,
+          "exact_tp": 65,
+          "exact_fp": 44,
+          "exact_fn": 38,
+          "exact_precision": 0.5963,
+          "exact_recall": 0.6311,
+          "exact_f1": 0.6132
+        },
+        "pain": {
+          "gold_support": 100,
+          "predicted_count": 104,
+          "relaxed_tp": 92,
+          "relaxed_fp": 12,
+          "relaxed_fn": 8,
+          "relaxed_precision": 0.8846,
+          "relaxed_recall": 0.92,
+          "relaxed_f1": 0.902,
+          "exact_tp": 66,
+          "exact_fp": 38,
+          "exact_fn": 34,
+          "exact_precision": 0.6346,
+          "exact_recall": 0.66,
+          "exact_f1": 0.6471
+        },
+        "patient disability": {
+          "gold_support": 79,
+          "predicted_count": 99,
+          "relaxed_tp": 63,
+          "relaxed_fp": 36,
+          "relaxed_fn": 16,
+          "relaxed_precision": 0.6364,
+          "relaxed_recall": 0.7975,
+          "relaxed_f1": 0.7079,
+          "exact_tp": 42,
+          "exact_fp": 57,
+          "exact_fn": 37,
+          "exact_precision": 0.4242,
+          "exact_recall": 0.5316,
+          "exact_f1": 0.4719
+        },
+        "physical isolation": {
+          "gold_support": 46,
+          "predicted_count": 31,
+          "relaxed_tp": 18,
+          "relaxed_fp": 13,
+          "relaxed_fn": 28,
+          "relaxed_precision": 0.5806,
+          "relaxed_recall": 0.3913,
+          "relaxed_f1": 0.4675,
+          "exact_tp": 9,
+          "exact_fp": 22,
+          "exact_fn": 37,
+          "exact_precision": 0.2903,
+          "exact_recall": 0.1957,
+          "exact_f1": 0.2338
+        },
+        "psychiatric symptoms or disorders": {
+          "gold_support": 135,
+          "predicted_count": 142,
+          "relaxed_tp": 115,
+          "relaxed_fp": 27,
+          "relaxed_fn": 20,
+          "relaxed_precision": 0.8099,
+          "relaxed_recall": 0.8519,
+          "relaxed_f1": 0.8303,
+          "exact_tp": 68,
+          "exact_fp": 74,
+          "exact_fn": 67,
+          "exact_precision": 0.4789,
+          "exact_recall": 0.5037,
+          "exact_f1": 0.491
+        },
+        "social isolation": {
+          "gold_support": 159,
+          "predicted_count": 196,
+          "relaxed_tp": 152,
+          "relaxed_fp": 44,
+          "relaxed_fn": 7,
+          "relaxed_precision": 0.7755,
+          "relaxed_recall": 0.956,
+          "relaxed_f1": 0.8563,
+          "exact_tp": 108,
+          "exact_fp": 88,
+          "exact_fn": 51,
+          "exact_precision": 0.551,
+          "exact_recall": 0.6792,
+          "exact_f1": 0.6085
+        },
+        "substance abuse": {
+          "gold_support": 139,
+          "predicted_count": 159,
+          "relaxed_tp": 135,
+          "relaxed_fp": 24,
+          "relaxed_fn": 4,
+          "relaxed_precision": 0.8491,
+          "relaxed_recall": 0.9712,
+          "relaxed_f1": 0.906,
+          "exact_tp": 89,
+          "exact_fp": 70,
+          "exact_fn": 50,
+          "exact_precision": 0.5597,
+          "exact_recall": 0.6403,
+          "exact_f1": 0.5973
+        },
+        "transitions of care": {
+          "gold_support": 82,
+          "predicted_count": 86,
+          "relaxed_tp": 64,
+          "relaxed_fp": 22,
+          "relaxed_fn": 18,
+          "relaxed_precision": 0.7442,
+          "relaxed_recall": 0.7805,
+          "relaxed_f1": 0.7619,
+          "exact_tp": 38,
+          "exact_fp": 48,
+          "exact_fn": 44,
+          "exact_precision": 0.4419,
+          "exact_recall": 0.4634,
+          "exact_f1": 0.4524
+        },
+        "violence": {
+          "gold_support": 77,
+          "predicted_count": 79,
+          "relaxed_tp": 64,
+          "relaxed_fp": 15,
+          "relaxed_fn": 13,
+          "relaxed_precision": 0.8101,
+          "relaxed_recall": 0.8312,
+          "relaxed_f1": 0.8205,
+          "exact_tp": 22,
+          "exact_fp": 57,
+          "exact_fn": 55,
+          "exact_precision": 0.2785,
+          "exact_recall": 0.2857,
+          "exact_f1": 0.2821
+        }
+      },
+      "audited_snap_samples": [
+        {
+          "category": "legal problems",
+          "before": [
+            5,
+            34,
+            "legal problems"
+          ],
+          "after": [
+            5,
+            30,
+            "legal problems"
+          ],
+          "before_text": "facing possible jail time for",
+          "after_text": "facing possible jail time"
+        },
+        {
+          "category": "loss of relationship",
+          "before": [
+            61,
+            80,
+            "loss of relationship"
+          ],
+          "after": [
+            61,
+            77,
+            "loss of relationship"
+          ],
+          "before_text": "loss of a spouse to",
+          "after_text": "loss of a spouse"
+        },
+        {
+          "category": "social isolation",
+          "before": [
+            22,
+            37,
+            "social isolation"
+          ],
+          "after": [
+            22,
+            34,
+            "social isolation"
+          ],
+          "before_text": "living alone in",
+          "after_text": "living alone"
+        },
+        {
+          "category": "food insecurity",
+          "before": [
+            43,
+            82,
+            "food insecurity"
+          ],
+          "after": [
+            43,
+            78,
+            "food insecurity"
+          ],
+          "before_text": "not having enough money to buy food for",
+          "after_text": "not having enough money to buy food"
+        },
+        {
+          "category": "psychiatric symptoms or disorders",
+          "before": [
+            14,
+            29,
+            "psychiatric symptoms or disorders"
+          ],
+          "after": [
+            14,
+            25,
+            "psychiatric symptoms or disorders"
+          ],
+          "before_text": "overwhelmed and",
+          "after_text": "overwhelmed"
+        },
+        {
+          "category": "physical isolation",
+          "before": [
+            60,
+            81,
+            "physical isolation"
+          ],
+          "after": [
+            60,
+            77,
+            "physical isolation"
+          ],
+          "before_text": "stays in his room for",
+          "after_text": "stays in his room"
+        },
+        {
+          "category": "job insecurity",
+          "before": [
+            55,
+            66,
+            "job insecurity"
+          ],
+          "after": [
+            55,
+            61,
+            "job insecurity"
+          ],
+          "before_text": "layoff from",
+          "after_text": "layoff"
+        },
+        {
+          "category": "transitions of care",
+          "before": [
+            16,
+            28,
+            "transitions of care"
+          ],
+          "after": [
+            16,
+            24,
+            "transitions of care"
+          ],
+          "before_text": "admitted for",
+          "after_text": "admitted"
+        },
+        {
+          "category": "physical isolation",
+          "before": [
+            19,
+            35,
+            "physical isolation"
+          ],
+          "after": [
+            19,
+            31,
+            "physical isolation"
+          ],
+          "before_text": "can't go out due",
+          "after_text": "can't go out"
+        },
+        {
+          "category": "violence",
+          "before": [
+            11,
+            30,
+            "violence"
+          ],
+          "after": [
+            11,
+            25,
+            "violence"
+          ],
+          "before_text": "physical abuse from",
+          "after_text": "physical abuse"
+        },
+        {
+          "category": "psychiatric symptoms or disorders",
+          "before": [
+            11,
+            33,
+            "psychiatric symptoms or disorders"
+          ],
+          "after": [
+            11,
+            29,
+            "psychiatric symptoms or disorders"
+          ],
+          "before_text": "severely depressed and",
+          "after_text": "severely depressed"
+        },
+        {
+          "category": "patient disability",
+          "before": [
+            10,
+            30,
+            "patient disability"
+          ],
+          "after": [
+            10,
+            27,
+            "patient disability"
+          ],
+          "before_text": "wheelchair access at",
+          "after_text": "wheelchair access"
+        },
+        {
+          "category": "social isolation",
+          "before": [
+            49,
+            69,
+            "social isolation"
+          ],
+          "after": [
+            49,
+            66,
+            "social isolation"
+          ],
+          "before_text": "feels lonely most of",
+          "after_text": "feels lonely most"
+        },
+        {
+          "category": "violence",
+          "before": [
+            31,
+            69,
+            "violence"
+          ],
+          "after": [
+            31,
+            64,
+            "violence"
+          ],
+          "before_text": "process traumatic war experiences from",
+          "after_text": "process traumatic war experiences"
+        },
+        {
+          "category": "substance abuse",
+          "before": [
+            55,
+            71,
+            "substance abuse"
+          ],
+          "after": [
+            55,
+            67,
+            "substance abuse"
+          ],
+          "before_text": "not drinking for",
+          "after_text": "not drinking"
+        },
+        {
+          "category": "food insecurity",
+          "before": [
+            13,
+            53,
+            "food insecurity"
+          ],
+          "after": [
+            14,
+            53,
+            "food insecurity"
+          ],
+          "before_text": "'t have enough money to buy healthy food",
+          "after_text": "t have enough money to buy healthy food"
+        },
+        {
+          "category": "barriers to care",
+          "before": [
+            56,
+            72,
+            "barriers to care"
+          ],
+          "after": [
+            56,
+            69,
+            "barriers to care"
+          ],
+          "before_text": "skipped doses to",
+          "after_text": "skipped doses"
+        },
+        {
+          "category": "physical isolation",
+          "before": [
+            77,
+            109,
+            "physical isolation"
+          ],
+          "after": [
+            77,
+            105,
+            "physical isolation"
+          ],
+          "before_text": "struggles to leave the house due",
+          "after_text": "struggles to leave the house"
+        },
+        {
+          "category": "legal problems",
+          "before": [
+            60,
+            84,
+            "legal problems"
+          ],
+          "after": [
+            60,
+            80,
+            "legal problems"
+          ],
+          "before_text": "seeking legal advice for",
+          "after_text": "seeking legal advice"
+        },
+        {
+          "category": "barriers to care",
+          "before": [
+            28,
+            46,
+            "barriers to care"
+          ],
+          "after": [
+            28,
+            42,
+            "barriers to care"
+          ],
+          "before_text": "no one to care for",
+          "after_text": "no one to care"
+        }
+      ],
+      "audited_merge_samples": []
+    },
+    "arm_5_strategy_b_fuse_gap2": {
+      "arm_name": "Arm 5A: Strategy B (th=0.30) + Fusion Only (gap=2)",
+      "decode_kwargs": {
+        "threshold": 0.3
+      },
+      "do_snap": false,
+      "do_fuse": true,
+      "max_gap": 2,
+      "runtime_seconds": 0.49,
+      "total_gold_spans": 1443,
+      "total_pred_spans": 1604,
+      "snaps_count": 0,
+      "merges_count": 10,
+      "invalid_spans_count": 0,
+      "overlapping_spans_count": 0,
+      "exact_matching": {
+        "tp": 794,
+        "fp": 810,
+        "fn": 649,
+        "precision": 0.495,
+        "recall": 0.5502,
+        "f1_score": 0.5212
+      },
+      "relaxed_matching": {
+        "tp": 1274,
+        "fp": 330,
+        "fn": 169,
+        "precision": 0.7943,
+        "recall": 0.8829,
+        "f1_score": 0.8362
+      },
+      "boundary_errors_count": 480,
+      "boundary_error_rate_pct": 37.68,
+      "note_micro": {
+        "precision": 0.9105,
+        "recall": 0.9078,
+        "f1_score": 0.9092
+      },
+      "per_category": {
+        "barriers to care": {
+          "gold_support": 60,
+          "predicted_count": 55,
+          "relaxed_tp": 41,
+          "relaxed_fp": 14,
+          "relaxed_fn": 19,
+          "relaxed_precision": 0.7455,
+          "relaxed_recall": 0.6833,
+          "relaxed_f1": 0.713,
+          "exact_tp": 19,
+          "exact_fp": 36,
+          "exact_fn": 41,
+          "exact_precision": 0.3455,
+          "exact_recall": 0.3167,
+          "exact_f1": 0.3304
+        },
+        "financial insecurity": {
+          "gold_support": 101,
+          "predicted_count": 117,
+          "relaxed_tp": 89,
+          "relaxed_fp": 28,
+          "relaxed_fn": 12,
+          "relaxed_precision": 0.7607,
+          "relaxed_recall": 0.8812,
+          "relaxed_f1": 0.8165,
+          "exact_tp": 65,
+          "exact_fp": 52,
+          "exact_fn": 36,
+          "exact_precision": 0.5556,
+          "exact_recall": 0.6436,
+          "exact_f1": 0.5963
+        },
+        "food insecurity": {
+          "gold_support": 79,
+          "predicted_count": 93,
+          "relaxed_tp": 79,
+          "relaxed_fp": 14,
+          "relaxed_fn": 0,
+          "relaxed_precision": 0.8495,
+          "relaxed_recall": 1.0,
+          "relaxed_f1": 0.9186,
+          "exact_tp": 48,
+          "exact_fp": 45,
+          "exact_fn": 31,
+          "exact_precision": 0.5161,
+          "exact_recall": 0.6076,
+          "exact_f1": 0.5581
+        },
+        "housing insecurity": {
+          "gold_support": 101,
+          "predicted_count": 137,
+          "relaxed_tp": 96,
+          "relaxed_fp": 41,
+          "relaxed_fn": 5,
+          "relaxed_precision": 0.7007,
+          "relaxed_recall": 0.9505,
+          "relaxed_f1": 0.8067,
+          "exact_tp": 51,
+          "exact_fp": 86,
+          "exact_fn": 50,
+          "exact_precision": 0.3723,
+          "exact_recall": 0.505,
+          "exact_f1": 0.4286
+        },
+        "job insecurity": {
+          "gold_support": 126,
+          "predicted_count": 145,
+          "relaxed_tp": 120,
+          "relaxed_fp": 25,
+          "relaxed_fn": 6,
+          "relaxed_precision": 0.8276,
+          "relaxed_recall": 0.9524,
+          "relaxed_f1": 0.8856,
+          "exact_tp": 88,
+          "exact_fp": 57,
+          "exact_fn": 38,
+          "exact_precision": 0.6069,
+          "exact_recall": 0.6984,
+          "exact_f1": 0.6494
+        },
+        "legal problems": {
+          "gold_support": 56,
+          "predicted_count": 61,
+          "relaxed_tp": 49,
+          "relaxed_fp": 12,
+          "relaxed_fn": 7,
+          "relaxed_precision": 0.8033,
+          "relaxed_recall": 0.875,
+          "relaxed_f1": 0.8376,
+          "exact_tp": 21,
+          "exact_fp": 40,
+          "exact_fn": 35,
+          "exact_precision": 0.3443,
+          "exact_recall": 0.375,
+          "exact_f1": 0.359
+        },
+        "loss of relationship": {
+          "gold_support": 103,
+          "predicted_count": 108,
+          "relaxed_tp": 98,
+          "relaxed_fp": 10,
+          "relaxed_fn": 5,
+          "relaxed_precision": 0.9074,
+          "relaxed_recall": 0.9515,
+          "relaxed_f1": 0.9289,
+          "exact_tp": 65,
+          "exact_fp": 43,
+          "exact_fn": 38,
+          "exact_precision": 0.6019,
+          "exact_recall": 0.6311,
+          "exact_f1": 0.6161
+        },
+        "pain": {
+          "gold_support": 100,
+          "predicted_count": 104,
+          "relaxed_tp": 92,
+          "relaxed_fp": 12,
+          "relaxed_fn": 8,
+          "relaxed_precision": 0.8846,
+          "relaxed_recall": 0.92,
+          "relaxed_f1": 0.902,
+          "exact_tp": 66,
+          "exact_fp": 38,
+          "exact_fn": 34,
+          "exact_precision": 0.6346,
+          "exact_recall": 0.66,
+          "exact_f1": 0.6471
+        },
+        "patient disability": {
+          "gold_support": 79,
+          "predicted_count": 97,
+          "relaxed_tp": 62,
+          "relaxed_fp": 35,
+          "relaxed_fn": 17,
+          "relaxed_precision": 0.6392,
+          "relaxed_recall": 0.7848,
+          "relaxed_f1": 0.7045,
+          "exact_tp": 39,
+          "exact_fp": 58,
+          "exact_fn": 40,
+          "exact_precision": 0.4021,
+          "exact_recall": 0.4937,
+          "exact_f1": 0.4432
+        },
+        "physical isolation": {
+          "gold_support": 46,
+          "predicted_count": 31,
+          "relaxed_tp": 18,
+          "relaxed_fp": 13,
+          "relaxed_fn": 28,
+          "relaxed_precision": 0.5806,
+          "relaxed_recall": 0.3913,
+          "relaxed_f1": 0.4675,
+          "exact_tp": 9,
+          "exact_fp": 22,
+          "exact_fn": 37,
+          "exact_precision": 0.2903,
+          "exact_recall": 0.1957,
+          "exact_f1": 0.2338
+        },
+        "psychiatric symptoms or disorders": {
+          "gold_support": 135,
+          "predicted_count": 142,
+          "relaxed_tp": 115,
+          "relaxed_fp": 27,
+          "relaxed_fn": 20,
+          "relaxed_precision": 0.8099,
+          "relaxed_recall": 0.8519,
+          "relaxed_f1": 0.8303,
+          "exact_tp": 66,
+          "exact_fp": 76,
+          "exact_fn": 69,
+          "exact_precision": 0.4648,
+          "exact_recall": 0.4889,
+          "exact_f1": 0.4765
+        },
+        "social isolation": {
+          "gold_support": 159,
+          "predicted_count": 193,
+          "relaxed_tp": 152,
+          "relaxed_fp": 41,
+          "relaxed_fn": 7,
+          "relaxed_precision": 0.7876,
+          "relaxed_recall": 0.956,
+          "relaxed_f1": 0.8636,
+          "exact_tp": 107,
+          "exact_fp": 86,
+          "exact_fn": 52,
+          "exact_precision": 0.5544,
+          "exact_recall": 0.673,
+          "exact_f1": 0.608
+        },
+        "substance abuse": {
+          "gold_support": 139,
+          "predicted_count": 156,
+          "relaxed_tp": 135,
+          "relaxed_fp": 21,
+          "relaxed_fn": 4,
+          "relaxed_precision": 0.8654,
+          "relaxed_recall": 0.9712,
+          "relaxed_f1": 0.9153,
+          "exact_tp": 90,
+          "exact_fp": 66,
+          "exact_fn": 49,
+          "exact_precision": 0.5769,
+          "exact_recall": 0.6475,
+          "exact_f1": 0.6102
+        },
+        "transitions of care": {
+          "gold_support": 82,
+          "predicted_count": 86,
+          "relaxed_tp": 64,
+          "relaxed_fp": 22,
+          "relaxed_fn": 18,
+          "relaxed_precision": 0.7442,
+          "relaxed_recall": 0.7805,
+          "relaxed_f1": 0.7619,
+          "exact_tp": 38,
+          "exact_fp": 48,
+          "exact_fn": 44,
+          "exact_precision": 0.4419,
+          "exact_recall": 0.4634,
+          "exact_f1": 0.4524
+        },
+        "violence": {
+          "gold_support": 77,
+          "predicted_count": 79,
+          "relaxed_tp": 64,
+          "relaxed_fp": 15,
+          "relaxed_fn": 13,
+          "relaxed_precision": 0.8101,
+          "relaxed_recall": 0.8312,
+          "relaxed_f1": 0.8205,
+          "exact_tp": 22,
+          "exact_fp": 57,
+          "exact_fn": 55,
+          "exact_precision": 0.2785,
+          "exact_recall": 0.2857,
+          "exact_f1": 0.2821
+        }
+      },
+      "audited_snap_samples": [],
+      "audited_merge_samples": [
+        {
+          "category": "social isolation",
+          "span1": [
+            8,
+            19,
+            "social isolation"
+          ],
+          "span2": [
+            21,
+            34,
+            "social isolation"
+          ],
+          "merged_span": [
+            8,
+            34,
+            "social isolation"
+          ],
+          "span1_text": "lives alone",
+          "span2_text": "has no family",
+          "merged_text": "lives alone, has no family",
+          "reason": "gap_connective",
+          "gap": 2,
+          "gap_text": ", "
+        },
+        {
+          "category": "social isolation",
+          "span1": [
+            4,
+            10,
+            "social isolation"
+          ],
+          "span2": [
+            10,
+            45,
+            "social isolation"
+          ],
+          "merged_span": [
+            4,
+            45,
+            "social isolation"
+          ],
+          "span1_text": "doesn\u2019",
+          "span2_text": "t have any friends or family around",
+          "merged_text": "doesn\u2019t have any friends or family around",
+          "reason": "overlap_or_abutting",
+          "gap": 0,
+          "gap_text": ""
+        },
+        {
+          "category": "patient disability",
+          "span1": [
+            0,
+            16,
+            "patient disability"
+          ],
+          "span2": [
+            18,
+            47,
+            "patient disability"
+          ],
+          "merged_span": [
+            0,
+            47,
+            "patient disability"
+          ],
+          "span1_text": "Disabled veteran",
+          "span2_text": "needs assistance with walking",
+          "merged_text": "Disabled veteran; needs assistance with walking",
+          "reason": "gap_connective",
+          "gap": 2,
+          "gap_text": "; "
+        },
+        {
+          "category": "loss of relationship",
+          "span1": [
+            45,
+            50,
+            "loss of relationship"
+          ],
+          "span2": [
+            50,
+            57,
+            "loss of relationship"
+          ],
+          "merged_span": [
+            45,
+            57,
+            "loss of relationship"
+          ],
+          "span1_text": "wife\u2019",
+          "span2_text": "s death",
+          "merged_text": "wife\u2019s death",
+          "reason": "overlap_or_abutting",
+          "gap": 0,
+          "gap_text": ""
+        },
+        {
+          "category": "patient disability",
+          "span1": [
+            20,
+            36,
+            "patient disability"
+          ],
+          "span2": [
+            38,
+            69,
+            "patient disability"
+          ],
+          "merged_span": [
+            20,
+            69,
+            "patient disability"
+          ],
+          "span1_text": "wheelchair-bound",
+          "span2_text": "struggles with daily activities",
+          "merged_text": "wheelchair-bound, struggles with daily activities",
+          "reason": "gap_connective",
+          "gap": 2,
+          "gap_text": ", "
+        },
+        {
+          "category": "substance abuse",
+          "span1": [
+            11,
+            41,
+            "substance abuse"
+          ],
+          "span2": [
+            43,
+            62,
+            "substance abuse"
+          ],
+          "merged_span": [
+            11,
+            62,
+            "substance abuse"
+          ],
+          "span1_text": "struggling with drug addiction",
+          "span2_text": "specifically heroin",
+          "merged_text": "struggling with drug addiction, specifically heroin",
+          "reason": "gap_connective",
+          "gap": 2,
+          "gap_text": ", "
+        },
+        {
+          "category": "legal problems",
+          "span1": [
+            44,
+            46,
+            "legal problems"
+          ],
+          "span2": [
+            47,
+            54,
+            "legal problems"
+          ],
+          "merged_span": [
+            44,
+            54,
+            "legal problems"
+          ],
+          "span1_text": "ex",
+          "span2_text": "husband",
+          "merged_text": "ex-husband",
+          "reason": "gap_connective",
+          "gap": 1,
+          "gap_text": "-"
+        },
+        {
+          "category": "social isolation",
+          "span1": [
+            20,
+            43,
+            "social isolation"
+          ],
+          "span2": [
+            45,
+            72,
+            "social isolation"
+          ],
+          "merged_span": [
+            20,
+            72,
+            "social isolation"
+          ],
+          "span1_text": "of his time in his room",
+          "span2_text": "not interacting with others",
+          "merged_text": "of his time in his room, not interacting with others",
+          "reason": "gap_connective",
+          "gap": 2,
+          "gap_text": ", "
+        },
+        {
+          "category": "substance abuse",
+          "span1": [
+            16,
+            41,
+            "substance abuse"
+          ],
+          "span2": [
+            43,
+            61,
+            "substance abuse"
+          ],
+          "merged_span": [
+            16,
+            61,
+            "substance abuse"
+          ],
+          "span1_text": "daily alcohol consumption",
+          "span2_text": "particularly vodka",
+          "merged_text": "daily alcohol consumption, particularly vodka",
+          "reason": "gap_connective",
+          "gap": 2,
+          "gap_text": ", "
+        },
+        {
+          "category": "substance abuse",
+          "span1": [
+            21,
+            40,
+            "substance abuse"
+          ],
+          "span2": [
+            42,
+            94,
+            "substance abuse"
+          ],
+          "merged_span": [
+            21,
+            94,
+            "substance abuse"
+          ],
+          "span1_text": "in and out of rehab",
+          "span2_text": "struggling with addiction to prescription medication",
+          "merged_text": "in and out of rehab, struggling with addiction to prescription medication",
+          "reason": "gap_connective",
+          "gap": 2,
+          "gap_text": ", "
+        }
+      ]
+    },
+    "arm_5_strategy_b_fuse_gap6": {
+      "arm_name": "Arm 5B: Strategy B (th=0.30) + Fusion Only (gap=6)",
+      "decode_kwargs": {
+        "threshold": 0.3
+      },
+      "do_snap": false,
+      "do_fuse": true,
+      "max_gap": 6,
+      "runtime_seconds": 0.56,
+      "total_gold_spans": 1443,
+      "total_pred_spans": 1535,
+      "snaps_count": 0,
+      "merges_count": 79,
+      "invalid_spans_count": 0,
+      "overlapping_spans_count": 0,
+      "exact_matching": {
+        "tp": 776,
+        "fp": 759,
+        "fn": 667,
+        "precision": 0.5055,
+        "recall": 0.5378,
+        "f1_score": 0.5212
+      },
+      "relaxed_matching": {
+        "tp": 1258,
+        "fp": 277,
+        "fn": 185,
+        "precision": 0.8195,
+        "recall": 0.8718,
+        "f1_score": 0.8449
+      },
+      "boundary_errors_count": 482,
+      "boundary_error_rate_pct": 38.31,
+      "note_micro": {
+        "precision": 0.9105,
+        "recall": 0.9078,
+        "f1_score": 0.9092
+      },
+      "per_category": {
+        "barriers to care": {
+          "gold_support": 60,
+          "predicted_count": 53,
+          "relaxed_tp": 41,
+          "relaxed_fp": 12,
+          "relaxed_fn": 19,
+          "relaxed_precision": 0.7736,
+          "relaxed_recall": 0.6833,
+          "relaxed_f1": 0.7257,
+          "exact_tp": 19,
+          "exact_fp": 34,
+          "exact_fn": 41,
+          "exact_precision": 0.3585,
+          "exact_recall": 0.3167,
+          "exact_f1": 0.3363
+        },
+        "financial insecurity": {
+          "gold_support": 101,
+          "predicted_count": 115,
+          "relaxed_tp": 89,
+          "relaxed_fp": 26,
+          "relaxed_fn": 12,
+          "relaxed_precision": 0.7739,
+          "relaxed_recall": 0.8812,
+          "relaxed_f1": 0.8241,
+          "exact_tp": 63,
+          "exact_fp": 52,
+          "exact_fn": 38,
+          "exact_precision": 0.5478,
+          "exact_recall": 0.6238,
+          "exact_f1": 0.5833
+        },
+        "food insecurity": {
+          "gold_support": 79,
+          "predicted_count": 88,
+          "relaxed_tp": 78,
+          "relaxed_fp": 10,
+          "relaxed_fn": 1,
+          "relaxed_precision": 0.8864,
+          "relaxed_recall": 0.9873,
+          "relaxed_f1": 0.9341,
+          "exact_tp": 48,
+          "exact_fp": 40,
+          "exact_fn": 31,
+          "exact_precision": 0.5455,
+          "exact_recall": 0.6076,
+          "exact_f1": 0.5749
+        },
+        "housing insecurity": {
+          "gold_support": 101,
+          "predicted_count": 125,
+          "relaxed_tp": 95,
+          "relaxed_fp": 30,
+          "relaxed_fn": 6,
+          "relaxed_precision": 0.76,
+          "relaxed_recall": 0.9406,
+          "relaxed_f1": 0.8407,
+          "exact_tp": 48,
+          "exact_fp": 77,
+          "exact_fn": 53,
+          "exact_precision": 0.384,
+          "exact_recall": 0.4752,
+          "exact_f1": 0.4248
+        },
+        "job insecurity": {
+          "gold_support": 126,
+          "predicted_count": 143,
+          "relaxed_tp": 120,
+          "relaxed_fp": 23,
+          "relaxed_fn": 6,
+          "relaxed_precision": 0.8392,
+          "relaxed_recall": 0.9524,
+          "relaxed_f1": 0.8922,
+          "exact_tp": 87,
+          "exact_fp": 56,
+          "exact_fn": 39,
+          "exact_precision": 0.6084,
+          "exact_recall": 0.6905,
+          "exact_f1": 0.6468
+        },
+        "legal problems": {
+          "gold_support": 56,
+          "predicted_count": 57,
+          "relaxed_tp": 49,
+          "relaxed_fp": 8,
+          "relaxed_fn": 7,
+          "relaxed_precision": 0.8596,
+          "relaxed_recall": 0.875,
+          "relaxed_f1": 0.8673,
+          "exact_tp": 22,
+          "exact_fp": 35,
+          "exact_fn": 34,
+          "exact_precision": 0.386,
+          "exact_recall": 0.3929,
+          "exact_f1": 0.3894
+        },
+        "loss of relationship": {
+          "gold_support": 103,
+          "predicted_count": 107,
+          "relaxed_tp": 98,
+          "relaxed_fp": 9,
+          "relaxed_fn": 5,
+          "relaxed_precision": 0.9159,
+          "relaxed_recall": 0.9515,
+          "relaxed_f1": 0.9333,
+          "exact_tp": 66,
+          "exact_fp": 41,
+          "exact_fn": 37,
+          "exact_precision": 0.6168,
+          "exact_recall": 0.6408,
+          "exact_f1": 0.6286
+        },
+        "pain": {
+          "gold_support": 100,
+          "predicted_count": 102,
+          "relaxed_tp": 92,
+          "relaxed_fp": 10,
+          "relaxed_fn": 8,
+          "relaxed_precision": 0.902,
+          "relaxed_recall": 0.92,
+          "relaxed_f1": 0.9109,
+          "exact_tp": 65,
+          "exact_fp": 37,
+          "exact_fn": 35,
+          "exact_precision": 0.6373,
+          "exact_recall": 0.65,
+          "exact_f1": 0.6436
+        },
+        "patient disability": {
+          "gold_support": 79,
+          "predicted_count": 92,
+          "relaxed_tp": 62,
+          "relaxed_fp": 30,
+          "relaxed_fn": 17,
+          "relaxed_precision": 0.6739,
+          "relaxed_recall": 0.7848,
+          "relaxed_f1": 0.7251,
+          "exact_tp": 42,
+          "exact_fp": 50,
+          "exact_fn": 37,
+          "exact_precision": 0.4565,
+          "exact_recall": 0.5316,
+          "exact_f1": 0.4912
+        },
+        "physical isolation": {
+          "gold_support": 46,
+          "predicted_count": 31,
+          "relaxed_tp": 18,
+          "relaxed_fp": 13,
+          "relaxed_fn": 28,
+          "relaxed_precision": 0.5806,
+          "relaxed_recall": 0.3913,
+          "relaxed_f1": 0.4675,
+          "exact_tp": 9,
+          "exact_fp": 22,
+          "exact_fn": 37,
+          "exact_precision": 0.2903,
+          "exact_recall": 0.1957,
+          "exact_f1": 0.2338
+        },
+        "psychiatric symptoms or disorders": {
+          "gold_support": 135,
+          "predicted_count": 140,
+          "relaxed_tp": 115,
+          "relaxed_fp": 25,
+          "relaxed_fn": 20,
+          "relaxed_precision": 0.8214,
+          "relaxed_recall": 0.8519,
+          "relaxed_f1": 0.8364,
+          "exact_tp": 67,
+          "exact_fp": 73,
+          "exact_fn": 68,
+          "exact_precision": 0.4786,
+          "exact_recall": 0.4963,
+          "exact_f1": 0.4873
+        },
+        "social isolation": {
+          "gold_support": 159,
+          "predicted_count": 177,
+          "relaxed_tp": 147,
+          "relaxed_fp": 30,
+          "relaxed_fn": 12,
+          "relaxed_precision": 0.8305,
+          "relaxed_recall": 0.9245,
+          "relaxed_f1": 0.875,
+          "exact_tp": 103,
+          "exact_fp": 74,
+          "exact_fn": 56,
+          "exact_precision": 0.5819,
+          "exact_recall": 0.6478,
+          "exact_f1": 0.6131
+        },
+        "substance abuse": {
+          "gold_support": 139,
+          "predicted_count": 143,
+          "relaxed_tp": 127,
+          "relaxed_fp": 16,
+          "relaxed_fn": 12,
+          "relaxed_precision": 0.8881,
+          "relaxed_recall": 0.9137,
+          "relaxed_f1": 0.9007,
+          "exact_tp": 77,
+          "exact_fp": 66,
+          "exact_fn": 62,
+          "exact_precision": 0.5385,
+          "exact_recall": 0.554,
+          "exact_f1": 0.5461
+        },
+        "transitions of care": {
+          "gold_support": 82,
+          "predicted_count": 85,
+          "relaxed_tp": 63,
+          "relaxed_fp": 22,
+          "relaxed_fn": 19,
+          "relaxed_precision": 0.7412,
+          "relaxed_recall": 0.7683,
+          "relaxed_f1": 0.7545,
+          "exact_tp": 37,
+          "exact_fp": 48,
+          "exact_fn": 45,
+          "exact_precision": 0.4353,
+          "exact_recall": 0.4512,
+          "exact_f1": 0.4431
+        },
+        "violence": {
+          "gold_support": 77,
+          "predicted_count": 77,
+          "relaxed_tp": 64,
+          "relaxed_fp": 13,
+          "relaxed_fn": 13,
+          "relaxed_precision": 0.8312,
+          "relaxed_recall": 0.8312,
+          "relaxed_f1": 0.8312,
+          "exact_tp": 23,
+          "exact_fp": 54,
+          "exact_fn": 54,
+          "exact_precision": 0.2987,
+          "exact_recall": 0.2987,
+          "exact_f1": 0.2987
+        }
+      },
+      "audited_snap_samples": [],
+      "audited_merge_samples": [
+        {
+          "category": "financial insecurity",
+          "span1": [
+            45,
+            67,
+            "financial insecurity"
+          ],
+          "span2": [
+            72,
+            104,
+            "financial insecurity"
+          ],
+          "merged_span": [
+            45,
+            104,
+            "financial insecurity"
+          ],
+          "span1_text": "financial difficulties",
+          "span2_text": "inability to pay for medications",
+          "merged_text": "financial difficulties and inability to pay for medications",
+          "reason": "gap_connective",
+          "gap": 5,
+          "gap_text": " and "
+        },
+        {
+          "category": "substance abuse",
+          "span1": [
+            8,
+            41,
+            "substance abuse"
+          ],
+          "span2": [
+            46,
+            72,
+            "substance abuse"
+          ],
+          "merged_span": [
+            8,
+            72,
+            "substance abuse"
+          ],
+          "span1_text": "smokes a pack of cigarettes a day",
+          "span2_text": "drinks alcohol excessively",
+          "merged_text": "smokes a pack of cigarettes a day and drinks alcohol excessively",
+          "reason": "gap_connective",
+          "gap": 5,
+          "gap_text": " and "
+        },
+        {
+          "category": "substance abuse",
+          "span1": [
+            17,
+            37,
+            "substance abuse"
+          ],
+          "span2": [
+            42,
+            68,
+            "substance abuse"
+          ],
+          "merged_span": [
+            17,
+            68,
+            "substance abuse"
+          ],
+          "span1_text": "sober for five years",
+          "span2_text": "attends AA meetings weekly",
+          "merged_text": "sober for five years and attends AA meetings weekly",
+          "reason": "gap_connective",
+          "gap": 5,
+          "gap_text": " and "
+        },
+        {
+          "category": "barriers to care",
+          "span1": [
+            11,
+            67,
+            "barriers to care"
+          ],
+          "span2": [
+            72,
+            113,
+            "barriers to care"
+          ],
+          "merged_span": [
+            11,
+            113,
+            "barriers to care"
+          ],
+          "span1_text": "unable to reach the clinic due to lack of transportation",
+          "span2_text": "not being able to afford public transport",
+          "merged_text": "unable to reach the clinic due to lack of transportation and not being able to afford public transport",
+          "reason": "gap_connective",
+          "gap": 5,
+          "gap_text": " and "
+        },
+        {
+          "category": "substance abuse",
+          "span1": [
+            18,
+            41,
+            "substance abuse"
+          ],
+          "span2": [
+            46,
+            69,
+            "substance abuse"
+          ],
+          "merged_span": [
+            18,
+            69,
+            "substance abuse"
+          ],
+          "span1_text": "smoking marijuana daily",
+          "span2_text": "struggles with quitting",
+          "merged_text": "smoking marijuana daily and struggles with quitting",
+          "reason": "gap_connective",
+          "gap": 5,
+          "gap_text": " and "
+        },
+        {
+          "category": "social isolation",
+          "span1": [
+            59,
+            65,
+            "social isolation"
+          ],
+          "span2": [
+            69,
+            89,
+            "social isolation"
+          ],
+          "merged_span": [
+            59,
+            89,
+            "social isolation"
+          ],
+          "span1_text": "family",
+          "span2_text": "close friends nearby",
+          "merged_text": "family or close friends nearby",
+          "reason": "gap_connective",
+          "gap": 4,
+          "gap_text": " or "
+        },
+        {
+          "category": "substance abuse",
+          "span1": [
+            17,
+            49,
+            "substance abuse"
+          ],
+          "span2": [
+            54,
+            87,
+            "substance abuse"
+          ],
+          "merged_span": [
+            17,
+            87,
+            "substance abuse"
+          ],
+          "span1_text": "struggling with opioid addiction",
+          "span2_text": "recently attended a rehab program",
+          "merged_text": "struggling with opioid addiction and recently attended a rehab program",
+          "reason": "gap_connective",
+          "gap": 5,
+          "gap_text": " and "
+        },
+        {
+          "category": "substance abuse",
+          "span1": [
+            25,
+            63,
+            "substance abuse"
+          ],
+          "span2": [
+            68,
+            89,
+            "substance abuse"
+          ],
+          "merged_span": [
+            25,
+            89,
+            "substance abuse"
+          ],
+          "span1_text": "in a substance abuse treatment program",
+          "span2_text": "his alcohol addiction",
+          "merged_text": "in a substance abuse treatment program for his alcohol addiction",
+          "reason": "gap_connective",
+          "gap": 5,
+          "gap_text": " for "
+        },
+        {
+          "category": "food insecurity",
+          "span1": [
+            25,
+            38,
+            "food insecurity"
+          ],
+          "span2": [
+            43,
+            70,
+            "food insecurity"
+          ],
+          "merged_span": [
+            25,
+            70,
+            "food insecurity"
+          ],
+          "span1_text": "balanced diet",
+          "span2_text": "no shortage of food at home",
+          "merged_text": "balanced diet and no shortage of food at home",
+          "reason": "gap_connective",
+          "gap": 5,
+          "gap_text": " and "
+        },
+        {
+          "category": "job insecurity",
+          "span1": [
+            55,
+            66,
+            "job insecurity"
+          ],
+          "span2": [
+            71,
+            78,
+            "job insecurity"
+          ],
+          "merged_span": [
+            55,
+            78,
+            "job insecurity"
+          ],
+          "span1_text": "layoff from",
+          "span2_text": "factory",
+          "merged_text": "layoff from the factory",
+          "reason": "gap_connective",
+          "gap": 5,
+          "gap_text": " the "
+        },
+        {
+          "category": "housing insecurity",
+          "span1": [
+            72,
+            74,
+            "housing insecurity"
+          ],
+          "span2": [
+            79,
+            95,
+            "housing insecurity"
+          ],
+          "merged_span": [
+            72,
+            95,
+            "housing insecurity"
+          ],
+          "span1_text": "in",
+          "span2_text": "living situation",
+          "merged_text": "in her living situation",
+          "reason": "gap_connective",
+          "gap": 5,
+          "gap_text": " her "
+        },
+        {
+          "category": "social isolation",
+          "span1": [
+            8,
+            19,
+            "social isolation"
+          ],
+          "span2": [
+            21,
+            34,
+            "social isolation"
+          ],
+          "merged_span": [
+            8,
+            34,
+            "social isolation"
+          ],
+          "span1_text": "lives alone",
+          "span2_text": "has no family",
+          "merged_text": "lives alone, has no family",
+          "reason": "gap_connective",
+          "gap": 2,
+          "gap_text": ", "
+        },
+        {
+          "category": "social isolation",
+          "span1": [
+            8,
+            34,
+            "social isolation"
+          ],
+          "span2": [
+            40,
+            54,
+            "social isolation"
+          ],
+          "merged_span": [
+            8,
+            54,
+            "social isolation"
+          ],
+          "span1_text": "lives alone, has no family",
+          "span2_text": "feels isolated",
+          "merged_text": "lives alone, has no family, and feels isolated",
+          "reason": "gap_connective",
+          "gap": 6,
+          "gap_text": ", and "
+        },
+        {
+          "category": "social isolation",
+          "span1": [
+            4,
+            10,
+            "social isolation"
+          ],
+          "span2": [
+            10,
+            45,
+            "social isolation"
+          ],
+          "merged_span": [
+            4,
+            45,
+            "social isolation"
+          ],
+          "span1_text": "doesn\u2019",
+          "span2_text": "t have any friends or family around",
+          "merged_text": "doesn\u2019t have any friends or family around",
+          "reason": "overlap_or_abutting",
+          "gap": 0,
+          "gap_text": ""
+        },
+        {
+          "category": "substance abuse",
+          "span1": [
+            13,
+            28,
+            "substance abuse"
+          ],
+          "span2": [
+            33,
+            67,
+            "substance abuse"
+          ],
+          "merged_span": [
+            13,
+            67,
+            "substance abuse"
+          ],
+          "span1_text": "known alcoholic",
+          "span2_text": "smokes 2 packs of cigarettes daily",
+          "merged_text": "known alcoholic and smokes 2 packs of cigarettes daily",
+          "reason": "gap_connective",
+          "gap": 5,
+          "gap_text": " and "
+        },
+        {
+          "category": "housing insecurity",
+          "span1": [
+            72,
+            103,
+            "housing insecurity"
+          ],
+          "span2": [
+            108,
+            112,
+            "housing insecurity"
+          ],
+          "merged_span": [
+            72,
+            112,
+            "housing insecurity"
+          ],
+          "span1_text": "threat of eviction hanging over",
+          "span2_text": "head",
+          "merged_text": "threat of eviction hanging over her head",
+          "reason": "gap_connective",
+          "gap": 5,
+          "gap_text": " her "
+        },
+        {
+          "category": "housing insecurity",
+          "span1": [
+            7,
+            29,
+            "housing insecurity"
+          ],
+          "span2": [
+            34,
+            55,
+            "housing insecurity"
+          ],
+          "merged_span": [
+            7,
+            55,
+            "housing insecurity"
+          ],
+          "span1_text": "homeless at the moment",
+          "span2_text": "living on the streets",
+          "merged_text": "homeless at the moment and living on the streets",
+          "reason": "gap_connective",
+          "gap": 5,
+          "gap_text": " and "
+        },
+        {
+          "category": "violence",
+          "span1": [
+            11,
+            30,
+            "violence"
+          ],
+          "span2": [
+            33,
+            46,
+            "violence"
+          ],
+          "merged_span": [
+            11,
+            46,
+            "violence"
+          ],
+          "span1_text": "physical abuse from",
+          "span2_text": "former spouse",
+          "merged_text": "physical abuse from a former spouse",
+          "reason": "gap_connective",
+          "gap": 3,
+          "gap_text": " a "
+        },
+        {
+          "category": "social isolation",
+          "span1": [
+            28,
+            44,
+            "social isolation"
+          ],
+          "span2": [
+            49,
+            69,
+            "social isolation"
+          ],
+          "merged_span": [
+            28,
+            69,
+            "social isolation"
+          ],
+          "span1_text": "no family nearby",
+          "span2_text": "feels lonely most of",
+          "merged_text": "no family nearby and feels lonely most of",
+          "reason": "gap_connective",
+          "gap": 5,
+          "gap_text": " and "
+        },
+        {
+          "category": "social isolation",
+          "span1": [
+            28,
+            69,
+            "social isolation"
+          ],
+          "span2": [
+            74,
+            78,
+            "social isolation"
+          ],
+          "merged_span": [
+            28,
+            78,
+            "social isolation"
+          ],
+          "span1_text": "no family nearby and feels lonely most of",
+          "span2_text": "time",
+          "merged_text": "no family nearby and feels lonely most of the time",
+          "reason": "gap_connective",
+          "gap": 5,
+          "gap_text": " the "
+        }
+      ]
+    },
+    "arm_6_strategy_b_snap_fuse_gap2": {
+      "arm_name": "Arm 6A: Strategy B (th=0.30) + Snap & Fuse (gap=2)",
+      "decode_kwargs": {
+        "threshold": 0.3
+      },
+      "do_snap": true,
+      "do_fuse": true,
+      "max_gap": 2,
+      "runtime_seconds": 0.52,
+      "total_gold_spans": 1443,
+      "total_pred_spans": 1604,
+      "snaps_count": 52,
+      "merges_count": 10,
+      "invalid_spans_count": 0,
+      "overlapping_spans_count": 0,
+      "exact_matching": {
+        "tp": 807,
+        "fp": 797,
+        "fn": 636,
+        "precision": 0.5031,
+        "recall": 0.5593,
+        "f1_score": 0.5297
+      },
+      "relaxed_matching": {
+        "tp": 1274,
+        "fp": 330,
+        "fn": 169,
+        "precision": 0.7943,
+        "recall": 0.8829,
+        "f1_score": 0.8362
+      },
+      "boundary_errors_count": 467,
+      "boundary_error_rate_pct": 36.66,
+      "note_micro": {
+        "precision": 0.9105,
+        "recall": 0.9078,
+        "f1_score": 0.9092
+      },
+      "per_category": {
+        "barriers to care": {
+          "gold_support": 60,
+          "predicted_count": 55,
+          "relaxed_tp": 41,
+          "relaxed_fp": 14,
+          "relaxed_fn": 19,
+          "relaxed_precision": 0.7455,
+          "relaxed_recall": 0.6833,
+          "relaxed_f1": 0.713,
+          "exact_tp": 20,
+          "exact_fp": 35,
+          "exact_fn": 40,
+          "exact_precision": 0.3636,
+          "exact_recall": 0.3333,
+          "exact_f1": 0.3478
+        },
+        "financial insecurity": {
+          "gold_support": 101,
+          "predicted_count": 117,
+          "relaxed_tp": 89,
+          "relaxed_fp": 28,
+          "relaxed_fn": 12,
+          "relaxed_precision": 0.7607,
+          "relaxed_recall": 0.8812,
+          "relaxed_f1": 0.8165,
+          "exact_tp": 66,
+          "exact_fp": 51,
+          "exact_fn": 35,
+          "exact_precision": 0.5641,
+          "exact_recall": 0.6535,
+          "exact_f1": 0.6055
+        },
+        "food insecurity": {
+          "gold_support": 79,
+          "predicted_count": 93,
+          "relaxed_tp": 79,
+          "relaxed_fp": 14,
+          "relaxed_fn": 0,
+          "relaxed_precision": 0.8495,
+          "relaxed_recall": 1.0,
+          "relaxed_f1": 0.9186,
+          "exact_tp": 51,
+          "exact_fp": 42,
+          "exact_fn": 28,
+          "exact_precision": 0.5484,
+          "exact_recall": 0.6456,
+          "exact_f1": 0.593
+        },
+        "housing insecurity": {
+          "gold_support": 101,
+          "predicted_count": 137,
+          "relaxed_tp": 96,
+          "relaxed_fp": 41,
+          "relaxed_fn": 5,
+          "relaxed_precision": 0.7007,
+          "relaxed_recall": 0.9505,
+          "relaxed_f1": 0.8067,
+          "exact_tp": 52,
+          "exact_fp": 85,
+          "exact_fn": 49,
+          "exact_precision": 0.3796,
+          "exact_recall": 0.5149,
+          "exact_f1": 0.437
+        },
+        "job insecurity": {
+          "gold_support": 126,
+          "predicted_count": 145,
+          "relaxed_tp": 120,
+          "relaxed_fp": 25,
+          "relaxed_fn": 6,
+          "relaxed_precision": 0.8276,
+          "relaxed_recall": 0.9524,
+          "relaxed_f1": 0.8856,
+          "exact_tp": 88,
+          "exact_fp": 57,
+          "exact_fn": 38,
+          "exact_precision": 0.6069,
+          "exact_recall": 0.6984,
+          "exact_f1": 0.6494
+        },
+        "legal problems": {
+          "gold_support": 56,
+          "predicted_count": 61,
+          "relaxed_tp": 49,
+          "relaxed_fp": 12,
+          "relaxed_fn": 7,
+          "relaxed_precision": 0.8033,
+          "relaxed_recall": 0.875,
+          "relaxed_f1": 0.8376,
+          "exact_tp": 23,
+          "exact_fp": 38,
+          "exact_fn": 33,
+          "exact_precision": 0.377,
+          "exact_recall": 0.4107,
+          "exact_f1": 0.3932
+        },
+        "loss of relationship": {
+          "gold_support": 103,
+          "predicted_count": 108,
+          "relaxed_tp": 98,
+          "relaxed_fp": 10,
+          "relaxed_fn": 5,
+          "relaxed_precision": 0.9074,
+          "relaxed_recall": 0.9515,
+          "relaxed_f1": 0.9289,
+          "exact_tp": 66,
+          "exact_fp": 42,
+          "exact_fn": 37,
+          "exact_precision": 0.6111,
+          "exact_recall": 0.6408,
+          "exact_f1": 0.6256
+        },
+        "pain": {
+          "gold_support": 100,
+          "predicted_count": 104,
+          "relaxed_tp": 92,
+          "relaxed_fp": 12,
+          "relaxed_fn": 8,
+          "relaxed_precision": 0.8846,
+          "relaxed_recall": 0.92,
+          "relaxed_f1": 0.902,
+          "exact_tp": 66,
+          "exact_fp": 38,
+          "exact_fn": 34,
+          "exact_precision": 0.6346,
+          "exact_recall": 0.66,
+          "exact_f1": 0.6471
+        },
+        "patient disability": {
+          "gold_support": 79,
+          "predicted_count": 97,
+          "relaxed_tp": 62,
+          "relaxed_fp": 35,
+          "relaxed_fn": 17,
+          "relaxed_precision": 0.6392,
+          "relaxed_recall": 0.7848,
+          "relaxed_f1": 0.7045,
+          "exact_tp": 39,
+          "exact_fp": 58,
+          "exact_fn": 40,
+          "exact_precision": 0.4021,
+          "exact_recall": 0.4937,
+          "exact_f1": 0.4432
+        },
+        "physical isolation": {
+          "gold_support": 46,
+          "predicted_count": 31,
+          "relaxed_tp": 18,
+          "relaxed_fp": 13,
+          "relaxed_fn": 28,
+          "relaxed_precision": 0.5806,
+          "relaxed_recall": 0.3913,
+          "relaxed_f1": 0.4675,
+          "exact_tp": 9,
+          "exact_fp": 22,
+          "exact_fn": 37,
+          "exact_precision": 0.2903,
+          "exact_recall": 0.1957,
+          "exact_f1": 0.2338
+        },
+        "psychiatric symptoms or disorders": {
+          "gold_support": 135,
+          "predicted_count": 142,
+          "relaxed_tp": 115,
+          "relaxed_fp": 27,
+          "relaxed_fn": 20,
+          "relaxed_precision": 0.8099,
+          "relaxed_recall": 0.8519,
+          "relaxed_f1": 0.8303,
+          "exact_tp": 68,
+          "exact_fp": 74,
+          "exact_fn": 67,
+          "exact_precision": 0.4789,
+          "exact_recall": 0.5037,
+          "exact_f1": 0.491
+        },
+        "social isolation": {
+          "gold_support": 159,
+          "predicted_count": 193,
+          "relaxed_tp": 152,
+          "relaxed_fp": 41,
+          "relaxed_fn": 7,
+          "relaxed_precision": 0.7876,
+          "relaxed_recall": 0.956,
+          "relaxed_f1": 0.8636,
+          "exact_tp": 109,
+          "exact_fp": 84,
+          "exact_fn": 50,
+          "exact_precision": 0.5648,
+          "exact_recall": 0.6855,
+          "exact_f1": 0.6193
+        },
+        "substance abuse": {
+          "gold_support": 139,
+          "predicted_count": 156,
+          "relaxed_tp": 135,
+          "relaxed_fp": 21,
+          "relaxed_fn": 4,
+          "relaxed_precision": 0.8654,
+          "relaxed_recall": 0.9712,
+          "relaxed_f1": 0.9153,
+          "exact_tp": 90,
+          "exact_fp": 66,
+          "exact_fn": 49,
+          "exact_precision": 0.5769,
+          "exact_recall": 0.6475,
+          "exact_f1": 0.6102
+        },
+        "transitions of care": {
+          "gold_support": 82,
+          "predicted_count": 86,
+          "relaxed_tp": 64,
+          "relaxed_fp": 22,
+          "relaxed_fn": 18,
+          "relaxed_precision": 0.7442,
+          "relaxed_recall": 0.7805,
+          "relaxed_f1": 0.7619,
+          "exact_tp": 38,
+          "exact_fp": 48,
+          "exact_fn": 44,
+          "exact_precision": 0.4419,
+          "exact_recall": 0.4634,
+          "exact_f1": 0.4524
+        },
+        "violence": {
+          "gold_support": 77,
+          "predicted_count": 79,
+          "relaxed_tp": 64,
+          "relaxed_fp": 15,
+          "relaxed_fn": 13,
+          "relaxed_precision": 0.8101,
+          "relaxed_recall": 0.8312,
+          "relaxed_f1": 0.8205,
+          "exact_tp": 22,
+          "exact_fp": 57,
+          "exact_fn": 55,
+          "exact_precision": 0.2785,
+          "exact_recall": 0.2857,
+          "exact_f1": 0.2821
+        }
+      },
+      "audited_snap_samples": [
+        {
+          "category": "legal problems",
+          "before": [
+            5,
+            34,
+            "legal problems"
+          ],
+          "after": [
+            5,
+            30,
+            "legal problems"
+          ],
+          "before_text": "facing possible jail time for",
+          "after_text": "facing possible jail time"
+        },
+        {
+          "category": "loss of relationship",
+          "before": [
+            61,
+            80,
+            "loss of relationship"
+          ],
+          "after": [
+            61,
+            77,
+            "loss of relationship"
+          ],
+          "before_text": "loss of a spouse to",
+          "after_text": "loss of a spouse"
+        },
+        {
+          "category": "social isolation",
+          "before": [
+            22,
+            37,
+            "social isolation"
+          ],
+          "after": [
+            22,
+            34,
+            "social isolation"
+          ],
+          "before_text": "living alone in",
+          "after_text": "living alone"
+        },
+        {
+          "category": "food insecurity",
+          "before": [
+            43,
+            82,
+            "food insecurity"
+          ],
+          "after": [
+            43,
+            78,
+            "food insecurity"
+          ],
+          "before_text": "not having enough money to buy food for",
+          "after_text": "not having enough money to buy food"
+        },
+        {
+          "category": "psychiatric symptoms or disorders",
+          "before": [
+            14,
+            29,
+            "psychiatric symptoms or disorders"
+          ],
+          "after": [
+            14,
+            25,
+            "psychiatric symptoms or disorders"
+          ],
+          "before_text": "overwhelmed and",
+          "after_text": "overwhelmed"
+        },
+        {
+          "category": "physical isolation",
+          "before": [
+            60,
+            81,
+            "physical isolation"
+          ],
+          "after": [
+            60,
+            77,
+            "physical isolation"
+          ],
+          "before_text": "stays in his room for",
+          "after_text": "stays in his room"
+        },
+        {
+          "category": "job insecurity",
+          "before": [
+            55,
+            66,
+            "job insecurity"
+          ],
+          "after": [
+            55,
+            61,
+            "job insecurity"
+          ],
+          "before_text": "layoff from",
+          "after_text": "layoff"
+        },
+        {
+          "category": "transitions of care",
+          "before": [
+            16,
+            28,
+            "transitions of care"
+          ],
+          "after": [
+            16,
+            24,
+            "transitions of care"
+          ],
+          "before_text": "admitted for",
+          "after_text": "admitted"
+        },
+        {
+          "category": "physical isolation",
+          "before": [
+            19,
+            35,
+            "physical isolation"
+          ],
+          "after": [
+            19,
+            31,
+            "physical isolation"
+          ],
+          "before_text": "can't go out due",
+          "after_text": "can't go out"
+        },
+        {
+          "category": "violence",
+          "before": [
+            11,
+            30,
+            "violence"
+          ],
+          "after": [
+            11,
+            25,
+            "violence"
+          ],
+          "before_text": "physical abuse from",
+          "after_text": "physical abuse"
+        },
+        {
+          "category": "psychiatric symptoms or disorders",
+          "before": [
+            11,
+            33,
+            "psychiatric symptoms or disorders"
+          ],
+          "after": [
+            11,
+            29,
+            "psychiatric symptoms or disorders"
+          ],
+          "before_text": "severely depressed and",
+          "after_text": "severely depressed"
+        },
+        {
+          "category": "patient disability",
+          "before": [
+            10,
+            30,
+            "patient disability"
+          ],
+          "after": [
+            10,
+            27,
+            "patient disability"
+          ],
+          "before_text": "wheelchair access at",
+          "after_text": "wheelchair access"
+        },
+        {
+          "category": "social isolation",
+          "before": [
+            49,
+            69,
+            "social isolation"
+          ],
+          "after": [
+            49,
+            66,
+            "social isolation"
+          ],
+          "before_text": "feels lonely most of",
+          "after_text": "feels lonely most"
+        },
+        {
+          "category": "violence",
+          "before": [
+            31,
+            69,
+            "violence"
+          ],
+          "after": [
+            31,
+            64,
+            "violence"
+          ],
+          "before_text": "process traumatic war experiences from",
+          "after_text": "process traumatic war experiences"
+        },
+        {
+          "category": "substance abuse",
+          "before": [
+            55,
+            71,
+            "substance abuse"
+          ],
+          "after": [
+            55,
+            67,
+            "substance abuse"
+          ],
+          "before_text": "not drinking for",
+          "after_text": "not drinking"
+        },
+        {
+          "category": "food insecurity",
+          "before": [
+            13,
+            53,
+            "food insecurity"
+          ],
+          "after": [
+            14,
+            53,
+            "food insecurity"
+          ],
+          "before_text": "'t have enough money to buy healthy food",
+          "after_text": "t have enough money to buy healthy food"
+        },
+        {
+          "category": "barriers to care",
+          "before": [
+            56,
+            72,
+            "barriers to care"
+          ],
+          "after": [
+            56,
+            69,
+            "barriers to care"
+          ],
+          "before_text": "skipped doses to",
+          "after_text": "skipped doses"
+        },
+        {
+          "category": "physical isolation",
+          "before": [
+            77,
+            109,
+            "physical isolation"
+          ],
+          "after": [
+            77,
+            105,
+            "physical isolation"
+          ],
+          "before_text": "struggles to leave the house due",
+          "after_text": "struggles to leave the house"
+        },
+        {
+          "category": "legal problems",
+          "before": [
+            60,
+            84,
+            "legal problems"
+          ],
+          "after": [
+            60,
+            80,
+            "legal problems"
+          ],
+          "before_text": "seeking legal advice for",
+          "after_text": "seeking legal advice"
+        },
+        {
+          "category": "barriers to care",
+          "before": [
+            28,
+            46,
+            "barriers to care"
+          ],
+          "after": [
+            28,
+            42,
+            "barriers to care"
+          ],
+          "before_text": "no one to care for",
+          "after_text": "no one to care"
+        }
+      ],
+      "audited_merge_samples": [
+        {
+          "category": "social isolation",
+          "span1": [
+            8,
+            19,
+            "social isolation"
+          ],
+          "span2": [
+            21,
+            34,
+            "social isolation"
+          ],
+          "merged_span": [
+            8,
+            34,
+            "social isolation"
+          ],
+          "span1_text": "lives alone",
+          "span2_text": "has no family",
+          "merged_text": "lives alone, has no family",
+          "reason": "gap_connective",
+          "gap": 2,
+          "gap_text": ", "
+        },
+        {
+          "category": "social isolation",
+          "span1": [
+            4,
+            10,
+            "social isolation"
+          ],
+          "span2": [
+            10,
+            45,
+            "social isolation"
+          ],
+          "merged_span": [
+            4,
+            45,
+            "social isolation"
+          ],
+          "span1_text": "doesn\u2019",
+          "span2_text": "t have any friends or family around",
+          "merged_text": "doesn\u2019t have any friends or family around",
+          "reason": "overlap_or_abutting",
+          "gap": 0,
+          "gap_text": ""
+        },
+        {
+          "category": "patient disability",
+          "span1": [
+            0,
+            16,
+            "patient disability"
+          ],
+          "span2": [
+            18,
+            47,
+            "patient disability"
+          ],
+          "merged_span": [
+            0,
+            47,
+            "patient disability"
+          ],
+          "span1_text": "Disabled veteran",
+          "span2_text": "needs assistance with walking",
+          "merged_text": "Disabled veteran; needs assistance with walking",
+          "reason": "gap_connective",
+          "gap": 2,
+          "gap_text": "; "
+        },
+        {
+          "category": "loss of relationship",
+          "span1": [
+            45,
+            50,
+            "loss of relationship"
+          ],
+          "span2": [
+            50,
+            57,
+            "loss of relationship"
+          ],
+          "merged_span": [
+            45,
+            57,
+            "loss of relationship"
+          ],
+          "span1_text": "wife\u2019",
+          "span2_text": "s death",
+          "merged_text": "wife\u2019s death",
+          "reason": "overlap_or_abutting",
+          "gap": 0,
+          "gap_text": ""
+        },
+        {
+          "category": "patient disability",
+          "span1": [
+            20,
+            36,
+            "patient disability"
+          ],
+          "span2": [
+            38,
+            69,
+            "patient disability"
+          ],
+          "merged_span": [
+            20,
+            69,
+            "patient disability"
+          ],
+          "span1_text": "wheelchair-bound",
+          "span2_text": "struggles with daily activities",
+          "merged_text": "wheelchair-bound, struggles with daily activities",
+          "reason": "gap_connective",
+          "gap": 2,
+          "gap_text": ", "
+        },
+        {
+          "category": "substance abuse",
+          "span1": [
+            11,
+            41,
+            "substance abuse"
+          ],
+          "span2": [
+            43,
+            62,
+            "substance abuse"
+          ],
+          "merged_span": [
+            11,
+            62,
+            "substance abuse"
+          ],
+          "span1_text": "struggling with drug addiction",
+          "span2_text": "specifically heroin",
+          "merged_text": "struggling with drug addiction, specifically heroin",
+          "reason": "gap_connective",
+          "gap": 2,
+          "gap_text": ", "
+        },
+        {
+          "category": "legal problems",
+          "span1": [
+            44,
+            46,
+            "legal problems"
+          ],
+          "span2": [
+            47,
+            54,
+            "legal problems"
+          ],
+          "merged_span": [
+            44,
+            54,
+            "legal problems"
+          ],
+          "span1_text": "ex",
+          "span2_text": "husband",
+          "merged_text": "ex-husband",
+          "reason": "gap_connective",
+          "gap": 1,
+          "gap_text": "-"
+        },
+        {
+          "category": "social isolation",
+          "span1": [
+            20,
+            43,
+            "social isolation"
+          ],
+          "span2": [
+            45,
+            72,
+            "social isolation"
+          ],
+          "merged_span": [
+            20,
+            72,
+            "social isolation"
+          ],
+          "span1_text": "of his time in his room",
+          "span2_text": "not interacting with others",
+          "merged_text": "of his time in his room, not interacting with others",
+          "reason": "gap_connective",
+          "gap": 2,
+          "gap_text": ", "
+        },
+        {
+          "category": "substance abuse",
+          "span1": [
+            16,
+            41,
+            "substance abuse"
+          ],
+          "span2": [
+            43,
+            61,
+            "substance abuse"
+          ],
+          "merged_span": [
+            16,
+            61,
+            "substance abuse"
+          ],
+          "span1_text": "daily alcohol consumption",
+          "span2_text": "particularly vodka",
+          "merged_text": "daily alcohol consumption, particularly vodka",
+          "reason": "gap_connective",
+          "gap": 2,
+          "gap_text": ", "
+        },
+        {
+          "category": "substance abuse",
+          "span1": [
+            21,
+            40,
+            "substance abuse"
+          ],
+          "span2": [
+            42,
+            94,
+            "substance abuse"
+          ],
+          "merged_span": [
+            21,
+            94,
+            "substance abuse"
+          ],
+          "span1_text": "in and out of rehab",
+          "span2_text": "struggling with addiction to prescription medication",
+          "merged_text": "in and out of rehab, struggling with addiction to prescription medication",
+          "reason": "gap_connective",
+          "gap": 2,
+          "gap_text": ", "
+        }
+      ]
+    },
+    "arm_6_strategy_b_snap_fuse_gap6": {
+      "arm_name": "Arm 6B: Strategy B (th=0.30) + Snap & Fuse (gap=6)",
+      "decode_kwargs": {
+        "threshold": 0.3
+      },
+      "do_snap": true,
+      "do_fuse": true,
+      "max_gap": 6,
+      "runtime_seconds": 0.51,
+      "total_gold_spans": 1443,
+      "total_pred_spans": 1548,
+      "snaps_count": 52,
+      "merges_count": 66,
+      "invalid_spans_count": 0,
+      "overlapping_spans_count": 0,
+      "exact_matching": {
+        "tp": 784,
+        "fp": 764,
+        "fn": 659,
+        "precision": 0.5065,
+        "recall": 0.5433,
+        "f1_score": 0.5242
+      },
+      "relaxed_matching": {
+        "tp": 1258,
+        "fp": 290,
+        "fn": 185,
+        "precision": 0.8127,
+        "recall": 0.8718,
+        "f1_score": 0.8412
+      },
+      "boundary_errors_count": 474,
+      "boundary_error_rate_pct": 37.68,
+      "note_micro": {
+        "precision": 0.9105,
+        "recall": 0.9078,
+        "f1_score": 0.9092
+      },
+      "per_category": {
+        "barriers to care": {
+          "gold_support": 60,
+          "predicted_count": 54,
+          "relaxed_tp": 41,
+          "relaxed_fp": 13,
+          "relaxed_fn": 19,
+          "relaxed_precision": 0.7593,
+          "relaxed_recall": 0.6833,
+          "relaxed_f1": 0.7193,
+          "exact_tp": 20,
+          "exact_fp": 34,
+          "exact_fn": 40,
+          "exact_precision": 0.3704,
+          "exact_recall": 0.3333,
+          "exact_f1": 0.3509
+        },
+        "financial insecurity": {
+          "gold_support": 101,
+          "predicted_count": 115,
+          "relaxed_tp": 89,
+          "relaxed_fp": 26,
+          "relaxed_fn": 12,
+          "relaxed_precision": 0.7739,
+          "relaxed_recall": 0.8812,
+          "relaxed_f1": 0.8241,
+          "exact_tp": 64,
+          "exact_fp": 51,
+          "exact_fn": 37,
+          "exact_precision": 0.5565,
+          "exact_recall": 0.6337,
+          "exact_f1": 0.5926
+        },
+        "food insecurity": {
+          "gold_support": 79,
+          "predicted_count": 90,
+          "relaxed_tp": 78,
+          "relaxed_fp": 12,
+          "relaxed_fn": 1,
+          "relaxed_precision": 0.8667,
+          "relaxed_recall": 0.9873,
+          "relaxed_f1": 0.9231,
+          "exact_tp": 49,
+          "exact_fp": 41,
+          "exact_fn": 30,
+          "exact_precision": 0.5444,
+          "exact_recall": 0.6203,
+          "exact_f1": 0.5799
+        },
+        "housing insecurity": {
+          "gold_support": 101,
+          "predicted_count": 128,
+          "relaxed_tp": 95,
+          "relaxed_fp": 33,
+          "relaxed_fn": 6,
+          "relaxed_precision": 0.7422,
+          "relaxed_recall": 0.9406,
+          "relaxed_f1": 0.8297,
+          "exact_tp": 49,
+          "exact_fp": 79,
+          "exact_fn": 52,
+          "exact_precision": 0.3828,
+          "exact_recall": 0.4851,
+          "exact_f1": 0.4279
+        },
+        "job insecurity": {
+          "gold_support": 126,
+          "predicted_count": 144,
+          "relaxed_tp": 120,
+          "relaxed_fp": 24,
+          "relaxed_fn": 6,
+          "relaxed_precision": 0.8333,
+          "relaxed_recall": 0.9524,
+          "relaxed_f1": 0.8889,
+          "exact_tp": 87,
+          "exact_fp": 57,
+          "exact_fn": 39,
+          "exact_precision": 0.6042,
+          "exact_recall": 0.6905,
+          "exact_f1": 0.6444
+        },
+        "legal problems": {
+          "gold_support": 56,
+          "predicted_count": 58,
+          "relaxed_tp": 49,
+          "relaxed_fp": 9,
+          "relaxed_fn": 7,
+          "relaxed_precision": 0.8448,
+          "relaxed_recall": 0.875,
+          "relaxed_f1": 0.8596,
+          "exact_tp": 23,
+          "exact_fp": 35,
+          "exact_fn": 33,
+          "exact_precision": 0.3966,
+          "exact_recall": 0.4107,
+          "exact_f1": 0.4035
+        },
+        "loss of relationship": {
+          "gold_support": 103,
+          "predicted_count": 107,
+          "relaxed_tp": 98,
+          "relaxed_fp": 9,
+          "relaxed_fn": 5,
+          "relaxed_precision": 0.9159,
+          "relaxed_recall": 0.9515,
+          "relaxed_f1": 0.9333,
+          "exact_tp": 67,
+          "exact_fp": 40,
+          "exact_fn": 36,
+          "exact_precision": 0.6262,
+          "exact_recall": 0.6505,
+          "exact_f1": 0.6381
+        },
+        "pain": {
+          "gold_support": 100,
+          "predicted_count": 102,
+          "relaxed_tp": 92,
+          "relaxed_fp": 10,
+          "relaxed_fn": 8,
+          "relaxed_precision": 0.902,
+          "relaxed_recall": 0.92,
+          "relaxed_f1": 0.9109,
+          "exact_tp": 65,
+          "exact_fp": 37,
+          "exact_fn": 35,
+          "exact_precision": 0.6373,
+          "exact_recall": 0.65,
+          "exact_f1": 0.6436
+        },
+        "patient disability": {
+          "gold_support": 79,
+          "predicted_count": 92,
+          "relaxed_tp": 62,
+          "relaxed_fp": 30,
+          "relaxed_fn": 17,
+          "relaxed_precision": 0.6739,
+          "relaxed_recall": 0.7848,
+          "relaxed_f1": 0.7251,
+          "exact_tp": 42,
+          "exact_fp": 50,
+          "exact_fn": 37,
+          "exact_precision": 0.4565,
+          "exact_recall": 0.5316,
+          "exact_f1": 0.4912
+        },
+        "physical isolation": {
+          "gold_support": 46,
+          "predicted_count": 31,
+          "relaxed_tp": 18,
+          "relaxed_fp": 13,
+          "relaxed_fn": 28,
+          "relaxed_precision": 0.5806,
+          "relaxed_recall": 0.3913,
+          "relaxed_f1": 0.4675,
+          "exact_tp": 9,
+          "exact_fp": 22,
+          "exact_fn": 37,
+          "exact_precision": 0.2903,
+          "exact_recall": 0.1957,
+          "exact_f1": 0.2338
+        },
+        "psychiatric symptoms or disorders": {
+          "gold_support": 135,
+          "predicted_count": 140,
+          "relaxed_tp": 115,
+          "relaxed_fp": 25,
+          "relaxed_fn": 20,
+          "relaxed_precision": 0.8214,
+          "relaxed_recall": 0.8519,
+          "relaxed_f1": 0.8364,
+          "exact_tp": 69,
+          "exact_fp": 71,
+          "exact_fn": 66,
+          "exact_precision": 0.4929,
+          "exact_recall": 0.5111,
+          "exact_f1": 0.5018
+        },
+        "social isolation": {
+          "gold_support": 159,
+          "predicted_count": 180,
+          "relaxed_tp": 147,
+          "relaxed_fp": 33,
+          "relaxed_fn": 12,
+          "relaxed_precision": 0.8167,
+          "relaxed_recall": 0.9245,
+          "relaxed_f1": 0.8673,
+          "exact_tp": 105,
+          "exact_fp": 75,
+          "exact_fn": 54,
+          "exact_precision": 0.5833,
+          "exact_recall": 0.6604,
+          "exact_f1": 0.6195
+        },
+        "substance abuse": {
+          "gold_support": 139,
+          "predicted_count": 144,
+          "relaxed_tp": 127,
+          "relaxed_fp": 17,
+          "relaxed_fn": 12,
+          "relaxed_precision": 0.8819,
+          "relaxed_recall": 0.9137,
+          "relaxed_f1": 0.8975,
+          "exact_tp": 76,
+          "exact_fp": 68,
+          "exact_fn": 63,
+          "exact_precision": 0.5278,
+          "exact_recall": 0.5468,
+          "exact_f1": 0.5371
+        },
+        "transitions of care": {
+          "gold_support": 82,
+          "predicted_count": 85,
+          "relaxed_tp": 63,
+          "relaxed_fp": 22,
+          "relaxed_fn": 19,
+          "relaxed_precision": 0.7412,
+          "relaxed_recall": 0.7683,
+          "relaxed_f1": 0.7545,
+          "exact_tp": 37,
+          "exact_fp": 48,
+          "exact_fn": 45,
+          "exact_precision": 0.4353,
+          "exact_recall": 0.4512,
+          "exact_f1": 0.4431
+        },
+        "violence": {
+          "gold_support": 77,
+          "predicted_count": 78,
+          "relaxed_tp": 64,
+          "relaxed_fp": 14,
+          "relaxed_fn": 13,
+          "relaxed_precision": 0.8205,
+          "relaxed_recall": 0.8312,
+          "relaxed_f1": 0.8258,
+          "exact_tp": 22,
+          "exact_fp": 56,
+          "exact_fn": 55,
+          "exact_precision": 0.2821,
+          "exact_recall": 0.2857,
+          "exact_f1": 0.2839
+        }
+      },
+      "audited_snap_samples": [
+        {
+          "category": "legal problems",
+          "before": [
+            5,
+            34,
+            "legal problems"
+          ],
+          "after": [
+            5,
+            30,
+            "legal problems"
+          ],
+          "before_text": "facing possible jail time for",
+          "after_text": "facing possible jail time"
+        },
+        {
+          "category": "loss of relationship",
+          "before": [
+            61,
+            80,
+            "loss of relationship"
+          ],
+          "after": [
+            61,
+            77,
+            "loss of relationship"
+          ],
+          "before_text": "loss of a spouse to",
+          "after_text": "loss of a spouse"
+        },
+        {
+          "category": "social isolation",
+          "before": [
+            22,
+            37,
+            "social isolation"
+          ],
+          "after": [
+            22,
+            34,
+            "social isolation"
+          ],
+          "before_text": "living alone in",
+          "after_text": "living alone"
+        },
+        {
+          "category": "food insecurity",
+          "before": [
+            43,
+            82,
+            "food insecurity"
+          ],
+          "after": [
+            43,
+            78,
+            "food insecurity"
+          ],
+          "before_text": "not having enough money to buy food for",
+          "after_text": "not having enough money to buy food"
+        },
+        {
+          "category": "psychiatric symptoms or disorders",
+          "before": [
+            14,
+            29,
+            "psychiatric symptoms or disorders"
+          ],
+          "after": [
+            14,
+            25,
+            "psychiatric symptoms or disorders"
+          ],
+          "before_text": "overwhelmed and",
+          "after_text": "overwhelmed"
+        },
+        {
+          "category": "physical isolation",
+          "before": [
+            60,
+            81,
+            "physical isolation"
+          ],
+          "after": [
+            60,
+            77,
+            "physical isolation"
+          ],
+          "before_text": "stays in his room for",
+          "after_text": "stays in his room"
+        },
+        {
+          "category": "job insecurity",
+          "before": [
+            55,
+            66,
+            "job insecurity"
+          ],
+          "after": [
+            55,
+            61,
+            "job insecurity"
+          ],
+          "before_text": "layoff from",
+          "after_text": "layoff"
+        },
+        {
+          "category": "transitions of care",
+          "before": [
+            16,
+            28,
+            "transitions of care"
+          ],
+          "after": [
+            16,
+            24,
+            "transitions of care"
+          ],
+          "before_text": "admitted for",
+          "after_text": "admitted"
+        },
+        {
+          "category": "physical isolation",
+          "before": [
+            19,
+            35,
+            "physical isolation"
+          ],
+          "after": [
+            19,
+            31,
+            "physical isolation"
+          ],
+          "before_text": "can't go out due",
+          "after_text": "can't go out"
+        },
+        {
+          "category": "violence",
+          "before": [
+            11,
+            30,
+            "violence"
+          ],
+          "after": [
+            11,
+            25,
+            "violence"
+          ],
+          "before_text": "physical abuse from",
+          "after_text": "physical abuse"
+        },
+        {
+          "category": "psychiatric symptoms or disorders",
+          "before": [
+            11,
+            33,
+            "psychiatric symptoms or disorders"
+          ],
+          "after": [
+            11,
+            29,
+            "psychiatric symptoms or disorders"
+          ],
+          "before_text": "severely depressed and",
+          "after_text": "severely depressed"
+        },
+        {
+          "category": "patient disability",
+          "before": [
+            10,
+            30,
+            "patient disability"
+          ],
+          "after": [
+            10,
+            27,
+            "patient disability"
+          ],
+          "before_text": "wheelchair access at",
+          "after_text": "wheelchair access"
+        },
+        {
+          "category": "social isolation",
+          "before": [
+            49,
+            69,
+            "social isolation"
+          ],
+          "after": [
+            49,
+            66,
+            "social isolation"
+          ],
+          "before_text": "feels lonely most of",
+          "after_text": "feels lonely most"
+        },
+        {
+          "category": "violence",
+          "before": [
+            31,
+            69,
+            "violence"
+          ],
+          "after": [
+            31,
+            64,
+            "violence"
+          ],
+          "before_text": "process traumatic war experiences from",
+          "after_text": "process traumatic war experiences"
+        },
+        {
+          "category": "substance abuse",
+          "before": [
+            55,
+            71,
+            "substance abuse"
+          ],
+          "after": [
+            55,
+            67,
+            "substance abuse"
+          ],
+          "before_text": "not drinking for",
+          "after_text": "not drinking"
+        },
+        {
+          "category": "food insecurity",
+          "before": [
+            13,
+            53,
+            "food insecurity"
+          ],
+          "after": [
+            14,
+            53,
+            "food insecurity"
+          ],
+          "before_text": "'t have enough money to buy healthy food",
+          "after_text": "t have enough money to buy healthy food"
+        },
+        {
+          "category": "barriers to care",
+          "before": [
+            56,
+            72,
+            "barriers to care"
+          ],
+          "after": [
+            56,
+            69,
+            "barriers to care"
+          ],
+          "before_text": "skipped doses to",
+          "after_text": "skipped doses"
+        },
+        {
+          "category": "physical isolation",
+          "before": [
+            77,
+            109,
+            "physical isolation"
+          ],
+          "after": [
+            77,
+            105,
+            "physical isolation"
+          ],
+          "before_text": "struggles to leave the house due",
+          "after_text": "struggles to leave the house"
+        },
+        {
+          "category": "legal problems",
+          "before": [
+            60,
+            84,
+            "legal problems"
+          ],
+          "after": [
+            60,
+            80,
+            "legal problems"
+          ],
+          "before_text": "seeking legal advice for",
+          "after_text": "seeking legal advice"
+        },
+        {
+          "category": "barriers to care",
+          "before": [
+            28,
+            46,
+            "barriers to care"
+          ],
+          "after": [
+            28,
+            42,
+            "barriers to care"
+          ],
+          "before_text": "no one to care for",
+          "after_text": "no one to care"
+        }
+      ],
+      "audited_merge_samples": [
+        {
+          "category": "financial insecurity",
+          "span1": [
+            45,
+            67,
+            "financial insecurity"
+          ],
+          "span2": [
+            72,
+            104,
+            "financial insecurity"
+          ],
+          "merged_span": [
+            45,
+            104,
+            "financial insecurity"
+          ],
+          "span1_text": "financial difficulties",
+          "span2_text": "inability to pay for medications",
+          "merged_text": "financial difficulties and inability to pay for medications",
+          "reason": "gap_connective",
+          "gap": 5,
+          "gap_text": " and "
+        },
+        {
+          "category": "substance abuse",
+          "span1": [
+            8,
+            41,
+            "substance abuse"
+          ],
+          "span2": [
+            46,
+            72,
+            "substance abuse"
+          ],
+          "merged_span": [
+            8,
+            72,
+            "substance abuse"
+          ],
+          "span1_text": "smokes a pack of cigarettes a day",
+          "span2_text": "drinks alcohol excessively",
+          "merged_text": "smokes a pack of cigarettes a day and drinks alcohol excessively",
+          "reason": "gap_connective",
+          "gap": 5,
+          "gap_text": " and "
+        },
+        {
+          "category": "substance abuse",
+          "span1": [
+            17,
+            37,
+            "substance abuse"
+          ],
+          "span2": [
+            42,
+            68,
+            "substance abuse"
+          ],
+          "merged_span": [
+            17,
+            68,
+            "substance abuse"
+          ],
+          "span1_text": "sober for five years",
+          "span2_text": "attends AA meetings weekly",
+          "merged_text": "sober for five years and attends AA meetings weekly",
+          "reason": "gap_connective",
+          "gap": 5,
+          "gap_text": " and "
+        },
+        {
+          "category": "barriers to care",
+          "span1": [
+            11,
+            67,
+            "barriers to care"
+          ],
+          "span2": [
+            72,
+            113,
+            "barriers to care"
+          ],
+          "merged_span": [
+            11,
+            113,
+            "barriers to care"
+          ],
+          "span1_text": "unable to reach the clinic due to lack of transportation",
+          "span2_text": "not being able to afford public transport",
+          "merged_text": "unable to reach the clinic due to lack of transportation and not being able to afford public transport",
+          "reason": "gap_connective",
+          "gap": 5,
+          "gap_text": " and "
+        },
+        {
+          "category": "substance abuse",
+          "span1": [
+            18,
+            41,
+            "substance abuse"
+          ],
+          "span2": [
+            46,
+            69,
+            "substance abuse"
+          ],
+          "merged_span": [
+            18,
+            69,
+            "substance abuse"
+          ],
+          "span1_text": "smoking marijuana daily",
+          "span2_text": "struggles with quitting",
+          "merged_text": "smoking marijuana daily and struggles with quitting",
+          "reason": "gap_connective",
+          "gap": 5,
+          "gap_text": " and "
+        },
+        {
+          "category": "social isolation",
+          "span1": [
+            59,
+            65,
+            "social isolation"
+          ],
+          "span2": [
+            69,
+            89,
+            "social isolation"
+          ],
+          "merged_span": [
+            59,
+            89,
+            "social isolation"
+          ],
+          "span1_text": "family",
+          "span2_text": "close friends nearby",
+          "merged_text": "family or close friends nearby",
+          "reason": "gap_connective",
+          "gap": 4,
+          "gap_text": " or "
+        },
+        {
+          "category": "substance abuse",
+          "span1": [
+            17,
+            49,
+            "substance abuse"
+          ],
+          "span2": [
+            54,
+            87,
+            "substance abuse"
+          ],
+          "merged_span": [
+            17,
+            87,
+            "substance abuse"
+          ],
+          "span1_text": "struggling with opioid addiction",
+          "span2_text": "recently attended a rehab program",
+          "merged_text": "struggling with opioid addiction and recently attended a rehab program",
+          "reason": "gap_connective",
+          "gap": 5,
+          "gap_text": " and "
+        },
+        {
+          "category": "substance abuse",
+          "span1": [
+            25,
+            63,
+            "substance abuse"
+          ],
+          "span2": [
+            68,
+            89,
+            "substance abuse"
+          ],
+          "merged_span": [
+            25,
+            89,
+            "substance abuse"
+          ],
+          "span1_text": "in a substance abuse treatment program",
+          "span2_text": "his alcohol addiction",
+          "merged_text": "in a substance abuse treatment program for his alcohol addiction",
+          "reason": "gap_connective",
+          "gap": 5,
+          "gap_text": " for "
+        },
+        {
+          "category": "food insecurity",
+          "span1": [
+            25,
+            38,
+            "food insecurity"
+          ],
+          "span2": [
+            43,
+            70,
+            "food insecurity"
+          ],
+          "merged_span": [
+            25,
+            70,
+            "food insecurity"
+          ],
+          "span1_text": "balanced diet",
+          "span2_text": "no shortage of food at home",
+          "merged_text": "balanced diet and no shortage of food at home",
+          "reason": "gap_connective",
+          "gap": 5,
+          "gap_text": " and "
+        },
+        {
+          "category": "housing insecurity",
+          "span1": [
+            72,
+            74,
+            "housing insecurity"
+          ],
+          "span2": [
+            79,
+            95,
+            "housing insecurity"
+          ],
+          "merged_span": [
+            72,
+            95,
+            "housing insecurity"
+          ],
+          "span1_text": "in",
+          "span2_text": "living situation",
+          "merged_text": "in her living situation",
+          "reason": "gap_connective",
+          "gap": 5,
+          "gap_text": " her "
+        },
+        {
+          "category": "social isolation",
+          "span1": [
+            8,
+            19,
+            "social isolation"
+          ],
+          "span2": [
+            21,
+            34,
+            "social isolation"
+          ],
+          "merged_span": [
+            8,
+            34,
+            "social isolation"
+          ],
+          "span1_text": "lives alone",
+          "span2_text": "has no family",
+          "merged_text": "lives alone, has no family",
+          "reason": "gap_connective",
+          "gap": 2,
+          "gap_text": ", "
+        },
+        {
+          "category": "social isolation",
+          "span1": [
+            8,
+            34,
+            "social isolation"
+          ],
+          "span2": [
+            40,
+            54,
+            "social isolation"
+          ],
+          "merged_span": [
+            8,
+            54,
+            "social isolation"
+          ],
+          "span1_text": "lives alone, has no family",
+          "span2_text": "feels isolated",
+          "merged_text": "lives alone, has no family, and feels isolated",
+          "reason": "gap_connective",
+          "gap": 6,
+          "gap_text": ", and "
+        },
+        {
+          "category": "social isolation",
+          "span1": [
+            4,
+            10,
+            "social isolation"
+          ],
+          "span2": [
+            10,
+            45,
+            "social isolation"
+          ],
+          "merged_span": [
+            4,
+            45,
+            "social isolation"
+          ],
+          "span1_text": "doesn\u2019",
+          "span2_text": "t have any friends or family around",
+          "merged_text": "doesn\u2019t have any friends or family around",
+          "reason": "overlap_or_abutting",
+          "gap": 0,
+          "gap_text": ""
+        },
+        {
+          "category": "substance abuse",
+          "span1": [
+            13,
+            28,
+            "substance abuse"
+          ],
+          "span2": [
+            33,
+            67,
+            "substance abuse"
+          ],
+          "merged_span": [
+            13,
+            67,
+            "substance abuse"
+          ],
+          "span1_text": "known alcoholic",
+          "span2_text": "smokes 2 packs of cigarettes daily",
+          "merged_text": "known alcoholic and smokes 2 packs of cigarettes daily",
+          "reason": "gap_connective",
+          "gap": 5,
+          "gap_text": " and "
+        },
+        {
+          "category": "housing insecurity",
+          "span1": [
+            72,
+            103,
+            "housing insecurity"
+          ],
+          "span2": [
+            108,
+            112,
+            "housing insecurity"
+          ],
+          "merged_span": [
+            72,
+            112,
+            "housing insecurity"
+          ],
+          "span1_text": "threat of eviction hanging over",
+          "span2_text": "head",
+          "merged_text": "threat of eviction hanging over her head",
+          "reason": "gap_connective",
+          "gap": 5,
+          "gap_text": " her "
+        },
+        {
+          "category": "housing insecurity",
+          "span1": [
+            7,
+            29,
+            "housing insecurity"
+          ],
+          "span2": [
+            34,
+            55,
+            "housing insecurity"
+          ],
+          "merged_span": [
+            7,
+            55,
+            "housing insecurity"
+          ],
+          "span1_text": "homeless at the moment",
+          "span2_text": "living on the streets",
+          "merged_text": "homeless at the moment and living on the streets",
+          "reason": "gap_connective",
+          "gap": 5,
+          "gap_text": " and "
+        },
+        {
+          "category": "social isolation",
+          "span1": [
+            28,
+            44,
+            "social isolation"
+          ],
+          "span2": [
+            49,
+            66,
+            "social isolation"
+          ],
+          "merged_span": [
+            28,
+            66,
+            "social isolation"
+          ],
+          "span1_text": "no family nearby",
+          "span2_text": "feels lonely most",
+          "merged_text": "no family nearby and feels lonely most",
+          "reason": "gap_connective",
+          "gap": 5,
+          "gap_text": " and "
+        },
+        {
+          "category": "patient disability",
+          "span1": [
+            12,
+            30,
+            "patient disability"
+          ],
+          "span2": [
+            35,
+            58,
+            "patient disability"
+          ],
+          "merged_span": [
+            12,
+            58,
+            "patient disability"
+          ],
+          "span1_text": "difficulty walking",
+          "span2_text": "uses a cane for support",
+          "merged_text": "difficulty walking and uses a cane for support",
+          "reason": "gap_connective",
+          "gap": 5,
+          "gap_text": " and "
+        },
+        {
+          "category": "patient disability",
+          "span1": [
+            26,
+            63,
+            "patient disability"
+          ],
+          "span2": [
+            68,
+            91,
+            "patient disability"
+          ],
+          "merged_span": [
+            26,
+            91,
+            "patient disability"
+          ],
+          "span1_text": "a service-connected disability rating",
+          "span2_text": "his left leg amputation",
+          "merged_text": "a service-connected disability rating for his left leg amputation",
+          "reason": "gap_connective",
+          "gap": 5,
+          "gap_text": " for "
+        },
+        {
+          "category": "social isolation",
+          "span1": [
+            70,
+            77,
+            "social isolation"
+          ],
+          "span2": [
+            83,
+            100,
+            "social isolation"
+          ],
+          "merged_span": [
+            70,
+            100,
+            "social isolation"
+          ],
+          "span1_text": "contact",
+          "span2_text": "friends or family",
+          "merged_text": "contact with friends or family",
+          "reason": "gap_connective",
+          "gap": 6,
+          "gap_text": " with "
+        }
+      ]
+    }
+  },
+  "diagnostic_narrative_evaluation": {
+    "Arm 1: Strategy A (Control, th=0.30)": {
+      "total_spans": 4,
+      "unique_categories": 2,
+      "categories": [
+        "financial insecurity",
+        "job insecurity"
+      ],
+      "spans": [
+        {
+          "range": "[112:146]",
+          "category": "job insecurity",
+          "text": "unemployed for the past six months"
+        },
+        {
+          "range": "[168:174]",
+          "category": "financial insecurity",
+          "text": "paying"
+        },
+        {
+          "range": "[179:183]",
+          "category": "financial insecurity",
+          "text": "rent"
+        },
+        {
+          "range": "[188:201]",
+          "category": "financial insecurity",
+          "text": "utility bills"
+        }
+      ]
+    },
+    "Arm 2: Strategy B (th=0.30, raw)": {
+      "total_spans": 7,
+      "unique_categories": 3,
+      "categories": [
+        "barriers to care",
+        "financial insecurity",
+        "job insecurity"
+      ],
+      "spans": [
+        {
+          "range": "[112:146]",
+          "category": "job insecurity",
+          "text": "unemployed for the past six months"
+        },
+        {
+          "range": "[154:201]",
+          "category": "financial insecurity",
+          "text": "worried about paying her rent and utility bills"
+        },
+        {
+          "range": "[270:279]",
+          "category": "financial insecurity",
+          "text": "groceries"
+        },
+        {
+          "range": "[452:482]",
+          "category": "barriers to care",
+          "text": "to attend medical appointments"
+        },
+        {
+          "range": "[537:569]",
+          "category": "barriers to care",
+          "text": "could not arrange transportation"
+        },
+        {
+          "range": "[706:733]",
+          "category": "barriers to care",
+          "text": "her medication instructions"
+        },
+        {
+          "range": "[768:792]",
+          "category": "barriers to care",
+          "text": "refill her prescriptions"
+        }
+      ]
+    },
+    "Arm 3: Strategy B (th=0.40, raw)": {
+      "total_spans": 5,
+      "unique_categories": 3,
+      "categories": [
+        "barriers to care",
+        "financial insecurity",
+        "job insecurity"
+      ],
+      "spans": [
+        {
+          "range": "[112:146]",
+          "category": "job insecurity",
+          "text": "unemployed for the past six months"
+        },
+        {
+          "range": "[168:174]",
+          "category": "financial insecurity",
+          "text": "paying"
+        },
+        {
+          "range": "[179:183]",
+          "category": "financial insecurity",
+          "text": "rent"
+        },
+        {
+          "range": "[188:201]",
+          "category": "financial insecurity",
+          "text": "utility bills"
+        },
+        {
+          "range": "[547:569]",
+          "category": "barriers to care",
+          "text": "arrange transportation"
+        }
+      ]
+    },
+    "Arm 4: Strategy B (th=0.30) + Snapping Only": {
+      "total_spans": 7,
+      "unique_categories": 3,
+      "categories": [
+        "barriers to care",
+        "financial insecurity",
+        "job insecurity"
+      ],
+      "spans": [
+        {
+          "range": "[112:146]",
+          "category": "job insecurity",
+          "text": "unemployed for the past six months"
+        },
+        {
+          "range": "[154:201]",
+          "category": "financial insecurity",
+          "text": "worried about paying her rent and utility bills"
+        },
+        {
+          "range": "[270:279]",
+          "category": "financial insecurity",
+          "text": "groceries"
+        },
+        {
+          "range": "[452:482]",
+          "category": "barriers to care",
+          "text": "to attend medical appointments"
+        },
+        {
+          "range": "[537:569]",
+          "category": "barriers to care",
+          "text": "could not arrange transportation"
+        },
+        {
+          "range": "[706:733]",
+          "category": "barriers to care",
+          "text": "her medication instructions"
+        },
+        {
+          "range": "[768:792]",
+          "category": "barriers to care",
+          "text": "refill her prescriptions"
+        }
+      ]
+    },
+    "Arm 5A: Strategy B (th=0.30) + Fusion Only (gap=2)": {
+      "total_spans": 7,
+      "unique_categories": 3,
+      "categories": [
+        "barriers to care",
+        "financial insecurity",
+        "job insecurity"
+      ],
+      "spans": [
+        {
+          "range": "[112:146]",
+          "category": "job insecurity",
+          "text": "unemployed for the past six months"
+        },
+        {
+          "range": "[154:201]",
+          "category": "financial insecurity",
+          "text": "worried about paying her rent and utility bills"
+        },
+        {
+          "range": "[270:279]",
+          "category": "financial insecurity",
+          "text": "groceries"
+        },
+        {
+          "range": "[452:482]",
+          "category": "barriers to care",
+          "text": "to attend medical appointments"
+        },
+        {
+          "range": "[537:569]",
+          "category": "barriers to care",
+          "text": "could not arrange transportation"
+        },
+        {
+          "range": "[706:733]",
+          "category": "barriers to care",
+          "text": "her medication instructions"
+        },
+        {
+          "range": "[768:792]",
+          "category": "barriers to care",
+          "text": "refill her prescriptions"
+        }
+      ]
+    },
+    "Arm 5B: Strategy B (th=0.30) + Fusion Only (gap=6)": {
+      "total_spans": 7,
+      "unique_categories": 3,
+      "categories": [
+        "barriers to care",
+        "financial insecurity",
+        "job insecurity"
+      ],
+      "spans": [
+        {
+          "range": "[112:146]",
+          "category": "job insecurity",
+          "text": "unemployed for the past six months"
+        },
+        {
+          "range": "[154:201]",
+          "category": "financial insecurity",
+          "text": "worried about paying her rent and utility bills"
+        },
+        {
+          "range": "[270:279]",
+          "category": "financial insecurity",
+          "text": "groceries"
+        },
+        {
+          "range": "[452:482]",
+          "category": "barriers to care",
+          "text": "to attend medical appointments"
+        },
+        {
+          "range": "[537:569]",
+          "category": "barriers to care",
+          "text": "could not arrange transportation"
+        },
+        {
+          "range": "[706:733]",
+          "category": "barriers to care",
+          "text": "her medication instructions"
+        },
+        {
+          "range": "[768:792]",
+          "category": "barriers to care",
+          "text": "refill her prescriptions"
+        }
+      ]
+    },
+    "Arm 6A: Strategy B (th=0.30) + Snap & Fuse (gap=2)": {
+      "total_spans": 7,
+      "unique_categories": 3,
+      "categories": [
+        "barriers to care",
+        "financial insecurity",
+        "job insecurity"
+      ],
+      "spans": [
+        {
+          "range": "[112:146]",
+          "category": "job insecurity",
+          "text": "unemployed for the past six months"
+        },
+        {
+          "range": "[154:201]",
+          "category": "financial insecurity",
+          "text": "worried about paying her rent and utility bills"
+        },
+        {
+          "range": "[270:279]",
+          "category": "financial insecurity",
+          "text": "groceries"
+        },
+        {
+          "range": "[452:482]",
+          "category": "barriers to care",
+          "text": "to attend medical appointments"
+        },
+        {
+          "range": "[537:569]",
+          "category": "barriers to care",
+          "text": "could not arrange transportation"
+        },
+        {
+          "range": "[706:733]",
+          "category": "barriers to care",
+          "text": "her medication instructions"
+        },
+        {
+          "range": "[768:792]",
+          "category": "barriers to care",
+          "text": "refill her prescriptions"
+        }
+      ]
+    },
+    "Arm 6B: Strategy B (th=0.30) + Snap & Fuse (gap=6)": {
+      "total_spans": 7,
+      "unique_categories": 3,
+      "categories": [
+        "barriers to care",
+        "financial insecurity",
+        "job insecurity"
+      ],
+      "spans": [
+        {
+          "range": "[112:146]",
+          "category": "job insecurity",
+          "text": "unemployed for the past six months"
+        },
+        {
+          "range": "[154:201]",
+          "category": "financial insecurity",
+          "text": "worried about paying her rent and utility bills"
+        },
+        {
+          "range": "[270:279]",
+          "category": "financial insecurity",
+          "text": "groceries"
+        },
+        {
+          "range": "[452:482]",
+          "category": "barriers to care",
+          "text": "to attend medical appointments"
+        },
+        {
+          "range": "[537:569]",
+          "category": "barriers to care",
+          "text": "could not arrange transportation"
+        },
+        {
+          "range": "[706:733]",
+          "category": "barriers to care",
+          "text": "her medication instructions"
+        },
+        {
+          "range": "[768:792]",
+          "category": "barriers to care",
+          "text": "refill her prescriptions"
+        }
+      ]
+    }
+  }
+}

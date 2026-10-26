@@ -1,0 +1,2614 @@
+{
+  "metadata": {
+    "model_path": "evernorth_m3_results/models/sbdh_transformer\\best_model.pt",
+    "sha256": "0cb00010631b089746fdd97ff3f9019e1bcc29012a7c093b33501a9c30186ba4",
+    "validation_notes_count": 876,
+    "total_gold_spans": 1443,
+    "evaluation_timestamp": "2026-10-26T13:58:18Z"
+  },
+  "sensitivity_analysis": {
+    "threshold_0.20": {
+      "threshold": 0.2,
+      "total_gold_spans": 1443,
+      "total_pred_spans": 1507,
+      "exact_matching": {
+        "tp": 748,
+        "fp": 759,
+        "fn": 695,
+        "precision": 0.4964,
+        "recall": 0.5184,
+        "f1_score": 0.5071
+      },
+      "relaxed_matching": {
+        "tp": 1227,
+        "fp": 280,
+        "fn": 216,
+        "precision": 0.8142,
+        "recall": 0.8503,
+        "f1_score": 0.8319
+      },
+      "boundary_errors_count": 479,
+      "boundary_error_rate_pct": 39.04,
+      "note_micro": {
+        "precision": 0.9293,
+        "recall": 0.8738,
+        "f1_score": 0.9007
+      },
+      "per_category": {
+        "barriers to care": {
+          "gold_support": 60,
+          "predicted_count": 49,
+          "relaxed_tp": 38,
+          "relaxed_fp": 11,
+          "relaxed_fn": 22,
+          "relaxed_precision": 0.7755,
+          "relaxed_recall": 0.6333,
+          "relaxed_f1": 0.6972,
+          "exact_tp": 15,
+          "note_tp": 39,
+          "note_fp": 4,
+          "note_fn": 17
+        },
+        "financial insecurity": {
+          "gold_support": 101,
+          "predicted_count": 111,
+          "relaxed_tp": 85,
+          "relaxed_fp": 26,
+          "relaxed_fn": 16,
+          "relaxed_precision": 0.7658,
+          "relaxed_recall": 0.8416,
+          "relaxed_f1": 0.8019,
+          "exact_tp": 56,
+          "note_tp": 87,
+          "note_fp": 11,
+          "note_fn": 13
+        },
+        "food insecurity": {
+          "gold_support": 79,
+          "predicted_count": 89,
+          "relaxed_tp": 77,
+          "relaxed_fp": 12,
+          "relaxed_fn": 2,
+          "relaxed_precision": 0.8652,
+          "relaxed_recall": 0.9747,
+          "relaxed_f1": 0.9167,
+          "exact_tp": 46,
+          "note_tp": 74,
+          "note_fp": 0,
+          "note_fn": 1
+        },
+        "housing insecurity": {
+          "gold_support": 101,
+          "predicted_count": 126,
+          "relaxed_tp": 91,
+          "relaxed_fp": 35,
+          "relaxed_fn": 10,
+          "relaxed_precision": 0.7222,
+          "relaxed_recall": 0.901,
+          "relaxed_f1": 0.8018,
+          "exact_tp": 53,
+          "note_tp": 82,
+          "note_fp": 2,
+          "note_fn": 7
+        },
+        "job insecurity": {
+          "gold_support": 126,
+          "predicted_count": 143,
+          "relaxed_tp": 120,
+          "relaxed_fp": 23,
+          "relaxed_fn": 6,
+          "relaxed_precision": 0.8392,
+          "relaxed_recall": 0.9524,
+          "relaxed_f1": 0.8922,
+          "exact_tp": 86,
+          "note_tp": 117,
+          "note_fp": 7,
+          "note_fn": 4
+        },
+        "legal problems": {
+          "gold_support": 56,
+          "predicted_count": 56,
+          "relaxed_tp": 46,
+          "relaxed_fp": 10,
+          "relaxed_fn": 10,
+          "relaxed_precision": 0.8214,
+          "relaxed_recall": 0.8214,
+          "relaxed_f1": 0.8214,
+          "exact_tp": 22,
+          "note_tp": 42,
+          "note_fp": 2,
+          "note_fn": 5
+        },
+        "loss of relationship": {
+          "gold_support": 103,
+          "predicted_count": 109,
+          "relaxed_tp": 97,
+          "relaxed_fp": 12,
+          "relaxed_fn": 6,
+          "relaxed_precision": 0.8899,
+          "relaxed_recall": 0.9417,
+          "relaxed_f1": 0.9151,
+          "exact_tp": 56,
+          "note_tp": 96,
+          "note_fp": 7,
+          "note_fn": 6
+        },
+        "pain": {
+          "gold_support": 100,
+          "predicted_count": 101,
+          "relaxed_tp": 91,
+          "relaxed_fp": 10,
+          "relaxed_fn": 9,
+          "relaxed_precision": 0.901,
+          "relaxed_recall": 0.91,
+          "relaxed_f1": 0.9055,
+          "exact_tp": 69,
+          "note_tp": 91,
+          "note_fp": 5,
+          "note_fn": 5
+        },
+        "patient disability": {
+          "gold_support": 79,
+          "predicted_count": 84,
+          "relaxed_tp": 58,
+          "relaxed_fp": 26,
+          "relaxed_fn": 21,
+          "relaxed_precision": 0.6905,
+          "relaxed_recall": 0.7342,
+          "relaxed_f1": 0.7117,
+          "exact_tp": 35,
+          "note_tp": 57,
+          "note_fp": 5,
+          "note_fn": 19
+        },
+        "physical isolation": {
+          "gold_support": 46,
+          "predicted_count": 23,
+          "relaxed_tp": 14,
+          "relaxed_fp": 9,
+          "relaxed_fn": 32,
+          "relaxed_precision": 0.6087,
+          "relaxed_recall": 0.3043,
+          "relaxed_f1": 0.4058,
+          "exact_tp": 6,
+          "note_tp": 18,
+          "note_fp": 2,
+          "note_fn": 28
+        },
+        "psychiatric symptoms or disorders": {
+          "gold_support": 135,
+          "predicted_count": 134,
+          "relaxed_tp": 111,
+          "relaxed_fp": 23,
+          "relaxed_fn": 24,
+          "relaxed_precision": 0.8284,
+          "relaxed_recall": 0.8222,
+          "relaxed_f1": 0.8253,
+          "exact_tp": 66,
+          "note_tp": 106,
+          "note_fp": 16,
+          "note_fn": 21
+        },
+        "social isolation": {
+          "gold_support": 159,
+          "predicted_count": 172,
+          "relaxed_tp": 146,
+          "relaxed_fp": 26,
+          "relaxed_fn": 13,
+          "relaxed_precision": 0.8488,
+          "relaxed_recall": 0.9182,
+          "relaxed_f1": 0.8822,
+          "exact_tp": 104,
+          "note_tp": 129,
+          "note_fp": 10,
+          "note_fn": 8
+        },
+        "substance abuse": {
+          "gold_support": 139,
+          "predicted_count": 155,
+          "relaxed_tp": 133,
+          "relaxed_fp": 22,
+          "relaxed_fn": 6,
+          "relaxed_precision": 0.8581,
+          "relaxed_recall": 0.9568,
+          "relaxed_f1": 0.9048,
+          "exact_tp": 80,
+          "note_tp": 102,
+          "note_fp": 3,
+          "note_fn": 3
+        },
+        "transitions of care": {
+          "gold_support": 82,
+          "predicted_count": 79,
+          "relaxed_tp": 58,
+          "relaxed_fp": 21,
+          "relaxed_fn": 24,
+          "relaxed_precision": 0.7342,
+          "relaxed_recall": 0.7073,
+          "relaxed_f1": 0.7205,
+          "exact_tp": 29,
+          "note_tp": 54,
+          "note_fp": 11,
+          "note_fn": 19
+        },
+        "violence": {
+          "gold_support": 77,
+          "predicted_count": 76,
+          "relaxed_tp": 62,
+          "relaxed_fp": 14,
+          "relaxed_fn": 15,
+          "relaxed_precision": 0.8158,
+          "relaxed_recall": 0.8052,
+          "relaxed_f1": 0.8105,
+          "exact_tp": 25,
+          "note_tp": 62,
+          "note_fp": 3,
+          "note_fn": 11
+        }
+      }
+    },
+    "threshold_0.30": {
+      "threshold": 0.3,
+      "total_gold_spans": 1443,
+      "total_pred_spans": 1507,
+      "exact_matching": {
+        "tp": 748,
+        "fp": 759,
+        "fn": 695,
+        "precision": 0.4964,
+        "recall": 0.5184,
+        "f1_score": 0.5071
+      },
+      "relaxed_matching": {
+        "tp": 1227,
+        "fp": 280,
+        "fn": 216,
+        "precision": 0.8142,
+        "recall": 0.8503,
+        "f1_score": 0.8319
+      },
+      "boundary_errors_count": 479,
+      "boundary_error_rate_pct": 39.04,
+      "note_micro": {
+        "precision": 0.9293,
+        "recall": 0.8738,
+        "f1_score": 0.9007
+      },
+      "per_category": {
+        "barriers to care": {
+          "gold_support": 60,
+          "predicted_count": 49,
+          "relaxed_tp": 38,
+          "relaxed_fp": 11,
+          "relaxed_fn": 22,
+          "relaxed_precision": 0.7755,
+          "relaxed_recall": 0.6333,
+          "relaxed_f1": 0.6972,
+          "exact_tp": 15,
+          "note_tp": 39,
+          "note_fp": 4,
+          "note_fn": 17
+        },
+        "financial insecurity": {
+          "gold_support": 101,
+          "predicted_count": 111,
+          "relaxed_tp": 85,
+          "relaxed_fp": 26,
+          "relaxed_fn": 16,
+          "relaxed_precision": 0.7658,
+          "relaxed_recall": 0.8416,
+          "relaxed_f1": 0.8019,
+          "exact_tp": 56,
+          "note_tp": 87,
+          "note_fp": 11,
+          "note_fn": 13
+        },
+        "food insecurity": {
+          "gold_support": 79,
+          "predicted_count": 89,
+          "relaxed_tp": 77,
+          "relaxed_fp": 12,
+          "relaxed_fn": 2,
+          "relaxed_precision": 0.8652,
+          "relaxed_recall": 0.9747,
+          "relaxed_f1": 0.9167,
+          "exact_tp": 46,
+          "note_tp": 74,
+          "note_fp": 0,
+          "note_fn": 1
+        },
+        "housing insecurity": {
+          "gold_support": 101,
+          "predicted_count": 126,
+          "relaxed_tp": 91,
+          "relaxed_fp": 35,
+          "relaxed_fn": 10,
+          "relaxed_precision": 0.7222,
+          "relaxed_recall": 0.901,
+          "relaxed_f1": 0.8018,
+          "exact_tp": 53,
+          "note_tp": 82,
+          "note_fp": 2,
+          "note_fn": 7
+        },
+        "job insecurity": {
+          "gold_support": 126,
+          "predicted_count": 143,
+          "relaxed_tp": 120,
+          "relaxed_fp": 23,
+          "relaxed_fn": 6,
+          "relaxed_precision": 0.8392,
+          "relaxed_recall": 0.9524,
+          "relaxed_f1": 0.8922,
+          "exact_tp": 86,
+          "note_tp": 117,
+          "note_fp": 7,
+          "note_fn": 4
+        },
+        "legal problems": {
+          "gold_support": 56,
+          "predicted_count": 56,
+          "relaxed_tp": 46,
+          "relaxed_fp": 10,
+          "relaxed_fn": 10,
+          "relaxed_precision": 0.8214,
+          "relaxed_recall": 0.8214,
+          "relaxed_f1": 0.8214,
+          "exact_tp": 22,
+          "note_tp": 42,
+          "note_fp": 2,
+          "note_fn": 5
+        },
+        "loss of relationship": {
+          "gold_support": 103,
+          "predicted_count": 109,
+          "relaxed_tp": 97,
+          "relaxed_fp": 12,
+          "relaxed_fn": 6,
+          "relaxed_precision": 0.8899,
+          "relaxed_recall": 0.9417,
+          "relaxed_f1": 0.9151,
+          "exact_tp": 56,
+          "note_tp": 96,
+          "note_fp": 7,
+          "note_fn": 6
+        },
+        "pain": {
+          "gold_support": 100,
+          "predicted_count": 101,
+          "relaxed_tp": 91,
+          "relaxed_fp": 10,
+          "relaxed_fn": 9,
+          "relaxed_precision": 0.901,
+          "relaxed_recall": 0.91,
+          "relaxed_f1": 0.9055,
+          "exact_tp": 69,
+          "note_tp": 91,
+          "note_fp": 5,
+          "note_fn": 5
+        },
+        "patient disability": {
+          "gold_support": 79,
+          "predicted_count": 84,
+          "relaxed_tp": 58,
+          "relaxed_fp": 26,
+          "relaxed_fn": 21,
+          "relaxed_precision": 0.6905,
+          "relaxed_recall": 0.7342,
+          "relaxed_f1": 0.7117,
+          "exact_tp": 35,
+          "note_tp": 57,
+          "note_fp": 5,
+          "note_fn": 19
+        },
+        "physical isolation": {
+          "gold_support": 46,
+          "predicted_count": 23,
+          "relaxed_tp": 14,
+          "relaxed_fp": 9,
+          "relaxed_fn": 32,
+          "relaxed_precision": 0.6087,
+          "relaxed_recall": 0.3043,
+          "relaxed_f1": 0.4058,
+          "exact_tp": 6,
+          "note_tp": 18,
+          "note_fp": 2,
+          "note_fn": 28
+        },
+        "psychiatric symptoms or disorders": {
+          "gold_support": 135,
+          "predicted_count": 134,
+          "relaxed_tp": 111,
+          "relaxed_fp": 23,
+          "relaxed_fn": 24,
+          "relaxed_precision": 0.8284,
+          "relaxed_recall": 0.8222,
+          "relaxed_f1": 0.8253,
+          "exact_tp": 66,
+          "note_tp": 106,
+          "note_fp": 16,
+          "note_fn": 21
+        },
+        "social isolation": {
+          "gold_support": 159,
+          "predicted_count": 172,
+          "relaxed_tp": 146,
+          "relaxed_fp": 26,
+          "relaxed_fn": 13,
+          "relaxed_precision": 0.8488,
+          "relaxed_recall": 0.9182,
+          "relaxed_f1": 0.8822,
+          "exact_tp": 104,
+          "note_tp": 129,
+          "note_fp": 10,
+          "note_fn": 8
+        },
+        "substance abuse": {
+          "gold_support": 139,
+          "predicted_count": 155,
+          "relaxed_tp": 133,
+          "relaxed_fp": 22,
+          "relaxed_fn": 6,
+          "relaxed_precision": 0.8581,
+          "relaxed_recall": 0.9568,
+          "relaxed_f1": 0.9048,
+          "exact_tp": 80,
+          "note_tp": 102,
+          "note_fp": 3,
+          "note_fn": 3
+        },
+        "transitions of care": {
+          "gold_support": 82,
+          "predicted_count": 79,
+          "relaxed_tp": 58,
+          "relaxed_fp": 21,
+          "relaxed_fn": 24,
+          "relaxed_precision": 0.7342,
+          "relaxed_recall": 0.7073,
+          "relaxed_f1": 0.7205,
+          "exact_tp": 29,
+          "note_tp": 54,
+          "note_fp": 11,
+          "note_fn": 19
+        },
+        "violence": {
+          "gold_support": 77,
+          "predicted_count": 76,
+          "relaxed_tp": 62,
+          "relaxed_fp": 14,
+          "relaxed_fn": 15,
+          "relaxed_precision": 0.8158,
+          "relaxed_recall": 0.8052,
+          "relaxed_f1": 0.8105,
+          "exact_tp": 25,
+          "note_tp": 62,
+          "note_fp": 3,
+          "note_fn": 11
+        }
+      }
+    },
+    "threshold_0.40": {
+      "threshold": 0.4,
+      "total_gold_spans": 1443,
+      "total_pred_spans": 1506,
+      "exact_matching": {
+        "tp": 745,
+        "fp": 761,
+        "fn": 698,
+        "precision": 0.4947,
+        "recall": 0.5163,
+        "f1_score": 0.5053
+      },
+      "relaxed_matching": {
+        "tp": 1226,
+        "fp": 280,
+        "fn": 217,
+        "precision": 0.8141,
+        "recall": 0.8496,
+        "f1_score": 0.8315
+      },
+      "boundary_errors_count": 481,
+      "boundary_error_rate_pct": 39.23,
+      "note_micro": {
+        "precision": 0.93,
+        "recall": 0.873,
+        "f1_score": 0.9006
+      },
+      "per_category": {
+        "barriers to care": {
+          "gold_support": 60,
+          "predicted_count": 49,
+          "relaxed_tp": 38,
+          "relaxed_fp": 11,
+          "relaxed_fn": 22,
+          "relaxed_precision": 0.7755,
+          "relaxed_recall": 0.6333,
+          "relaxed_f1": 0.6972,
+          "exact_tp": 15,
+          "note_tp": 39,
+          "note_fp": 4,
+          "note_fn": 17
+        },
+        "financial insecurity": {
+          "gold_support": 101,
+          "predicted_count": 111,
+          "relaxed_tp": 85,
+          "relaxed_fp": 26,
+          "relaxed_fn": 16,
+          "relaxed_precision": 0.7658,
+          "relaxed_recall": 0.8416,
+          "relaxed_f1": 0.8019,
+          "exact_tp": 55,
+          "note_tp": 87,
+          "note_fp": 11,
+          "note_fn": 13
+        },
+        "food insecurity": {
+          "gold_support": 79,
+          "predicted_count": 89,
+          "relaxed_tp": 77,
+          "relaxed_fp": 12,
+          "relaxed_fn": 2,
+          "relaxed_precision": 0.8652,
+          "relaxed_recall": 0.9747,
+          "relaxed_f1": 0.9167,
+          "exact_tp": 46,
+          "note_tp": 74,
+          "note_fp": 0,
+          "note_fn": 1
+        },
+        "housing insecurity": {
+          "gold_support": 101,
+          "predicted_count": 126,
+          "relaxed_tp": 91,
+          "relaxed_fp": 35,
+          "relaxed_fn": 10,
+          "relaxed_precision": 0.7222,
+          "relaxed_recall": 0.901,
+          "relaxed_f1": 0.8018,
+          "exact_tp": 53,
+          "note_tp": 82,
+          "note_fp": 2,
+          "note_fn": 7
+        },
+        "job insecurity": {
+          "gold_support": 126,
+          "predicted_count": 142,
+          "relaxed_tp": 119,
+          "relaxed_fp": 23,
+          "relaxed_fn": 7,
+          "relaxed_precision": 0.838,
+          "relaxed_recall": 0.9444,
+          "relaxed_f1": 0.8881,
+          "exact_tp": 85,
+          "note_tp": 116,
+          "note_fp": 7,
+          "note_fn": 5
+        },
+        "legal problems": {
+          "gold_support": 56,
+          "predicted_count": 56,
+          "relaxed_tp": 46,
+          "relaxed_fp": 10,
+          "relaxed_fn": 10,
+          "relaxed_precision": 0.8214,
+          "relaxed_recall": 0.8214,
+          "relaxed_f1": 0.8214,
+          "exact_tp": 22,
+          "note_tp": 42,
+          "note_fp": 2,
+          "note_fn": 5
+        },
+        "loss of relationship": {
+          "gold_support": 103,
+          "predicted_count": 109,
+          "relaxed_tp": 97,
+          "relaxed_fp": 12,
+          "relaxed_fn": 6,
+          "relaxed_precision": 0.8899,
+          "relaxed_recall": 0.9417,
+          "relaxed_f1": 0.9151,
+          "exact_tp": 57,
+          "note_tp": 96,
+          "note_fp": 7,
+          "note_fn": 6
+        },
+        "pain": {
+          "gold_support": 100,
+          "predicted_count": 101,
+          "relaxed_tp": 91,
+          "relaxed_fp": 10,
+          "relaxed_fn": 9,
+          "relaxed_precision": 0.901,
+          "relaxed_recall": 0.91,
+          "relaxed_f1": 0.9055,
+          "exact_tp": 67,
+          "note_tp": 91,
+          "note_fp": 5,
+          "note_fn": 5
+        },
+        "patient disability": {
+          "gold_support": 79,
+          "predicted_count": 83,
+          "relaxed_tp": 58,
+          "relaxed_fp": 25,
+          "relaxed_fn": 21,
+          "relaxed_precision": 0.6988,
+          "relaxed_recall": 0.7342,
+          "relaxed_f1": 0.716,
+          "exact_tp": 35,
+          "note_tp": 57,
+          "note_fp": 5,
+          "note_fn": 19
+        },
+        "physical isolation": {
+          "gold_support": 46,
+          "predicted_count": 23,
+          "relaxed_tp": 14,
+          "relaxed_fp": 9,
+          "relaxed_fn": 32,
+          "relaxed_precision": 0.6087,
+          "relaxed_recall": 0.3043,
+          "relaxed_f1": 0.4058,
+          "exact_tp": 6,
+          "note_tp": 18,
+          "note_fp": 2,
+          "note_fn": 28
+        },
+        "psychiatric symptoms or disorders": {
+          "gold_support": 135,
+          "predicted_count": 134,
+          "relaxed_tp": 111,
+          "relaxed_fp": 23,
+          "relaxed_fn": 24,
+          "relaxed_precision": 0.8284,
+          "relaxed_recall": 0.8222,
+          "relaxed_f1": 0.8253,
+          "exact_tp": 65,
+          "note_tp": 106,
+          "note_fp": 15,
+          "note_fn": 21
+        },
+        "social isolation": {
+          "gold_support": 159,
+          "predicted_count": 172,
+          "relaxed_tp": 146,
+          "relaxed_fp": 26,
+          "relaxed_fn": 13,
+          "relaxed_precision": 0.8488,
+          "relaxed_recall": 0.9182,
+          "relaxed_f1": 0.8822,
+          "exact_tp": 104,
+          "note_tp": 129,
+          "note_fp": 10,
+          "note_fn": 8
+        },
+        "substance abuse": {
+          "gold_support": 139,
+          "predicted_count": 156,
+          "relaxed_tp": 133,
+          "relaxed_fp": 23,
+          "relaxed_fn": 6,
+          "relaxed_precision": 0.8526,
+          "relaxed_recall": 0.9568,
+          "relaxed_f1": 0.9017,
+          "exact_tp": 81,
+          "note_tp": 102,
+          "note_fp": 3,
+          "note_fn": 3
+        },
+        "transitions of care": {
+          "gold_support": 82,
+          "predicted_count": 79,
+          "relaxed_tp": 58,
+          "relaxed_fp": 21,
+          "relaxed_fn": 24,
+          "relaxed_precision": 0.7342,
+          "relaxed_recall": 0.7073,
+          "relaxed_f1": 0.7205,
+          "exact_tp": 29,
+          "note_tp": 54,
+          "note_fp": 11,
+          "note_fn": 19
+        },
+        "violence": {
+          "gold_support": 77,
+          "predicted_count": 76,
+          "relaxed_tp": 62,
+          "relaxed_fp": 14,
+          "relaxed_fn": 15,
+          "relaxed_precision": 0.8158,
+          "relaxed_recall": 0.8052,
+          "relaxed_f1": 0.8105,
+          "exact_tp": 25,
+          "note_tp": 62,
+          "note_fp": 3,
+          "note_fn": 11
+        }
+      }
+    },
+    "threshold_0.50": {
+      "threshold": 0.5,
+      "total_gold_spans": 1443,
+      "total_pred_spans": 1376,
+      "exact_matching": {
+        "tp": 659,
+        "fp": 717,
+        "fn": 784,
+        "precision": 0.4789,
+        "recall": 0.4567,
+        "f1_score": 0.4675
+      },
+      "relaxed_matching": {
+        "tp": 1135,
+        "fp": 241,
+        "fn": 308,
+        "precision": 0.8249,
+        "recall": 0.7866,
+        "f1_score": 0.8053
+      },
+      "boundary_errors_count": 476,
+      "boundary_error_rate_pct": 41.94,
+      "note_micro": {
+        "precision": 0.9415,
+        "recall": 0.8148,
+        "f1_score": 0.8736
+      },
+      "per_category": {
+        "barriers to care": {
+          "gold_support": 60,
+          "predicted_count": 45,
+          "relaxed_tp": 34,
+          "relaxed_fp": 11,
+          "relaxed_fn": 26,
+          "relaxed_precision": 0.7556,
+          "relaxed_recall": 0.5667,
+          "relaxed_f1": 0.6476,
+          "exact_tp": 16,
+          "note_tp": 35,
+          "note_fp": 4,
+          "note_fn": 21
+        },
+        "financial insecurity": {
+          "gold_support": 101,
+          "predicted_count": 94,
+          "relaxed_tp": 72,
+          "relaxed_fp": 22,
+          "relaxed_fn": 29,
+          "relaxed_precision": 0.766,
+          "relaxed_recall": 0.7129,
+          "relaxed_f1": 0.7385,
+          "exact_tp": 44,
+          "note_tp": 76,
+          "note_fp": 10,
+          "note_fn": 24
+        },
+        "food insecurity": {
+          "gold_support": 79,
+          "predicted_count": 87,
+          "relaxed_tp": 74,
+          "relaxed_fp": 13,
+          "relaxed_fn": 5,
+          "relaxed_precision": 0.8506,
+          "relaxed_recall": 0.9367,
+          "relaxed_f1": 0.8916,
+          "exact_tp": 42,
+          "note_tp": 71,
+          "note_fp": 0,
+          "note_fn": 4
+        },
+        "housing insecurity": {
+          "gold_support": 101,
+          "predicted_count": 116,
+          "relaxed_tp": 87,
+          "relaxed_fp": 29,
+          "relaxed_fn": 14,
+          "relaxed_precision": 0.75,
+          "relaxed_recall": 0.8614,
+          "relaxed_f1": 0.8018,
+          "exact_tp": 44,
+          "note_tp": 79,
+          "note_fp": 1,
+          "note_fn": 10
+        },
+        "job insecurity": {
+          "gold_support": 126,
+          "predicted_count": 134,
+          "relaxed_tp": 117,
+          "relaxed_fp": 17,
+          "relaxed_fn": 9,
+          "relaxed_precision": 0.8731,
+          "relaxed_recall": 0.9286,
+          "relaxed_f1": 0.9,
+          "exact_tp": 79,
+          "note_tp": 116,
+          "note_fp": 4,
+          "note_fn": 5
+        },
+        "legal problems": {
+          "gold_support": 56,
+          "predicted_count": 53,
+          "relaxed_tp": 44,
+          "relaxed_fp": 9,
+          "relaxed_fn": 12,
+          "relaxed_precision": 0.8302,
+          "relaxed_recall": 0.7857,
+          "relaxed_f1": 0.8073,
+          "exact_tp": 20,
+          "note_tp": 42,
+          "note_fp": 0,
+          "note_fn": 5
+        },
+        "loss of relationship": {
+          "gold_support": 103,
+          "predicted_count": 100,
+          "relaxed_tp": 87,
+          "relaxed_fp": 13,
+          "relaxed_fn": 16,
+          "relaxed_precision": 0.87,
+          "relaxed_recall": 0.8447,
+          "relaxed_f1": 0.8571,
+          "exact_tp": 50,
+          "note_tp": 86,
+          "note_fp": 7,
+          "note_fn": 16
+        },
+        "pain": {
+          "gold_support": 100,
+          "predicted_count": 100,
+          "relaxed_tp": 91,
+          "relaxed_fp": 9,
+          "relaxed_fn": 9,
+          "relaxed_precision": 0.91,
+          "relaxed_recall": 0.91,
+          "relaxed_f1": 0.91,
+          "exact_tp": 66,
+          "note_tp": 91,
+          "note_fp": 5,
+          "note_fn": 5
+        },
+        "patient disability": {
+          "gold_support": 79,
+          "predicted_count": 72,
+          "relaxed_tp": 47,
+          "relaxed_fp": 25,
+          "relaxed_fn": 32,
+          "relaxed_precision": 0.6528,
+          "relaxed_recall": 0.5949,
+          "relaxed_f1": 0.6225,
+          "exact_tp": 29,
+          "note_tp": 47,
+          "note_fp": 2,
+          "note_fn": 29
+        },
+        "physical isolation": {
+          "gold_support": 46,
+          "predicted_count": 16,
+          "relaxed_tp": 11,
+          "relaxed_fp": 5,
+          "relaxed_fn": 35,
+          "relaxed_precision": 0.6875,
+          "relaxed_recall": 0.2391,
+          "relaxed_f1": 0.3548,
+          "exact_tp": 4,
+          "note_tp": 13,
+          "note_fp": 1,
+          "note_fn": 33
+        },
+        "psychiatric symptoms or disorders": {
+          "gold_support": 135,
+          "predicted_count": 119,
+          "relaxed_tp": 100,
+          "relaxed_fp": 19,
+          "relaxed_fn": 35,
+          "relaxed_precision": 0.8403,
+          "relaxed_recall": 0.7407,
+          "relaxed_f1": 0.7874,
+          "exact_tp": 56,
+          "note_tp": 95,
+          "note_fp": 12,
+          "note_fn": 32
+        },
+        "social isolation": {
+          "gold_support": 159,
+          "predicted_count": 156,
+          "relaxed_tp": 134,
+          "relaxed_fp": 22,
+          "relaxed_fn": 25,
+          "relaxed_precision": 0.859,
+          "relaxed_recall": 0.8428,
+          "relaxed_f1": 0.8508,
+          "exact_tp": 78,
+          "note_tp": 120,
+          "note_fp": 9,
+          "note_fn": 17
+        },
+        "substance abuse": {
+          "gold_support": 139,
+          "predicted_count": 147,
+          "relaxed_tp": 128,
+          "relaxed_fp": 19,
+          "relaxed_fn": 11,
+          "relaxed_precision": 0.8707,
+          "relaxed_recall": 0.9209,
+          "relaxed_f1": 0.8951,
+          "exact_tp": 80,
+          "note_tp": 100,
+          "note_fp": 2,
+          "note_fn": 5
+        },
+        "transitions of care": {
+          "gold_support": 82,
+          "predicted_count": 68,
+          "relaxed_tp": 53,
+          "relaxed_fp": 15,
+          "relaxed_fn": 29,
+          "relaxed_precision": 0.7794,
+          "relaxed_recall": 0.6463,
+          "relaxed_f1": 0.7067,
+          "exact_tp": 27,
+          "note_tp": 51,
+          "note_fp": 7,
+          "note_fn": 22
+        },
+        "violence": {
+          "gold_support": 77,
+          "predicted_count": 69,
+          "relaxed_tp": 56,
+          "relaxed_fp": 13,
+          "relaxed_fn": 21,
+          "relaxed_precision": 0.8116,
+          "relaxed_recall": 0.7273,
+          "relaxed_f1": 0.7671,
+          "exact_tp": 24,
+          "note_tp": 56,
+          "note_fp": 3,
+          "note_fn": 17
+        }
+      }
+    }
+  },
+  "detailed_030_analysis": {
+    "threshold": 0.3,
+    "per_category": {
+      "barriers to care": {
+        "gold_support": 60,
+        "predicted_count": 49,
+        "relaxed_tp": 38,
+        "relaxed_fp": 11,
+        "relaxed_fn": 22,
+        "relaxed_precision": 0.7755,
+        "relaxed_recall": 0.6333,
+        "relaxed_f1": 0.6972,
+        "exact_tp": 15,
+        "note_tp": 39,
+        "note_fp": 4,
+        "note_fn": 17
+      },
+      "financial insecurity": {
+        "gold_support": 101,
+        "predicted_count": 111,
+        "relaxed_tp": 85,
+        "relaxed_fp": 26,
+        "relaxed_fn": 16,
+        "relaxed_precision": 0.7658,
+        "relaxed_recall": 0.8416,
+        "relaxed_f1": 0.8019,
+        "exact_tp": 56,
+        "note_tp": 87,
+        "note_fp": 11,
+        "note_fn": 13
+      },
+      "food insecurity": {
+        "gold_support": 79,
+        "predicted_count": 89,
+        "relaxed_tp": 77,
+        "relaxed_fp": 12,
+        "relaxed_fn": 2,
+        "relaxed_precision": 0.8652,
+        "relaxed_recall": 0.9747,
+        "relaxed_f1": 0.9167,
+        "exact_tp": 46,
+        "note_tp": 74,
+        "note_fp": 0,
+        "note_fn": 1
+      },
+      "housing insecurity": {
+        "gold_support": 101,
+        "predicted_count": 126,
+        "relaxed_tp": 91,
+        "relaxed_fp": 35,
+        "relaxed_fn": 10,
+        "relaxed_precision": 0.7222,
+        "relaxed_recall": 0.901,
+        "relaxed_f1": 0.8018,
+        "exact_tp": 53,
+        "note_tp": 82,
+        "note_fp": 2,
+        "note_fn": 7
+      },
+      "job insecurity": {
+        "gold_support": 126,
+        "predicted_count": 143,
+        "relaxed_tp": 120,
+        "relaxed_fp": 23,
+        "relaxed_fn": 6,
+        "relaxed_precision": 0.8392,
+        "relaxed_recall": 0.9524,
+        "relaxed_f1": 0.8922,
+        "exact_tp": 86,
+        "note_tp": 117,
+        "note_fp": 7,
+        "note_fn": 4
+      },
+      "legal problems": {
+        "gold_support": 56,
+        "predicted_count": 56,
+        "relaxed_tp": 46,
+        "relaxed_fp": 10,
+        "relaxed_fn": 10,
+        "relaxed_precision": 0.8214,
+        "relaxed_recall": 0.8214,
+        "relaxed_f1": 0.8214,
+        "exact_tp": 22,
+        "note_tp": 42,
+        "note_fp": 2,
+        "note_fn": 5
+      },
+      "loss of relationship": {
+        "gold_support": 103,
+        "predicted_count": 109,
+        "relaxed_tp": 97,
+        "relaxed_fp": 12,
+        "relaxed_fn": 6,
+        "relaxed_precision": 0.8899,
+        "relaxed_recall": 0.9417,
+        "relaxed_f1": 0.9151,
+        "exact_tp": 56,
+        "note_tp": 96,
+        "note_fp": 7,
+        "note_fn": 6
+      },
+      "pain": {
+        "gold_support": 100,
+        "predicted_count": 101,
+        "relaxed_tp": 91,
+        "relaxed_fp": 10,
+        "relaxed_fn": 9,
+        "relaxed_precision": 0.901,
+        "relaxed_recall": 0.91,
+        "relaxed_f1": 0.9055,
+        "exact_tp": 69,
+        "note_tp": 91,
+        "note_fp": 5,
+        "note_fn": 5
+      },
+      "patient disability": {
+        "gold_support": 79,
+        "predicted_count": 84,
+        "relaxed_tp": 58,
+        "relaxed_fp": 26,
+        "relaxed_fn": 21,
+        "relaxed_precision": 0.6905,
+        "relaxed_recall": 0.7342,
+        "relaxed_f1": 0.7117,
+        "exact_tp": 35,
+        "note_tp": 57,
+        "note_fp": 5,
+        "note_fn": 19
+      },
+      "physical isolation": {
+        "gold_support": 46,
+        "predicted_count": 23,
+        "relaxed_tp": 14,
+        "relaxed_fp": 9,
+        "relaxed_fn": 32,
+        "relaxed_precision": 0.6087,
+        "relaxed_recall": 0.3043,
+        "relaxed_f1": 0.4058,
+        "exact_tp": 6,
+        "note_tp": 18,
+        "note_fp": 2,
+        "note_fn": 28
+      },
+      "psychiatric symptoms or disorders": {
+        "gold_support": 135,
+        "predicted_count": 134,
+        "relaxed_tp": 111,
+        "relaxed_fp": 23,
+        "relaxed_fn": 24,
+        "relaxed_precision": 0.8284,
+        "relaxed_recall": 0.8222,
+        "relaxed_f1": 0.8253,
+        "exact_tp": 66,
+        "note_tp": 106,
+        "note_fp": 16,
+        "note_fn": 21
+      },
+      "social isolation": {
+        "gold_support": 159,
+        "predicted_count": 172,
+        "relaxed_tp": 146,
+        "relaxed_fp": 26,
+        "relaxed_fn": 13,
+        "relaxed_precision": 0.8488,
+        "relaxed_recall": 0.9182,
+        "relaxed_f1": 0.8822,
+        "exact_tp": 104,
+        "note_tp": 129,
+        "note_fp": 10,
+        "note_fn": 8
+      },
+      "substance abuse": {
+        "gold_support": 139,
+        "predicted_count": 155,
+        "relaxed_tp": 133,
+        "relaxed_fp": 22,
+        "relaxed_fn": 6,
+        "relaxed_precision": 0.8581,
+        "relaxed_recall": 0.9568,
+        "relaxed_f1": 0.9048,
+        "exact_tp": 80,
+        "note_tp": 102,
+        "note_fp": 3,
+        "note_fn": 3
+      },
+      "transitions of care": {
+        "gold_support": 82,
+        "predicted_count": 79,
+        "relaxed_tp": 58,
+        "relaxed_fp": 21,
+        "relaxed_fn": 24,
+        "relaxed_precision": 0.7342,
+        "relaxed_recall": 0.7073,
+        "relaxed_f1": 0.7205,
+        "exact_tp": 29,
+        "note_tp": 54,
+        "note_fp": 11,
+        "note_fn": 19
+      },
+      "violence": {
+        "gold_support": 77,
+        "predicted_count": 76,
+        "relaxed_tp": 62,
+        "relaxed_fp": 14,
+        "relaxed_fn": 15,
+        "relaxed_precision": 0.8158,
+        "relaxed_recall": 0.8052,
+        "relaxed_f1": 0.8105,
+        "exact_tp": 25,
+        "note_tp": 62,
+        "note_fp": 3,
+        "note_fn": 11
+      }
+    },
+    "fp_examples": {
+      "barriers to care": [
+        {
+          "ex_no": 6165,
+          "pred_span": "[53:78] 'skipped doses due to cost'",
+          "category": "barriers to care",
+          "surrounding_context": "o afford medications, and has skipped doses due to cost."
+        },
+        {
+          "ex_no": 6193,
+          "pred_span": "[45:67] 'lack of transportation'",
+          "category": "barriers to care",
+          "surrounding_context": "le to reach the clinic due to lack of transportation and not being able to afford "
+        },
+        {
+          "ex_no": 6193,
+          "pred_span": "[82:113] 'able to afford public transport'",
+          "category": "barriers to care",
+          "surrounding_context": " transportation and not being able to afford public transport."
+        },
+        {
+          "ex_no": 6367,
+          "pred_span": "[66:112] 'difficulty managing medication regimen at home'",
+          "category": "barriers to care",
+          "surrounding_context": " hospital, however, is having difficulty managing medication regimen at home."
+        },
+        {
+          "ex_no": 6391,
+          "pred_span": "[72:87] 'unable to drive'",
+          "category": "barriers to care",
+          "surrounding_context": "octor's appointment as she is unable to drive."
+        }
+      ],
+      "financial insecurity": [
+        {
+          "ex_no": 6153,
+          "pred_span": "[72:104] 'inability to pay for medications'",
+          "category": "financial insecurity",
+          "surrounding_context": "to financial difficulties and inability to pay for medications."
+        },
+        {
+          "ex_no": 6196,
+          "pred_span": "[63:81] 'will pay her bills'",
+          "category": "financial insecurity",
+          "surrounding_context": "rried about money and how she will pay her bills."
+        },
+        {
+          "ex_no": 6216,
+          "pred_span": "[12:35] 'severe financial stress'",
+          "category": "financial insecurity",
+          "surrounding_context": "Patient has severe financial stress and is frequently unable to a"
+        },
+        {
+          "ex_no": 6230,
+          "pred_span": "[16:48] 'unable to afford her medications'",
+          "category": "financial insecurity",
+          "surrounding_context": "The patient was unable to afford her medications due to loss of employment."
+        },
+        {
+          "ex_no": 6301,
+          "pred_span": "[60:80] 'financial insecurity'",
+          "category": "financial insecurity",
+          "surrounding_context": "ggle to pay bills, signifying financial insecurity."
+        }
+      ],
+      "food insecurity": [
+        {
+          "ex_no": 6278,
+          "pred_span": "[61:83] 'lack of grocery stores'",
+          "category": "food insecurity",
+          "surrounding_context": "ccessing fresh produce due to lack of grocery stores in her area."
+        },
+        {
+          "ex_no": 6291,
+          "pred_span": "[25:38] 'balanced diet'",
+          "category": "food insecurity",
+          "surrounding_context": "Patient reports having a balanced diet and no shortage of food at ho"
+        },
+        {
+          "ex_no": 6325,
+          "pred_span": "[36:61] 'cannot afford enough food'",
+          "category": "food insecurity",
+          "surrounding_context": "ten goes to bed hungry as she cannot afford enough food."
+        },
+        {
+          "ex_no": 6361,
+          "pred_span": "[63:72] 'get meals'",
+          "category": "food insecurity",
+          "surrounding_context": " mother goes to food banks to get meals."
+        },
+        {
+          "ex_no": 6454,
+          "pred_span": "[49:94] 'lack of access to fresh fruits and vegetables'",
+          "category": "food insecurity",
+          "surrounding_context": "e often eats fast food due to lack of access to fresh fruits and vegetables in his neighborhood."
+        }
+      ],
+      "housing insecurity": [
+        {
+          "ex_no": 6190,
+          "pred_span": "[74:85] 'foreclosure'",
+          "category": "housing insecurity",
+          "surrounding_context": "after losing her house due to foreclosure."
+        },
+        {
+          "ex_no": 6190,
+          "pred_span": "[50:70] 'losing her house due'",
+          "category": "housing insecurity",
+          "surrounding_context": " in a temporary shelter after losing her house due to foreclosure."
+        },
+        {
+          "ex_no": 6224,
+          "pred_span": "[74:96] 'lack of stable housing'",
+          "category": "housing insecurity",
+          "surrounding_context": "one shelter to another due to lack of stable housing."
+        },
+        {
+          "ex_no": 6245,
+          "pred_span": "[48:85] 'disputes with landlords and flatmates'",
+          "category": "housing insecurity",
+          "surrounding_context": "ly moved several times due to disputes with landlords and flatmates."
+        },
+        {
+          "ex_no": 6272,
+          "pred_span": "[46:63] 'living in his car'",
+          "category": "housing insecurity",
+          "surrounding_context": " he is homeless and currently living in his car."
+        }
+      ],
+      "job insecurity": [
+        {
+          "ex_no": 6215,
+          "pred_span": "[56:82] 'struggling to find another'",
+          "category": "job insecurity",
+          "surrounding_context": "ost his job last month and is struggling to find another."
+        },
+        {
+          "ex_no": 6267,
+          "pred_span": "[40:62] 'better job opportunity'",
+          "category": "job insecurity",
+          "surrounding_context": "ved to a different city for a better job opportunity and is now struggling to find"
+        },
+        {
+          "ex_no": 6269,
+          "pred_span": "[56:68] 'quit her job'",
+          "category": "job insecurity",
+          "surrounding_context": "workplace bullying before she quit her job. She is now unemployed and de"
+        },
+        {
+          "ex_no": 6279,
+          "pred_span": "[62:85] 'struggling to find work'",
+          "category": "job insecurity",
+          "surrounding_context": "mployed for six months and is struggling to find work."
+        },
+        {
+          "ex_no": 6284,
+          "pred_span": "[83:87] 'laid'",
+          "category": "job insecurity",
+          "surrounding_context": "e past six months after being laid off."
+        }
+      ],
+      "legal problems": [
+        {
+          "ex_no": 6184,
+          "pred_span": "[53:77] 'facing legal proceedings'",
+          "category": "legal problems",
+          "surrounding_context": "d with a DUI and is currently facing legal proceedings."
+        },
+        {
+          "ex_no": 6492,
+          "pred_span": "[78:92] 'went to prison'",
+          "category": "legal problems",
+          "surrounding_context": "ow and suicidal since her son went to prison."
+        },
+        {
+          "ex_no": 6543,
+          "pred_span": "[98:112] 'legal problems'",
+          "category": "legal problems",
+          "surrounding_context": "ences, revealing a pattern of legal problems."
+        },
+        {
+          "ex_no": 6745,
+          "pred_span": "[14:31] 'restraining order'",
+          "category": "legal problems",
+          "surrounding_context": "Patient has a restraining order against her ex-husband and me"
+        },
+        {
+          "ex_no": 6761,
+          "pred_span": "[47:71] 'facing legal proceedings'",
+          "category": "legal problems",
+          "surrounding_context": "tly caught shoplifting and is facing legal proceedings."
+        }
+      ],
+      "loss of relationship": [
+        {
+          "ex_no": 6142,
+          "pred_span": "[33:48] 'deeply affected'",
+          "category": "loss of relationship",
+          "surrounding_context": " patient's recent divorce has deeply affected him, leading to social isolat"
+        },
+        {
+          "ex_no": 6262,
+          "pred_span": "[10:27] 'death of his wife'",
+          "category": "loss of relationship",
+          "surrounding_context": "After the death of his wife, the patient has been isolate"
+        },
+        {
+          "ex_no": 6286,
+          "pred_span": "[40:59] 'death of his spouse'",
+          "category": "loss of relationship",
+          "surrounding_context": "s been living alone since the death of his spouse and has expressed feelings of"
+        },
+        {
+          "ex_no": 6290,
+          "pred_span": "[26:34] 'deceased'",
+          "category": "loss of relationship",
+          "surrounding_context": "Patient's parents are now deceased and he lives alone, barely af"
+        },
+        {
+          "ex_no": 6368,
+          "pred_span": "[67:74] 'partner'",
+          "category": "loss of relationship",
+          "surrounding_context": "sulted in separation from the partner."
+        }
+      ],
+      "pain": [
+        {
+          "ex_no": 6295,
+          "pred_span": "[40:55] 'persistent pain'",
+          "category": "pain",
+          "surrounding_context": "ports feeling hopeless due to persistent pain and her inability to perform "
+        },
+        {
+          "ex_no": 6311,
+          "pred_span": "[22:39] 'with chronic pain'",
+          "category": "pain",
+          "surrounding_context": "Patient is struggling with chronic pain, often isolates self due to i"
+        },
+        {
+          "ex_no": 6344,
+          "pred_span": "[40:52] 'fibromyalgia'",
+          "category": "pain",
+          "surrounding_context": "periences chronic pain due to fibromyalgia, which affects her daily life"
+        },
+        {
+          "ex_no": 6471,
+          "pred_span": "[18:52] 'from chronic pain due to arthritis'",
+          "category": "pain",
+          "surrounding_context": "Despite suffering from chronic pain due to arthritis, the patient has been maintai"
+        },
+        {
+          "ex_no": 6513,
+          "pred_span": "[32:40] 'worsened'",
+          "category": "pain",
+          "surrounding_context": "tient's chronic knee pain has worsened in the past month, limiting h"
+        }
+      ],
+      "patient disability": [
+        {
+          "ex_no": 6169,
+          "pred_span": "[17:23] 'stroke'",
+          "category": "patient disability",
+          "surrounding_context": "As a result of a stroke, the patient is now confined "
+        },
+        {
+          "ex_no": 6287,
+          "pred_span": "[12:20] 'a stroke'",
+          "category": "patient disability",
+          "surrounding_context": "Patient had a stroke last year, and since then, sh"
+        },
+        {
+          "ex_no": 6398,
+          "pred_span": "[12:51] 'limited movement due to a recent stroke'",
+          "category": "patient disability",
+          "surrounding_context": "Patient has limited movement due to a recent stroke and is reliant on a wheelchai"
+        },
+        {
+          "ex_no": 6449,
+          "pred_span": "[10:27] 'wheelchair access'",
+          "category": "patient disability",
+          "surrounding_context": "Patient's wheelchair access at home is limited, making it"
+        },
+        {
+          "ex_no": 6475,
+          "pred_span": "[35:58] 'uses a cane for support'",
+          "category": "patient disability",
+          "surrounding_context": "nt has difficulty walking and uses a cane for support."
+        }
+      ],
+      "physical isolation": [
+        {
+          "ex_no": 6311,
+          "pred_span": "[78:99] 'to move around easily'",
+          "category": "physical isolation",
+          "surrounding_context": "solates self due to inability to move around easily."
+        },
+        {
+          "ex_no": 6417,
+          "pred_span": "[19:31] 'can't go out'",
+          "category": "physical isolation",
+          "surrounding_context": "He lives alone and can't go out due to his physical disabilit"
+        },
+        {
+          "ex_no": 6449,
+          "pred_span": "[79:84] 'leave'",
+          "category": "physical isolation",
+          "surrounding_context": "aking it difficult for her to leave the house."
+        },
+        {
+          "ex_no": 6490,
+          "pred_span": "[89:110] 'from leaving her home'",
+          "category": "physical isolation",
+          "surrounding_context": "arthritis, which prevents her from leaving her home."
+        },
+        {
+          "ex_no": 6507,
+          "pred_span": "[42:53] 'time in bed'",
+          "category": "physical isolation",
+          "surrounding_context": "atient who spends most of his time in bed due to leg paralysis."
+        }
+      ],
+      "psychiatric symptoms or disorders": [
+        {
+          "ex_no": 6233,
+          "pred_span": "[40:66] 'experiencing extreme grief'",
+          "category": "psychiatric symptoms or disorders",
+          "surrounding_context": "cently lost his mother and is experiencing extreme grief."
+        },
+        {
+          "ex_no": 6253,
+          "pred_span": "[38:52] 'extreme stress'",
+          "category": "psychiatric symptoms or disorders",
+          "surrounding_context": "recently divorced and reports extreme stress, showing signs of anxiety and"
+        },
+        {
+          "ex_no": 6376,
+          "pred_span": "[20:36] 'childhood trauma'",
+          "category": "psychiatric symptoms or disorders",
+          "surrounding_context": "Patient experienced childhood trauma and is now suffering from per"
+        },
+        {
+          "ex_no": 6426,
+          "pred_span": "[14:27] 'feels anxious'",
+          "category": "psychiatric symptoms or disorders",
+          "surrounding_context": "Patient often feels anxious due to the fear of losing his"
+        },
+        {
+          "ex_no": 6464,
+          "pred_span": "[29:47] 'significant stress'",
+          "category": "psychiatric symptoms or disorders",
+          "surrounding_context": "Veteran reports experiencing significant stress due to the recent loss of her"
+        }
+      ],
+      "social isolation": [
+        {
+          "ex_no": 6188,
+          "pred_span": "[44:66] 'lack of social support'",
+          "category": "social isolation",
+          "surrounding_context": " that she feels lonely due to lack of social support after her divorce."
+        },
+        {
+          "ex_no": 6191,
+          "pred_span": "[67:99] 'taking part in social activities'",
+          "category": "social isolation",
+          "surrounding_context": "omebound, preventing him from taking part in social activities."
+        },
+        {
+          "ex_no": 6236,
+          "pred_span": "[28:44] 'no family nearby'",
+          "category": "social isolation",
+          "surrounding_context": "Patient lives alone and has no family nearby and rarely leaves the house."
+        },
+        {
+          "ex_no": 6305,
+          "pred_span": "[62:89] 'interpersonal relationships'",
+          "category": "social isolation",
+          "surrounding_context": "isitors, showcasing a lack of interpersonal relationships."
+        },
+        {
+          "ex_no": 6354,
+          "pred_span": "[40:54] 'feels isolated'",
+          "category": "social isolation",
+          "surrounding_context": "ves alone, has no family, and feels isolated. He also complains of chronic"
+        }
+      ],
+      "substance abuse": [
+        {
+          "ex_no": 6218,
+          "pred_span": "[61:69] 'quitting'",
+          "category": "substance abuse",
+          "surrounding_context": "uana daily and struggles with quitting."
+        },
+        {
+          "ex_no": 6240,
+          "pred_span": "[64:95] 'attending AA meetings regularly'",
+          "category": "substance abuse",
+          "surrounding_context": "with alcohol abuse, and he is attending AA meetings regularly."
+        },
+        {
+          "ex_no": 6261,
+          "pred_span": "[52:67] 'denies drug use'",
+          "category": "substance abuse",
+          "surrounding_context": "onal alcohol consumption, but denies drug use."
+        },
+        {
+          "ex_no": 6404,
+          "pred_span": "[71:107] 'attend alcoholics anonymous meetings'",
+          "category": "substance abuse",
+          "surrounding_context": "iction, showing motivation to attend alcoholics anonymous meetings."
+        },
+        {
+          "ex_no": 6420,
+          "pred_span": "[77:97] 'drinking excessively'",
+          "category": "substance abuse",
+          "surrounding_context": "iction, frequently mentioning drinking excessively."
+        }
+      ],
+      "transitions of care": [
+        {
+          "ex_no": 6271,
+          "pred_span": "[17:44] 'in the emergency department'",
+          "category": "transitions of care",
+          "surrounding_context": "Patient was seen in the emergency department due to severe stomach pain."
+        },
+        {
+          "ex_no": 6292,
+          "pred_span": "[17:26] 'in the ER'",
+          "category": "transitions of care",
+          "surrounding_context": "Patient was seen in the ER for severe abdominal pain."
+        },
+        {
+          "ex_no": 6316,
+          "pred_span": "[14:26] 'out of rehab'",
+          "category": "transitions of care",
+          "surrounding_context": "She's finally out of rehab, and her sobriety is a great "
+        },
+        {
+          "ex_no": 6367,
+          "pred_span": "[12:45] 'recently discharged from hospital'",
+          "category": "transitions of care",
+          "surrounding_context": "Patient was recently discharged from hospital, however, is having difficult"
+        },
+        {
+          "ex_no": 6370,
+          "pred_span": "[51:72] 'prescribed medication'",
+          "category": "transitions of care",
+          "surrounding_context": "ggling with depression and is prescribed medication for it."
+        }
+      ],
+      "violence": [
+        {
+          "ex_no": 6180,
+          "pred_span": "[58:81] 'increased gang activity'",
+          "category": "violence",
+          "surrounding_context": "fe in her neighborhood due to increased gang activity."
+        },
+        {
+          "ex_no": 6387,
+          "pred_span": "[68:93] 'previous mugging incident'",
+          "category": "violence",
+          "surrounding_context": "ut leaving the house due to a previous mugging incident."
+        },
+        {
+          "ex_no": 6394,
+          "pred_span": "[45:83] 'high crime rates and frequent violence'",
+          "category": "violence",
+          "surrounding_context": "n an unsafe neighborhood with high crime rates and frequent violence."
+        },
+        {
+          "ex_no": 6411,
+          "pred_span": "[40:46] 'spouse'",
+          "category": "violence",
+          "surrounding_context": "ports domestic abuse from her spouse; she is planning to file for "
+        },
+        {
+          "ex_no": 6430,
+          "pred_span": "[43:61] 'to abusive partner'",
+          "category": "violence",
+          "surrounding_context": "ts feeling unsafe at home due to abusive partner."
+        }
+      ]
+    },
+    "fn_examples": {
+      "barriers to care": [
+        {
+          "ex_no": 6153,
+          "gold_span": "[72:104] 'inability to pay for medications'",
+          "category": "barriers to care",
+          "surrounding_context": "to financial difficulties and inability to pay for medications."
+        },
+        {
+          "ex_no": 6169,
+          "gold_span": "[73:95] 'requires constant care'",
+          "category": "barriers to care",
+          "surrounding_context": " confined to a wheelchair and requires constant care."
+        },
+        {
+          "ex_no": 6197,
+          "gold_span": "[22:44] 'cognitive difficulties'",
+          "category": "barriers to care",
+          "surrounding_context": "Patient presents with cognitive difficulties which impedes her ability to "
+        },
+        {
+          "ex_no": 6216,
+          "gold_span": "[54:99] 'unable to afford her prescription medications'",
+          "category": "barriers to care",
+          "surrounding_context": "cial stress and is frequently unable to afford her prescription medications."
+        },
+        {
+          "ex_no": 6230,
+          "gold_span": "[16:48] 'unable to afford her medications'",
+          "category": "barriers to care",
+          "surrounding_context": "The patient was unable to afford her medications due to loss of employment."
+        }
+      ],
+      "financial insecurity": [
+        {
+          "ex_no": 6175,
+          "gold_span": "[62:92] 'not being able to pay his rent'",
+          "category": "financial insecurity",
+          "surrounding_context": "erns about losing his job and not being able to pay his rent."
+        },
+        {
+          "ex_no": 6190,
+          "gold_span": "[50:85] 'losing her house due to foreclosure'",
+          "category": "financial insecurity",
+          "surrounding_context": " in a temporary shelter after losing her house due to foreclosure."
+        },
+        {
+          "ex_no": 6193,
+          "gold_span": "[72:113] 'not being able to afford public transport'",
+          "category": "financial insecurity",
+          "surrounding_context": "to lack of transportation and not being able to afford public transport."
+        },
+        {
+          "ex_no": 6325,
+          "gold_span": "[36:61] 'cannot afford enough food'",
+          "category": "financial insecurity",
+          "surrounding_context": "ten goes to bed hungry as she cannot afford enough food."
+        },
+        {
+          "ex_no": 6369,
+          "gold_span": "[32:72] 'not having enough money to buy groceries'",
+          "category": "financial insecurity",
+          "surrounding_context": "tient frequently complains of not having enough money to buy groceries."
+        }
+      ],
+      "food insecurity": [
+        {
+          "ex_no": 6528,
+          "gold_span": "[50:64] 'skipping meals'",
+          "category": "food insecurity",
+          "surrounding_context": " afford groceries and reports skipping meals."
+        },
+        {
+          "ex_no": 6845,
+          "gold_span": "[64:87] 'feed her three children'",
+          "category": "food insecurity",
+          "surrounding_context": "truggling to pay her rent and feed her three children."
+        }
+      ],
+      "housing insecurity": [
+        {
+          "ex_no": 6167,
+          "gold_span": "[101:112] 'paying rent'",
+          "category": "housing insecurity",
+          "surrounding_context": "s with buying enough food and paying rent."
+        },
+        {
+          "ex_no": 6175,
+          "gold_span": "[62:92] 'not being able to pay his rent'",
+          "category": "housing insecurity",
+          "surrounding_context": "erns about losing his job and not being able to pay his rent."
+        },
+        {
+          "ex_no": 6222,
+          "gold_span": "[20:46] 'does not feel safe at home'",
+          "category": "housing insecurity",
+          "surrounding_context": "Patient reveals she does not feel safe at home due to domestic violence."
+        },
+        {
+          "ex_no": 6351,
+          "gold_span": "[65:95] 'change in her living situation'",
+          "category": "housing insecurity",
+          "surrounding_context": "tly, leading to a significant change in her living situation."
+        },
+        {
+          "ex_no": 6425,
+          "gold_span": "[26:53] 'house lacks basic amenities'",
+          "category": "housing insecurity",
+          "surrounding_context": "He resides alone, and his house lacks basic amenities for a healthy lifestyle."
+        }
+      ],
+      "job insecurity": [
+        {
+          "ex_no": 6250,
+          "gold_span": "[37:79] 'finding it difficult to secure another one'",
+          "category": "job insecurity",
+          "surrounding_context": " recently lost her job and is finding it difficult to secure another one."
+        },
+        {
+          "ex_no": 6355,
+          "gold_span": "[23:51] 'vocational training programs'",
+          "category": "job insecurity",
+          "surrounding_context": "Veteran inquires about vocational training programs."
+        },
+        {
+          "ex_no": 6556,
+          "gold_span": "[11:44] 'seeking vocational rehabilitation'",
+          "category": "job insecurity",
+          "surrounding_context": "Veteran is seeking vocational rehabilitation services."
+        },
+        {
+          "ex_no": 6609,
+          "gold_span": "[10:65] 'workplace environment was reported to be very stressful'",
+          "category": "job insecurity",
+          "surrounding_context": "Patient's workplace environment was reported to be very stressful, causing him severe anxiety."
+        },
+        {
+          "ex_no": 6701,
+          "gold_span": "[113:127] 'stress at work'",
+          "category": "job insecurity",
+          "surrounding_context": " alcohol heavily again due to stress at work."
+        }
+      ],
+      "legal problems": [
+        {
+          "ex_no": 6364,
+          "gold_span": "[43:53] 'DWI charge'",
+          "category": "legal problems",
+          "surrounding_context": "oming court date related to a DWI charge."
+        },
+        {
+          "ex_no": 6427,
+          "gold_span": "[28:47] 'identity was stolen'",
+          "category": "legal problems",
+          "surrounding_context": "Patient discovered that her identity was stolen and she is now in a difficult"
+        },
+        {
+          "ex_no": 6510,
+          "gold_span": "[4:21] 'probation officer'",
+          "category": "legal problems",
+          "surrounding_context": "His probation officer scheduled an appointment for "
+        },
+        {
+          "ex_no": 6574,
+          "gold_span": "[18:58] 'restraining order against her ex-husband'",
+          "category": "legal problems",
+          "surrounding_context": "The patient has a restraining order against her ex-husband and is currently living in a "
+        },
+        {
+          "ex_no": 6729,
+          "gold_span": "[17:47] 'caught stealing from the store'",
+          "category": "legal problems",
+          "surrounding_context": "Patient has been caught stealing from the store and now faces legal charges."
+        }
+      ],
+      "loss of relationship": [
+        {
+          "ex_no": 6200,
+          "gold_span": "[9:32] 'recent domestic dispute'",
+          "category": "loss of relationship",
+          "surrounding_context": "Due to a recent domestic dispute, the patient has moved into t"
+        },
+        {
+          "ex_no": 6329,
+          "gold_span": "[41:78] 'children are grown and have moved out'",
+          "category": "loss of relationship",
+          "surrounding_context": "most of her time alone as her children are grown and have moved out of the house."
+        },
+        {
+          "ex_no": 6413,
+          "gold_span": "[39:66] 'lost his family and friends'",
+          "category": "loss of relationship",
+          "surrounding_context": "s a homeless veteran, who has lost his family and friends due to his alcohol addiction."
+        },
+        {
+          "ex_no": 6738,
+          "gold_span": "[29:43] 'losing partner'",
+          "category": "loss of relationship",
+          "surrounding_context": "Patient feels isolated after losing partner."
+        },
+        {
+          "ex_no": 6745,
+          "gold_span": "[14:54] 'restraining order against her ex-husband'",
+          "category": "loss of relationship",
+          "surrounding_context": "Patient has a restraining order against her ex-husband and mentions feeling anxious "
+        }
+      ],
+      "pain": [
+        {
+          "ex_no": 6194,
+          "gold_span": "[60:84] 'knee replacement surgery'",
+          "category": "pain",
+          "surrounding_context": "d from the hospital after her knee replacement surgery."
+        },
+        {
+          "ex_no": 6322,
+          "gold_span": "[45:67] 'severe lower back pain'",
+          "category": "pain",
+          "surrounding_context": "orts consistent headaches and severe lower back pain."
+        },
+        {
+          "ex_no": 6331,
+          "gold_span": "[66:83] 'chronic back pain'",
+          "category": "pain",
+          "surrounding_context": "ing from severe headaches and chronic back pain."
+        },
+        {
+          "ex_no": 6407,
+          "gold_span": "[21:37] 'severe arthritis'",
+          "category": "pain",
+          "surrounding_context": "Due to the patient's severe arthritis, he is bedbound and cannot le"
+        },
+        {
+          "ex_no": 6477,
+          "gold_span": "[11:27] 'severe arthritis'",
+          "category": "pain",
+          "surrounding_context": "Due to his severe arthritis, the patient has become depen"
+        }
+      ],
+      "patient disability": [
+        {
+          "ex_no": 6191,
+          "gold_span": "[10:25] 'chronic illness'",
+          "category": "patient disability",
+          "surrounding_context": "Patient's chronic illness keeps him homebound, preventi"
+        },
+        {
+          "ex_no": 6254,
+          "gold_span": "[16:57] 'difficulty in maintaining her daily tasks'",
+          "category": "patient disability",
+          "surrounding_context": "Patient reports difficulty in maintaining her daily tasks due to severe back pain."
+        },
+        {
+          "ex_no": 6281,
+          "gold_span": "[0:16] 'Disability claim'",
+          "category": "patient disability",
+          "surrounding_context": "Disability claim for severe PTSD from prior mi"
+        },
+        {
+          "ex_no": 6311,
+          "gold_span": "[27:39] 'chronic pain'",
+          "category": "patient disability",
+          "surrounding_context": "Patient is struggling with chronic pain, often isolates self due to i"
+        },
+        {
+          "ex_no": 6391,
+          "gold_span": "[65:87] 'she is unable to drive'",
+          "category": "patient disability",
+          "surrounding_context": "e her doctor's appointment as she is unable to drive."
+        }
+      ],
+      "physical isolation": [
+        {
+          "ex_no": 6205,
+          "gold_span": "[17:25] 'bedbound'",
+          "category": "physical isolation",
+          "surrounding_context": "The veteran, now bedbound, is unable to go out and meet"
+        },
+        {
+          "ex_no": 6231,
+          "gold_span": "[12:23] 'lives alone'",
+          "category": "physical isolation",
+          "surrounding_context": "The patient lives alone in a shelter and often compla"
+        },
+        {
+          "ex_no": 6272,
+          "gold_span": "[46:63] 'living in his car'",
+          "category": "physical isolation",
+          "surrounding_context": " he is homeless and currently living in his car."
+        },
+        {
+          "ex_no": 6311,
+          "gold_span": "[47:60] 'isolates self'",
+          "category": "physical isolation",
+          "surrounding_context": "ling with chronic pain, often isolates self due to inability to move arou"
+        },
+        {
+          "ex_no": 6327,
+          "gold_span": "[60:97] 'stays in his room for most of the day'",
+          "category": "physical isolation",
+          "surrounding_context": "s been socially withdrawn and stays in his room for most of the day."
+        }
+      ],
+      "psychiatric symptoms or disorders": [
+        {
+          "ex_no": 6142,
+          "gold_span": "[86:96] 'depression'",
+          "category": "psychiatric symptoms or disorders",
+          "surrounding_context": "ading to social isolation and depression."
+        },
+        {
+          "ex_no": 6203,
+          "gold_span": "[48:74] 'controlled with medication'",
+          "category": "psychiatric symptoms or disorders",
+          "surrounding_context": "long history of schizophrenia controlled with medication."
+        },
+        {
+          "ex_no": 6243,
+          "gold_span": "[57:85] 'lost interest in his hobbies'",
+          "category": "psychiatric symptoms or disorders",
+          "surrounding_context": "s been feeling lonely and has lost interest in his hobbies."
+        },
+        {
+          "ex_no": 6246,
+          "gold_span": "[65:69] 'PTSD'",
+          "category": "psychiatric symptoms or disorders",
+          "surrounding_context": "to maintain employment due to PTSD."
+        },
+        {
+          "ex_no": 6258,
+          "gold_span": "[35:39] 'PTSD'",
+          "category": "psychiatric symptoms or disorders",
+          "surrounding_context": "an returned from service with PTSD and had difficulty re-adjusti"
+        }
+      ],
+      "social isolation": [
+        {
+          "ex_no": 6195,
+          "gold_span": "[39:51] 'living alone'",
+          "category": "social isolation",
+          "surrounding_context": "nt revealed that she has been living alone in an unsafe neighborhood sin"
+        },
+        {
+          "ex_no": 6442,
+          "gold_span": "[74:96] 'feelings of loneliness'",
+          "category": "social isolation",
+          "surrounding_context": "esire to start therapy due to feelings of loneliness."
+        },
+        {
+          "ex_no": 6453,
+          "gold_span": "[51:82] 'active in a local support group'",
+          "category": "social isolation",
+          "surrounding_context": "on from drug addiction and is active in a local support group."
+        },
+        {
+          "ex_no": 6495,
+          "gold_span": "[21:72] 'feels unwelcome in his neighborhood due to his race'",
+          "category": "social isolation",
+          "surrounding_context": "Patient mentioned he feels unwelcome in his neighborhood due to his race, and experiences frequent rac"
+        },
+        {
+          "ex_no": 6505,
+          "gold_span": "[53:89] 'lost contact with friends and family'",
+          "category": "social isolation",
+          "surrounding_context": "g lonely and isolated, having lost contact with friends and family."
+        }
+      ],
+      "substance abuse": [
+        {
+          "ex_no": 6159,
+          "gold_span": "[35:59] 'daily use of painkillers'",
+          "category": "substance abuse",
+          "surrounding_context": "atient's chronic pain prompts daily use of painkillers, but no change in her conditi"
+        },
+        {
+          "ex_no": 6316,
+          "gold_span": "[14:26] 'out of rehab'",
+          "category": "substance abuse",
+          "surrounding_context": "She's finally out of rehab, and her sobriety is a great "
+        },
+        {
+          "ex_no": 6388,
+          "gold_span": "[41:67] 'takes prescription opioids'",
+          "category": "substance abuse",
+          "surrounding_context": "eriences severe back pain and takes prescription opioids for relief."
+        },
+        {
+          "ex_no": 6415,
+          "gold_span": "[4:21] 'frequently smokes'",
+          "category": "substance abuse",
+          "surrounding_context": "She frequently smokes and has a history of lung dis"
+        },
+        {
+          "ex_no": 6587,
+          "gold_span": "[16:51] 'struggling with withdrawal symptoms'",
+          "category": "substance abuse",
+          "surrounding_context": "Patient reports struggling with withdrawal symptoms and has been trying to quit a"
+        }
+      ],
+      "transitions of care": [
+        {
+          "ex_no": 6219,
+          "gold_span": "[65:102] 'affect his current medication regimen'",
+          "category": "transitions of care",
+          "surrounding_context": "ming surgery and how it might affect his current medication regimen."
+        },
+        {
+          "ex_no": 6259,
+          "gold_span": "[8:42] 'admitted for acute pain management'",
+          "category": "transitions of care",
+          "surrounding_context": "Patient admitted for acute pain management after a severe car accident."
+        },
+        {
+          "ex_no": 6320,
+          "gold_span": "[36:52] 'upcoming surgery'",
+          "category": "transitions of care",
+          "surrounding_context": "t expresses anxiety about the upcoming surgery and post-surgical care as he "
+        },
+        {
+          "ex_no": 6367,
+          "gold_span": "[66:112] 'difficulty managing medication regimen at home'",
+          "category": "transitions of care",
+          "surrounding_context": " hospital, however, is having difficulty managing medication regimen at home."
+        },
+        {
+          "ex_no": 6436,
+          "gold_span": "[63:99] 'recent hospital admission for angina'",
+          "category": "transitions of care",
+          "surrounding_context": " heart attack last year and a recent hospital admission for angina."
+        }
+      ],
+      "violence": [
+        {
+          "ex_no": 6146,
+          "gold_span": "[40:71] 'lives in an unsafe neighborhood'",
+          "category": "violence",
+          "surrounding_context": "s no access to fresh food and lives in an unsafe neighborhood."
+        },
+        {
+          "ex_no": 6150,
+          "gold_span": "[54:96] 'now living safely with a supportive family'",
+          "category": "violence",
+          "surrounding_context": "y of domestic violence but is now living safely with a supportive family."
+        },
+        {
+          "ex_no": 6195,
+          "gold_span": "[58:77] 'unsafe neighborhood'",
+          "category": "violence",
+          "surrounding_context": "e has been living alone in an unsafe neighborhood since her divorce."
+        },
+        {
+          "ex_no": 6199,
+          "gold_span": "[53:75] 'seeing her friends die'",
+          "category": "violence",
+          "surrounding_context": "ares from her time in combat, seeing her friends die."
+        },
+        {
+          "ex_no": 6200,
+          "gold_span": "[9:32] 'recent domestic dispute'",
+          "category": "violence",
+          "surrounding_context": "Due to a recent domestic dispute, the patient has moved into t"
+        }
+      ]
+    },
+    "boundary_examples": {
+      "barriers to care": [
+        {
+          "ex_no": 6168,
+          "gold_span": "[47:88] 'transportation issues for hospital visits'",
+          "pred_span": "[41:88] 'faces transportation issues for hospital visits'",
+          "category": "barriers to care"
+        },
+        {
+          "ex_no": 6193,
+          "gold_span": "[11:37] 'unable to reach the clinic'",
+          "pred_span": "[11:41] 'unable to reach the clinic due'",
+          "category": "barriers to care"
+        },
+        {
+          "ex_no": 6197,
+          "gold_span": "[51:119] 'impedes her ability to communicate and comprehend her treatment plan'",
+          "pred_span": "[63:119] 'ability to communicate and comprehend her treatment plan'",
+          "category": "barriers to care"
+        },
+        {
+          "ex_no": 6251,
+          "gold_span": "[11:43] 'unable to pick up her medication'",
+          "pred_span": "[11:61] 'unable to pick up her medication from the pharmacy'",
+          "category": "barriers to care"
+        },
+        {
+          "ex_no": 6357,
+          "gold_span": "[82:99] 'lack of transport'",
+          "pred_span": "[32:99] 'struggles to attend follow-up appointments due to lack of transport'",
+          "category": "barriers to care"
+        }
+      ],
+      "financial insecurity": [
+        {
+          "ex_no": 6196,
+          "gold_span": "[31:50] 'worried about money'",
+          "pred_span": "[23:50] 'feeling worried about money'",
+          "category": "financial insecurity"
+        },
+        {
+          "ex_no": 6216,
+          "gold_span": "[54:99] 'unable to afford her prescription medications'",
+          "pred_span": "[54:87] 'unable to afford her prescription'",
+          "category": "financial insecurity"
+        },
+        {
+          "ex_no": 6343,
+          "gold_span": "[21:49] 'significant financial strain'",
+          "pred_span": "[15:49] 'under significant financial strain'",
+          "category": "financial insecurity"
+        },
+        {
+          "ex_no": 6405,
+          "gold_span": "[26:65] 'financial hardship due to medical bills'",
+          "pred_span": "[21:65] 'from financial hardship due to medical bills'",
+          "category": "financial insecurity"
+        },
+        {
+          "ex_no": 6429,
+          "gold_span": "[46:74] 'due to financial constraints'",
+          "pred_span": "[53:74] 'financial constraints'",
+          "category": "financial insecurity"
+        }
+      ],
+      "food insecurity": [
+        {
+          "ex_no": 6162,
+          "gold_span": "[64:88] 'often goes to bed hungry'",
+          "pred_span": "[75:88] 'to bed hungry'",
+          "category": "food insecurity"
+        },
+        {
+          "ex_no": 6167,
+          "gold_span": "[63:96] 'struggles with buying enough food'",
+          "pred_span": "[73:96] 'with buying enough food'",
+          "category": "food insecurity"
+        },
+        {
+          "ex_no": 6176,
+          "gold_span": "[36:59] 'often goes without food'",
+          "pred_span": "[42:59] 'goes without food'",
+          "category": "food insecurity"
+        },
+        {
+          "ex_no": 6202,
+          "gold_span": "[43:81] 'often skips meals due to lack of funds'",
+          "pred_span": "[49:81] 'skips meals due to lack of funds'",
+          "category": "food insecurity"
+        },
+        {
+          "ex_no": 6291,
+          "gold_span": "[43:62] 'no shortage of food'",
+          "pred_span": "[43:70] 'no shortage of food at home'",
+          "category": "food insecurity"
+        }
+      ],
+      "housing insecurity": [
+        {
+          "ex_no": 6138,
+          "gold_span": "[38:66] 'has been living in a shelter'",
+          "pred_span": "[47:66] 'living in a shelter'",
+          "category": "housing insecurity"
+        },
+        {
+          "ex_no": 6223,
+          "gold_span": "[22:79] 'fear of losing his apartment due to inability to pay rent'",
+          "pred_span": "[22:50] 'fear of losing his apartment'",
+          "category": "housing insecurity"
+        },
+        {
+          "ex_no": 6232,
+          "gold_span": "[55:69] 'secure housing'",
+          "pred_span": "[62:69] 'housing'",
+          "category": "housing insecurity"
+        },
+        {
+          "ex_no": 6266,
+          "gold_span": "[45:78] 'will likely be evicted next month'",
+          "pred_span": "[50:78] 'likely be evicted next month'",
+          "category": "housing insecurity"
+        },
+        {
+          "ex_no": 6293,
+          "gold_span": "[15:23] 'homeless'",
+          "pred_span": "[15:31] 'homeless veteran'",
+          "category": "housing insecurity"
+        }
+      ],
+      "job insecurity": [
+        {
+          "ex_no": 6152,
+          "gold_span": "[11:38] 'in danger of losing her job'",
+          "pred_span": "[14:38] 'danger of losing her job'",
+          "category": "job insecurity"
+        },
+        {
+          "ex_no": 6167,
+          "gold_span": "[11:51] 'lack of income from part-time employment'",
+          "pred_span": "[31:51] 'part-time employment'",
+          "category": "job insecurity"
+        },
+        {
+          "ex_no": 6189,
+          "gold_span": "[39:69] 'seeking help for job placement'",
+          "pred_span": "[47:69] 'help for job placement'",
+          "category": "job insecurity"
+        },
+        {
+          "ex_no": 6212,
+          "gold_span": "[22:36] 'job insecurity'",
+          "pred_span": "[6:36] 'struggling with job insecurity'",
+          "category": "job insecurity"
+        },
+        {
+          "ex_no": 6215,
+          "gold_span": "[25:48] 'lost his job last month'",
+          "pred_span": "[25:37] 'lost his job'",
+          "category": "job insecurity"
+        }
+      ],
+      "legal problems": [
+        {
+          "ex_no": 6140,
+          "gold_span": "[5:30] 'facing possible jail time'",
+          "pred_span": "[5:34] 'facing possible jail time for'",
+          "category": "legal problems"
+        },
+        {
+          "ex_no": 6307,
+          "gold_span": "[44:91] 'court hearing next week regarding child custody'",
+          "pred_span": "[42:91] 'a court hearing next week regarding child custody'",
+          "category": "legal problems"
+        },
+        {
+          "ex_no": 6333,
+          "gold_span": "[32:73] 'complex legal dispute about child custody'",
+          "pred_span": "[18:73] 'involved in a complex legal dispute about child custody'",
+          "category": "legal problems"
+        },
+        {
+          "ex_no": 6360,
+          "gold_span": "[10:45] 'parents have both been incarcerated'",
+          "pred_span": "[23:45] 'both been incarcerated'",
+          "category": "legal problems"
+        },
+        {
+          "ex_no": 6364,
+          "gold_span": "[10:29] 'upcoming court date'",
+          "pred_span": "[10:53] 'upcoming court date related to a DWI charge'",
+          "category": "legal problems"
+        }
+      ],
+      "loss of relationship": [
+        {
+          "ex_no": 6188,
+          "gold_span": "[67:84] 'after her divorce'",
+          "pred_span": "[77:84] 'divorce'",
+          "category": "loss of relationship"
+        },
+        {
+          "ex_no": 6195,
+          "gold_span": "[78:95] 'since her divorce'",
+          "pred_span": "[88:95] 'divorce'",
+          "category": "loss of relationship"
+        },
+        {
+          "ex_no": 6207,
+          "gold_span": "[58:74] 'friend's passing'",
+          "pred_span": "[67:74] 'passing'",
+          "category": "loss of relationship"
+        },
+        {
+          "ex_no": 6228,
+          "gold_span": "[77:108] 'divorce was finalized last week'",
+          "pred_span": "[73:108] 'her divorce was finalized last week'",
+          "category": "loss of relationship"
+        },
+        {
+          "ex_no": 6255,
+          "gold_span": "[46:59] 'since divorce'",
+          "pred_span": "[52:59] 'divorce'",
+          "category": "loss of relationship"
+        }
+      ],
+      "pain": [
+        {
+          "ex_no": 6161,
+          "gold_span": "[28:47] 'constant sharp pain'",
+          "pred_span": "[28:65] 'constant sharp pain in his lower back'",
+          "category": "pain"
+        },
+        {
+          "ex_no": 6185,
+          "gold_span": "[30:53] 'severe pain in his legs'",
+          "pred_span": "[17:53] 'experiencing severe pain in his legs'",
+          "category": "pain"
+        },
+        {
+          "ex_no": 6259,
+          "gold_span": "[21:31] 'acute pain'",
+          "pred_span": "[21:42] 'acute pain management'",
+          "category": "pain"
+        },
+        {
+          "ex_no": 6265,
+          "gold_span": "[51:90] 'suffering from severe post-surgery pain'",
+          "pred_span": "[61:90] 'from severe post-surgery pain'",
+          "category": "pain"
+        },
+        {
+          "ex_no": 6322,
+          "gold_span": "[20:40] 'consistent headaches'",
+          "pred_span": "[20:67] 'consistent headaches and severe lower back pain'",
+          "category": "pain"
+        }
+      ],
+      "patient disability": [
+        {
+          "ex_no": 6149,
+          "gold_span": "[40:56] 'use a wheelchair'",
+          "pred_span": "[40:69] 'use a wheelchair for mobility'",
+          "category": "patient disability"
+        },
+        {
+          "ex_no": 6185,
+          "gold_span": "[84:106] 'having trouble walking'",
+          "pred_span": "[99:106] 'walking'",
+          "category": "patient disability"
+        },
+        {
+          "ex_no": 6252,
+          "gold_span": "[20:49] 'receiving disability payments'",
+          "pred_span": "[30:40] 'disability'",
+          "category": "patient disability"
+        },
+        {
+          "ex_no": 6265,
+          "gold_span": "[95:129] 'requires a wheelchair for movement'",
+          "pred_span": "[104:129] 'a wheelchair for movement'",
+          "category": "patient disability"
+        },
+        {
+          "ex_no": 6350,
+          "gold_span": "[15:68] 'nonverbal, wheelchair-bound, and relies on caregivers'",
+          "pred_span": "[15:42] 'nonverbal, wheelchair-bound'",
+          "category": "patient disability"
+        }
+      ],
+      "physical isolation": [
+        {
+          "ex_no": 6236,
+          "gold_span": "[49:72] 'rarely leaves the house'",
+          "pred_span": "[56:62] 'leaves'",
+          "category": "physical isolation"
+        },
+        {
+          "ex_no": 6241,
+          "gold_span": "[34:71] 'preventing her from leaving the house'",
+          "pred_span": "[49:71] 'from leaving the house'",
+          "category": "physical isolation"
+        },
+        {
+          "ex_no": 6275,
+          "gold_span": "[40:64] 'unable to leave her home'",
+          "pred_span": "[40:80] 'unable to leave her home unless assisted'",
+          "category": "physical isolation"
+        },
+        {
+          "ex_no": 6550,
+          "gold_span": "[3:39] 'hasn't left his house in over a year'",
+          "pred_span": "[10:24] 'left his house'",
+          "category": "physical isolation"
+        },
+        {
+          "ex_no": 6776,
+          "gold_span": "[47:103] 'hardly ever leaves his house due to physical limitations'",
+          "pred_span": "[47:75] 'hardly ever leaves his house'",
+          "category": "physical isolation"
+        }
+      ],
+      "psychiatric symptoms or disorders": [
+        {
+          "ex_no": 6153,
+          "gold_span": "[16:37] 'high levels of stress'",
+          "pred_span": "[21:37] 'levels of stress'",
+          "category": "psychiatric symptoms or disorders"
+        },
+        {
+          "ex_no": 6173,
+          "gold_span": "[38:72] 'taking a toll on her mental health'",
+          "pred_span": "[59:72] 'mental health'",
+          "category": "psychiatric symptoms or disorders"
+        },
+        {
+          "ex_no": 6183,
+          "gold_span": "[62:96] 'feelings of sadness and loneliness'",
+          "pred_span": "[71:96] 'of sadness and loneliness'",
+          "category": "psychiatric symptoms or disorders"
+        },
+        {
+          "ex_no": 6217,
+          "gold_span": "[21:34] 'schizophrenia'",
+          "pred_span": "[8:34] 'suffers from schizophrenia'",
+          "category": "psychiatric symptoms or disorders"
+        },
+        {
+          "ex_no": 6229,
+          "gold_span": "[47:62] 'depressed state'",
+          "pred_span": "[45:62] 'a depressed state'",
+          "category": "psychiatric symptoms or disorders"
+        }
+      ],
+      "social isolation": [
+        {
+          "ex_no": 6141,
+          "gold_span": "[61:85] 'loneliness and isolation'",
+          "pred_span": "[49:85] 'feelings of loneliness and isolation'",
+          "category": "social isolation"
+        },
+        {
+          "ex_no": 6235,
+          "gold_span": "[22:89] 'living alone in the city without any family or close friends nearby'",
+          "pred_span": "[22:34] 'living alone'",
+          "category": "social isolation"
+        },
+        {
+          "ex_no": 6247,
+          "gold_span": "[50:91] 'increased social withdrawal and isolation'",
+          "pred_span": "[60:91] 'social withdrawal and isolation'",
+          "category": "social isolation"
+        },
+        {
+          "ex_no": 6262,
+          "gold_span": "[50:58] 'isolated'",
+          "pred_span": "[50:87] 'isolated with minimal social contacts'",
+          "category": "social isolation"
+        },
+        {
+          "ex_no": 6270,
+          "gold_span": "[25:57] 'loneliness and social withdrawal'",
+          "pred_span": "[16:57] 'bouts of loneliness and social withdrawal'",
+          "category": "social isolation"
+        }
+      ],
+      "substance abuse": [
+        {
+          "ex_no": 6136,
+          "gold_span": "[86:133] 'enrolled in a substance abuse treatment program'",
+          "pred_span": "[100:133] 'substance abuse treatment program'",
+          "category": "substance abuse"
+        },
+        {
+          "ex_no": 6136,
+          "gold_span": "[14:40] 'history of substance abuse'",
+          "pred_span": "[14:68] 'history of substance abuse, specifically opioid misuse'",
+          "category": "substance abuse"
+        },
+        {
+          "ex_no": 6181,
+          "gold_span": "[34:71] 'quit smoking cigarettes two years ago'",
+          "pred_span": "[34:57] 'quit smoking cigarettes'",
+          "category": "substance abuse"
+        },
+        {
+          "ex_no": 6221,
+          "gold_span": "[49:89] 'attended various rehabilitation programs'",
+          "pred_span": "[58:89] 'various rehabilitation programs'",
+          "category": "substance abuse"
+        },
+        {
+          "ex_no": 6225,
+          "gold_span": "[64:84] 'sober for six months'",
+          "pred_span": "[59:84] 'been sober for six months'",
+          "category": "substance abuse"
+        }
+      ],
+      "transitions of care": [
+        {
+          "ex_no": 6156,
+          "gold_span": "[32:59] 'will be discharged tomorrow'",
+          "pred_span": "[37:59] 'be discharged tomorrow'",
+          "category": "transitions of care"
+        },
+        {
+          "ex_no": 6157,
+          "gold_span": "[61:95] 'struggling with medication changes'",
+          "pred_span": "[77:87] 'medication'",
+          "category": "transitions of care"
+        },
+        {
+          "ex_no": 6182,
+          "gold_span": "[59:84] 'expected to be discharged'",
+          "pred_span": "[59:98] 'expected to be discharged in a few days'",
+          "category": "transitions of care"
+        },
+        {
+          "ex_no": 6182,
+          "gold_span": "[12:29] 'recently admitted'",
+          "pred_span": "[12:51] 'recently admitted for a hip replacement'",
+          "category": "transitions of care"
+        },
+        {
+          "ex_no": 6186,
+          "gold_span": "[77:97] 'outpatient treatment'",
+          "pred_span": "[74:97] 'in outpatient treatment'",
+          "category": "transitions of care"
+        }
+      ],
+      "violence": [
+        {
+          "ex_no": 6143,
+          "gold_span": "[71:86] 'abusive partner'",
+          "pred_span": "[67:86] 'her abusive partner'",
+          "category": "violence"
+        },
+        {
+          "ex_no": 6172,
+          "gold_span": "[33:50] 'domestic violence'",
+          "pred_span": "[24:50] 'bouts of domestic violence'",
+          "category": "violence"
+        },
+        {
+          "ex_no": 6177,
+          "gold_span": "[29:46] 'physical violence'",
+          "pred_span": "[17:46] 'involved in physical violence'",
+          "category": "violence"
+        },
+        {
+          "ex_no": 6180,
+          "gold_span": "[16:81] 'feeling unsafe in her neighborhood due to increased gang activity'",
+          "pred_span": "[16:50] 'feeling unsafe in her neighborhood'",
+          "category": "violence"
+        },
+        {
+          "ex_no": 6199,
+          "gold_span": "[17:51] 'nightmares from her time in combat'",
+          "pred_span": "[28:51] 'from her time in combat'",
+          "category": "violence"
+        }
+      ]
+    }
+  }
+}

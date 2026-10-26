@@ -22,6 +22,11 @@ from transformers import AutoTokenizer
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
+APP_DIR = os.path.join(PROJECT_ROOT, "app")
+if APP_DIR not in sys.path:
+    sys.path.append(APP_DIR)
+
+
 
 from app.model_loader import (
     load_track_a_pipeline,

@@ -1,0 +1,3657 @@
+{
+  "metadata": {
+    "experiment": "Experiment 2.1: BIO Decoder Ablation",
+    "date": "2026-10-26T14:09:20Z",
+    "checkpoint_path": "evernorth_m3_results/models/sbdh_transformer/best_model.pt",
+    "sha256": "0cb00010631b089746fdd97ff3f9019e1bcc29012a7c093b33501a9c30186ba4",
+    "validation_notes_count": 876,
+    "total_gold_spans": 1443
+  },
+  "validation_benchmarks": {
+    "strategy_a_th_0.20": {
+      "strategy_name": "Strategy A (Control, th=0.20)",
+      "decode_kwargs": {
+        "threshold": 0.2
+      },
+      "runtime_seconds": 0.54,
+      "total_gold_spans": 1443,
+      "total_pred_spans": 1507,
+      "overlapping_spans_count": 0,
+      "exact_matching": {
+        "tp": 748,
+        "fp": 759,
+        "fn": 695,
+        "precision": 0.4964,
+        "recall": 0.5184,
+        "f1_score": 0.5071
+      },
+      "relaxed_matching": {
+        "tp": 1227,
+        "fp": 280,
+        "fn": 216,
+        "precision": 0.8142,
+        "recall": 0.8503,
+        "f1_score": 0.8319
+      },
+      "boundary_errors_count": 479,
+      "boundary_error_rate_pct": 39.04,
+      "note_micro": {
+        "precision": 0.9293,
+        "recall": 0.8738,
+        "f1_score": 0.9007
+      },
+      "per_category": {
+        "barriers to care": {
+          "gold_support": 60,
+          "predicted_count": 49,
+          "relaxed_tp": 38,
+          "relaxed_fp": 11,
+          "relaxed_fn": 22,
+          "relaxed_precision": 0.7755,
+          "relaxed_recall": 0.6333,
+          "relaxed_f1": 0.6972,
+          "exact_tp": 15,
+          "exact_f1": 0.2752
+        },
+        "financial insecurity": {
+          "gold_support": 101,
+          "predicted_count": 111,
+          "relaxed_tp": 85,
+          "relaxed_fp": 26,
+          "relaxed_fn": 16,
+          "relaxed_precision": 0.7658,
+          "relaxed_recall": 0.8416,
+          "relaxed_f1": 0.8019,
+          "exact_tp": 56,
+          "exact_f1": 0.5283
+        },
+        "food insecurity": {
+          "gold_support": 79,
+          "predicted_count": 89,
+          "relaxed_tp": 77,
+          "relaxed_fp": 12,
+          "relaxed_fn": 2,
+          "relaxed_precision": 0.8652,
+          "relaxed_recall": 0.9747,
+          "relaxed_f1": 0.9167,
+          "exact_tp": 46,
+          "exact_f1": 0.5476
+        },
+        "housing insecurity": {
+          "gold_support": 101,
+          "predicted_count": 126,
+          "relaxed_tp": 91,
+          "relaxed_fp": 35,
+          "relaxed_fn": 10,
+          "relaxed_precision": 0.7222,
+          "relaxed_recall": 0.901,
+          "relaxed_f1": 0.8018,
+          "exact_tp": 53,
+          "exact_f1": 0.467
+        },
+        "job insecurity": {
+          "gold_support": 126,
+          "predicted_count": 143,
+          "relaxed_tp": 120,
+          "relaxed_fp": 23,
+          "relaxed_fn": 6,
+          "relaxed_precision": 0.8392,
+          "relaxed_recall": 0.9524,
+          "relaxed_f1": 0.8922,
+          "exact_tp": 86,
+          "exact_f1": 0.6394
+        },
+        "legal problems": {
+          "gold_support": 56,
+          "predicted_count": 56,
+          "relaxed_tp": 46,
+          "relaxed_fp": 10,
+          "relaxed_fn": 10,
+          "relaxed_precision": 0.8214,
+          "relaxed_recall": 0.8214,
+          "relaxed_f1": 0.8214,
+          "exact_tp": 22,
+          "exact_f1": 0.3929
+        },
+        "loss of relationship": {
+          "gold_support": 103,
+          "predicted_count": 109,
+          "relaxed_tp": 97,
+          "relaxed_fp": 12,
+          "relaxed_fn": 6,
+          "relaxed_precision": 0.8899,
+          "relaxed_recall": 0.9417,
+          "relaxed_f1": 0.9151,
+          "exact_tp": 56,
+          "exact_f1": 0.5283
+        },
+        "pain": {
+          "gold_support": 100,
+          "predicted_count": 101,
+          "relaxed_tp": 91,
+          "relaxed_fp": 10,
+          "relaxed_fn": 9,
+          "relaxed_precision": 0.901,
+          "relaxed_recall": 0.91,
+          "relaxed_f1": 0.9055,
+          "exact_tp": 69,
+          "exact_f1": 0.6866
+        },
+        "patient disability": {
+          "gold_support": 79,
+          "predicted_count": 84,
+          "relaxed_tp": 58,
+          "relaxed_fp": 26,
+          "relaxed_fn": 21,
+          "relaxed_precision": 0.6905,
+          "relaxed_recall": 0.7342,
+          "relaxed_f1": 0.7117,
+          "exact_tp": 35,
+          "exact_f1": 0.4294
+        },
+        "physical isolation": {
+          "gold_support": 46,
+          "predicted_count": 23,
+          "relaxed_tp": 14,
+          "relaxed_fp": 9,
+          "relaxed_fn": 32,
+          "relaxed_precision": 0.6087,
+          "relaxed_recall": 0.3043,
+          "relaxed_f1": 0.4058,
+          "exact_tp": 6,
+          "exact_f1": 0.1739
+        },
+        "psychiatric symptoms or disorders": {
+          "gold_support": 135,
+          "predicted_count": 134,
+          "relaxed_tp": 111,
+          "relaxed_fp": 23,
+          "relaxed_fn": 24,
+          "relaxed_precision": 0.8284,
+          "relaxed_recall": 0.8222,
+          "relaxed_f1": 0.8253,
+          "exact_tp": 66,
+          "exact_f1": 0.4907
+        },
+        "social isolation": {
+          "gold_support": 159,
+          "predicted_count": 172,
+          "relaxed_tp": 146,
+          "relaxed_fp": 26,
+          "relaxed_fn": 13,
+          "relaxed_precision": 0.8488,
+          "relaxed_recall": 0.9182,
+          "relaxed_f1": 0.8822,
+          "exact_tp": 104,
+          "exact_f1": 0.6284
+        },
+        "substance abuse": {
+          "gold_support": 139,
+          "predicted_count": 155,
+          "relaxed_tp": 133,
+          "relaxed_fp": 22,
+          "relaxed_fn": 6,
+          "relaxed_precision": 0.8581,
+          "relaxed_recall": 0.9568,
+          "relaxed_f1": 0.9048,
+          "exact_tp": 80,
+          "exact_f1": 0.5442
+        },
+        "transitions of care": {
+          "gold_support": 82,
+          "predicted_count": 79,
+          "relaxed_tp": 58,
+          "relaxed_fp": 21,
+          "relaxed_fn": 24,
+          "relaxed_precision": 0.7342,
+          "relaxed_recall": 0.7073,
+          "relaxed_f1": 0.7205,
+          "exact_tp": 29,
+          "exact_f1": 0.3602
+        },
+        "violence": {
+          "gold_support": 77,
+          "predicted_count": 76,
+          "relaxed_tp": 62,
+          "relaxed_fp": 14,
+          "relaxed_fn": 15,
+          "relaxed_precision": 0.8158,
+          "relaxed_recall": 0.8052,
+          "relaxed_f1": 0.8105,
+          "exact_tp": 25,
+          "exact_f1": 0.3268
+        }
+      }
+    },
+    "strategy_a_th_0.30": {
+      "strategy_name": "Strategy A (Control, th=0.30)",
+      "decode_kwargs": {
+        "threshold": 0.3
+      },
+      "runtime_seconds": 0.57,
+      "total_gold_spans": 1443,
+      "total_pred_spans": 1507,
+      "overlapping_spans_count": 0,
+      "exact_matching": {
+        "tp": 748,
+        "fp": 759,
+        "fn": 695,
+        "precision": 0.4964,
+        "recall": 0.5184,
+        "f1_score": 0.5071
+      },
+      "relaxed_matching": {
+        "tp": 1227,
+        "fp": 280,
+        "fn": 216,
+        "precision": 0.8142,
+        "recall": 0.8503,
+        "f1_score": 0.8319
+      },
+      "boundary_errors_count": 479,
+      "boundary_error_rate_pct": 39.04,
+      "note_micro": {
+        "precision": 0.9293,
+        "recall": 0.8738,
+        "f1_score": 0.9007
+      },
+      "per_category": {
+        "barriers to care": {
+          "gold_support": 60,
+          "predicted_count": 49,
+          "relaxed_tp": 38,
+          "relaxed_fp": 11,
+          "relaxed_fn": 22,
+          "relaxed_precision": 0.7755,
+          "relaxed_recall": 0.6333,
+          "relaxed_f1": 0.6972,
+          "exact_tp": 15,
+          "exact_f1": 0.2752
+        },
+        "financial insecurity": {
+          "gold_support": 101,
+          "predicted_count": 111,
+          "relaxed_tp": 85,
+          "relaxed_fp": 26,
+          "relaxed_fn": 16,
+          "relaxed_precision": 0.7658,
+          "relaxed_recall": 0.8416,
+          "relaxed_f1": 0.8019,
+          "exact_tp": 56,
+          "exact_f1": 0.5283
+        },
+        "food insecurity": {
+          "gold_support": 79,
+          "predicted_count": 89,
+          "relaxed_tp": 77,
+          "relaxed_fp": 12,
+          "relaxed_fn": 2,
+          "relaxed_precision": 0.8652,
+          "relaxed_recall": 0.9747,
+          "relaxed_f1": 0.9167,
+          "exact_tp": 46,
+          "exact_f1": 0.5476
+        },
+        "housing insecurity": {
+          "gold_support": 101,
+          "predicted_count": 126,
+          "relaxed_tp": 91,
+          "relaxed_fp": 35,
+          "relaxed_fn": 10,
+          "relaxed_precision": 0.7222,
+          "relaxed_recall": 0.901,
+          "relaxed_f1": 0.8018,
+          "exact_tp": 53,
+          "exact_f1": 0.467
+        },
+        "job insecurity": {
+          "gold_support": 126,
+          "predicted_count": 143,
+          "relaxed_tp": 120,
+          "relaxed_fp": 23,
+          "relaxed_fn": 6,
+          "relaxed_precision": 0.8392,
+          "relaxed_recall": 0.9524,
+          "relaxed_f1": 0.8922,
+          "exact_tp": 86,
+          "exact_f1": 0.6394
+        },
+        "legal problems": {
+          "gold_support": 56,
+          "predicted_count": 56,
+          "relaxed_tp": 46,
+          "relaxed_fp": 10,
+          "relaxed_fn": 10,
+          "relaxed_precision": 0.8214,
+          "relaxed_recall": 0.8214,
+          "relaxed_f1": 0.8214,
+          "exact_tp": 22,
+          "exact_f1": 0.3929
+        },
+        "loss of relationship": {
+          "gold_support": 103,
+          "predicted_count": 109,
+          "relaxed_tp": 97,
+          "relaxed_fp": 12,
+          "relaxed_fn": 6,
+          "relaxed_precision": 0.8899,
+          "relaxed_recall": 0.9417,
+          "relaxed_f1": 0.9151,
+          "exact_tp": 56,
+          "exact_f1": 0.5283
+        },
+        "pain": {
+          "gold_support": 100,
+          "predicted_count": 101,
+          "relaxed_tp": 91,
+          "relaxed_fp": 10,
+          "relaxed_fn": 9,
+          "relaxed_precision": 0.901,
+          "relaxed_recall": 0.91,
+          "relaxed_f1": 0.9055,
+          "exact_tp": 69,
+          "exact_f1": 0.6866
+        },
+        "patient disability": {
+          "gold_support": 79,
+          "predicted_count": 84,
+          "relaxed_tp": 58,
+          "relaxed_fp": 26,
+          "relaxed_fn": 21,
+          "relaxed_precision": 0.6905,
+          "relaxed_recall": 0.7342,
+          "relaxed_f1": 0.7117,
+          "exact_tp": 35,
+          "exact_f1": 0.4294
+        },
+        "physical isolation": {
+          "gold_support": 46,
+          "predicted_count": 23,
+          "relaxed_tp": 14,
+          "relaxed_fp": 9,
+          "relaxed_fn": 32,
+          "relaxed_precision": 0.6087,
+          "relaxed_recall": 0.3043,
+          "relaxed_f1": 0.4058,
+          "exact_tp": 6,
+          "exact_f1": 0.1739
+        },
+        "psychiatric symptoms or disorders": {
+          "gold_support": 135,
+          "predicted_count": 134,
+          "relaxed_tp": 111,
+          "relaxed_fp": 23,
+          "relaxed_fn": 24,
+          "relaxed_precision": 0.8284,
+          "relaxed_recall": 0.8222,
+          "relaxed_f1": 0.8253,
+          "exact_tp": 66,
+          "exact_f1": 0.4907
+        },
+        "social isolation": {
+          "gold_support": 159,
+          "predicted_count": 172,
+          "relaxed_tp": 146,
+          "relaxed_fp": 26,
+          "relaxed_fn": 13,
+          "relaxed_precision": 0.8488,
+          "relaxed_recall": 0.9182,
+          "relaxed_f1": 0.8822,
+          "exact_tp": 104,
+          "exact_f1": 0.6284
+        },
+        "substance abuse": {
+          "gold_support": 139,
+          "predicted_count": 155,
+          "relaxed_tp": 133,
+          "relaxed_fp": 22,
+          "relaxed_fn": 6,
+          "relaxed_precision": 0.8581,
+          "relaxed_recall": 0.9568,
+          "relaxed_f1": 0.9048,
+          "exact_tp": 80,
+          "exact_f1": 0.5442
+        },
+        "transitions of care": {
+          "gold_support": 82,
+          "predicted_count": 79,
+          "relaxed_tp": 58,
+          "relaxed_fp": 21,
+          "relaxed_fn": 24,
+          "relaxed_precision": 0.7342,
+          "relaxed_recall": 0.7073,
+          "relaxed_f1": 0.7205,
+          "exact_tp": 29,
+          "exact_f1": 0.3602
+        },
+        "violence": {
+          "gold_support": 77,
+          "predicted_count": 76,
+          "relaxed_tp": 62,
+          "relaxed_fp": 14,
+          "relaxed_fn": 15,
+          "relaxed_precision": 0.8158,
+          "relaxed_recall": 0.8052,
+          "relaxed_f1": 0.8105,
+          "exact_tp": 25,
+          "exact_f1": 0.3268
+        }
+      }
+    },
+    "strategy_a_th_0.40": {
+      "strategy_name": "Strategy A (Control, th=0.40)",
+      "decode_kwargs": {
+        "threshold": 0.4
+      },
+      "runtime_seconds": 0.63,
+      "total_gold_spans": 1443,
+      "total_pred_spans": 1506,
+      "overlapping_spans_count": 0,
+      "exact_matching": {
+        "tp": 745,
+        "fp": 761,
+        "fn": 698,
+        "precision": 0.4947,
+        "recall": 0.5163,
+        "f1_score": 0.5053
+      },
+      "relaxed_matching": {
+        "tp": 1226,
+        "fp": 280,
+        "fn": 217,
+        "precision": 0.8141,
+        "recall": 0.8496,
+        "f1_score": 0.8315
+      },
+      "boundary_errors_count": 481,
+      "boundary_error_rate_pct": 39.23,
+      "note_micro": {
+        "precision": 0.93,
+        "recall": 0.873,
+        "f1_score": 0.9006
+      },
+      "per_category": {
+        "barriers to care": {
+          "gold_support": 60,
+          "predicted_count": 49,
+          "relaxed_tp": 38,
+          "relaxed_fp": 11,
+          "relaxed_fn": 22,
+          "relaxed_precision": 0.7755,
+          "relaxed_recall": 0.6333,
+          "relaxed_f1": 0.6972,
+          "exact_tp": 15,
+          "exact_f1": 0.2752
+        },
+        "financial insecurity": {
+          "gold_support": 101,
+          "predicted_count": 111,
+          "relaxed_tp": 85,
+          "relaxed_fp": 26,
+          "relaxed_fn": 16,
+          "relaxed_precision": 0.7658,
+          "relaxed_recall": 0.8416,
+          "relaxed_f1": 0.8019,
+          "exact_tp": 55,
+          "exact_f1": 0.5189
+        },
+        "food insecurity": {
+          "gold_support": 79,
+          "predicted_count": 89,
+          "relaxed_tp": 77,
+          "relaxed_fp": 12,
+          "relaxed_fn": 2,
+          "relaxed_precision": 0.8652,
+          "relaxed_recall": 0.9747,
+          "relaxed_f1": 0.9167,
+          "exact_tp": 46,
+          "exact_f1": 0.5476
+        },
+        "housing insecurity": {
+          "gold_support": 101,
+          "predicted_count": 126,
+          "relaxed_tp": 91,
+          "relaxed_fp": 35,
+          "relaxed_fn": 10,
+          "relaxed_precision": 0.7222,
+          "relaxed_recall": 0.901,
+          "relaxed_f1": 0.8018,
+          "exact_tp": 53,
+          "exact_f1": 0.467
+        },
+        "job insecurity": {
+          "gold_support": 126,
+          "predicted_count": 142,
+          "relaxed_tp": 119,
+          "relaxed_fp": 23,
+          "relaxed_fn": 7,
+          "relaxed_precision": 0.838,
+          "relaxed_recall": 0.9444,
+          "relaxed_f1": 0.8881,
+          "exact_tp": 85,
+          "exact_f1": 0.6343
+        },
+        "legal problems": {
+          "gold_support": 56,
+          "predicted_count": 56,
+          "relaxed_tp": 46,
+          "relaxed_fp": 10,
+          "relaxed_fn": 10,
+          "relaxed_precision": 0.8214,
+          "relaxed_recall": 0.8214,
+          "relaxed_f1": 0.8214,
+          "exact_tp": 22,
+          "exact_f1": 0.3929
+        },
+        "loss of relationship": {
+          "gold_support": 103,
+          "predicted_count": 109,
+          "relaxed_tp": 97,
+          "relaxed_fp": 12,
+          "relaxed_fn": 6,
+          "relaxed_precision": 0.8899,
+          "relaxed_recall": 0.9417,
+          "relaxed_f1": 0.9151,
+          "exact_tp": 57,
+          "exact_f1": 0.5377
+        },
+        "pain": {
+          "gold_support": 100,
+          "predicted_count": 101,
+          "relaxed_tp": 91,
+          "relaxed_fp": 10,
+          "relaxed_fn": 9,
+          "relaxed_precision": 0.901,
+          "relaxed_recall": 0.91,
+          "relaxed_f1": 0.9055,
+          "exact_tp": 67,
+          "exact_f1": 0.6667
+        },
+        "patient disability": {
+          "gold_support": 79,
+          "predicted_count": 83,
+          "relaxed_tp": 58,
+          "relaxed_fp": 25,
+          "relaxed_fn": 21,
+          "relaxed_precision": 0.6988,
+          "relaxed_recall": 0.7342,
+          "relaxed_f1": 0.716,
+          "exact_tp": 35,
+          "exact_f1": 0.4321
+        },
+        "physical isolation": {
+          "gold_support": 46,
+          "predicted_count": 23,
+          "relaxed_tp": 14,
+          "relaxed_fp": 9,
+          "relaxed_fn": 32,
+          "relaxed_precision": 0.6087,
+          "relaxed_recall": 0.3043,
+          "relaxed_f1": 0.4058,
+          "exact_tp": 6,
+          "exact_f1": 0.1739
+        },
+        "psychiatric symptoms or disorders": {
+          "gold_support": 135,
+          "predicted_count": 134,
+          "relaxed_tp": 111,
+          "relaxed_fp": 23,
+          "relaxed_fn": 24,
+          "relaxed_precision": 0.8284,
+          "relaxed_recall": 0.8222,
+          "relaxed_f1": 0.8253,
+          "exact_tp": 65,
+          "exact_f1": 0.4833
+        },
+        "social isolation": {
+          "gold_support": 159,
+          "predicted_count": 172,
+          "relaxed_tp": 146,
+          "relaxed_fp": 26,
+          "relaxed_fn": 13,
+          "relaxed_precision": 0.8488,
+          "relaxed_recall": 0.9182,
+          "relaxed_f1": 0.8822,
+          "exact_tp": 104,
+          "exact_f1": 0.6284
+        },
+        "substance abuse": {
+          "gold_support": 139,
+          "predicted_count": 156,
+          "relaxed_tp": 133,
+          "relaxed_fp": 23,
+          "relaxed_fn": 6,
+          "relaxed_precision": 0.8526,
+          "relaxed_recall": 0.9568,
+          "relaxed_f1": 0.9017,
+          "exact_tp": 81,
+          "exact_f1": 0.5492
+        },
+        "transitions of care": {
+          "gold_support": 82,
+          "predicted_count": 79,
+          "relaxed_tp": 58,
+          "relaxed_fp": 21,
+          "relaxed_fn": 24,
+          "relaxed_precision": 0.7342,
+          "relaxed_recall": 0.7073,
+          "relaxed_f1": 0.7205,
+          "exact_tp": 29,
+          "exact_f1": 0.3602
+        },
+        "violence": {
+          "gold_support": 77,
+          "predicted_count": 76,
+          "relaxed_tp": 62,
+          "relaxed_fp": 14,
+          "relaxed_fn": 15,
+          "relaxed_precision": 0.8158,
+          "relaxed_recall": 0.8052,
+          "relaxed_f1": 0.8105,
+          "exact_tp": 25,
+          "exact_f1": 0.3268
+        }
+      }
+    },
+    "strategy_a_th_0.50": {
+      "strategy_name": "Strategy A (Control, th=0.50)",
+      "decode_kwargs": {
+        "threshold": 0.5
+      },
+      "runtime_seconds": 0.58,
+      "total_gold_spans": 1443,
+      "total_pred_spans": 1376,
+      "overlapping_spans_count": 0,
+      "exact_matching": {
+        "tp": 659,
+        "fp": 717,
+        "fn": 784,
+        "precision": 0.4789,
+        "recall": 0.4567,
+        "f1_score": 0.4675
+      },
+      "relaxed_matching": {
+        "tp": 1135,
+        "fp": 241,
+        "fn": 308,
+        "precision": 0.8249,
+        "recall": 0.7866,
+        "f1_score": 0.8053
+      },
+      "boundary_errors_count": 476,
+      "boundary_error_rate_pct": 41.94,
+      "note_micro": {
+        "precision": 0.9415,
+        "recall": 0.8148,
+        "f1_score": 0.8736
+      },
+      "per_category": {
+        "barriers to care": {
+          "gold_support": 60,
+          "predicted_count": 45,
+          "relaxed_tp": 34,
+          "relaxed_fp": 11,
+          "relaxed_fn": 26,
+          "relaxed_precision": 0.7556,
+          "relaxed_recall": 0.5667,
+          "relaxed_f1": 0.6476,
+          "exact_tp": 16,
+          "exact_f1": 0.3048
+        },
+        "financial insecurity": {
+          "gold_support": 101,
+          "predicted_count": 94,
+          "relaxed_tp": 72,
+          "relaxed_fp": 22,
+          "relaxed_fn": 29,
+          "relaxed_precision": 0.766,
+          "relaxed_recall": 0.7129,
+          "relaxed_f1": 0.7385,
+          "exact_tp": 44,
+          "exact_f1": 0.4513
+        },
+        "food insecurity": {
+          "gold_support": 79,
+          "predicted_count": 87,
+          "relaxed_tp": 74,
+          "relaxed_fp": 13,
+          "relaxed_fn": 5,
+          "relaxed_precision": 0.8506,
+          "relaxed_recall": 0.9367,
+          "relaxed_f1": 0.8916,
+          "exact_tp": 42,
+          "exact_f1": 0.506
+        },
+        "housing insecurity": {
+          "gold_support": 101,
+          "predicted_count": 116,
+          "relaxed_tp": 87,
+          "relaxed_fp": 29,
+          "relaxed_fn": 14,
+          "relaxed_precision": 0.75,
+          "relaxed_recall": 0.8614,
+          "relaxed_f1": 0.8018,
+          "exact_tp": 44,
+          "exact_f1": 0.4055
+        },
+        "job insecurity": {
+          "gold_support": 126,
+          "predicted_count": 134,
+          "relaxed_tp": 117,
+          "relaxed_fp": 17,
+          "relaxed_fn": 9,
+          "relaxed_precision": 0.8731,
+          "relaxed_recall": 0.9286,
+          "relaxed_f1": 0.9,
+          "exact_tp": 79,
+          "exact_f1": 0.6077
+        },
+        "legal problems": {
+          "gold_support": 56,
+          "predicted_count": 53,
+          "relaxed_tp": 44,
+          "relaxed_fp": 9,
+          "relaxed_fn": 12,
+          "relaxed_precision": 0.8302,
+          "relaxed_recall": 0.7857,
+          "relaxed_f1": 0.8073,
+          "exact_tp": 20,
+          "exact_f1": 0.367
+        },
+        "loss of relationship": {
+          "gold_support": 103,
+          "predicted_count": 100,
+          "relaxed_tp": 87,
+          "relaxed_fp": 13,
+          "relaxed_fn": 16,
+          "relaxed_precision": 0.87,
+          "relaxed_recall": 0.8447,
+          "relaxed_f1": 0.8571,
+          "exact_tp": 50,
+          "exact_f1": 0.4926
+        },
+        "pain": {
+          "gold_support": 100,
+          "predicted_count": 100,
+          "relaxed_tp": 91,
+          "relaxed_fp": 9,
+          "relaxed_fn": 9,
+          "relaxed_precision": 0.91,
+          "relaxed_recall": 0.91,
+          "relaxed_f1": 0.91,
+          "exact_tp": 66,
+          "exact_f1": 0.66
+        },
+        "patient disability": {
+          "gold_support": 79,
+          "predicted_count": 72,
+          "relaxed_tp": 47,
+          "relaxed_fp": 25,
+          "relaxed_fn": 32,
+          "relaxed_precision": 0.6528,
+          "relaxed_recall": 0.5949,
+          "relaxed_f1": 0.6225,
+          "exact_tp": 29,
+          "exact_f1": 0.3841
+        },
+        "physical isolation": {
+          "gold_support": 46,
+          "predicted_count": 16,
+          "relaxed_tp": 11,
+          "relaxed_fp": 5,
+          "relaxed_fn": 35,
+          "relaxed_precision": 0.6875,
+          "relaxed_recall": 0.2391,
+          "relaxed_f1": 0.3548,
+          "exact_tp": 4,
+          "exact_f1": 0.129
+        },
+        "psychiatric symptoms or disorders": {
+          "gold_support": 135,
+          "predicted_count": 119,
+          "relaxed_tp": 100,
+          "relaxed_fp": 19,
+          "relaxed_fn": 35,
+          "relaxed_precision": 0.8403,
+          "relaxed_recall": 0.7407,
+          "relaxed_f1": 0.7874,
+          "exact_tp": 56,
+          "exact_f1": 0.4409
+        },
+        "social isolation": {
+          "gold_support": 159,
+          "predicted_count": 156,
+          "relaxed_tp": 134,
+          "relaxed_fp": 22,
+          "relaxed_fn": 25,
+          "relaxed_precision": 0.859,
+          "relaxed_recall": 0.8428,
+          "relaxed_f1": 0.8508,
+          "exact_tp": 78,
+          "exact_f1": 0.4952
+        },
+        "substance abuse": {
+          "gold_support": 139,
+          "predicted_count": 147,
+          "relaxed_tp": 128,
+          "relaxed_fp": 19,
+          "relaxed_fn": 11,
+          "relaxed_precision": 0.8707,
+          "relaxed_recall": 0.9209,
+          "relaxed_f1": 0.8951,
+          "exact_tp": 80,
+          "exact_f1": 0.5594
+        },
+        "transitions of care": {
+          "gold_support": 82,
+          "predicted_count": 68,
+          "relaxed_tp": 53,
+          "relaxed_fp": 15,
+          "relaxed_fn": 29,
+          "relaxed_precision": 0.7794,
+          "relaxed_recall": 0.6463,
+          "relaxed_f1": 0.7067,
+          "exact_tp": 27,
+          "exact_f1": 0.36
+        },
+        "violence": {
+          "gold_support": 77,
+          "predicted_count": 69,
+          "relaxed_tp": 56,
+          "relaxed_fp": 13,
+          "relaxed_fn": 21,
+          "relaxed_precision": 0.8116,
+          "relaxed_recall": 0.7273,
+          "relaxed_f1": 0.7671,
+          "exact_tp": 24,
+          "exact_f1": 0.3288
+        }
+      }
+    },
+    "strategy_b_th_0.20": {
+      "strategy_name": "Strategy B (Active-Threshold, th=0.20)",
+      "decode_kwargs": {
+        "threshold": 0.2
+      },
+      "runtime_seconds": 0.61,
+      "total_gold_spans": 1443,
+      "total_pred_spans": 1731,
+      "overlapping_spans_count": 0,
+      "exact_matching": {
+        "tp": 830,
+        "fp": 901,
+        "fn": 613,
+        "precision": 0.4795,
+        "recall": 0.5752,
+        "f1_score": 0.523
+      },
+      "relaxed_matching": {
+        "tp": 1321,
+        "fp": 410,
+        "fn": 122,
+        "precision": 0.7631,
+        "recall": 0.9155,
+        "f1_score": 0.8324
+      },
+      "boundary_errors_count": 491,
+      "boundary_error_rate_pct": 37.17,
+      "note_micro": {
+        "precision": 0.8787,
+        "recall": 0.9365,
+        "f1_score": 0.9067
+      },
+      "per_category": {
+        "barriers to care": {
+          "gold_support": 60,
+          "predicted_count": 70,
+          "relaxed_tp": 47,
+          "relaxed_fp": 23,
+          "relaxed_fn": 13,
+          "relaxed_precision": 0.6714,
+          "relaxed_recall": 0.7833,
+          "relaxed_f1": 0.7231,
+          "exact_tp": 25,
+          "exact_f1": 0.3846
+        },
+        "financial insecurity": {
+          "gold_support": 101,
+          "predicted_count": 127,
+          "relaxed_tp": 91,
+          "relaxed_fp": 36,
+          "relaxed_fn": 10,
+          "relaxed_precision": 0.7165,
+          "relaxed_recall": 0.901,
+          "relaxed_f1": 0.7982,
+          "exact_tp": 68,
+          "exact_f1": 0.5965
+        },
+        "food insecurity": {
+          "gold_support": 79,
+          "predicted_count": 95,
+          "relaxed_tp": 79,
+          "relaxed_fp": 16,
+          "relaxed_fn": 0,
+          "relaxed_precision": 0.8316,
+          "relaxed_recall": 1.0,
+          "relaxed_f1": 0.908,
+          "exact_tp": 48,
+          "exact_f1": 0.5517
+        },
+        "housing insecurity": {
+          "gold_support": 101,
+          "predicted_count": 138,
+          "relaxed_tp": 97,
+          "relaxed_fp": 41,
+          "relaxed_fn": 4,
+          "relaxed_precision": 0.7029,
+          "relaxed_recall": 0.9604,
+          "relaxed_f1": 0.8117,
+          "exact_tp": 54,
+          "exact_f1": 0.4519
+        },
+        "job insecurity": {
+          "gold_support": 126,
+          "predicted_count": 149,
+          "relaxed_tp": 122,
+          "relaxed_fp": 27,
+          "relaxed_fn": 4,
+          "relaxed_precision": 0.8188,
+          "relaxed_recall": 0.9683,
+          "relaxed_f1": 0.8873,
+          "exact_tp": 88,
+          "exact_f1": 0.64
+        },
+        "legal problems": {
+          "gold_support": 56,
+          "predicted_count": 62,
+          "relaxed_tp": 49,
+          "relaxed_fp": 13,
+          "relaxed_fn": 7,
+          "relaxed_precision": 0.7903,
+          "relaxed_recall": 0.875,
+          "relaxed_f1": 0.8305,
+          "exact_tp": 24,
+          "exact_f1": 0.4068
+        },
+        "loss of relationship": {
+          "gold_support": 103,
+          "predicted_count": 110,
+          "relaxed_tp": 98,
+          "relaxed_fp": 12,
+          "relaxed_fn": 5,
+          "relaxed_precision": 0.8909,
+          "relaxed_recall": 0.9515,
+          "relaxed_f1": 0.9202,
+          "exact_tp": 61,
+          "exact_f1": 0.5728
+        },
+        "pain": {
+          "gold_support": 100,
+          "predicted_count": 106,
+          "relaxed_tp": 93,
+          "relaxed_fp": 13,
+          "relaxed_fn": 7,
+          "relaxed_precision": 0.8774,
+          "relaxed_recall": 0.93,
+          "relaxed_f1": 0.9029,
+          "exact_tp": 66,
+          "exact_f1": 0.6408
+        },
+        "patient disability": {
+          "gold_support": 79,
+          "predicted_count": 113,
+          "relaxed_tp": 67,
+          "relaxed_fp": 46,
+          "relaxed_fn": 12,
+          "relaxed_precision": 0.5929,
+          "relaxed_recall": 0.8481,
+          "relaxed_f1": 0.6979,
+          "exact_tp": 41,
+          "exact_f1": 0.4271
+        },
+        "physical isolation": {
+          "gold_support": 46,
+          "predicted_count": 49,
+          "relaxed_tp": 27,
+          "relaxed_fp": 22,
+          "relaxed_fn": 19,
+          "relaxed_precision": 0.551,
+          "relaxed_recall": 0.587,
+          "relaxed_f1": 0.5684,
+          "exact_tp": 13,
+          "exact_f1": 0.2737
+        },
+        "psychiatric symptoms or disorders": {
+          "gold_support": 135,
+          "predicted_count": 158,
+          "relaxed_tp": 123,
+          "relaxed_fp": 35,
+          "relaxed_fn": 12,
+          "relaxed_precision": 0.7785,
+          "relaxed_recall": 0.9111,
+          "relaxed_f1": 0.8396,
+          "exact_tp": 77,
+          "exact_f1": 0.5256
+        },
+        "social isolation": {
+          "gold_support": 159,
+          "predicted_count": 207,
+          "relaxed_tp": 157,
+          "relaxed_fp": 50,
+          "relaxed_fn": 2,
+          "relaxed_precision": 0.7585,
+          "relaxed_recall": 0.9874,
+          "relaxed_f1": 0.8579,
+          "exact_tp": 112,
+          "exact_f1": 0.612
+        },
+        "substance abuse": {
+          "gold_support": 139,
+          "predicted_count": 162,
+          "relaxed_tp": 137,
+          "relaxed_fp": 25,
+          "relaxed_fn": 2,
+          "relaxed_precision": 0.8457,
+          "relaxed_recall": 0.9856,
+          "relaxed_f1": 0.9103,
+          "exact_tp": 87,
+          "exact_f1": 0.5781
+        },
+        "transitions of care": {
+          "gold_support": 82,
+          "predicted_count": 101,
+          "relaxed_tp": 69,
+          "relaxed_fp": 32,
+          "relaxed_fn": 13,
+          "relaxed_precision": 0.6832,
+          "relaxed_recall": 0.8415,
+          "relaxed_f1": 0.7541,
+          "exact_tp": 39,
+          "exact_f1": 0.4262
+        },
+        "violence": {
+          "gold_support": 77,
+          "predicted_count": 84,
+          "relaxed_tp": 65,
+          "relaxed_fp": 19,
+          "relaxed_fn": 12,
+          "relaxed_precision": 0.7738,
+          "relaxed_recall": 0.8442,
+          "relaxed_f1": 0.8075,
+          "exact_tp": 27,
+          "exact_f1": 0.3354
+        }
+      }
+    },
+    "strategy_b_th_0.30": {
+      "strategy_name": "Strategy B (Active-Threshold, th=0.30)",
+      "decode_kwargs": {
+        "threshold": 0.3
+      },
+      "runtime_seconds": 0.55,
+      "total_gold_spans": 1443,
+      "total_pred_spans": 1614,
+      "overlapping_spans_count": 0,
+      "exact_matching": {
+        "tp": 794,
+        "fp": 820,
+        "fn": 649,
+        "precision": 0.4919,
+        "recall": 0.5502,
+        "f1_score": 0.5195
+      },
+      "relaxed_matching": {
+        "tp": 1275,
+        "fp": 339,
+        "fn": 168,
+        "precision": 0.79,
+        "recall": 0.8836,
+        "f1_score": 0.8342
+      },
+      "boundary_errors_count": 481,
+      "boundary_error_rate_pct": 37.73,
+      "note_micro": {
+        "precision": 0.9105,
+        "recall": 0.9078,
+        "f1_score": 0.9092
+      },
+      "per_category": {
+        "barriers to care": {
+          "gold_support": 60,
+          "predicted_count": 55,
+          "relaxed_tp": 41,
+          "relaxed_fp": 14,
+          "relaxed_fn": 19,
+          "relaxed_precision": 0.7455,
+          "relaxed_recall": 0.6833,
+          "relaxed_f1": 0.713,
+          "exact_tp": 19,
+          "exact_f1": 0.3304
+        },
+        "financial insecurity": {
+          "gold_support": 101,
+          "predicted_count": 117,
+          "relaxed_tp": 89,
+          "relaxed_fp": 28,
+          "relaxed_fn": 12,
+          "relaxed_precision": 0.7607,
+          "relaxed_recall": 0.8812,
+          "relaxed_f1": 0.8165,
+          "exact_tp": 65,
+          "exact_f1": 0.5963
+        },
+        "food insecurity": {
+          "gold_support": 79,
+          "predicted_count": 93,
+          "relaxed_tp": 79,
+          "relaxed_fp": 14,
+          "relaxed_fn": 0,
+          "relaxed_precision": 0.8495,
+          "relaxed_recall": 1.0,
+          "relaxed_f1": 0.9186,
+          "exact_tp": 48,
+          "exact_f1": 0.5581
+        },
+        "housing insecurity": {
+          "gold_support": 101,
+          "predicted_count": 137,
+          "relaxed_tp": 96,
+          "relaxed_fp": 41,
+          "relaxed_fn": 5,
+          "relaxed_precision": 0.7007,
+          "relaxed_recall": 0.9505,
+          "relaxed_f1": 0.8067,
+          "exact_tp": 51,
+          "exact_f1": 0.4286
+        },
+        "job insecurity": {
+          "gold_support": 126,
+          "predicted_count": 145,
+          "relaxed_tp": 120,
+          "relaxed_fp": 25,
+          "relaxed_fn": 6,
+          "relaxed_precision": 0.8276,
+          "relaxed_recall": 0.9524,
+          "relaxed_f1": 0.8856,
+          "exact_tp": 88,
+          "exact_f1": 0.6494
+        },
+        "legal problems": {
+          "gold_support": 56,
+          "predicted_count": 62,
+          "relaxed_tp": 49,
+          "relaxed_fp": 13,
+          "relaxed_fn": 7,
+          "relaxed_precision": 0.7903,
+          "relaxed_recall": 0.875,
+          "relaxed_f1": 0.8305,
+          "exact_tp": 21,
+          "exact_f1": 0.3559
+        },
+        "loss of relationship": {
+          "gold_support": 103,
+          "predicted_count": 109,
+          "relaxed_tp": 98,
+          "relaxed_fp": 11,
+          "relaxed_fn": 5,
+          "relaxed_precision": 0.8991,
+          "relaxed_recall": 0.9515,
+          "relaxed_f1": 0.9245,
+          "exact_tp": 64,
+          "exact_f1": 0.6038
+        },
+        "pain": {
+          "gold_support": 100,
+          "predicted_count": 104,
+          "relaxed_tp": 92,
+          "relaxed_fp": 12,
+          "relaxed_fn": 8,
+          "relaxed_precision": 0.8846,
+          "relaxed_recall": 0.92,
+          "relaxed_f1": 0.902,
+          "exact_tp": 66,
+          "exact_f1": 0.6471
+        },
+        "patient disability": {
+          "gold_support": 79,
+          "predicted_count": 99,
+          "relaxed_tp": 63,
+          "relaxed_fp": 36,
+          "relaxed_fn": 16,
+          "relaxed_precision": 0.6364,
+          "relaxed_recall": 0.7975,
+          "relaxed_f1": 0.7079,
+          "exact_tp": 42,
+          "exact_f1": 0.4719
+        },
+        "physical isolation": {
+          "gold_support": 46,
+          "predicted_count": 31,
+          "relaxed_tp": 18,
+          "relaxed_fp": 13,
+          "relaxed_fn": 28,
+          "relaxed_precision": 0.5806,
+          "relaxed_recall": 0.3913,
+          "relaxed_f1": 0.4675,
+          "exact_tp": 9,
+          "exact_f1": 0.2338
+        },
+        "psychiatric symptoms or disorders": {
+          "gold_support": 135,
+          "predicted_count": 142,
+          "relaxed_tp": 115,
+          "relaxed_fp": 27,
+          "relaxed_fn": 20,
+          "relaxed_precision": 0.8099,
+          "relaxed_recall": 0.8519,
+          "relaxed_f1": 0.8303,
+          "exact_tp": 66,
+          "exact_f1": 0.4765
+        },
+        "social isolation": {
+          "gold_support": 159,
+          "predicted_count": 196,
+          "relaxed_tp": 152,
+          "relaxed_fp": 44,
+          "relaxed_fn": 7,
+          "relaxed_precision": 0.7755,
+          "relaxed_recall": 0.956,
+          "relaxed_f1": 0.8563,
+          "exact_tp": 106,
+          "exact_f1": 0.5972
+        },
+        "substance abuse": {
+          "gold_support": 139,
+          "predicted_count": 159,
+          "relaxed_tp": 135,
+          "relaxed_fp": 24,
+          "relaxed_fn": 4,
+          "relaxed_precision": 0.8491,
+          "relaxed_recall": 0.9712,
+          "relaxed_f1": 0.906,
+          "exact_tp": 89,
+          "exact_f1": 0.5973
+        },
+        "transitions of care": {
+          "gold_support": 82,
+          "predicted_count": 86,
+          "relaxed_tp": 64,
+          "relaxed_fp": 22,
+          "relaxed_fn": 18,
+          "relaxed_precision": 0.7442,
+          "relaxed_recall": 0.7805,
+          "relaxed_f1": 0.7619,
+          "exact_tp": 38,
+          "exact_f1": 0.4524
+        },
+        "violence": {
+          "gold_support": 77,
+          "predicted_count": 79,
+          "relaxed_tp": 64,
+          "relaxed_fp": 15,
+          "relaxed_fn": 13,
+          "relaxed_precision": 0.8101,
+          "relaxed_recall": 0.8312,
+          "relaxed_f1": 0.8205,
+          "exact_tp": 22,
+          "exact_f1": 0.2821
+        }
+      }
+    },
+    "strategy_b_th_0.40": {
+      "strategy_name": "Strategy B (Active-Threshold, th=0.40)",
+      "decode_kwargs": {
+        "threshold": 0.4
+      },
+      "runtime_seconds": 0.57,
+      "total_gold_spans": 1443,
+      "total_pred_spans": 1520,
+      "overlapping_spans_count": 0,
+      "exact_matching": {
+        "tp": 758,
+        "fp": 762,
+        "fn": 685,
+        "precision": 0.4987,
+        "recall": 0.5253,
+        "f1_score": 0.5116
+      },
+      "relaxed_matching": {
+        "tp": 1237,
+        "fp": 283,
+        "fn": 206,
+        "precision": 0.8138,
+        "recall": 0.8572,
+        "f1_score": 0.835
+      },
+      "boundary_errors_count": 479,
+      "boundary_error_rate_pct": 38.72,
+      "note_micro": {
+        "precision": 0.9283,
+        "recall": 0.8806,
+        "f1_score": 0.9038
+      },
+      "per_category": {
+        "barriers to care": {
+          "gold_support": 60,
+          "predicted_count": 50,
+          "relaxed_tp": 40,
+          "relaxed_fp": 10,
+          "relaxed_fn": 20,
+          "relaxed_precision": 0.8,
+          "relaxed_recall": 0.6667,
+          "relaxed_f1": 0.7273,
+          "exact_tp": 17,
+          "exact_f1": 0.3091
+        },
+        "financial insecurity": {
+          "gold_support": 101,
+          "predicted_count": 112,
+          "relaxed_tp": 85,
+          "relaxed_fp": 27,
+          "relaxed_fn": 16,
+          "relaxed_precision": 0.7589,
+          "relaxed_recall": 0.8416,
+          "relaxed_f1": 0.7981,
+          "exact_tp": 58,
+          "exact_f1": 0.5446
+        },
+        "food insecurity": {
+          "gold_support": 79,
+          "predicted_count": 93,
+          "relaxed_tp": 77,
+          "relaxed_fp": 16,
+          "relaxed_fn": 2,
+          "relaxed_precision": 0.828,
+          "relaxed_recall": 0.9747,
+          "relaxed_f1": 0.8953,
+          "exact_tp": 49,
+          "exact_f1": 0.5698
+        },
+        "housing insecurity": {
+          "gold_support": 101,
+          "predicted_count": 121,
+          "relaxed_tp": 91,
+          "relaxed_fp": 30,
+          "relaxed_fn": 10,
+          "relaxed_precision": 0.7521,
+          "relaxed_recall": 0.901,
+          "relaxed_f1": 0.8198,
+          "exact_tp": 54,
+          "exact_f1": 0.4865
+        },
+        "job insecurity": {
+          "gold_support": 126,
+          "predicted_count": 143,
+          "relaxed_tp": 119,
+          "relaxed_fp": 24,
+          "relaxed_fn": 7,
+          "relaxed_precision": 0.8322,
+          "relaxed_recall": 0.9444,
+          "relaxed_f1": 0.8848,
+          "exact_tp": 85,
+          "exact_f1": 0.632
+        },
+        "legal problems": {
+          "gold_support": 56,
+          "predicted_count": 56,
+          "relaxed_tp": 47,
+          "relaxed_fp": 9,
+          "relaxed_fn": 9,
+          "relaxed_precision": 0.8393,
+          "relaxed_recall": 0.8393,
+          "relaxed_f1": 0.8393,
+          "exact_tp": 21,
+          "exact_f1": 0.375
+        },
+        "loss of relationship": {
+          "gold_support": 103,
+          "predicted_count": 109,
+          "relaxed_tp": 97,
+          "relaxed_fp": 12,
+          "relaxed_fn": 6,
+          "relaxed_precision": 0.8899,
+          "relaxed_recall": 0.9417,
+          "relaxed_f1": 0.9151,
+          "exact_tp": 59,
+          "exact_f1": 0.5566
+        },
+        "pain": {
+          "gold_support": 100,
+          "predicted_count": 101,
+          "relaxed_tp": 91,
+          "relaxed_fp": 10,
+          "relaxed_fn": 9,
+          "relaxed_precision": 0.901,
+          "relaxed_recall": 0.91,
+          "relaxed_f1": 0.9055,
+          "exact_tp": 67,
+          "exact_f1": 0.6667
+        },
+        "patient disability": {
+          "gold_support": 79,
+          "predicted_count": 85,
+          "relaxed_tp": 58,
+          "relaxed_fp": 27,
+          "relaxed_fn": 21,
+          "relaxed_precision": 0.6824,
+          "relaxed_recall": 0.7342,
+          "relaxed_f1": 0.7073,
+          "exact_tp": 35,
+          "exact_f1": 0.4268
+        },
+        "physical isolation": {
+          "gold_support": 46,
+          "predicted_count": 23,
+          "relaxed_tp": 16,
+          "relaxed_fp": 7,
+          "relaxed_fn": 30,
+          "relaxed_precision": 0.6957,
+          "relaxed_recall": 0.3478,
+          "relaxed_f1": 0.4638,
+          "exact_tp": 8,
+          "exact_f1": 0.2319
+        },
+        "psychiatric symptoms or disorders": {
+          "gold_support": 135,
+          "predicted_count": 136,
+          "relaxed_tp": 113,
+          "relaxed_fp": 23,
+          "relaxed_fn": 22,
+          "relaxed_precision": 0.8309,
+          "relaxed_recall": 0.837,
+          "relaxed_f1": 0.8339,
+          "exact_tp": 65,
+          "exact_f1": 0.4797
+        },
+        "social isolation": {
+          "gold_support": 159,
+          "predicted_count": 178,
+          "relaxed_tp": 147,
+          "relaxed_fp": 31,
+          "relaxed_fn": 12,
+          "relaxed_precision": 0.8258,
+          "relaxed_recall": 0.9245,
+          "relaxed_f1": 0.8724,
+          "exact_tp": 104,
+          "exact_f1": 0.6172
+        },
+        "substance abuse": {
+          "gold_support": 139,
+          "predicted_count": 156,
+          "relaxed_tp": 133,
+          "relaxed_fp": 23,
+          "relaxed_fn": 6,
+          "relaxed_precision": 0.8526,
+          "relaxed_recall": 0.9568,
+          "relaxed_f1": 0.9017,
+          "exact_tp": 81,
+          "exact_f1": 0.5492
+        },
+        "transitions of care": {
+          "gold_support": 82,
+          "predicted_count": 81,
+          "relaxed_tp": 60,
+          "relaxed_fp": 21,
+          "relaxed_fn": 22,
+          "relaxed_precision": 0.7407,
+          "relaxed_recall": 0.7317,
+          "relaxed_f1": 0.7362,
+          "exact_tp": 31,
+          "exact_f1": 0.3804
+        },
+        "violence": {
+          "gold_support": 77,
+          "predicted_count": 76,
+          "relaxed_tp": 63,
+          "relaxed_fp": 13,
+          "relaxed_fn": 14,
+          "relaxed_precision": 0.8289,
+          "relaxed_recall": 0.8182,
+          "relaxed_f1": 0.8235,
+          "exact_tp": 24,
+          "exact_f1": 0.3137
+        }
+      }
+    },
+    "strategy_b_th_0.50": {
+      "strategy_name": "Strategy B (Active-Threshold, th=0.50)",
+      "decode_kwargs": {
+        "threshold": 0.5
+      },
+      "runtime_seconds": 0.58,
+      "total_gold_spans": 1443,
+      "total_pred_spans": 1376,
+      "overlapping_spans_count": 0,
+      "exact_matching": {
+        "tp": 659,
+        "fp": 717,
+        "fn": 784,
+        "precision": 0.4789,
+        "recall": 0.4567,
+        "f1_score": 0.4675
+      },
+      "relaxed_matching": {
+        "tp": 1135,
+        "fp": 241,
+        "fn": 308,
+        "precision": 0.8249,
+        "recall": 0.7866,
+        "f1_score": 0.8053
+      },
+      "boundary_errors_count": 476,
+      "boundary_error_rate_pct": 41.94,
+      "note_micro": {
+        "precision": 0.9415,
+        "recall": 0.8148,
+        "f1_score": 0.8736
+      },
+      "per_category": {
+        "barriers to care": {
+          "gold_support": 60,
+          "predicted_count": 45,
+          "relaxed_tp": 34,
+          "relaxed_fp": 11,
+          "relaxed_fn": 26,
+          "relaxed_precision": 0.7556,
+          "relaxed_recall": 0.5667,
+          "relaxed_f1": 0.6476,
+          "exact_tp": 16,
+          "exact_f1": 0.3048
+        },
+        "financial insecurity": {
+          "gold_support": 101,
+          "predicted_count": 94,
+          "relaxed_tp": 72,
+          "relaxed_fp": 22,
+          "relaxed_fn": 29,
+          "relaxed_precision": 0.766,
+          "relaxed_recall": 0.7129,
+          "relaxed_f1": 0.7385,
+          "exact_tp": 44,
+          "exact_f1": 0.4513
+        },
+        "food insecurity": {
+          "gold_support": 79,
+          "predicted_count": 87,
+          "relaxed_tp": 74,
+          "relaxed_fp": 13,
+          "relaxed_fn": 5,
+          "relaxed_precision": 0.8506,
+          "relaxed_recall": 0.9367,
+          "relaxed_f1": 0.8916,
+          "exact_tp": 42,
+          "exact_f1": 0.506
+        },
+        "housing insecurity": {
+          "gold_support": 101,
+          "predicted_count": 116,
+          "relaxed_tp": 87,
+          "relaxed_fp": 29,
+          "relaxed_fn": 14,
+          "relaxed_precision": 0.75,
+          "relaxed_recall": 0.8614,
+          "relaxed_f1": 0.8018,
+          "exact_tp": 44,
+          "exact_f1": 0.4055
+        },
+        "job insecurity": {
+          "gold_support": 126,
+          "predicted_count": 134,
+          "relaxed_tp": 117,
+          "relaxed_fp": 17,
+          "relaxed_fn": 9,
+          "relaxed_precision": 0.8731,
+          "relaxed_recall": 0.9286,
+          "relaxed_f1": 0.9,
+          "exact_tp": 79,
+          "exact_f1": 0.6077
+        },
+        "legal problems": {
+          "gold_support": 56,
+          "predicted_count": 53,
+          "relaxed_tp": 44,
+          "relaxed_fp": 9,
+          "relaxed_fn": 12,
+          "relaxed_precision": 0.8302,
+          "relaxed_recall": 0.7857,
+          "relaxed_f1": 0.8073,
+          "exact_tp": 20,
+          "exact_f1": 0.367
+        },
+        "loss of relationship": {
+          "gold_support": 103,
+          "predicted_count": 100,
+          "relaxed_tp": 87,
+          "relaxed_fp": 13,
+          "relaxed_fn": 16,
+          "relaxed_precision": 0.87,
+          "relaxed_recall": 0.8447,
+          "relaxed_f1": 0.8571,
+          "exact_tp": 50,
+          "exact_f1": 0.4926
+        },
+        "pain": {
+          "gold_support": 100,
+          "predicted_count": 100,
+          "relaxed_tp": 91,
+          "relaxed_fp": 9,
+          "relaxed_fn": 9,
+          "relaxed_precision": 0.91,
+          "relaxed_recall": 0.91,
+          "relaxed_f1": 0.91,
+          "exact_tp": 66,
+          "exact_f1": 0.66
+        },
+        "patient disability": {
+          "gold_support": 79,
+          "predicted_count": 72,
+          "relaxed_tp": 47,
+          "relaxed_fp": 25,
+          "relaxed_fn": 32,
+          "relaxed_precision": 0.6528,
+          "relaxed_recall": 0.5949,
+          "relaxed_f1": 0.6225,
+          "exact_tp": 29,
+          "exact_f1": 0.3841
+        },
+        "physical isolation": {
+          "gold_support": 46,
+          "predicted_count": 16,
+          "relaxed_tp": 11,
+          "relaxed_fp": 5,
+          "relaxed_fn": 35,
+          "relaxed_precision": 0.6875,
+          "relaxed_recall": 0.2391,
+          "relaxed_f1": 0.3548,
+          "exact_tp": 4,
+          "exact_f1": 0.129
+        },
+        "psychiatric symptoms or disorders": {
+          "gold_support": 135,
+          "predicted_count": 119,
+          "relaxed_tp": 100,
+          "relaxed_fp": 19,
+          "relaxed_fn": 35,
+          "relaxed_precision": 0.8403,
+          "relaxed_recall": 0.7407,
+          "relaxed_f1": 0.7874,
+          "exact_tp": 56,
+          "exact_f1": 0.4409
+        },
+        "social isolation": {
+          "gold_support": 159,
+          "predicted_count": 156,
+          "relaxed_tp": 134,
+          "relaxed_fp": 22,
+          "relaxed_fn": 25,
+          "relaxed_precision": 0.859,
+          "relaxed_recall": 0.8428,
+          "relaxed_f1": 0.8508,
+          "exact_tp": 78,
+          "exact_f1": 0.4952
+        },
+        "substance abuse": {
+          "gold_support": 139,
+          "predicted_count": 147,
+          "relaxed_tp": 128,
+          "relaxed_fp": 19,
+          "relaxed_fn": 11,
+          "relaxed_precision": 0.8707,
+          "relaxed_recall": 0.9209,
+          "relaxed_f1": 0.8951,
+          "exact_tp": 80,
+          "exact_f1": 0.5594
+        },
+        "transitions of care": {
+          "gold_support": 82,
+          "predicted_count": 68,
+          "relaxed_tp": 53,
+          "relaxed_fp": 15,
+          "relaxed_fn": 29,
+          "relaxed_precision": 0.7794,
+          "relaxed_recall": 0.6463,
+          "relaxed_f1": 0.7067,
+          "exact_tp": 27,
+          "exact_f1": 0.36
+        },
+        "violence": {
+          "gold_support": 77,
+          "predicted_count": 69,
+          "relaxed_tp": 56,
+          "relaxed_fp": 13,
+          "relaxed_fn": 21,
+          "relaxed_precision": 0.8116,
+          "relaxed_recall": 0.7273,
+          "relaxed_f1": 0.7671,
+          "exact_tp": 24,
+          "exact_f1": 0.3288
+        }
+      }
+    },
+    "strategy_c_margin_+0.00_th_0.30": {
+      "strategy_name": "Strategy C (Margin=+0.00, th=0.30)",
+      "decode_kwargs": {
+        "threshold": 0.3,
+        "margin": 0.0
+      },
+      "runtime_seconds": 0.69,
+      "total_gold_spans": 1443,
+      "total_pred_spans": 1507,
+      "overlapping_spans_count": 0,
+      "exact_matching": {
+        "tp": 748,
+        "fp": 759,
+        "fn": 695,
+        "precision": 0.4964,
+        "recall": 0.5184,
+        "f1_score": 0.5071
+      },
+      "relaxed_matching": {
+        "tp": 1227,
+        "fp": 280,
+        "fn": 216,
+        "precision": 0.8142,
+        "recall": 0.8503,
+        "f1_score": 0.8319
+      },
+      "boundary_errors_count": 479,
+      "boundary_error_rate_pct": 39.04,
+      "note_micro": {
+        "precision": 0.9293,
+        "recall": 0.8738,
+        "f1_score": 0.9007
+      },
+      "per_category": {
+        "barriers to care": {
+          "gold_support": 60,
+          "predicted_count": 49,
+          "relaxed_tp": 38,
+          "relaxed_fp": 11,
+          "relaxed_fn": 22,
+          "relaxed_precision": 0.7755,
+          "relaxed_recall": 0.6333,
+          "relaxed_f1": 0.6972,
+          "exact_tp": 15,
+          "exact_f1": 0.2752
+        },
+        "financial insecurity": {
+          "gold_support": 101,
+          "predicted_count": 111,
+          "relaxed_tp": 85,
+          "relaxed_fp": 26,
+          "relaxed_fn": 16,
+          "relaxed_precision": 0.7658,
+          "relaxed_recall": 0.8416,
+          "relaxed_f1": 0.8019,
+          "exact_tp": 56,
+          "exact_f1": 0.5283
+        },
+        "food insecurity": {
+          "gold_support": 79,
+          "predicted_count": 89,
+          "relaxed_tp": 77,
+          "relaxed_fp": 12,
+          "relaxed_fn": 2,
+          "relaxed_precision": 0.8652,
+          "relaxed_recall": 0.9747,
+          "relaxed_f1": 0.9167,
+          "exact_tp": 46,
+          "exact_f1": 0.5476
+        },
+        "housing insecurity": {
+          "gold_support": 101,
+          "predicted_count": 126,
+          "relaxed_tp": 91,
+          "relaxed_fp": 35,
+          "relaxed_fn": 10,
+          "relaxed_precision": 0.7222,
+          "relaxed_recall": 0.901,
+          "relaxed_f1": 0.8018,
+          "exact_tp": 53,
+          "exact_f1": 0.467
+        },
+        "job insecurity": {
+          "gold_support": 126,
+          "predicted_count": 143,
+          "relaxed_tp": 120,
+          "relaxed_fp": 23,
+          "relaxed_fn": 6,
+          "relaxed_precision": 0.8392,
+          "relaxed_recall": 0.9524,
+          "relaxed_f1": 0.8922,
+          "exact_tp": 86,
+          "exact_f1": 0.6394
+        },
+        "legal problems": {
+          "gold_support": 56,
+          "predicted_count": 56,
+          "relaxed_tp": 46,
+          "relaxed_fp": 10,
+          "relaxed_fn": 10,
+          "relaxed_precision": 0.8214,
+          "relaxed_recall": 0.8214,
+          "relaxed_f1": 0.8214,
+          "exact_tp": 22,
+          "exact_f1": 0.3929
+        },
+        "loss of relationship": {
+          "gold_support": 103,
+          "predicted_count": 109,
+          "relaxed_tp": 97,
+          "relaxed_fp": 12,
+          "relaxed_fn": 6,
+          "relaxed_precision": 0.8899,
+          "relaxed_recall": 0.9417,
+          "relaxed_f1": 0.9151,
+          "exact_tp": 56,
+          "exact_f1": 0.5283
+        },
+        "pain": {
+          "gold_support": 100,
+          "predicted_count": 101,
+          "relaxed_tp": 91,
+          "relaxed_fp": 10,
+          "relaxed_fn": 9,
+          "relaxed_precision": 0.901,
+          "relaxed_recall": 0.91,
+          "relaxed_f1": 0.9055,
+          "exact_tp": 69,
+          "exact_f1": 0.6866
+        },
+        "patient disability": {
+          "gold_support": 79,
+          "predicted_count": 84,
+          "relaxed_tp": 58,
+          "relaxed_fp": 26,
+          "relaxed_fn": 21,
+          "relaxed_precision": 0.6905,
+          "relaxed_recall": 0.7342,
+          "relaxed_f1": 0.7117,
+          "exact_tp": 35,
+          "exact_f1": 0.4294
+        },
+        "physical isolation": {
+          "gold_support": 46,
+          "predicted_count": 23,
+          "relaxed_tp": 14,
+          "relaxed_fp": 9,
+          "relaxed_fn": 32,
+          "relaxed_precision": 0.6087,
+          "relaxed_recall": 0.3043,
+          "relaxed_f1": 0.4058,
+          "exact_tp": 6,
+          "exact_f1": 0.1739
+        },
+        "psychiatric symptoms or disorders": {
+          "gold_support": 135,
+          "predicted_count": 134,
+          "relaxed_tp": 111,
+          "relaxed_fp": 23,
+          "relaxed_fn": 24,
+          "relaxed_precision": 0.8284,
+          "relaxed_recall": 0.8222,
+          "relaxed_f1": 0.8253,
+          "exact_tp": 66,
+          "exact_f1": 0.4907
+        },
+        "social isolation": {
+          "gold_support": 159,
+          "predicted_count": 172,
+          "relaxed_tp": 146,
+          "relaxed_fp": 26,
+          "relaxed_fn": 13,
+          "relaxed_precision": 0.8488,
+          "relaxed_recall": 0.9182,
+          "relaxed_f1": 0.8822,
+          "exact_tp": 104,
+          "exact_f1": 0.6284
+        },
+        "substance abuse": {
+          "gold_support": 139,
+          "predicted_count": 155,
+          "relaxed_tp": 133,
+          "relaxed_fp": 22,
+          "relaxed_fn": 6,
+          "relaxed_precision": 0.8581,
+          "relaxed_recall": 0.9568,
+          "relaxed_f1": 0.9048,
+          "exact_tp": 80,
+          "exact_f1": 0.5442
+        },
+        "transitions of care": {
+          "gold_support": 82,
+          "predicted_count": 79,
+          "relaxed_tp": 58,
+          "relaxed_fp": 21,
+          "relaxed_fn": 24,
+          "relaxed_precision": 0.7342,
+          "relaxed_recall": 0.7073,
+          "relaxed_f1": 0.7205,
+          "exact_tp": 29,
+          "exact_f1": 0.3602
+        },
+        "violence": {
+          "gold_support": 77,
+          "predicted_count": 76,
+          "relaxed_tp": 62,
+          "relaxed_fp": 14,
+          "relaxed_fn": 15,
+          "relaxed_precision": 0.8158,
+          "relaxed_recall": 0.8052,
+          "relaxed_f1": 0.8105,
+          "exact_tp": 25,
+          "exact_f1": 0.3268
+        }
+      }
+    },
+    "strategy_c_margin_+0.05_th_0.30": {
+      "strategy_name": "Strategy C (Margin=+0.05, th=0.30)",
+      "decode_kwargs": {
+        "threshold": 0.3,
+        "margin": 0.05
+      },
+      "runtime_seconds": 0.62,
+      "total_gold_spans": 1443,
+      "total_pred_spans": 1463,
+      "overlapping_spans_count": 0,
+      "exact_matching": {
+        "tp": 731,
+        "fp": 732,
+        "fn": 712,
+        "precision": 0.4997,
+        "recall": 0.5066,
+        "f1_score": 0.5031
+      },
+      "relaxed_matching": {
+        "tp": 1202,
+        "fp": 261,
+        "fn": 241,
+        "precision": 0.8216,
+        "recall": 0.833,
+        "f1_score": 0.8273
+      },
+      "boundary_errors_count": 471,
+      "boundary_error_rate_pct": 39.18,
+      "note_micro": {
+        "precision": 0.9363,
+        "recall": 0.8556,
+        "f1_score": 0.8942
+      },
+      "per_category": {
+        "barriers to care": {
+          "gold_support": 60,
+          "predicted_count": 48,
+          "relaxed_tp": 36,
+          "relaxed_fp": 12,
+          "relaxed_fn": 24,
+          "relaxed_precision": 0.75,
+          "relaxed_recall": 0.6,
+          "relaxed_f1": 0.6667,
+          "exact_tp": 15,
+          "exact_f1": 0.2778
+        },
+        "financial insecurity": {
+          "gold_support": 101,
+          "predicted_count": 110,
+          "relaxed_tp": 84,
+          "relaxed_fp": 26,
+          "relaxed_fn": 17,
+          "relaxed_precision": 0.7636,
+          "relaxed_recall": 0.8317,
+          "relaxed_f1": 0.7962,
+          "exact_tp": 53,
+          "exact_f1": 0.5024
+        },
+        "food insecurity": {
+          "gold_support": 79,
+          "predicted_count": 86,
+          "relaxed_tp": 75,
+          "relaxed_fp": 11,
+          "relaxed_fn": 4,
+          "relaxed_precision": 0.8721,
+          "relaxed_recall": 0.9494,
+          "relaxed_f1": 0.9091,
+          "exact_tp": 45,
+          "exact_f1": 0.5455
+        },
+        "housing insecurity": {
+          "gold_support": 101,
+          "predicted_count": 116,
+          "relaxed_tp": 89,
+          "relaxed_fp": 27,
+          "relaxed_fn": 12,
+          "relaxed_precision": 0.7672,
+          "relaxed_recall": 0.8812,
+          "relaxed_f1": 0.8203,
+          "exact_tp": 52,
+          "exact_f1": 0.4793
+        },
+        "job insecurity": {
+          "gold_support": 126,
+          "predicted_count": 141,
+          "relaxed_tp": 119,
+          "relaxed_fp": 22,
+          "relaxed_fn": 7,
+          "relaxed_precision": 0.844,
+          "relaxed_recall": 0.9444,
+          "relaxed_f1": 0.8914,
+          "exact_tp": 85,
+          "exact_f1": 0.6367
+        },
+        "legal problems": {
+          "gold_support": 56,
+          "predicted_count": 54,
+          "relaxed_tp": 46,
+          "relaxed_fp": 8,
+          "relaxed_fn": 10,
+          "relaxed_precision": 0.8519,
+          "relaxed_recall": 0.8214,
+          "relaxed_f1": 0.8364,
+          "exact_tp": 21,
+          "exact_f1": 0.3818
+        },
+        "loss of relationship": {
+          "gold_support": 103,
+          "predicted_count": 101,
+          "relaxed_tp": 91,
+          "relaxed_fp": 10,
+          "relaxed_fn": 12,
+          "relaxed_precision": 0.901,
+          "relaxed_recall": 0.8835,
+          "relaxed_f1": 0.8922,
+          "exact_tp": 55,
+          "exact_f1": 0.5392
+        },
+        "pain": {
+          "gold_support": 100,
+          "predicted_count": 101,
+          "relaxed_tp": 91,
+          "relaxed_fp": 10,
+          "relaxed_fn": 9,
+          "relaxed_precision": 0.901,
+          "relaxed_recall": 0.91,
+          "relaxed_f1": 0.9055,
+          "exact_tp": 66,
+          "exact_f1": 0.6567
+        },
+        "patient disability": {
+          "gold_support": 79,
+          "predicted_count": 82,
+          "relaxed_tp": 56,
+          "relaxed_fp": 26,
+          "relaxed_fn": 23,
+          "relaxed_precision": 0.6829,
+          "relaxed_recall": 0.7089,
+          "relaxed_f1": 0.6957,
+          "exact_tp": 36,
+          "exact_f1": 0.4472
+        },
+        "physical isolation": {
+          "gold_support": 46,
+          "predicted_count": 19,
+          "relaxed_tp": 12,
+          "relaxed_fp": 7,
+          "relaxed_fn": 34,
+          "relaxed_precision": 0.6316,
+          "relaxed_recall": 0.2609,
+          "relaxed_f1": 0.3692,
+          "exact_tp": 5,
+          "exact_f1": 0.1538
+        },
+        "psychiatric symptoms or disorders": {
+          "gold_support": 135,
+          "predicted_count": 131,
+          "relaxed_tp": 110,
+          "relaxed_fp": 21,
+          "relaxed_fn": 25,
+          "relaxed_precision": 0.8397,
+          "relaxed_recall": 0.8148,
+          "relaxed_f1": 0.8271,
+          "exact_tp": 65,
+          "exact_f1": 0.4887
+        },
+        "social isolation": {
+          "gold_support": 159,
+          "predicted_count": 171,
+          "relaxed_tp": 145,
+          "relaxed_fp": 26,
+          "relaxed_fn": 14,
+          "relaxed_precision": 0.848,
+          "relaxed_recall": 0.9119,
+          "relaxed_f1": 0.8788,
+          "exact_tp": 99,
+          "exact_f1": 0.6
+        },
+        "substance abuse": {
+          "gold_support": 139,
+          "predicted_count": 154,
+          "relaxed_tp": 132,
+          "relaxed_fp": 22,
+          "relaxed_fn": 7,
+          "relaxed_precision": 0.8571,
+          "relaxed_recall": 0.9496,
+          "relaxed_f1": 0.901,
+          "exact_tp": 81,
+          "exact_f1": 0.5529
+        },
+        "transitions of care": {
+          "gold_support": 82,
+          "predicted_count": 74,
+          "relaxed_tp": 56,
+          "relaxed_fp": 18,
+          "relaxed_fn": 26,
+          "relaxed_precision": 0.7568,
+          "relaxed_recall": 0.6829,
+          "relaxed_f1": 0.7179,
+          "exact_tp": 30,
+          "exact_f1": 0.3846
+        },
+        "violence": {
+          "gold_support": 77,
+          "predicted_count": 75,
+          "relaxed_tp": 60,
+          "relaxed_fp": 15,
+          "relaxed_fn": 17,
+          "relaxed_precision": 0.8,
+          "relaxed_recall": 0.7792,
+          "relaxed_f1": 0.7895,
+          "exact_tp": 23,
+          "exact_f1": 0.3026
+        }
+      }
+    },
+    "strategy_c_margin_+0.10_th_0.30": {
+      "strategy_name": "Strategy C (Margin=+0.10, th=0.30)",
+      "decode_kwargs": {
+        "threshold": 0.3,
+        "margin": 0.1
+      },
+      "runtime_seconds": 0.61,
+      "total_gold_spans": 1443,
+      "total_pred_spans": 1432,
+      "overlapping_spans_count": 0,
+      "exact_matching": {
+        "tp": 717,
+        "fp": 715,
+        "fn": 726,
+        "precision": 0.5007,
+        "recall": 0.4969,
+        "f1_score": 0.4988
+      },
+      "relaxed_matching": {
+        "tp": 1178,
+        "fp": 254,
+        "fn": 265,
+        "precision": 0.8226,
+        "recall": 0.8164,
+        "f1_score": 0.8195
+      },
+      "boundary_errors_count": 461,
+      "boundary_error_rate_pct": 39.13,
+      "note_micro": {
+        "precision": 0.94,
+        "recall": 0.8413,
+        "f1_score": 0.8879
+      },
+      "per_category": {
+        "barriers to care": {
+          "gold_support": 60,
+          "predicted_count": 48,
+          "relaxed_tp": 35,
+          "relaxed_fp": 13,
+          "relaxed_fn": 25,
+          "relaxed_precision": 0.7292,
+          "relaxed_recall": 0.5833,
+          "relaxed_f1": 0.6481,
+          "exact_tp": 15,
+          "exact_f1": 0.2778
+        },
+        "financial insecurity": {
+          "gold_support": 101,
+          "predicted_count": 104,
+          "relaxed_tp": 80,
+          "relaxed_fp": 24,
+          "relaxed_fn": 21,
+          "relaxed_precision": 0.7692,
+          "relaxed_recall": 0.7921,
+          "relaxed_f1": 0.7805,
+          "exact_tp": 52,
+          "exact_f1": 0.5073
+        },
+        "food insecurity": {
+          "gold_support": 79,
+          "predicted_count": 88,
+          "relaxed_tp": 75,
+          "relaxed_fp": 13,
+          "relaxed_fn": 4,
+          "relaxed_precision": 0.8523,
+          "relaxed_recall": 0.9494,
+          "relaxed_f1": 0.8982,
+          "exact_tp": 45,
+          "exact_f1": 0.5389
+        },
+        "housing insecurity": {
+          "gold_support": 101,
+          "predicted_count": 112,
+          "relaxed_tp": 87,
+          "relaxed_fp": 25,
+          "relaxed_fn": 14,
+          "relaxed_precision": 0.7768,
+          "relaxed_recall": 0.8614,
+          "relaxed_f1": 0.8169,
+          "exact_tp": 51,
+          "exact_f1": 0.4789
+        },
+        "job insecurity": {
+          "gold_support": 126,
+          "predicted_count": 136,
+          "relaxed_tp": 118,
+          "relaxed_fp": 18,
+          "relaxed_fn": 8,
+          "relaxed_precision": 0.8676,
+          "relaxed_recall": 0.9365,
+          "relaxed_f1": 0.9008,
+          "exact_tp": 85,
+          "exact_f1": 0.6489
+        },
+        "legal problems": {
+          "gold_support": 56,
+          "predicted_count": 54,
+          "relaxed_tp": 45,
+          "relaxed_fp": 9,
+          "relaxed_fn": 11,
+          "relaxed_precision": 0.8333,
+          "relaxed_recall": 0.8036,
+          "relaxed_f1": 0.8182,
+          "exact_tp": 22,
+          "exact_f1": 0.4
+        },
+        "loss of relationship": {
+          "gold_support": 103,
+          "predicted_count": 100,
+          "relaxed_tp": 89,
+          "relaxed_fp": 11,
+          "relaxed_fn": 14,
+          "relaxed_precision": 0.89,
+          "relaxed_recall": 0.8641,
+          "relaxed_f1": 0.8768,
+          "exact_tp": 54,
+          "exact_f1": 0.532
+        },
+        "pain": {
+          "gold_support": 100,
+          "predicted_count": 101,
+          "relaxed_tp": 91,
+          "relaxed_fp": 10,
+          "relaxed_fn": 9,
+          "relaxed_precision": 0.901,
+          "relaxed_recall": 0.91,
+          "relaxed_f1": 0.9055,
+          "exact_tp": 67,
+          "exact_f1": 0.6667
+        },
+        "patient disability": {
+          "gold_support": 79,
+          "predicted_count": 81,
+          "relaxed_tp": 55,
+          "relaxed_fp": 26,
+          "relaxed_fn": 24,
+          "relaxed_precision": 0.679,
+          "relaxed_recall": 0.6962,
+          "relaxed_f1": 0.6875,
+          "exact_tp": 34,
+          "exact_f1": 0.425
+        },
+        "physical isolation": {
+          "gold_support": 46,
+          "predicted_count": 17,
+          "relaxed_tp": 12,
+          "relaxed_fp": 5,
+          "relaxed_fn": 34,
+          "relaxed_precision": 0.7059,
+          "relaxed_recall": 0.2609,
+          "relaxed_f1": 0.381,
+          "exact_tp": 4,
+          "exact_f1": 0.127
+        },
+        "psychiatric symptoms or disorders": {
+          "gold_support": 135,
+          "predicted_count": 131,
+          "relaxed_tp": 107,
+          "relaxed_fp": 24,
+          "relaxed_fn": 28,
+          "relaxed_precision": 0.8168,
+          "relaxed_recall": 0.7926,
+          "relaxed_f1": 0.8045,
+          "exact_tp": 66,
+          "exact_f1": 0.4962
+        },
+        "social isolation": {
+          "gold_support": 159,
+          "predicted_count": 163,
+          "relaxed_tp": 139,
+          "relaxed_fp": 24,
+          "relaxed_fn": 20,
+          "relaxed_precision": 0.8528,
+          "relaxed_recall": 0.8742,
+          "relaxed_f1": 0.8634,
+          "exact_tp": 89,
+          "exact_f1": 0.5528
+        },
+        "substance abuse": {
+          "gold_support": 139,
+          "predicted_count": 152,
+          "relaxed_tp": 131,
+          "relaxed_fp": 21,
+          "relaxed_fn": 8,
+          "relaxed_precision": 0.8618,
+          "relaxed_recall": 0.9424,
+          "relaxed_f1": 0.9003,
+          "exact_tp": 81,
+          "exact_f1": 0.5567
+        },
+        "transitions of care": {
+          "gold_support": 82,
+          "predicted_count": 71,
+          "relaxed_tp": 54,
+          "relaxed_fp": 17,
+          "relaxed_fn": 28,
+          "relaxed_precision": 0.7606,
+          "relaxed_recall": 0.6585,
+          "relaxed_f1": 0.7059,
+          "exact_tp": 28,
+          "exact_f1": 0.366
+        },
+        "violence": {
+          "gold_support": 77,
+          "predicted_count": 74,
+          "relaxed_tp": 60,
+          "relaxed_fp": 14,
+          "relaxed_fn": 17,
+          "relaxed_precision": 0.8108,
+          "relaxed_recall": 0.7792,
+          "relaxed_f1": 0.7947,
+          "exact_tp": 24,
+          "exact_f1": 0.3179
+        }
+      }
+    },
+    "strategy_c_margin_+0.00_th_0.20": {
+      "strategy_name": "Strategy C (Margin=+0.00, th=0.20)",
+      "decode_kwargs": {
+        "threshold": 0.2,
+        "margin": 0.0
+      },
+      "runtime_seconds": 0.69,
+      "total_gold_spans": 1443,
+      "total_pred_spans": 1507,
+      "overlapping_spans_count": 0,
+      "exact_matching": {
+        "tp": 748,
+        "fp": 759,
+        "fn": 695,
+        "precision": 0.4964,
+        "recall": 0.5184,
+        "f1_score": 0.5071
+      },
+      "relaxed_matching": {
+        "tp": 1227,
+        "fp": 280,
+        "fn": 216,
+        "precision": 0.8142,
+        "recall": 0.8503,
+        "f1_score": 0.8319
+      },
+      "boundary_errors_count": 479,
+      "boundary_error_rate_pct": 39.04,
+      "note_micro": {
+        "precision": 0.9293,
+        "recall": 0.8738,
+        "f1_score": 0.9007
+      },
+      "per_category": {
+        "barriers to care": {
+          "gold_support": 60,
+          "predicted_count": 49,
+          "relaxed_tp": 38,
+          "relaxed_fp": 11,
+          "relaxed_fn": 22,
+          "relaxed_precision": 0.7755,
+          "relaxed_recall": 0.6333,
+          "relaxed_f1": 0.6972,
+          "exact_tp": 15,
+          "exact_f1": 0.2752
+        },
+        "financial insecurity": {
+          "gold_support": 101,
+          "predicted_count": 111,
+          "relaxed_tp": 85,
+          "relaxed_fp": 26,
+          "relaxed_fn": 16,
+          "relaxed_precision": 0.7658,
+          "relaxed_recall": 0.8416,
+          "relaxed_f1": 0.8019,
+          "exact_tp": 56,
+          "exact_f1": 0.5283
+        },
+        "food insecurity": {
+          "gold_support": 79,
+          "predicted_count": 89,
+          "relaxed_tp": 77,
+          "relaxed_fp": 12,
+          "relaxed_fn": 2,
+          "relaxed_precision": 0.8652,
+          "relaxed_recall": 0.9747,
+          "relaxed_f1": 0.9167,
+          "exact_tp": 46,
+          "exact_f1": 0.5476
+        },
+        "housing insecurity": {
+          "gold_support": 101,
+          "predicted_count": 126,
+          "relaxed_tp": 91,
+          "relaxed_fp": 35,
+          "relaxed_fn": 10,
+          "relaxed_precision": 0.7222,
+          "relaxed_recall": 0.901,
+          "relaxed_f1": 0.8018,
+          "exact_tp": 53,
+          "exact_f1": 0.467
+        },
+        "job insecurity": {
+          "gold_support": 126,
+          "predicted_count": 143,
+          "relaxed_tp": 120,
+          "relaxed_fp": 23,
+          "relaxed_fn": 6,
+          "relaxed_precision": 0.8392,
+          "relaxed_recall": 0.9524,
+          "relaxed_f1": 0.8922,
+          "exact_tp": 86,
+          "exact_f1": 0.6394
+        },
+        "legal problems": {
+          "gold_support": 56,
+          "predicted_count": 56,
+          "relaxed_tp": 46,
+          "relaxed_fp": 10,
+          "relaxed_fn": 10,
+          "relaxed_precision": 0.8214,
+          "relaxed_recall": 0.8214,
+          "relaxed_f1": 0.8214,
+          "exact_tp": 22,
+          "exact_f1": 0.3929
+        },
+        "loss of relationship": {
+          "gold_support": 103,
+          "predicted_count": 109,
+          "relaxed_tp": 97,
+          "relaxed_fp": 12,
+          "relaxed_fn": 6,
+          "relaxed_precision": 0.8899,
+          "relaxed_recall": 0.9417,
+          "relaxed_f1": 0.9151,
+          "exact_tp": 56,
+          "exact_f1": 0.5283
+        },
+        "pain": {
+          "gold_support": 100,
+          "predicted_count": 101,
+          "relaxed_tp": 91,
+          "relaxed_fp": 10,
+          "relaxed_fn": 9,
+          "relaxed_precision": 0.901,
+          "relaxed_recall": 0.91,
+          "relaxed_f1": 0.9055,
+          "exact_tp": 69,
+          "exact_f1": 0.6866
+        },
+        "patient disability": {
+          "gold_support": 79,
+          "predicted_count": 84,
+          "relaxed_tp": 58,
+          "relaxed_fp": 26,
+          "relaxed_fn": 21,
+          "relaxed_precision": 0.6905,
+          "relaxed_recall": 0.7342,
+          "relaxed_f1": 0.7117,
+          "exact_tp": 35,
+          "exact_f1": 0.4294
+        },
+        "physical isolation": {
+          "gold_support": 46,
+          "predicted_count": 23,
+          "relaxed_tp": 14,
+          "relaxed_fp": 9,
+          "relaxed_fn": 32,
+          "relaxed_precision": 0.6087,
+          "relaxed_recall": 0.3043,
+          "relaxed_f1": 0.4058,
+          "exact_tp": 6,
+          "exact_f1": 0.1739
+        },
+        "psychiatric symptoms or disorders": {
+          "gold_support": 135,
+          "predicted_count": 134,
+          "relaxed_tp": 111,
+          "relaxed_fp": 23,
+          "relaxed_fn": 24,
+          "relaxed_precision": 0.8284,
+          "relaxed_recall": 0.8222,
+          "relaxed_f1": 0.8253,
+          "exact_tp": 66,
+          "exact_f1": 0.4907
+        },
+        "social isolation": {
+          "gold_support": 159,
+          "predicted_count": 172,
+          "relaxed_tp": 146,
+          "relaxed_fp": 26,
+          "relaxed_fn": 13,
+          "relaxed_precision": 0.8488,
+          "relaxed_recall": 0.9182,
+          "relaxed_f1": 0.8822,
+          "exact_tp": 104,
+          "exact_f1": 0.6284
+        },
+        "substance abuse": {
+          "gold_support": 139,
+          "predicted_count": 155,
+          "relaxed_tp": 133,
+          "relaxed_fp": 22,
+          "relaxed_fn": 6,
+          "relaxed_precision": 0.8581,
+          "relaxed_recall": 0.9568,
+          "relaxed_f1": 0.9048,
+          "exact_tp": 80,
+          "exact_f1": 0.5442
+        },
+        "transitions of care": {
+          "gold_support": 82,
+          "predicted_count": 79,
+          "relaxed_tp": 58,
+          "relaxed_fp": 21,
+          "relaxed_fn": 24,
+          "relaxed_precision": 0.7342,
+          "relaxed_recall": 0.7073,
+          "relaxed_f1": 0.7205,
+          "exact_tp": 29,
+          "exact_f1": 0.3602
+        },
+        "violence": {
+          "gold_support": 77,
+          "predicted_count": 76,
+          "relaxed_tp": 62,
+          "relaxed_fp": 14,
+          "relaxed_fn": 15,
+          "relaxed_precision": 0.8158,
+          "relaxed_recall": 0.8052,
+          "relaxed_f1": 0.8105,
+          "exact_tp": 25,
+          "exact_f1": 0.3268
+        }
+      }
+    },
+    "strategy_c_margin_+0.00_th_0.40": {
+      "strategy_name": "Strategy C (Margin=+0.00, th=0.40)",
+      "decode_kwargs": {
+        "threshold": 0.4,
+        "margin": 0.0
+      },
+      "runtime_seconds": 0.55,
+      "total_gold_spans": 1443,
+      "total_pred_spans": 1506,
+      "overlapping_spans_count": 0,
+      "exact_matching": {
+        "tp": 745,
+        "fp": 761,
+        "fn": 698,
+        "precision": 0.4947,
+        "recall": 0.5163,
+        "f1_score": 0.5053
+      },
+      "relaxed_matching": {
+        "tp": 1226,
+        "fp": 280,
+        "fn": 217,
+        "precision": 0.8141,
+        "recall": 0.8496,
+        "f1_score": 0.8315
+      },
+      "boundary_errors_count": 481,
+      "boundary_error_rate_pct": 39.23,
+      "note_micro": {
+        "precision": 0.93,
+        "recall": 0.873,
+        "f1_score": 0.9006
+      },
+      "per_category": {
+        "barriers to care": {
+          "gold_support": 60,
+          "predicted_count": 49,
+          "relaxed_tp": 38,
+          "relaxed_fp": 11,
+          "relaxed_fn": 22,
+          "relaxed_precision": 0.7755,
+          "relaxed_recall": 0.6333,
+          "relaxed_f1": 0.6972,
+          "exact_tp": 15,
+          "exact_f1": 0.2752
+        },
+        "financial insecurity": {
+          "gold_support": 101,
+          "predicted_count": 111,
+          "relaxed_tp": 85,
+          "relaxed_fp": 26,
+          "relaxed_fn": 16,
+          "relaxed_precision": 0.7658,
+          "relaxed_recall": 0.8416,
+          "relaxed_f1": 0.8019,
+          "exact_tp": 55,
+          "exact_f1": 0.5189
+        },
+        "food insecurity": {
+          "gold_support": 79,
+          "predicted_count": 89,
+          "relaxed_tp": 77,
+          "relaxed_fp": 12,
+          "relaxed_fn": 2,
+          "relaxed_precision": 0.8652,
+          "relaxed_recall": 0.9747,
+          "relaxed_f1": 0.9167,
+          "exact_tp": 46,
+          "exact_f1": 0.5476
+        },
+        "housing insecurity": {
+          "gold_support": 101,
+          "predicted_count": 126,
+          "relaxed_tp": 91,
+          "relaxed_fp": 35,
+          "relaxed_fn": 10,
+          "relaxed_precision": 0.7222,
+          "relaxed_recall": 0.901,
+          "relaxed_f1": 0.8018,
+          "exact_tp": 53,
+          "exact_f1": 0.467
+        },
+        "job insecurity": {
+          "gold_support": 126,
+          "predicted_count": 142,
+          "relaxed_tp": 119,
+          "relaxed_fp": 23,
+          "relaxed_fn": 7,
+          "relaxed_precision": 0.838,
+          "relaxed_recall": 0.9444,
+          "relaxed_f1": 0.8881,
+          "exact_tp": 85,
+          "exact_f1": 0.6343
+        },
+        "legal problems": {
+          "gold_support": 56,
+          "predicted_count": 56,
+          "relaxed_tp": 46,
+          "relaxed_fp": 10,
+          "relaxed_fn": 10,
+          "relaxed_precision": 0.8214,
+          "relaxed_recall": 0.8214,
+          "relaxed_f1": 0.8214,
+          "exact_tp": 22,
+          "exact_f1": 0.3929
+        },
+        "loss of relationship": {
+          "gold_support": 103,
+          "predicted_count": 109,
+          "relaxed_tp": 97,
+          "relaxed_fp": 12,
+          "relaxed_fn": 6,
+          "relaxed_precision": 0.8899,
+          "relaxed_recall": 0.9417,
+          "relaxed_f1": 0.9151,
+          "exact_tp": 57,
+          "exact_f1": 0.5377
+        },
+        "pain": {
+          "gold_support": 100,
+          "predicted_count": 101,
+          "relaxed_tp": 91,
+          "relaxed_fp": 10,
+          "relaxed_fn": 9,
+          "relaxed_precision": 0.901,
+          "relaxed_recall": 0.91,
+          "relaxed_f1": 0.9055,
+          "exact_tp": 67,
+          "exact_f1": 0.6667
+        },
+        "patient disability": {
+          "gold_support": 79,
+          "predicted_count": 83,
+          "relaxed_tp": 58,
+          "relaxed_fp": 25,
+          "relaxed_fn": 21,
+          "relaxed_precision": 0.6988,
+          "relaxed_recall": 0.7342,
+          "relaxed_f1": 0.716,
+          "exact_tp": 35,
+          "exact_f1": 0.4321
+        },
+        "physical isolation": {
+          "gold_support": 46,
+          "predicted_count": 23,
+          "relaxed_tp": 14,
+          "relaxed_fp": 9,
+          "relaxed_fn": 32,
+          "relaxed_precision": 0.6087,
+          "relaxed_recall": 0.3043,
+          "relaxed_f1": 0.4058,
+          "exact_tp": 6,
+          "exact_f1": 0.1739
+        },
+        "psychiatric symptoms or disorders": {
+          "gold_support": 135,
+          "predicted_count": 134,
+          "relaxed_tp": 111,
+          "relaxed_fp": 23,
+          "relaxed_fn": 24,
+          "relaxed_precision": 0.8284,
+          "relaxed_recall": 0.8222,
+          "relaxed_f1": 0.8253,
+          "exact_tp": 65,
+          "exact_f1": 0.4833
+        },
+        "social isolation": {
+          "gold_support": 159,
+          "predicted_count": 172,
+          "relaxed_tp": 146,
+          "relaxed_fp": 26,
+          "relaxed_fn": 13,
+          "relaxed_precision": 0.8488,
+          "relaxed_recall": 0.9182,
+          "relaxed_f1": 0.8822,
+          "exact_tp": 104,
+          "exact_f1": 0.6284
+        },
+        "substance abuse": {
+          "gold_support": 139,
+          "predicted_count": 156,
+          "relaxed_tp": 133,
+          "relaxed_fp": 23,
+          "relaxed_fn": 6,
+          "relaxed_precision": 0.8526,
+          "relaxed_recall": 0.9568,
+          "relaxed_f1": 0.9017,
+          "exact_tp": 81,
+          "exact_f1": 0.5492
+        },
+        "transitions of care": {
+          "gold_support": 82,
+          "predicted_count": 79,
+          "relaxed_tp": 58,
+          "relaxed_fp": 21,
+          "relaxed_fn": 24,
+          "relaxed_precision": 0.7342,
+          "relaxed_recall": 0.7073,
+          "relaxed_f1": 0.7205,
+          "exact_tp": 29,
+          "exact_f1": 0.3602
+        },
+        "violence": {
+          "gold_support": 77,
+          "predicted_count": 76,
+          "relaxed_tp": 62,
+          "relaxed_fp": 14,
+          "relaxed_fn": 15,
+          "relaxed_precision": 0.8158,
+          "relaxed_recall": 0.8052,
+          "relaxed_f1": 0.8105,
+          "exact_tp": 25,
+          "exact_f1": 0.3268
+        }
+      }
+    },
+    "strategy_c_margin_+0.00_th_0.50": {
+      "strategy_name": "Strategy C (Margin=+0.00, th=0.50)",
+      "decode_kwargs": {
+        "threshold": 0.5,
+        "margin": 0.0
+      },
+      "runtime_seconds": 0.63,
+      "total_gold_spans": 1443,
+      "total_pred_spans": 1376,
+      "overlapping_spans_count": 0,
+      "exact_matching": {
+        "tp": 659,
+        "fp": 717,
+        "fn": 784,
+        "precision": 0.4789,
+        "recall": 0.4567,
+        "f1_score": 0.4675
+      },
+      "relaxed_matching": {
+        "tp": 1135,
+        "fp": 241,
+        "fn": 308,
+        "precision": 0.8249,
+        "recall": 0.7866,
+        "f1_score": 0.8053
+      },
+      "boundary_errors_count": 476,
+      "boundary_error_rate_pct": 41.94,
+      "note_micro": {
+        "precision": 0.9415,
+        "recall": 0.8148,
+        "f1_score": 0.8736
+      },
+      "per_category": {
+        "barriers to care": {
+          "gold_support": 60,
+          "predicted_count": 45,
+          "relaxed_tp": 34,
+          "relaxed_fp": 11,
+          "relaxed_fn": 26,
+          "relaxed_precision": 0.7556,
+          "relaxed_recall": 0.5667,
+          "relaxed_f1": 0.6476,
+          "exact_tp": 16,
+          "exact_f1": 0.3048
+        },
+        "financial insecurity": {
+          "gold_support": 101,
+          "predicted_count": 94,
+          "relaxed_tp": 72,
+          "relaxed_fp": 22,
+          "relaxed_fn": 29,
+          "relaxed_precision": 0.766,
+          "relaxed_recall": 0.7129,
+          "relaxed_f1": 0.7385,
+          "exact_tp": 44,
+          "exact_f1": 0.4513
+        },
+        "food insecurity": {
+          "gold_support": 79,
+          "predicted_count": 87,
+          "relaxed_tp": 74,
+          "relaxed_fp": 13,
+          "relaxed_fn": 5,
+          "relaxed_precision": 0.8506,
+          "relaxed_recall": 0.9367,
+          "relaxed_f1": 0.8916,
+          "exact_tp": 42,
+          "exact_f1": 0.506
+        },
+        "housing insecurity": {
+          "gold_support": 101,
+          "predicted_count": 116,
+          "relaxed_tp": 87,
+          "relaxed_fp": 29,
+          "relaxed_fn": 14,
+          "relaxed_precision": 0.75,
+          "relaxed_recall": 0.8614,
+          "relaxed_f1": 0.8018,
+          "exact_tp": 44,
+          "exact_f1": 0.4055
+        },
+        "job insecurity": {
+          "gold_support": 126,
+          "predicted_count": 134,
+          "relaxed_tp": 117,
+          "relaxed_fp": 17,
+          "relaxed_fn": 9,
+          "relaxed_precision": 0.8731,
+          "relaxed_recall": 0.9286,
+          "relaxed_f1": 0.9,
+          "exact_tp": 79,
+          "exact_f1": 0.6077
+        },
+        "legal problems": {
+          "gold_support": 56,
+          "predicted_count": 53,
+          "relaxed_tp": 44,
+          "relaxed_fp": 9,
+          "relaxed_fn": 12,
+          "relaxed_precision": 0.8302,
+          "relaxed_recall": 0.7857,
+          "relaxed_f1": 0.8073,
+          "exact_tp": 20,
+          "exact_f1": 0.367
+        },
+        "loss of relationship": {
+          "gold_support": 103,
+          "predicted_count": 100,
+          "relaxed_tp": 87,
+          "relaxed_fp": 13,
+          "relaxed_fn": 16,
+          "relaxed_precision": 0.87,
+          "relaxed_recall": 0.8447,
+          "relaxed_f1": 0.8571,
+          "exact_tp": 50,
+          "exact_f1": 0.4926
+        },
+        "pain": {
+          "gold_support": 100,
+          "predicted_count": 100,
+          "relaxed_tp": 91,
+          "relaxed_fp": 9,
+          "relaxed_fn": 9,
+          "relaxed_precision": 0.91,
+          "relaxed_recall": 0.91,
+          "relaxed_f1": 0.91,
+          "exact_tp": 66,
+          "exact_f1": 0.66
+        },
+        "patient disability": {
+          "gold_support": 79,
+          "predicted_count": 72,
+          "relaxed_tp": 47,
+          "relaxed_fp": 25,
+          "relaxed_fn": 32,
+          "relaxed_precision": 0.6528,
+          "relaxed_recall": 0.5949,
+          "relaxed_f1": 0.6225,
+          "exact_tp": 29,
+          "exact_f1": 0.3841
+        },
+        "physical isolation": {
+          "gold_support": 46,
+          "predicted_count": 16,
+          "relaxed_tp": 11,
+          "relaxed_fp": 5,
+          "relaxed_fn": 35,
+          "relaxed_precision": 0.6875,
+          "relaxed_recall": 0.2391,
+          "relaxed_f1": 0.3548,
+          "exact_tp": 4,
+          "exact_f1": 0.129
+        },
+        "psychiatric symptoms or disorders": {
+          "gold_support": 135,
+          "predicted_count": 119,
+          "relaxed_tp": 100,
+          "relaxed_fp": 19,
+          "relaxed_fn": 35,
+          "relaxed_precision": 0.8403,
+          "relaxed_recall": 0.7407,
+          "relaxed_f1": 0.7874,
+          "exact_tp": 56,
+          "exact_f1": 0.4409
+        },
+        "social isolation": {
+          "gold_support": 159,
+          "predicted_count": 156,
+          "relaxed_tp": 134,
+          "relaxed_fp": 22,
+          "relaxed_fn": 25,
+          "relaxed_precision": 0.859,
+          "relaxed_recall": 0.8428,
+          "relaxed_f1": 0.8508,
+          "exact_tp": 78,
+          "exact_f1": 0.4952
+        },
+        "substance abuse": {
+          "gold_support": 139,
+          "predicted_count": 147,
+          "relaxed_tp": 128,
+          "relaxed_fp": 19,
+          "relaxed_fn": 11,
+          "relaxed_precision": 0.8707,
+          "relaxed_recall": 0.9209,
+          "relaxed_f1": 0.8951,
+          "exact_tp": 80,
+          "exact_f1": 0.5594
+        },
+        "transitions of care": {
+          "gold_support": 82,
+          "predicted_count": 68,
+          "relaxed_tp": 53,
+          "relaxed_fp": 15,
+          "relaxed_fn": 29,
+          "relaxed_precision": 0.7794,
+          "relaxed_recall": 0.6463,
+          "relaxed_f1": 0.7067,
+          "exact_tp": 27,
+          "exact_f1": 0.36
+        },
+        "violence": {
+          "gold_support": 77,
+          "predicted_count": 69,
+          "relaxed_tp": 56,
+          "relaxed_fp": 13,
+          "relaxed_fn": 21,
+          "relaxed_precision": 0.8116,
+          "relaxed_recall": 0.7273,
+          "relaxed_f1": 0.7671,
+          "exact_tp": 24,
+          "exact_f1": 0.3288
+        }
+      }
+    },
+    "strategy_c_margin_-0.05_th_0.30": {
+      "strategy_name": "Strategy C (Margin=-0.05, th=0.30)",
+      "decode_kwargs": {
+        "threshold": 0.3,
+        "margin": -0.05
+      },
+      "runtime_seconds": 0.64,
+      "total_gold_spans": 1443,
+      "total_pred_spans": 1529,
+      "overlapping_spans_count": 0,
+      "exact_matching": {
+        "tp": 762,
+        "fp": 767,
+        "fn": 681,
+        "precision": 0.4984,
+        "recall": 0.5281,
+        "f1_score": 0.5128
+      },
+      "relaxed_matching": {
+        "tp": 1242,
+        "fp": 287,
+        "fn": 201,
+        "precision": 0.8123,
+        "recall": 0.8607,
+        "f1_score": 0.8358
+      },
+      "boundary_errors_count": 480,
+      "boundary_error_rate_pct": 38.65,
+      "note_micro": {
+        "precision": 0.9278,
+        "recall": 0.8836,
+        "f1_score": 0.9051
+      },
+      "per_category": {
+        "barriers to care": {
+          "gold_support": 60,
+          "predicted_count": 49,
+          "relaxed_tp": 39,
+          "relaxed_fp": 10,
+          "relaxed_fn": 21,
+          "relaxed_precision": 0.7959,
+          "relaxed_recall": 0.65,
+          "relaxed_f1": 0.7156,
+          "exact_tp": 17,
+          "exact_f1": 0.3119
+        },
+        "financial insecurity": {
+          "gold_support": 101,
+          "predicted_count": 112,
+          "relaxed_tp": 86,
+          "relaxed_fp": 26,
+          "relaxed_fn": 15,
+          "relaxed_precision": 0.7679,
+          "relaxed_recall": 0.8515,
+          "relaxed_f1": 0.8075,
+          "exact_tp": 61,
+          "exact_f1": 0.5728
+        },
+        "food insecurity": {
+          "gold_support": 79,
+          "predicted_count": 91,
+          "relaxed_tp": 77,
+          "relaxed_fp": 14,
+          "relaxed_fn": 2,
+          "relaxed_precision": 0.8462,
+          "relaxed_recall": 0.9747,
+          "relaxed_f1": 0.9059,
+          "exact_tp": 49,
+          "exact_f1": 0.5765
+        },
+        "housing insecurity": {
+          "gold_support": 101,
+          "predicted_count": 122,
+          "relaxed_tp": 92,
+          "relaxed_fp": 30,
+          "relaxed_fn": 9,
+          "relaxed_precision": 0.7541,
+          "relaxed_recall": 0.9109,
+          "relaxed_f1": 0.8251,
+          "exact_tp": 54,
+          "exact_f1": 0.4843
+        },
+        "job insecurity": {
+          "gold_support": 126,
+          "predicted_count": 144,
+          "relaxed_tp": 120,
+          "relaxed_fp": 24,
+          "relaxed_fn": 6,
+          "relaxed_precision": 0.8333,
+          "relaxed_recall": 0.9524,
+          "relaxed_f1": 0.8889,
+          "exact_tp": 86,
+          "exact_f1": 0.637
+        },
+        "legal problems": {
+          "gold_support": 56,
+          "predicted_count": 56,
+          "relaxed_tp": 47,
+          "relaxed_fp": 9,
+          "relaxed_fn": 9,
+          "relaxed_precision": 0.8393,
+          "relaxed_recall": 0.8393,
+          "relaxed_f1": 0.8393,
+          "exact_tp": 21,
+          "exact_f1": 0.375
+        },
+        "loss of relationship": {
+          "gold_support": 103,
+          "predicted_count": 110,
+          "relaxed_tp": 97,
+          "relaxed_fp": 13,
+          "relaxed_fn": 6,
+          "relaxed_precision": 0.8818,
+          "relaxed_recall": 0.9417,
+          "relaxed_f1": 0.9108,
+          "exact_tp": 57,
+          "exact_f1": 0.5352
+        },
+        "pain": {
+          "gold_support": 100,
+          "predicted_count": 102,
+          "relaxed_tp": 91,
+          "relaxed_fp": 11,
+          "relaxed_fn": 9,
+          "relaxed_precision": 0.8922,
+          "relaxed_recall": 0.91,
+          "relaxed_f1": 0.901,
+          "exact_tp": 68,
+          "exact_f1": 0.6733
+        },
+        "patient disability": {
+          "gold_support": 79,
+          "predicted_count": 87,
+          "relaxed_tp": 58,
+          "relaxed_fp": 29,
+          "relaxed_fn": 21,
+          "relaxed_precision": 0.6667,
+          "relaxed_recall": 0.7342,
+          "relaxed_f1": 0.6988,
+          "exact_tp": 36,
+          "exact_f1": 0.4337
+        },
+        "physical isolation": {
+          "gold_support": 46,
+          "predicted_count": 24,
+          "relaxed_tp": 16,
+          "relaxed_fp": 8,
+          "relaxed_fn": 30,
+          "relaxed_precision": 0.6667,
+          "relaxed_recall": 0.3478,
+          "relaxed_f1": 0.4571,
+          "exact_tp": 6,
+          "exact_f1": 0.1714
+        },
+        "psychiatric symptoms or disorders": {
+          "gold_support": 135,
+          "predicted_count": 136,
+          "relaxed_tp": 112,
+          "relaxed_fp": 24,
+          "relaxed_fn": 23,
+          "relaxed_precision": 0.8235,
+          "relaxed_recall": 0.8296,
+          "relaxed_f1": 0.8266,
+          "exact_tp": 65,
+          "exact_f1": 0.4797
+        },
+        "social isolation": {
+          "gold_support": 159,
+          "predicted_count": 176,
+          "relaxed_tp": 146,
+          "relaxed_fp": 30,
+          "relaxed_fn": 13,
+          "relaxed_precision": 0.8295,
+          "relaxed_recall": 0.9182,
+          "relaxed_f1": 0.8716,
+          "exact_tp": 104,
+          "exact_f1": 0.6209
+        },
+        "substance abuse": {
+          "gold_support": 139,
+          "predicted_count": 158,
+          "relaxed_tp": 135,
+          "relaxed_fp": 23,
+          "relaxed_fn": 4,
+          "relaxed_precision": 0.8544,
+          "relaxed_recall": 0.9712,
+          "relaxed_f1": 0.9091,
+          "exact_tp": 85,
+          "exact_f1": 0.5724
+        },
+        "transitions of care": {
+          "gold_support": 82,
+          "predicted_count": 83,
+          "relaxed_tp": 62,
+          "relaxed_fp": 21,
+          "relaxed_fn": 20,
+          "relaxed_precision": 0.747,
+          "relaxed_recall": 0.7561,
+          "relaxed_f1": 0.7515,
+          "exact_tp": 29,
+          "exact_f1": 0.3515
+        },
+        "violence": {
+          "gold_support": 77,
+          "predicted_count": 79,
+          "relaxed_tp": 64,
+          "relaxed_fp": 15,
+          "relaxed_fn": 13,
+          "relaxed_precision": 0.8101,
+          "relaxed_recall": 0.8312,
+          "relaxed_f1": 0.8205,
+          "exact_tp": 24,
+          "exact_f1": 0.3077
+        }
+      }
+    },
+    "strategy_c_margin_-0.10_th_0.30": {
+      "strategy_name": "Strategy C (Margin=-0.10, th=0.30)",
+      "decode_kwargs": {
+        "threshold": 0.3,
+        "margin": -0.1
+      },
+      "runtime_seconds": 0.59,
+      "total_gold_spans": 1443,
+      "total_pred_spans": 1555,
+      "overlapping_spans_count": 0,
+      "exact_matching": {
+        "tp": 769,
+        "fp": 786,
+        "fn": 674,
+        "precision": 0.4945,
+        "recall": 0.5329,
+        "f1_score": 0.513
+      },
+      "relaxed_matching": {
+        "tp": 1254,
+        "fp": 301,
+        "fn": 189,
+        "precision": 0.8064,
+        "recall": 0.869,
+        "f1_score": 0.8366
+      },
+      "boundary_errors_count": 485,
+      "boundary_error_rate_pct": 38.68,
+      "note_micro": {
+        "precision": 0.9255,
+        "recall": 0.8927,
+        "f1_score": 0.9088
+      },
+      "per_category": {
+        "barriers to care": {
+          "gold_support": 60,
+          "predicted_count": 49,
+          "relaxed_tp": 40,
+          "relaxed_fp": 9,
+          "relaxed_fn": 20,
+          "relaxed_precision": 0.8163,
+          "relaxed_recall": 0.6667,
+          "relaxed_f1": 0.7339,
+          "exact_tp": 17,
+          "exact_f1": 0.3119
+        },
+        "financial insecurity": {
+          "gold_support": 101,
+          "predicted_count": 114,
+          "relaxed_tp": 87,
+          "relaxed_fp": 27,
+          "relaxed_fn": 14,
+          "relaxed_precision": 0.7632,
+          "relaxed_recall": 0.8614,
+          "relaxed_f1": 0.8093,
+          "exact_tp": 62,
+          "exact_f1": 0.5767
+        },
+        "food insecurity": {
+          "gold_support": 79,
+          "predicted_count": 94,
+          "relaxed_tp": 78,
+          "relaxed_fp": 16,
+          "relaxed_fn": 1,
+          "relaxed_precision": 0.8298,
+          "relaxed_recall": 0.9873,
+          "relaxed_f1": 0.9017,
+          "exact_tp": 48,
+          "exact_f1": 0.5549
+        },
+        "housing insecurity": {
+          "gold_support": 101,
+          "predicted_count": 121,
+          "relaxed_tp": 93,
+          "relaxed_fp": 28,
+          "relaxed_fn": 8,
+          "relaxed_precision": 0.7686,
+          "relaxed_recall": 0.9208,
+          "relaxed_f1": 0.8378,
+          "exact_tp": 52,
+          "exact_f1": 0.4685
+        },
+        "job insecurity": {
+          "gold_support": 126,
+          "predicted_count": 145,
+          "relaxed_tp": 120,
+          "relaxed_fp": 25,
+          "relaxed_fn": 6,
+          "relaxed_precision": 0.8276,
+          "relaxed_recall": 0.9524,
+          "relaxed_f1": 0.8856,
+          "exact_tp": 88,
+          "exact_f1": 0.6494
+        },
+        "legal problems": {
+          "gold_support": 56,
+          "predicted_count": 59,
+          "relaxed_tp": 49,
+          "relaxed_fp": 10,
+          "relaxed_fn": 7,
+          "relaxed_precision": 0.8305,
+          "relaxed_recall": 0.875,
+          "relaxed_f1": 0.8522,
+          "exact_tp": 21,
+          "exact_f1": 0.3652
+        },
+        "loss of relationship": {
+          "gold_support": 103,
+          "predicted_count": 107,
+          "relaxed_tp": 97,
+          "relaxed_fp": 10,
+          "relaxed_fn": 6,
+          "relaxed_precision": 0.9065,
+          "relaxed_recall": 0.9417,
+          "relaxed_f1": 0.9238,
+          "exact_tp": 62,
+          "exact_f1": 0.5905
+        },
+        "pain": {
+          "gold_support": 100,
+          "predicted_count": 104,
+          "relaxed_tp": 91,
+          "relaxed_fp": 13,
+          "relaxed_fn": 9,
+          "relaxed_precision": 0.875,
+          "relaxed_recall": 0.91,
+          "relaxed_f1": 0.8922,
+          "exact_tp": 65,
+          "exact_f1": 0.6373
+        },
+        "patient disability": {
+          "gold_support": 79,
+          "predicted_count": 93,
+          "relaxed_tp": 61,
+          "relaxed_fp": 32,
+          "relaxed_fn": 18,
+          "relaxed_precision": 0.6559,
+          "relaxed_recall": 0.7722,
+          "relaxed_f1": 0.7093,
+          "exact_tp": 38,
+          "exact_f1": 0.4419
+        },
+        "physical isolation": {
+          "gold_support": 46,
+          "predicted_count": 25,
+          "relaxed_tp": 17,
+          "relaxed_fp": 8,
+          "relaxed_fn": 29,
+          "relaxed_precision": 0.68,
+          "relaxed_recall": 0.3696,
+          "relaxed_f1": 0.4789,
+          "exact_tp": 6,
+          "exact_f1": 0.169
+        },
+        "psychiatric symptoms or disorders": {
+          "gold_support": 135,
+          "predicted_count": 139,
+          "relaxed_tp": 113,
+          "relaxed_fp": 26,
+          "relaxed_fn": 22,
+          "relaxed_precision": 0.8129,
+          "relaxed_recall": 0.837,
+          "relaxed_f1": 0.8248,
+          "exact_tp": 65,
+          "exact_f1": 0.4745
+        },
+        "social isolation": {
+          "gold_support": 159,
+          "predicted_count": 182,
+          "relaxed_tp": 147,
+          "relaxed_fp": 35,
+          "relaxed_fn": 12,
+          "relaxed_precision": 0.8077,
+          "relaxed_recall": 0.9245,
+          "relaxed_f1": 0.8622,
+          "exact_tp": 104,
+          "exact_f1": 0.61
+        },
+        "substance abuse": {
+          "gold_support": 139,
+          "predicted_count": 160,
+          "relaxed_tp": 135,
+          "relaxed_fp": 25,
+          "relaxed_fn": 4,
+          "relaxed_precision": 0.8438,
+          "relaxed_recall": 0.9712,
+          "relaxed_f1": 0.903,
+          "exact_tp": 86,
+          "exact_f1": 0.5753
+        },
+        "transitions of care": {
+          "gold_support": 82,
+          "predicted_count": 84,
+          "relaxed_tp": 62,
+          "relaxed_fp": 22,
+          "relaxed_fn": 20,
+          "relaxed_precision": 0.7381,
+          "relaxed_recall": 0.7561,
+          "relaxed_f1": 0.747,
+          "exact_tp": 34,
+          "exact_f1": 0.4096
+        },
+        "violence": {
+          "gold_support": 77,
+          "predicted_count": 79,
+          "relaxed_tp": 64,
+          "relaxed_fp": 15,
+          "relaxed_fn": 13,
+          "relaxed_precision": 0.8101,
+          "relaxed_recall": 0.8312,
+          "relaxed_f1": 0.8205,
+          "exact_tp": 21,
+          "exact_f1": 0.2692
+        }
+      }
+    }
+  },
+  "narrative_diagnostic_eval": {
+    "Strategy A (Control, th=0.30)": {
+      "total_spans": 4,
+      "unique_categories": 2,
+      "categories": [
+        "financial insecurity",
+        "job insecurity"
+      ],
+      "spans": [
+        {
+          "range": "[112:146]",
+          "category": "job insecurity",
+          "text": "unemployed for the past six months"
+        },
+        {
+          "range": "[168:174]",
+          "category": "financial insecurity",
+          "text": "paying"
+        },
+        {
+          "range": "[179:183]",
+          "category": "financial insecurity",
+          "text": "rent"
+        },
+        {
+          "range": "[188:201]",
+          "category": "financial insecurity",
+          "text": "utility bills"
+        }
+      ]
+    },
+    "Strategy B (Active-Threshold, th=0.30)": {
+      "total_spans": 7,
+      "unique_categories": 3,
+      "categories": [
+        "barriers to care",
+        "financial insecurity",
+        "job insecurity"
+      ],
+      "spans": [
+        {
+          "range": "[112:146]",
+          "category": "job insecurity",
+          "text": "unemployed for the past six months"
+        },
+        {
+          "range": "[154:201]",
+          "category": "financial insecurity",
+          "text": "worried about paying her rent and utility bills"
+        },
+        {
+          "range": "[270:279]",
+          "category": "financial insecurity",
+          "text": "groceries"
+        },
+        {
+          "range": "[452:482]",
+          "category": "barriers to care",
+          "text": "to attend medical appointments"
+        },
+        {
+          "range": "[537:569]",
+          "category": "barriers to care",
+          "text": "could not arrange transportation"
+        },
+        {
+          "range": "[706:733]",
+          "category": "barriers to care",
+          "text": "her medication instructions"
+        },
+        {
+          "range": "[768:792]",
+          "category": "barriers to care",
+          "text": "refill her prescriptions"
+        }
+      ]
+    },
+    "Strategy B (Active-Threshold, th=0.40)": {
+      "total_spans": 5,
+      "unique_categories": 3,
+      "categories": [
+        "barriers to care",
+        "financial insecurity",
+        "job insecurity"
+      ],
+      "spans": [
+        {
+          "range": "[112:146]",
+          "category": "job insecurity",
+          "text": "unemployed for the past six months"
+        },
+        {
+          "range": "[168:174]",
+          "category": "financial insecurity",
+          "text": "paying"
+        },
+        {
+          "range": "[179:183]",
+          "category": "financial insecurity",
+          "text": "rent"
+        },
+        {
+          "range": "[188:201]",
+          "category": "financial insecurity",
+          "text": "utility bills"
+        },
+        {
+          "range": "[547:569]",
+          "category": "barriers to care",
+          "text": "arrange transportation"
+        }
+      ]
+    },
+    "Strategy C (Margin=0.00, th=0.30)": {
+      "total_spans": 4,
+      "unique_categories": 2,
+      "categories": [
+        "financial insecurity",
+        "job insecurity"
+      ],
+      "spans": [
+        {
+          "range": "[112:146]",
+          "category": "job insecurity",
+          "text": "unemployed for the past six months"
+        },
+        {
+          "range": "[168:174]",
+          "category": "financial insecurity",
+          "text": "paying"
+        },
+        {
+          "range": "[179:183]",
+          "category": "financial insecurity",
+          "text": "rent"
+        },
+        {
+          "range": "[188:201]",
+          "category": "financial insecurity",
+          "text": "utility bills"
+        }
+      ]
+    },
+    "Strategy C (Margin=0.05, th=0.30)": {
+      "total_spans": 1,
+      "unique_categories": 1,
+      "categories": [
+        "job insecurity"
+      ],
+      "spans": [
+        {
+          "range": "[112:146]",
+          "category": "job insecurity",
+          "text": "unemployed for the past six months"
+        }
+      ]
+    },
+    "Strategy C (Margin=0.10, th=0.30)": {
+      "total_spans": 1,
+      "unique_categories": 1,
+      "categories": [
+        "job insecurity"
+      ],
+      "spans": [
+        {
+          "range": "[112:146]",
+          "category": "job insecurity",
+          "text": "unemployed for the past six months"
+        }
+      ]
+    },
+    "Strategy C (Margin=-0.05, th=0.30)": {
+      "total_spans": 3,
+      "unique_categories": 2,
+      "categories": [
+        "financial insecurity",
+        "job insecurity"
+      ],
+      "spans": [
+        {
+          "range": "[112:146]",
+          "category": "job insecurity",
+          "text": "unemployed for the past six months"
+        },
+        {
+          "range": "[162:183]",
+          "category": "financial insecurity",
+          "text": "about paying her rent"
+        },
+        {
+          "range": "[188:201]",
+          "category": "financial insecurity",
+          "text": "utility bills"
+        }
+      ]
+    }
+  }
+}

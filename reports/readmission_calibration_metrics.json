@@ -1,0 +1,714 @@
+{
+  "Majority_Class_Baseline": {
+    "validation": {
+      "brier_score": 0.1009,
+      "expected_calibration_error_ece": 0.0006,
+      "mean_predicted_probability": 0.1145,
+      "observed_prevalence": 0.1139,
+      "decile_calibration_curve": [
+        {
+          "bin": 1,
+          "bin_range": "[0.00, 0.10)",
+          "count": 0,
+          "mean_predicted_prob": 0.05,
+          "observed_positive_rate": 0.0,
+          "calibration_error": 0.0
+        },
+        {
+          "bin": 2,
+          "bin_range": "[0.10, 0.20)",
+          "count": 15022,
+          "mean_predicted_prob": 0.1145,
+          "observed_positive_rate": 0.1139,
+          "calibration_error": 0.0006
+        },
+        {
+          "bin": 3,
+          "bin_range": "[0.20, 0.30)",
+          "count": 0,
+          "mean_predicted_prob": 0.25,
+          "observed_positive_rate": 0.0,
+          "calibration_error": 0.0
+        },
+        {
+          "bin": 4,
+          "bin_range": "[0.30, 0.40)",
+          "count": 0,
+          "mean_predicted_prob": 0.35,
+          "observed_positive_rate": 0.0,
+          "calibration_error": 0.0
+        },
+        {
+          "bin": 5,
+          "bin_range": "[0.40, 0.50)",
+          "count": 0,
+          "mean_predicted_prob": 0.45,
+          "observed_positive_rate": 0.0,
+          "calibration_error": 0.0
+        },
+        {
+          "bin": 6,
+          "bin_range": "[0.50, 0.60)",
+          "count": 0,
+          "mean_predicted_prob": 0.55,
+          "observed_positive_rate": 0.0,
+          "calibration_error": 0.0
+        },
+        {
+          "bin": 7,
+          "bin_range": "[0.60, 0.70)",
+          "count": 0,
+          "mean_predicted_prob": 0.65,
+          "observed_positive_rate": 0.0,
+          "calibration_error": 0.0
+        },
+        {
+          "bin": 8,
+          "bin_range": "[0.70, 0.80)",
+          "count": 0,
+          "mean_predicted_prob": 0.75,
+          "observed_positive_rate": 0.0,
+          "calibration_error": 0.0
+        },
+        {
+          "bin": 9,
+          "bin_range": "[0.80, 0.90)",
+          "count": 0,
+          "mean_predicted_prob": 0.85,
+          "observed_positive_rate": 0.0,
+          "calibration_error": 0.0
+        },
+        {
+          "bin": 10,
+          "bin_range": "[0.90, 1.00)",
+          "count": 0,
+          "mean_predicted_prob": 0.95,
+          "observed_positive_rate": 0.0,
+          "calibration_error": 0.0
+        }
+      ]
+    },
+    "test": {
+      "brier_score": 0.0988,
+      "expected_calibration_error_ece": 0.0034,
+      "mean_predicted_probability": 0.1145,
+      "observed_prevalence": 0.1111,
+      "decile_calibration_curve": [
+        {
+          "bin": 1,
+          "bin_range": "[0.00, 0.10)",
+          "count": 0,
+          "mean_predicted_prob": 0.05,
+          "observed_positive_rate": 0.0,
+          "calibration_error": 0.0
+        },
+        {
+          "bin": 2,
+          "bin_range": "[0.10, 0.20)",
+          "count": 14851,
+          "mean_predicted_prob": 0.1145,
+          "observed_positive_rate": 0.1111,
+          "calibration_error": 0.0034
+        },
+        {
+          "bin": 3,
+          "bin_range": "[0.20, 0.30)",
+          "count": 0,
+          "mean_predicted_prob": 0.25,
+          "observed_positive_rate": 0.0,
+          "calibration_error": 0.0
+        },
+        {
+          "bin": 4,
+          "bin_range": "[0.30, 0.40)",
+          "count": 0,
+          "mean_predicted_prob": 0.35,
+          "observed_positive_rate": 0.0,
+          "calibration_error": 0.0
+        },
+        {
+          "bin": 5,
+          "bin_range": "[0.40, 0.50)",
+          "count": 0,
+          "mean_predicted_prob": 0.45,
+          "observed_positive_rate": 0.0,
+          "calibration_error": 0.0
+        },
+        {
+          "bin": 6,
+          "bin_range": "[0.50, 0.60)",
+          "count": 0,
+          "mean_predicted_prob": 0.55,
+          "observed_positive_rate": 0.0,
+          "calibration_error": 0.0
+        },
+        {
+          "bin": 7,
+          "bin_range": "[0.60, 0.70)",
+          "count": 0,
+          "mean_predicted_prob": 0.65,
+          "observed_positive_rate": 0.0,
+          "calibration_error": 0.0
+        },
+        {
+          "bin": 8,
+          "bin_range": "[0.70, 0.80)",
+          "count": 0,
+          "mean_predicted_prob": 0.75,
+          "observed_positive_rate": 0.0,
+          "calibration_error": 0.0
+        },
+        {
+          "bin": 9,
+          "bin_range": "[0.80, 0.90)",
+          "count": 0,
+          "mean_predicted_prob": 0.85,
+          "observed_positive_rate": 0.0,
+          "calibration_error": 0.0
+        },
+        {
+          "bin": 10,
+          "bin_range": "[0.90, 1.00)",
+          "count": 0,
+          "mean_predicted_prob": 0.95,
+          "observed_positive_rate": 0.0,
+          "calibration_error": 0.0
+        }
+      ]
+    }
+  },
+  "Baseline_A_No_Disposition_No_Diag": {
+    "validation": {
+      "brier_score": 0.0976,
+      "expected_calibration_error_ece": 0.0065,
+      "mean_predicted_probability": 0.1171,
+      "observed_prevalence": 0.1139,
+      "decile_calibration_curve": [
+        {
+          "bin": 1,
+          "bin_range": "[0.00, 0.10)",
+          "count": 7185,
+          "mean_predicted_prob": 0.0802,
+          "observed_positive_rate": 0.0725,
+          "calibration_error": 0.0077
+        },
+        {
+          "bin": 2,
+          "bin_range": "[0.10, 0.20)",
+          "count": 6839,
+          "mean_predicted_prob": 0.129,
+          "observed_positive_rate": 0.1326,
+          "calibration_error": 0.0036
+        },
+        {
+          "bin": 3,
+          "bin_range": "[0.20, 0.30)",
+          "count": 683,
+          "mean_predicted_prob": 0.2377,
+          "observed_positive_rate": 0.2372,
+          "calibration_error": 0.0005
+        },
+        {
+          "bin": 4,
+          "bin_range": "[0.30, 0.40)",
+          "count": 161,
+          "mean_predicted_prob": 0.3444,
+          "observed_positive_rate": 0.3416,
+          "calibration_error": 0.0028
+        },
+        {
+          "bin": 5,
+          "bin_range": "[0.40, 0.50)",
+          "count": 71,
+          "mean_predicted_prob": 0.4449,
+          "observed_positive_rate": 0.4225,
+          "calibration_error": 0.0224
+        },
+        {
+          "bin": 6,
+          "bin_range": "[0.50, 0.60)",
+          "count": 42,
+          "mean_predicted_prob": 0.5471,
+          "observed_positive_rate": 0.381,
+          "calibration_error": 0.1661
+        },
+        {
+          "bin": 7,
+          "bin_range": "[0.60, 0.70)",
+          "count": 28,
+          "mean_predicted_prob": 0.6417,
+          "observed_positive_rate": 0.4643,
+          "calibration_error": 0.1774
+        },
+        {
+          "bin": 8,
+          "bin_range": "[0.70, 0.80)",
+          "count": 12,
+          "mean_predicted_prob": 0.744,
+          "observed_positive_rate": 0.5,
+          "calibration_error": 0.244
+        },
+        {
+          "bin": 9,
+          "bin_range": "[0.80, 0.90)",
+          "count": 1,
+          "mean_predicted_prob": 0.8154,
+          "observed_positive_rate": 1.0,
+          "calibration_error": 0.1846
+        },
+        {
+          "bin": 10,
+          "bin_range": "[0.90, 1.00)",
+          "count": 0,
+          "mean_predicted_prob": 0.95,
+          "observed_positive_rate": 0.0,
+          "calibration_error": 0.0
+        }
+      ]
+    },
+    "test": {
+      "brier_score": 0.0961,
+      "expected_calibration_error_ece": 0.0061,
+      "mean_predicted_probability": 0.1154,
+      "observed_prevalence": 0.1111,
+      "decile_calibration_curve": [
+        {
+          "bin": 1,
+          "bin_range": "[0.00, 0.10)",
+          "count": 7135,
+          "mean_predicted_prob": 0.0804,
+          "observed_positive_rate": 0.0744,
+          "calibration_error": 0.006
+        },
+        {
+          "bin": 2,
+          "bin_range": "[0.10, 0.20)",
+          "count": 6854,
+          "mean_predicted_prob": 0.1287,
+          "observed_positive_rate": 0.1306,
+          "calibration_error": 0.0019
+        },
+        {
+          "bin": 3,
+          "bin_range": "[0.20, 0.30)",
+          "count": 604,
+          "mean_predicted_prob": 0.2348,
+          "observed_positive_rate": 0.2086,
+          "calibration_error": 0.0262
+        },
+        {
+          "bin": 4,
+          "bin_range": "[0.30, 0.40)",
+          "count": 135,
+          "mean_predicted_prob": 0.3422,
+          "observed_positive_rate": 0.3407,
+          "calibration_error": 0.0015
+        },
+        {
+          "bin": 5,
+          "bin_range": "[0.40, 0.50)",
+          "count": 58,
+          "mean_predicted_prob": 0.4426,
+          "observed_positive_rate": 0.3276,
+          "calibration_error": 0.115
+        },
+        {
+          "bin": 6,
+          "bin_range": "[0.50, 0.60)",
+          "count": 23,
+          "mean_predicted_prob": 0.5402,
+          "observed_positive_rate": 0.3478,
+          "calibration_error": 0.1924
+        },
+        {
+          "bin": 7,
+          "bin_range": "[0.60, 0.70)",
+          "count": 14,
+          "mean_predicted_prob": 0.641,
+          "observed_positive_rate": 0.5714,
+          "calibration_error": 0.0696
+        },
+        {
+          "bin": 8,
+          "bin_range": "[0.70, 0.80)",
+          "count": 12,
+          "mean_predicted_prob": 0.7471,
+          "observed_positive_rate": 0.6667,
+          "calibration_error": 0.0805
+        },
+        {
+          "bin": 9,
+          "bin_range": "[0.80, 0.90)",
+          "count": 10,
+          "mean_predicted_prob": 0.8627,
+          "observed_positive_rate": 0.7,
+          "calibration_error": 0.1627
+        },
+        {
+          "bin": 10,
+          "bin_range": "[0.90, 1.00)",
+          "count": 6,
+          "mean_predicted_prob": 0.9183,
+          "observed_positive_rate": 0.3333,
+          "calibration_error": 0.585
+        }
+      ]
+    }
+  },
+  "Baseline_B_With_Disposition_No_Diag": {
+    "validation": {
+      "brier_score": 0.0967,
+      "expected_calibration_error_ece": 0.0077,
+      "mean_predicted_probability": 0.1172,
+      "observed_prevalence": 0.1139,
+      "decile_calibration_curve": [
+        {
+          "bin": 1,
+          "bin_range": "[0.00, 0.10)",
+          "count": 8028,
+          "mean_predicted_prob": 0.0771,
+          "observed_positive_rate": 0.0695,
+          "calibration_error": 0.0076
+        },
+        {
+          "bin": 2,
+          "bin_range": "[0.10, 0.20)",
+          "count": 5672,
+          "mean_predicted_prob": 0.1322,
+          "observed_positive_rate": 0.1363,
+          "calibration_error": 0.0041
+        },
+        {
+          "bin": 3,
+          "bin_range": "[0.20, 0.30)",
+          "count": 914,
+          "mean_predicted_prob": 0.2382,
+          "observed_positive_rate": 0.2484,
+          "calibration_error": 0.0102
+        },
+        {
+          "bin": 4,
+          "bin_range": "[0.30, 0.40)",
+          "count": 236,
+          "mean_predicted_prob": 0.3434,
+          "observed_positive_rate": 0.3475,
+          "calibration_error": 0.0041
+        },
+        {
+          "bin": 5,
+          "bin_range": "[0.40, 0.50)",
+          "count": 76,
+          "mean_predicted_prob": 0.4439,
+          "observed_positive_rate": 0.4079,
+          "calibration_error": 0.036
+        },
+        {
+          "bin": 6,
+          "bin_range": "[0.50, 0.60)",
+          "count": 49,
+          "mean_predicted_prob": 0.5473,
+          "observed_positive_rate": 0.3469,
+          "calibration_error": 0.2004
+        },
+        {
+          "bin": 7,
+          "bin_range": "[0.60, 0.70)",
+          "count": 31,
+          "mean_predicted_prob": 0.6401,
+          "observed_positive_rate": 0.4516,
+          "calibration_error": 0.1884
+        },
+        {
+          "bin": 8,
+          "bin_range": "[0.70, 0.80)",
+          "count": 15,
+          "mean_predicted_prob": 0.734,
+          "observed_positive_rate": 0.5333,
+          "calibration_error": 0.2007
+        },
+        {
+          "bin": 9,
+          "bin_range": "[0.80, 0.90)",
+          "count": 1,
+          "mean_predicted_prob": 0.8021,
+          "observed_positive_rate": 1.0,
+          "calibration_error": 0.1979
+        },
+        {
+          "bin": 10,
+          "bin_range": "[0.90, 1.00)",
+          "count": 0,
+          "mean_predicted_prob": 0.95,
+          "observed_positive_rate": 0.0,
+          "calibration_error": 0.0
+        }
+      ]
+    },
+    "test": {
+      "brier_score": 0.0947,
+      "expected_calibration_error_ece": 0.0091,
+      "mean_predicted_probability": 0.1157,
+      "observed_prevalence": 0.1111,
+      "decile_calibration_curve": [
+        {
+          "bin": 1,
+          "bin_range": "[0.00, 0.10)",
+          "count": 8001,
+          "mean_predicted_prob": 0.0771,
+          "observed_positive_rate": 0.0685,
+          "calibration_error": 0.0087
+        },
+        {
+          "bin": 2,
+          "bin_range": "[0.10, 0.20)",
+          "count": 5656,
+          "mean_predicted_prob": 0.132,
+          "observed_positive_rate": 0.1377,
+          "calibration_error": 0.0057
+        },
+        {
+          "bin": 3,
+          "bin_range": "[0.20, 0.30)",
+          "count": 835,
+          "mean_predicted_prob": 0.2409,
+          "observed_positive_rate": 0.2192,
+          "calibration_error": 0.0217
+        },
+        {
+          "bin": 4,
+          "bin_range": "[0.30, 0.40)",
+          "count": 212,
+          "mean_predicted_prob": 0.3377,
+          "observed_positive_rate": 0.3396,
+          "calibration_error": 0.0019
+        },
+        {
+          "bin": 5,
+          "bin_range": "[0.40, 0.50)",
+          "count": 74,
+          "mean_predicted_prob": 0.4482,
+          "observed_positive_rate": 0.4595,
+          "calibration_error": 0.0113
+        },
+        {
+          "bin": 6,
+          "bin_range": "[0.50, 0.60)",
+          "count": 32,
+          "mean_predicted_prob": 0.5394,
+          "observed_positive_rate": 0.375,
+          "calibration_error": 0.1644
+        },
+        {
+          "bin": 7,
+          "bin_range": "[0.60, 0.70)",
+          "count": 14,
+          "mean_predicted_prob": 0.6402,
+          "observed_positive_rate": 0.3571,
+          "calibration_error": 0.2831
+        },
+        {
+          "bin": 8,
+          "bin_range": "[0.70, 0.80)",
+          "count": 11,
+          "mean_predicted_prob": 0.7427,
+          "observed_positive_rate": 0.7273,
+          "calibration_error": 0.0154
+        },
+        {
+          "bin": 9,
+          "bin_range": "[0.80, 0.90)",
+          "count": 10,
+          "mean_predicted_prob": 0.8565,
+          "observed_positive_rate": 0.7,
+          "calibration_error": 0.1565
+        },
+        {
+          "bin": 10,
+          "bin_range": "[0.90, 1.00)",
+          "count": 6,
+          "mean_predicted_prob": 0.9123,
+          "observed_positive_rate": 0.3333,
+          "calibration_error": 0.579
+        }
+      ]
+    }
+  },
+  "Baseline_C_With_Disposition_With_Diag": {
+    "validation": {
+      "brier_score": 0.0968,
+      "expected_calibration_error_ece": 0.0041,
+      "mean_predicted_probability": 0.1172,
+      "observed_prevalence": 0.1139,
+      "decile_calibration_curve": [
+        {
+          "bin": 1,
+          "bin_range": "[0.00, 0.10)",
+          "count": 7961,
+          "mean_predicted_prob": 0.0756,
+          "observed_positive_rate": 0.0724,
+          "calibration_error": 0.0032
+        },
+        {
+          "bin": 2,
+          "bin_range": "[0.10, 0.20)",
+          "count": 5712,
+          "mean_predicted_prob": 0.133,
+          "observed_positive_rate": 0.1329,
+          "calibration_error": 0.0002
+        },
+        {
+          "bin": 3,
+          "bin_range": "[0.20, 0.30)",
+          "count": 916,
+          "mean_predicted_prob": 0.2386,
+          "observed_positive_rate": 0.2445,
+          "calibration_error": 0.0059
+        },
+        {
+          "bin": 4,
+          "bin_range": "[0.30, 0.40)",
+          "count": 256,
+          "mean_predicted_prob": 0.3397,
+          "observed_positive_rate": 0.3125,
+          "calibration_error": 0.0272
+        },
+        {
+          "bin": 5,
+          "bin_range": "[0.40, 0.50)",
+          "count": 82,
+          "mean_predicted_prob": 0.4398,
+          "observed_positive_rate": 0.3659,
+          "calibration_error": 0.0739
+        },
+        {
+          "bin": 6,
+          "bin_range": "[0.50, 0.60)",
+          "count": 49,
+          "mean_predicted_prob": 0.5422,
+          "observed_positive_rate": 0.3673,
+          "calibration_error": 0.1749
+        },
+        {
+          "bin": 7,
+          "bin_range": "[0.60, 0.70)",
+          "count": 33,
+          "mean_predicted_prob": 0.638,
+          "observed_positive_rate": 0.4848,
+          "calibration_error": 0.1532
+        },
+        {
+          "bin": 8,
+          "bin_range": "[0.70, 0.80)",
+          "count": 10,
+          "mean_predicted_prob": 0.7367,
+          "observed_positive_rate": 0.5,
+          "calibration_error": 0.2367
+        },
+        {
+          "bin": 9,
+          "bin_range": "[0.80, 0.90)",
+          "count": 3,
+          "mean_predicted_prob": 0.8424,
+          "observed_positive_rate": 1.0,
+          "calibration_error": 0.1576
+        },
+        {
+          "bin": 10,
+          "bin_range": "[0.90, 1.00)",
+          "count": 0,
+          "mean_predicted_prob": 0.95,
+          "observed_positive_rate": 0.0,
+          "calibration_error": 0.0
+        }
+      ]
+    },
+    "test": {
+      "brier_score": 0.0944,
+      "expected_calibration_error_ece": 0.0068,
+      "mean_predicted_probability": 0.1159,
+      "observed_prevalence": 0.1111,
+      "decile_calibration_curve": [
+        {
+          "bin": 1,
+          "bin_range": "[0.00, 0.10)",
+          "count": 8043,
+          "mean_predicted_prob": 0.0759,
+          "observed_positive_rate": 0.0689,
+          "calibration_error": 0.007
+        },
+        {
+          "bin": 2,
+          "bin_range": "[0.10, 0.20)",
+          "count": 5557,
+          "mean_predicted_prob": 0.1332,
+          "observed_positive_rate": 0.1348,
+          "calibration_error": 0.0016
+        },
+        {
+          "bin": 3,
+          "bin_range": "[0.20, 0.30)",
+          "count": 861,
+          "mean_predicted_prob": 0.2399,
+          "observed_positive_rate": 0.2242,
+          "calibration_error": 0.0157
+        },
+        {
+          "bin": 4,
+          "bin_range": "[0.30, 0.40)",
+          "count": 240,
+          "mean_predicted_prob": 0.341,
+          "observed_positive_rate": 0.3667,
+          "calibration_error": 0.0257
+        },
+        {
+          "bin": 5,
+          "bin_range": "[0.40, 0.50)",
+          "count": 79,
+          "mean_predicted_prob": 0.4481,
+          "observed_positive_rate": 0.4051,
+          "calibration_error": 0.043
+        },
+        {
+          "bin": 6,
+          "bin_range": "[0.50, 0.60)",
+          "count": 32,
+          "mean_predicted_prob": 0.5381,
+          "observed_positive_rate": 0.375,
+          "calibration_error": 0.1631
+        },
+        {
+          "bin": 7,
+          "bin_range": "[0.60, 0.70)",
+          "count": 14,
+          "mean_predicted_prob": 0.6435,
+          "observed_positive_rate": 0.5,
+          "calibration_error": 0.1435
+        },
+        {
+          "bin": 8,
+          "bin_range": "[0.70, 0.80)",
+          "count": 9,
+          "mean_predicted_prob": 0.7396,
+          "observed_positive_rate": 0.6667,
+          "calibration_error": 0.0729
+        },
+        {
+          "bin": 9,
+          "bin_range": "[0.80, 0.90)",
+          "count": 12,
+          "mean_predicted_prob": 0.8606,
+          "observed_positive_rate": 0.6667,
+          "calibration_error": 0.194
+        },
+        {
+          "bin": 10,
+          "bin_range": "[0.90, 1.00)",
+          "count": 4,
+          "mean_predicted_prob": 0.9126,
+          "observed_positive_rate": 0.25,
+          "calibration_error": 0.6626
+        }
+      ]
+    }
+  }
+}

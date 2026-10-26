@@ -106,7 +106,10 @@ class MultiLabelSBDHTransformer(nn.Module):
         """Load model weights and configuration from directory."""
         model = cls(model_name=model_name)
         model_path = os.path.join(load_directory, "pytorch_model.bin")
+        if not os.path.exists(model_path):
+            model_path = os.path.join(load_directory, "best_model.pt")
         if os.path.exists(model_path):
             state_dict = torch.load(model_path, map_location="cpu")
             model.load_state_dict(state_dict)
         return model
+

@@ -325,3 +325,57 @@ def test_deterministic_bio_decoding_and_whitespace_trimming(tokenizer):
     assert d_start == 21
     assert d_end == 28
 
+
+def test_colab_checkpoint_provenance_and_artifact_consistency():
+    """
+    Verify provenance of the 3-epoch Colab-trained transformer checkpoint
+    and mathematical consistency of its evaluation artifact on test_reviewed.
+    """
+    import json
+    import hashlib
+
+    colab_weights = os.path.join("evernorth_m3_results", "models", "sbdh_transformer", "best_model.pt")
+    local_weights = os.path.join("models", "sbdh_transformer", "pytorch_model.bin")
+
+    assert os.path.exists(colab_weights), f"Colab weights not found: {colab_weights}"
+    assert os.path.exists(local_weights), f"Local weights not found: {local_weights}"
+
+    # Verify hashes are distinct
+    with open(colab_weights, "rb") as f:
+        colab_hash = hashlib.sha256(f.read()).hexdigest()
+    with open(local_weights, "rb") as f:
+        local_hash = hashlib.sha256(f.read()).hexdigest()
+
+    assert colab_hash != local_hash, "Colab and local checkpoints must not share identical SHA256 hashes!"
+
+    # Verify loading via from_pretrained
+    model = MultiLabelSBDHTransformer.from_pretrained(os.path.dirname(colab_weights))
+    assert model.classifier.out_features == 45
+
+    # Verify evaluation artifact
+    eval_artifact = os.path.join("reports", "sbdh_colab_transformer_metrics_corrected.json")
+    assert os.path.exists(eval_artifact), f"Evaluation artifact not found: {eval_artifact}"
+
+    with open(eval_artifact, "r", encoding="utf-8") as f:
+        metrics = json.load(f)
+
+    assert metrics["total_raw_gold_annotations"] == 3345
+    assert metrics["resolvable_gold_annotations_count"] == 3340
+    assert metrics["unresolved_ambiguous_annotations_count"] == 5
+    assert len(metrics["unresolved_ambiguous_cases"]) == 5
+
+    ex = metrics["span_level_exact_matching"]["resolvable_subset"]
+    assert ex["tp"] == 1616
+    assert ex["fp"] == 1375
+    assert ex["fn"] == 1724
+    assert abs(ex["precision"] - (1616 / (1616 + 1375))) < 1e-4
+    assert abs(ex["recall"] - (1616 / 3340)) < 1e-4
+
+    rel = metrics["span_level_relaxed_matching"]["resolvable_subset"]
+    assert rel["tp"] == 2637
+    assert rel["fp"] == 354
+    assert rel["fn"] == 703
+    assert abs(rel["precision"] - (2637 / (2637 + 354))) < 1e-4
+    assert abs(rel["recall"] - (2637 / 3340)) < 1e-4
+
+

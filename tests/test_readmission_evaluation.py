@@ -169,3 +169,89 @@ def test_frozen_thresholds_selected_on_validation_only():
         test_thresh = exp_data["test"]["decision_threshold"]
         assert val_thresh == test_thresh, \
             f"{exp_key}: Validation threshold {val_thresh} does not match frozen Test threshold {test_thresh}"
+
+
+def test_target_definition_and_label_mapping():
+    """
+    Verify binary target logic: '<30' is positive (1), '>30' and 'NO' are negative (0).
+    """
+    import pandas as pd
+    test_labels = pd.Series(["<30", ">30", "NO", "<30", "NO"])
+    binary = (test_labels == "<30").astype(int)
+    assert binary.tolist() == [1, 0, 0, 1, 0]
+    # Verify '>30' and 'NO' both map to 0
+    assert binary[test_labels == ">30"].tolist() == [0]
+    assert binary[test_labels == "NO"].tolist() == [0, 0]
+
+
+def test_lab_tests_none_preservation():
+    """
+    Verify that literal 'None' in lab tests is preserved as a valid category, not converted to NaN.
+    """
+    from src.data_loaders import load_uci_diabetes
+    df, _ = load_uci_diabetes()
+    assert df["max_glu_serum"].isna().sum() == 0, "max_glu_serum contains NaNs!"
+    assert (df["max_glu_serum"] == "None").sum() == 96420
+    assert df["A1Cresult"].isna().sum() == 0, "A1Cresult contains NaNs!"
+    assert (df["A1Cresult"] == "None").sum() == 84748
+
+
+def test_cohort_exclusions_and_86_hospice_records():
+    """
+    Verify cohort exclusions (2,423 excluded encounters) and that all 86 non-'NO'
+    cases in the exclusion set originate from hospice (dispositions 13 and 14), with 0 in-hospital deaths.
+    """
+    from src.data_loaders import load_uci_diabetes
+    from src.audit_uci import create_eligible_modeling_cohort
+    df, _ = load_uci_diabetes()
+    df_el, comp = create_eligible_modeling_cohort(df)
+
+    assert len(df_el) == 99343
+    assert comp["excluded_mortality_hospice"]["total_encounters"] == 2423
+
+    hospice_stats = comp["excluded_mortality_hospice"]["hospice_86_breakdown"]["breakdown_by_disposition"]
+    assert hospice_stats["13 (Hospice / home)"]["<30"] == 19
+    assert hospice_stats["13 (Hospice / home)"][">30"] == 36
+    assert hospice_stats["14 (Hospice / medical facility)"]["<30"] == 24
+    assert hospice_stats["14 (Hospice / medical facility)"][">30"] == 7
+    assert hospice_stats["11, 19, 20, 21 (Expired / In-Hospital Death)"]["<30"] == 0
+    assert hospice_stats["11, 19, 20, 21 (Expired / In-Hospital Death)"][">30"] == 0
+
+
+def test_patient_grouped_split_zero_leakage():
+    """
+    Verify that patient-grouped splitting produces zero patient overlap across partitions.
+    """
+    from src.data_loaders import load_uci_diabetes
+    from src.audit_uci import create_eligible_modeling_cohort, split_uci_patient_grouped
+    df, _ = load_uci_diabetes()
+    df_el, _ = create_eligible_modeling_cohort(df)
+    train_df, val_df, test_df, metrics = split_uci_patient_grouped(df_el, random_state=42)
+
+    train_p = set(train_df["patient_nbr"])
+    val_p = set(val_df["patient_nbr"])
+    test_p = set(test_df["patient_nbr"])
+
+    assert len(train_p & val_p) == 0, "Train-Val patient leakage!"
+    assert len(train_p & test_p) == 0, "Train-Test patient leakage!"
+    assert len(val_p & test_p) == 0, "Val-Test patient leakage!"
+
+    assert metrics["overlap_verification"]["status"] == "PASSED - ZERO PATIENT LEAKAGE"
+
+
+def test_baseline_feature_isolation_and_preprocessing():
+    """
+    Verify that Baseline A excludes discharge_disposition_id, discharge diagnoses, and identifiers.
+    """
+    from src.train_readmission_baseline import BASE_CATEGORICAL_COLS, NUMERICAL_COLS
+    assert "encounter_id" not in NUMERICAL_COLS
+    assert "patient_nbr" not in NUMERICAL_COLS
+    assert "encounter_id" not in BASE_CATEGORICAL_COLS
+    assert "patient_nbr" not in BASE_CATEGORICAL_COLS
+    assert "discharge_disposition_id" not in BASE_CATEGORICAL_COLS
+    assert "diag_1" not in BASE_CATEGORICAL_COLS
+    assert "diag_2" not in BASE_CATEGORICAL_COLS
+    assert "diag_3" not in BASE_CATEGORICAL_COLS
+    assert len(NUMERICAL_COLS) == 8
+    assert len(BASE_CATEGORICAL_COLS) == 32
+

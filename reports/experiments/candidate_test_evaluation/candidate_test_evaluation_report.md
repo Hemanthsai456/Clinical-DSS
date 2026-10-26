@@ -123,26 +123,76 @@ The table below presents the single final evaluation on `synth_sbdh_test_reviewe
 
 ## 5. Per-Category Test Comparison
 
-The candidate pipeline was evaluated across all 15 SBDH categories using maximum bipartite matching. The table below details gold support, predictions, exact metrics, and relaxed metrics for both baseline and candidate.
+To maintain absolute methodological clarity, per-category evaluation metrics are partitioned into three distinct, unambiguous side-by-side comparisons using identical evaluation procedures for both the frozen baseline and the Arm 6A candidate.
 
-| SBDH Category | Gold Support | Preds (Arm 6A) | Baseline Exact TP | Arm 6A Exact TP | Exact TP Delta | Baseline Rel F1 | Arm 6A Rel F1 | Rel F1 Delta |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **barriers to care** | 118 | 121 | 42 | **45** | +3 | 0.7817 | 0.7113 | -0.0704 |
-| **financial insecurity** | 267 | 247 | 148 | **153** | +5 | 0.8416 | 0.8171 | -0.0245 |
-| **food insecurity** | 141 | 159 | 74 | **77** | +3 | 0.9719 | 0.9067 | -0.0652 |
-| **housing insecurity** | 274 | 234 | 108 | **116** | +8 | 0.8278 | 0.7677 | -0.0601 |
-| **job insecurity** | 346 | 341 | 212 | **221** | +9 | 0.9477 | 0.9170 | -0.0307 |
-| **legal problems** | 127 | 117 | 45 | **48** | +3 | 0.9261 | 0.9016 | -0.0245 |
-| **loss of relationship** | 255 | 196 | 109 | **117** | +8 | 0.8618 | 0.8559 | -0.0059 |
-| **pain** | 226 | 214 | 129 | **137** | +8 | 0.9900 | 0.9364 | -0.0536 |
-| **patient disability** | 160 | 231 | 76 | **82** | +6 | 0.8737 | 0.7621 | -0.1116 |
-| **physical isolation** | 74 | 50 | 14 | **17** | +3 | 0.5000 | 0.5000 | 0.0000 |
-| **psychiatric symptoms** | 338 | 336 | 138 | **146** | +8 | 0.8529 | 0.7982 | -0.0547 |
-| **social isolation** | 403 | 355 | 206 | **215** | +9 | 0.8791 | 0.8496 | -0.0295 |
-| **substance abuse** | 270 | 289 | 161 | **166** | +5 | 0.9780 | 0.9159 | -0.0621 |
-| **transitions of care** | 144 | 153 | 72 | **75** | +3 | 0.8835 | 0.8620 | -0.0215 |
-| **violence** | 197 | 182 | 82 | **83** | +1 | 0.9097 | 0.8285 | -0.0812 |
-| **TOTAL / MICRO** | **3,340** | **3,225** | **1,616** | **1,698** | **+82** | **0.8330** | **0.8414** | **+0.0084** |
+#### Table 5A: Note-Level Category Classification (Baseline vs Arm 6A Candidate)
+*Procedure: Binary multi-label classification per note-category pair (1 = category present in note, 0 = absent). Evaluated across all 1,732 reviewed test notes (2,827 total note-category occurrences).*
+
+| SBDH Category | Note Support | Base TP | Cand TP | TP Delta | Base P | Cand P | Base R | Cand R | Base F1 | Cand F1 | F1 Delta |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **barriers to care** | 107 | 77 | 82 | +5 | 0.8556 | 0.8039 | 0.7196 | 0.7664 | 0.7817 | 0.7847 | +0.0030 |
+| **financial insecurity** | 243 | 186 | 201 | +15 | 0.9347 | 0.9013 | 0.7654 | 0.8272 | 0.8416 | 0.8627 | +0.0211 |
+| **food insecurity** | 125 | 121 | 123 | +2 | 0.9758 | 0.9609 | 0.9680 | 0.9840 | 0.9719 | 0.9723 | +0.0004 |
+| **housing insecurity** | 209 | 149 | 159 | +10 | 0.9868 | 0.9578 | 0.7129 | 0.7608 | 0.8278 | 0.8480 | +0.0202 |
+| **job insecurity** | 304 | 281 | 283 | +2 | 0.9723 | 0.9725 | 0.9243 | 0.9309 | 0.9477 | 0.9513 | +0.0036 |
+| **legal problems** | 107 | 94 | 98 | +4 | 0.9792 | 0.9800 | 0.8785 | 0.9159 | 0.9261 | 0.9469 | +0.0208 |
+| **loss of relationship** | 243 | 184 | 188 | +4 | 1.0000 | 1.0000 | 0.7572 | 0.7737 | 0.8618 | 0.8724 | +0.0106 |
+| **pain** | 202 | 198 | 200 | +2 | 1.0000 | 1.0000 | 0.9802 | 0.9901 | 0.9900 | 0.9950 | +0.0050 |
+| **patient disability** | 139 | 128 | 135 | +7 | 0.8312 | 0.7941 | 0.9209 | 0.9712 | 0.8737 | 0.8738 | +0.0001 |
+| **physical isolation** | 71 | 26 | 32 | +6 | 0.7879 | 0.6667 | 0.3662 | 0.4507 | 0.5000 | 0.5378 | +0.0378 |
+| **psychiatric symptoms or disorders** | 289 | 232 | 242 | +10 | 0.9098 | 0.8643 | 0.8028 | 0.8374 | 0.8529 | 0.8506 | -0.0023 |
+| **social isolation** | 303 | 240 | 250 | +10 | 0.9877 | 0.9843 | 0.7921 | 0.8251 | 0.8791 | 0.8977 | +0.0186 |
+| **substance abuse** | 203 | 200 | 201 | +1 | 0.9709 | 0.9526 | 0.9852 | 0.9901 | 0.9780 | 0.9710 | -0.0070 |
+| **transitions of care** | 128 | 110 | 114 | +4 | 0.9091 | 0.8571 | 0.8594 | 0.8906 | 0.8835 | 0.8736 | -0.0099 |
+| **violence** | 154 | 131 | 137 | +6 | 0.9776 | 0.9580 | 0.8506 | 0.8896 | 0.9097 | 0.9226 | +0.0129 |
+| **NOTE MICRO-SUM** | **2,827** | **2,357** | **2,445** | **+88** | **0.9516** | **0.9272** | **0.8337** | **0.8649** | **0.8888** | **0.8949** | **+0.0061** |
+| **NOTE MACRO-AVG** | — | — | — | — | — | — | — | — | **0.8684** | **0.8773** | **+0.0089** |
+
+#### Table 5B: Span-Level Exact Matching (Baseline vs Arm 6A Candidate)
+*Procedure: Exact character offset and category agreement: `(start_char, end_char, category)`. Evaluated across all 3,340 resolvable gold spans.*
+
+| SBDH Category | Gold Support | Base Pred | Cand Pred | Base TP | Cand TP | TP Delta | Base P | Cand P | Base R | Cand R | Base F1 | Cand F1 | F1 Delta |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **barriers to care** | 118 | 113 | 121 | 42 | 45 | +3 | 0.3717 | 0.3719 | 0.3559 | 0.3814 | 0.3636 | 0.3766 | +0.0130 |
+| **financial insecurity** | 267 | 220 | 247 | 143 | 153 | +10 | 0.6500 | 0.6194 | 0.5356 | 0.5730 | 0.5873 | 0.5953 | +0.0080 |
+| **food insecurity** | 141 | 159 | 159 | 71 | 77 | +6 | 0.4465 | 0.4843 | 0.5035 | 0.5461 | 0.4733 | 0.5133 | +0.0400 |
+| **housing insecurity** | 274 | 195 | 234 | 100 | 116 | +16 | 0.5128 | 0.4957 | 0.3650 | 0.4234 | 0.4264 | 0.4567 | +0.0303 |
+| **job insecurity** | 346 | 328 | 341 | 205 | 221 | +16 | 0.6250 | 0.6481 | 0.5925 | 0.6387 | 0.6083 | 0.6434 | +0.0351 |
+| **legal problems** | 127 | 117 | 117 | 43 | 48 | +5 | 0.3675 | 0.4103 | 0.3386 | 0.3780 | 0.3525 | 0.3934 | +0.0409 |
+| **loss of relationship** | 255 | 194 | 196 | 119 | 117 | -2 | 0.6134 | 0.5969 | 0.4667 | 0.4588 | 0.5301 | 0.5188 | -0.0113 |
+| **pain** | 226 | 210 | 214 | 141 | 137 | -4 | 0.6714 | 0.6402 | 0.6239 | 0.6062 | 0.6468 | 0.6227 | -0.0241 |
+| **patient disability** | 160 | 199 | 231 | 80 | 82 | +2 | 0.4020 | 0.3550 | 0.5000 | 0.5125 | 0.4457 | 0.4194 | -0.0263 |
+| **physical isolation** | 74 | 33 | 50 | 15 | 17 | +2 | 0.4545 | 0.3400 | 0.2027 | 0.2297 | 0.2804 | 0.2742 | -0.0062 |
+| **psychiatric symptoms or disorders** | 338 | 303 | 336 | 140 | 146 | +6 | 0.4620 | 0.4345 | 0.4142 | 0.4320 | 0.4368 | 0.4332 | -0.0036 |
+| **social isolation** | 403 | 325 | 355 | 199 | 215 | +16 | 0.6123 | 0.6056 | 0.4938 | 0.5335 | 0.5467 | 0.5673 | +0.0206 |
+| **substance abuse** | 270 | 291 | 289 | 166 | 166 | +0 | 0.5704 | 0.5744 | 0.6148 | 0.6148 | 0.5918 | 0.5939 | +0.0021 |
+| **transitions of care** | 144 | 139 | 153 | 75 | 75 | +0 | 0.5396 | 0.4902 | 0.5208 | 0.5208 | 0.5300 | 0.5051 | -0.0249 |
+| **violence** | 197 | 165 | 182 | 77 | 83 | +6 | 0.4667 | 0.4560 | 0.3909 | 0.4213 | 0.4254 | 0.4380 | +0.0126 |
+| **EXACT MICRO-SUM** | **3,340** | **2,991** | **3,225** | **1616** | **1698** | **+82** | **0.5403** | **0.5265** | **0.4838** | **0.5084** | **0.5105** | **0.5173** | **+0.0068** |
+| **EXACT MACRO-AVG** | — | — | — | — | — | — | — | — | — | — | **0.4830** | **0.4901** | **+0.0071** |
+
+#### Table 5C: Span-Level Relaxed Matching (Baseline vs Arm 6A Candidate)
+*Procedure: Kuhn's Maximum Bipartite 1-to-1 Matching under category agreement & character overlap $\ge 1$. Evaluated across all 3,340 resolvable gold spans.*
+
+| SBDH Category | Gold Support | Base Pred | Cand Pred | Base TP | Cand TP | TP Delta | Base P | Cand P | Base R | Cand R | Base F1 | Cand F1 | F1 Delta |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **barriers to care** | 118 | 113 | 121 | 78 | 85 | +7 | 0.6903 | 0.7025 | 0.6610 | 0.7203 | 0.6753 | 0.7113 | +0.0360 |
+| **financial insecurity** | 267 | 220 | 247 | 195 | 210 | +15 | 0.8864 | 0.8502 | 0.7303 | 0.7865 | 0.8008 | 0.8171 | +0.0163 |
+| **food insecurity** | 141 | 159 | 159 | 133 | 136 | +3 | 0.8365 | 0.8553 | 0.9433 | 0.9645 | 0.8867 | 0.9067 | +0.0200 |
+| **housing insecurity** | 274 | 195 | 234 | 175 | 195 | +20 | 0.8974 | 0.8333 | 0.6387 | 0.7117 | 0.7463 | 0.7677 | +0.0214 |
+| **job insecurity** | 346 | 328 | 341 | 309 | 315 | +6 | 0.9421 | 0.9238 | 0.8931 | 0.9104 | 0.9169 | 0.9170 | +0.0001 |
+| **legal problems** | 127 | 117 | 117 | 106 | 110 | +4 | 0.9060 | 0.9402 | 0.8346 | 0.8661 | 0.8689 | 0.9016 | +0.0327 |
+| **loss of relationship** | 255 | 194 | 196 | 188 | 193 | +5 | 0.9691 | 0.9847 | 0.7373 | 0.7569 | 0.8374 | 0.8559 | +0.0185 |
+| **pain** | 226 | 210 | 214 | 203 | 206 | +3 | 0.9667 | 0.9626 | 0.8982 | 0.9115 | 0.9312 | 0.9364 | +0.0052 |
+| **patient disability** | 160 | 199 | 231 | 142 | 149 | +7 | 0.7136 | 0.6450 | 0.8875 | 0.9313 | 0.7911 | 0.7621 | -0.0290 |
+| **physical isolation** | 74 | 33 | 50 | 26 | 31 | +5 | 0.7879 | 0.6200 | 0.3514 | 0.4189 | 0.4860 | 0.5000 | +0.0140 |
+| **psychiatric symptoms or disorders** | 338 | 303 | 336 | 255 | 269 | +14 | 0.8416 | 0.8006 | 0.7544 | 0.7959 | 0.7956 | 0.7982 | +0.0026 |
+| **social isolation** | 403 | 325 | 355 | 299 | 322 | +23 | 0.9200 | 0.9070 | 0.7419 | 0.7990 | 0.8214 | 0.8496 | +0.0282 |
+| **substance abuse** | 270 | 291 | 289 | 255 | 256 | +1 | 0.8763 | 0.8858 | 0.9444 | 0.9481 | 0.9091 | 0.9159 | +0.0068 |
+| **transitions of care** | 144 | 139 | 153 | 123 | 128 | +5 | 0.8849 | 0.8366 | 0.8542 | 0.8889 | 0.8693 | 0.8620 | -0.0073 |
+| **violence** | 197 | 165 | 182 | 150 | 157 | +7 | 0.9091 | 0.8626 | 0.7614 | 0.7970 | 0.8287 | 0.8285 | -0.0002 |
+| **RELAXED MICRO-SUM** | **3,340** | **2,991** | **3,225** | **2637** | **2762** | **+125** | **0.8816** | **0.8564** | **0.7895** | **0.8269** | **0.8330** | **0.8414** | **+0.0084** |
+| **RELAXED MACRO-AVG** | — | — | — | — | — | — | — | — | — | — | **0.8110** | **0.8220** | **+0.0110** |
 
 ---
 

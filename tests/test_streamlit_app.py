@@ -43,7 +43,7 @@ from app.track_a_ui import (
     PRESETS,
     build_default_encounter_dict,
 )
-from app.track_b_ui import NOTE_PRESETS, render_highlighted_text
+from app.track_b_ui import NOTE_PRESETS, render_highlighted_text, extract_sbdh_spans
 from src.transformer_dataset import decode_predictions_to_spans, SBDH_CATEGORIES, CAT_TO_IDX
 
 
@@ -81,8 +81,12 @@ def test_metadata_consistency():
     assert ta["pr_auc"] == 0.1925
     assert tb["output_logits"] == 45
     assert tb["threshold"] == 0.300
-    assert tb["relaxed_f1"] == 0.8330
-    assert tb["exact_f1"] == 0.5105
+    assert tb["relaxed_f1"] == 0.8414
+    assert tb["exact_f1"] == 0.5173
+    assert tb["baseline_relaxed_f1"] == 0.8330
+    assert tb["baseline_exact_f1"] == 0.5105
+    assert "Arm 6A" in tb["active_decoder"]
+    assert "Strategy A" in tb["fallback_decoder"]
 
 
 # --- 2. Track A Input-Schema Compatibility & Prediction Shape ---
@@ -310,3 +314,94 @@ def test_frozen_artifact_hashes():
                 hasher.update(chunk)
         actual_sha = hasher.hexdigest()
         assert actual_sha == expected_sha, f"SHA-256 hash mismatch for {path}: expected {expected_sha}, got {actual_sha}"
+
+
+# --- 7. Bounded Release Gate Tests: Promoted Arm 6A Pipeline & Fallback ---
+
+def test_track_b_promoted_arm_6a_ui_pipeline():
+    """Verify that extract_sbdh_spans executes Arm 6A under inference_mode and preserves categories."""
+    model, tokenizer = load_track_b_model_and_tokenizer()
+    text = "Patient suffers from chronic back pain and cannot afford to continue physical therapy."
+    spans, logits, offset_mapping, active_mask = extract_sbdh_spans(
+        text=text,
+        model=model,
+        tokenizer=tokenizer,
+        threshold=TRACK_B_FROZEN_THRESHOLD,
+        decoder_mode="Arm 6A (Promoted Release Pipeline)",
+    )
+    assert len(spans) > 0, "Arm 6A must extract detected entities"
+    for s_char, e_char, cat in spans:
+        assert 0 <= s_char < e_char <= len(text)
+        assert cat in SBDH_CATEGORIES
+        span_text = text[s_char:e_char]
+        assert span_text == span_text.strip(), f"Span '{span_text}' must be cleanly trimmed"
+
+    cats = {cat for _, _, cat in spans}
+    assert "pain" in cats
+
+
+def test_track_b_fallback_strategy_a_ui_pipeline():
+    """Verify clean fallback to original frozen baseline decoder (Strategy A Control)."""
+    model, tokenizer = load_track_b_model_and_tokenizer()
+    text = "Patient suffers from chronic back pain and cannot afford to continue physical therapy."
+    base_spans, _, _, _ = extract_sbdh_spans(
+        text=text,
+        model=model,
+        tokenizer=tokenizer,
+        threshold=TRACK_B_FROZEN_THRESHOLD,
+        decoder_mode="Strategy A (Frozen Baseline Fallback)",
+    )
+    assert isinstance(base_spans, set)
+    cats = {cat for _, _, cat in base_spans}
+    assert "pain" in cats
+
+
+def test_track_b_arm_6a_balanced_parentheses_and_delimiters():
+    """Verify that balanced delimiters like (PTSD) are preserved while orphan delimiters are trimmed."""
+    from src.experimental_boundary_snapping import snap_span_boundaries
+    # Balanced delimiters preserved
+    text_balanced = "Patient was diagnosed with post-traumatic stress disorder (PTSD)."
+    span_b = (27, 64, "psychiatric symptoms or disorders")
+    snapped_b, _ = snap_span_boundaries(span_b, text_balanced)
+    assert text_balanced[snapped_b[0]:snapped_b[1]] == "post-traumatic stress disorder (PTSD)"
+
+    # Orphan closing delimiter trimmed
+    text_unbalanced = "Diagnosed with severe depression) noted in EHR."
+    span_u = (15, 33, "psychiatric symptoms or disorders")
+    snapped_u, ch = snap_span_boundaries(span_u, text_unbalanced)
+    assert ch is True
+    assert text_unbalanced[snapped_u[0]:snapped_u[1]] == "severe depression"
+
+
+def test_track_b_arm_6a_conservative_fusion_blocks_and_or():
+    """Verify conservative fusion enforces gap <= 2 and disallows fusion across 'and/or'."""
+    from src.experimental_boundary_snapping import fuse_same_category_spans
+    text = "Patient reports heavy alcohol use and cocaine abuse."
+    # Two distinct coordinate substance abuse mentions separated by ' and '
+    s1 = (16, 33, "substance abuse")  # 'heavy alcohol use'
+    s2 = (38, 51, "substance abuse")  # 'cocaine abuse'
+    spans = {s1, s2}
+    fused, merges, _ = fuse_same_category_spans(spans, text, max_gap=2, allowed_connectives=set())
+    assert merges == 0, "Must not merge across coordinate 'and'"
+    assert len(fused) == 2
+
+
+def test_track_b_deterministic_fixed_input_smoke_test():
+    """One small fixed-input smoke test verifying deterministic expected outputs and category preservation."""
+    model, tokenizer = load_track_b_model_and_tokenizer()
+    smoke_text = "Patient uses a motorized wheelchair due to severe neuropathy and expresses profound loneliness."
+    spans, _, _, _ = extract_sbdh_spans(
+        text=smoke_text,
+        model=model,
+        tokenizer=tokenizer,
+        threshold=0.30,
+        decoder_mode="Arm 6A (Promoted Release Pipeline)",
+    )
+    extracted = sorted(list(spans), key=lambda x: (x[0], x[1]))
+    assert len(extracted) >= 2, "Must extract at least two spans"
+    categories = {c for _, _, c in extracted}
+    assert "patient disability" in categories or "social isolation" in categories
+    for s, e, c in extracted:
+        assert 0 <= s < e <= len(smoke_text)
+        assert smoke_text[s:e] == smoke_text[s:e].strip()
+

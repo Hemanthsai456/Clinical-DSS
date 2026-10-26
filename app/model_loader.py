@@ -73,9 +73,15 @@ def get_artifact_metadata():
             "output_logits": 45,
             "categories_count": 15,
             "threshold": TRACK_B_FROZEN_THRESHOLD,
-            "relaxed_f1": 0.8330,
-            "exact_f1": 0.5105,
-            "note_micro_f1": 0.8888,
+            "active_decoder": "Arm 6A (Strategy B Active-Threshold + Delimiter-Protected Snapping + Gap<=2 Fusion)",
+            "fallback_decoder": "Strategy A (Outside-Dominant Control)",
+            "relaxed_f1": 0.8414,
+            "exact_f1": 0.5173,
+            "note_micro_f1": 0.8949,
+            "baseline_relaxed_f1": 0.8330,
+            "baseline_exact_f1": 0.5105,
+            "baseline_note_micro_f1": 0.8888,
             "checkpoint_path": os.path.join(TRACK_B_MODEL_DIR, "best_model.pt"),
+            "checkpoint_sha256": "0cb00010631b089746fdd97ff3f9019e1bcc29012a7c093b33501a9c30186ba4",
         }
     }

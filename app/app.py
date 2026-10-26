@@ -63,12 +63,14 @@ def render_provenance_page():
             f"""
             - **Model:** {tb['model_name']}
             - **Backbone Architecture:** `{tb['backbone']}` (82M parameters, 6 layers)
+            - **Active Release Pipeline:** **{tb.get('active_decoder', 'Arm 6A')}**
+            - **Fallback Control:** `{tb.get('fallback_decoder', 'Strategy A')}`
             - **Output Dimension:** **{tb['output_logits']} Logits** (15 categories $\\times$ 3 BIO states)
             - **Weights File:** `{tb['checkpoint_path']}`
             - **Calibrated Threshold:** `\\theta = {tb['threshold']:.2f}`
-            - **Relaxed Span F1 (Resolvable):** **{tb['relaxed_f1']:.4f}** (Precision: $88.16\%$, Recall: $78.95\%$)
-            - **Exact Span F1 (Resolvable):** **{tb['exact_f1']:.4f}** (Precision: $54.03\%$, Recall: $48.38\%$)
-            - **Note-Level Micro F1:** **{tb['note_micro_f1']:.4f}**
+            - **Relaxed Span F1 (Resolvable):** **{tb['relaxed_f1']:.4f}** (Baseline: {tb.get('baseline_relaxed_f1', 0.8330):.4f})
+            - **Exact Span F1 (Resolvable):** **{tb['exact_f1']:.4f}** (Baseline: {tb.get('baseline_exact_f1', 0.5105):.4f})
+            - **Note-Level Micro F1:** **{tb['note_micro_f1']:.4f}** (Baseline: {tb.get('baseline_note_micro_f1', 0.8888):.4f})
             - **Matching Algorithm:** Maximum Bipartite Matching (Kuhn's Augmenting Path, order-invariant)
             - **Benchmark:** Synth-SBDH reviewed test partition ($N = 1,732$ notes)
             """
@@ -88,8 +90,9 @@ def render_provenance_page():
     st.markdown("**Track B Rules vs. Transformer Progression (`synth_sbdh_test_reviewed.csv`, $N = 1,732$):**")
     st.table([
         {"Method": "Rules Baseline (Milestone 2)", "Exact F1 (Resolvable)": "0.2642", "Exact F1 (Worst-Case)": "0.2639", "Relaxed F1 (Resolvable)": "0.5163", "Relaxed F1 (Worst-Case)": "0.5158", "Note Micro F1": "0.5835"},
-        {"Method": "3-Epoch Colab Transformer (Milestone 3)", "Exact F1 (Resolvable)": "0.5105", "Exact F1 (Worst-Case)": "0.5101", "Relaxed F1 (Resolvable)": "0.8330", "Relaxed F1 (Worst-Case)": "0.8324", "Note Micro F1": "0.8888"},
-        {"Method": "Absolute Neural Improvement", "Exact F1 (Resolvable)": "+0.2463", "Exact F1 (Worst-Case)": "+0.2462", "Relaxed F1 (Resolvable)": "+0.3167", "Relaxed F1 (Worst-Case)": "+0.3166", "Note Micro F1": "+0.3053"},
+        {"Method": "3-Epoch Colab Transformer (Control)", "Exact F1 (Resolvable)": "0.5105", "Exact F1 (Worst-Case)": "0.5101", "Relaxed F1 (Resolvable)": "0.8330", "Relaxed F1 (Worst-Case)": "0.8324", "Note Micro F1": "0.8888"},
+        {"Method": "Arm 6A Promoted Release Pipeline", "Exact F1 (Resolvable)": "0.5173", "Exact F1 (Worst-Case)": "0.5169", "Relaxed F1 (Resolvable)": "0.8414", "Relaxed F1 (Worst-Case)": "0.8408", "Note Micro F1": "0.8949"},
+        {"Method": "Net Release Improvement (Arm 6A vs Control)", "Exact F1 (Resolvable)": "+0.0068", "Exact F1 (Worst-Case)": "+0.0068", "Relaxed F1 (Resolvable)": "+0.0084", "Relaxed F1 (Worst-Case)": "+0.0084", "Note Micro F1": "+0.0061"},
     ])
 
 
@@ -146,8 +149,8 @@ def main():
     st.sidebar.info(
         "**Technical Artifacts:**\n"
         "- Track A Model: Baseline A LogReg (40 features)\n"
-        "- Track B Model: 3-Epoch DistilRoBERTa (45 logits)\n"
-        "- Status: Verified Frozen Baseline (32/32 tests pass)\n"
+        "- Track B Pipeline: Arm 6A Promoted (Strategy B + Snap + Fuse)\n"
+        "- Track B Fallback: Strategy A Baseline Control\n"
         "- Local Execution: CPU (Zero external network calls)"
     )
 

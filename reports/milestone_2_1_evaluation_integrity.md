@@ -17,8 +17,8 @@ Key corrections implemented:
    - Eliminated all discrepancies between confusion matrix cells and reported classification metrics (`Precision`, `Recall`, `Specificity`, `F1-Score`).
    - Verified exact test-partition counts: **14,851 total encounters**, **1,650 positive encounters** ($11.1104\%$), and **13,201 negative encounters** ($88.8896\%$).
    - Corrected stale draft text in `reports/milestone_2_report.md` (which had misstated test positives as 1,648 and reported mismatched confusion matrices).
-   - Embedded automated assertions inside [`src/train_readmission_baseline.py`](file:///d:/Evernorth/Clinical-DSS/src/train_readmission_baseline.py) enforcing $|M_{\text{reported}} - M_{\text{CM}}| < 10^{-4}$ on every run.
-   - Confirmed that saved models ([`models/baseline_a_logreg.joblib`](file:///d:/Evernorth/Clinical-DSS/models/baseline_a_logreg.joblib), [`models/baseline_b_logreg.joblib`](file:///d:/Evernorth/Clinical-DSS/models/baseline_b_logreg.joblib), [`models/baseline_c_logreg.joblib`](file:///d:/Evernorth/Clinical-DSS/models/baseline_c_logreg.joblib)), the metrics artifact ([`reports/readmission_baselines_metrics.json`](file:///d:/Evernorth/Clinical-DSS/reports/readmission_baselines_metrics.json)), and the Markdown report originate from the exact same execution.
+   - Embedded automated assertions inside [`src/train_readmission_baseline.py`](src/train_readmission_baseline.py) enforcing $|M_{\text{reported}} - M_{\text{CM}}| < 10^{-4}$ on every run.
+   - Confirmed that saved models ([`models/baseline_a_logreg.joblib`](models/baseline_a_logreg.joblib), [`models/baseline_b_logreg.joblib`](models/baseline_b_logreg.joblib), [`models/baseline_c_logreg.joblib`](models/baseline_c_logreg.joblib)), the metrics artifact ([`reports/readmission_baselines_metrics.json`](reports/readmission_baselines_metrics.json)), and the Markdown report originate from the exact same execution.
 2. **Evaluation Integrity & Bound Analysis for Synth-SBDH (Track B):**
    - Fully accounted for all 5 ambiguous repeated-mention annotations in `test_reviewed` (`ex_no 7556, 7589, 7843, 8581, 8654`), representing 0.15% of the 3,345 raw gold annotations.
    - Resolved the silent omission of ambiguous cases by explicitly reporting metrics on the **Resolvable Gold Subset** ($N = 3,340$ annotations across 3,303 unique intervals) alongside conservative **Worst-Case Sensitivity Bounds** ($N = 3,345$, treating all 5 unresolved annotations as False Negatives).
@@ -26,25 +26,25 @@ Key corrections implemented:
    - Explicitly delineated evaluated tasks (Task 1: Span Location, Task 2: SBDH Category) from unevaluated tasks (Task 3: Presence/Polarity, Task 4: Temporal Period).
    - Verified that the expert-reviewed test set was frozen and never utilized to construct or tune extraction rules.
 3. **Automated Test Coverage:**
-   - Established 14 comprehensive unit and integration tests across [`tests/test_readmission_evaluation.py`](file:///d:/Evernorth/Clinical-DSS/tests/test_readmission_evaluation.py), [`tests/test_span_alignment.py`](file:///d:/Evernorth/Clinical-DSS/tests/test_span_alignment.py), and [`tests/test_span_matching.py`](file:///d:/Evernorth/Clinical-DSS/tests/test_span_matching.py). 100% passing.
+   - Established 14 comprehensive unit and integration tests across [`tests/test_readmission_evaluation.py`](tests/test_readmission_evaluation.py), [`tests/test_span_alignment.py`](tests/test_span_alignment.py), and [`tests/test_span_matching.py`](tests/test_span_matching.py). 100% passing.
 
 ---
 
 ## 2. Root Cause Analysis
 
 ### A. Track A (Readmission Metrics Discrepancy)
-- **Root Cause:** A disconnect occurred between the programmatic execution and the draft report text. The execution script [`src/train_readmission_baseline.py`](file:///d:/Evernorth/Clinical-DSS/src/train_readmission_baseline.py) generated [`reports/readmission_baselines_metrics.json`](file:///d:/Evernorth/Clinical-DSS/reports/readmission_baselines_metrics.json) with true test counts of 1,650 positives and matching confusion matrices ($TN=10,357, FP=2,844, FN=1,023, TP=627$ for Baseline A). However, `reports/milestone_2_report.md` was drafted by copying figures from an earlier pre-stabilization run (which had 1,648 test positives, $TN=10,682, FP=2,521$, Precision 0.1818, Specificity 0.8091).
+- **Root Cause:** A disconnect occurred between the programmatic execution and the draft report text. The execution script [`src/train_readmission_baseline.py`](src/train_readmission_baseline.py) generated [`reports/readmission_baselines_metrics.json`](reports/readmission_baselines_metrics.json) with true test counts of 1,650 positives and matching confusion matrices ($TN=10,357, FP=2,844, FN=1,023, TP=627$ for Baseline A). However, `reports/milestone_2_report.md` was drafted by copying figures from an earlier pre-stabilization run (which had 1,648 test positives, $TN=10,682, FP=2,521$, Precision 0.1818, Specificity 0.8091).
 - **Code Limitation:** `evaluate_predictions()` called independent scikit-learn helper functions (`precision_score`, `recall_score`, `f1_score`, `confusion_matrix`) without asserting internal mathematical agreement with the confusion matrix cells.
 
 ### B. Track B (Synth-SBDH Evaluation Discrepancy)
-- **Root Cause 1 (Silent Omission):** In [`src/sbdh_rules_baseline.py`](file:///d:/Evernorth/Clinical-DSS/src/sbdh_rules_baseline.py), gold spans were assembled strictly from `gold_aligned["resolved_intervals"]`. The 5 ambiguous annotations were placed into `gold_aligned["ambiguous_cases"]` by the aligner, meaning the rules evaluator reported `total_gold_spans = 3340` without explicitly explaining the drop from the 3,345 raw annotations in `test_reviewed`.
+- **Root Cause 1 (Silent Omission):** In [`src/sbdh_rules_baseline.py`](src/sbdh_rules_baseline.py), gold spans were assembled strictly from `gold_aligned["resolved_intervals"]`. The 5 ambiguous annotations were placed into `gold_aligned["ambiguous_cases"]` by the aligner, meaning the rules evaluator reported `total_gold_spans = 3340` without explicitly explaining the drop from the 3,345 raw annotations in `test_reviewed`.
 - **Root Cause 2 (Relaxed Match Double-Counting):** In relaxed matching, when looping over predictions, the matching algorithm did not remove matched gold spans from the candidate pool. Consequently, if two predicted spans overlapped the same gold span, both predictions claimed a True Positive, inflating relaxed TP to 1,338 ($TP + FN = 1338 + 2105 = 3443 > 3340$).
 
 ---
 
 ## 3. Code Corrections & Pipeline Integrity Fixes
 
-### A. Readmission Evaluation Assertions ([`src/train_readmission_baseline.py`](file:///d:/Evernorth/Clinical-DSS/src/train_readmission_baseline.py))
+### A. Readmission Evaluation Assertions ([`src/train_readmission_baseline.py`](src/train_readmission_baseline.py))
 Inside `evaluate_predictions()`, automated mathematical consistency assertions now verify every metric derivation:
 ```python
 expected_prec = float(tp / (tp + fp)) if (tp + fp) > 0 else 0.0
@@ -62,7 +62,7 @@ assert tn + fp == int(len(y_true) - np.sum(y_true)), f"Negative count mismatch: 
 ```
 The output JSON now explicitly includes `positive_count`, `negative_count`, and `confusion_matrix_derived`.
 
-### B. 1-to-1 Span Matching & Bound Tracking ([`src/sbdh_rules_baseline.py`](file:///d:/Evernorth/Clinical-DSS/src/sbdh_rules_baseline.py))
+### B. 1-to-1 Span Matching & Bound Tracking ([`src/sbdh_rules_baseline.py`](src/sbdh_rules_baseline.py))
 1. **Modular 1-to-1 Span Matching:**
    ```python
    def match_spans_exact(pred_tuples, gold_tuples):
@@ -221,8 +221,8 @@ All scripts and automated test suites were executed directly in the project envi
 
 | Execution Step | Command | Exit Code | Verified Outputs |
 |---|---|---|---|
-| **1. Track A Baseline Training & Assertions** | `python src/train_readmission_baseline.py` | `0` | Recomputed all models and generated [`reports/readmission_baselines_metrics.json`](file:///d:/Evernorth/Clinical-DSS/reports/readmission_baselines_metrics.json). Passed all mathematical assertions. |
-| **2. Track B Rules Evaluation & Bound Tracking** | `python src/sbdh_rules_baseline.py` | `0` | Evaluated against `test_reviewed` and generated [`reports/sbdh_rules_metrics.json`](file:///d:/Evernorth/Clinical-DSS/reports/sbdh_rules_metrics.json). Verified 1-to-1 matching and worst-case bounds. |
+| **1. Track A Baseline Training & Assertions** | `python src/train_readmission_baseline.py` | `0` | Recomputed all models and generated [`reports/readmission_baselines_metrics.json`](reports/readmission_baselines_metrics.json). Passed all mathematical assertions. |
+| **2. Track B Rules Evaluation & Bound Tracking** | `python src/sbdh_rules_baseline.py` | `0` | Evaluated against `test_reviewed` and generated [`reports/sbdh_rules_metrics.json`](reports/sbdh_rules_metrics.json). Verified 1-to-1 matching and worst-case bounds. |
 | **3. Full Automated Test Suite Execution** | `pytest` | `0` | Executed 14 automated tests across all 3 test files. 14 passed in 2.17s. |
 
 ### Test Session Log Summary:

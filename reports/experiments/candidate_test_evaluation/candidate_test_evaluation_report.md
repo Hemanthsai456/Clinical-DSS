@@ -5,8 +5,8 @@
 **Evaluator:** Evernorth Clinical DSS Engineering Team  
 **Dataset:** Synth-SBDH Reviewed Test Set (`synth_sbdh_test_reviewed.csv`, $N = 1,732$ clinical notes)  
 **Model Checkpoint:** Three-epoch Colab Transformer (`evernorth_m3_results/models/sbdh_transformer/best_model.pt`)  
-**Artifact Metrics:** [`reports/experiments/candidate_test_evaluation/candidate_test_evaluation_metrics.json`](file:///d:/Evernorth/Clinical-DSS/reports/experiments/candidate_test_evaluation/candidate_test_evaluation_metrics.json)  
-**Authoritative Baseline Metrics:** [`reports/sbdh_colab_transformer_metrics_corrected.json`](file:///d:/Evernorth/Clinical-DSS/reports/sbdh_colab_transformer_metrics_corrected.json)  
+**Artifact Metrics:** [`reports/experiments/candidate_test_evaluation/candidate_test_evaluation_metrics.json`](reports/experiments/candidate_test_evaluation/candidate_test_evaluation_metrics.json)  
+**Authoritative Baseline Metrics:** [`reports/sbdh_colab_transformer_metrics_corrected.json`](reports/sbdh_colab_transformer_metrics_corrected.json)  
 
 ---
 
@@ -30,7 +30,7 @@ This report documents the single, final benchmark evaluation of the validation-s
 
 ## 2. Frozen Candidate Implementation (Arm 6A)
 
-The candidate implementation was isolated in [`src/experimental_decoders.py`](file:///d:/Evernorth/Clinical-DSS/src/experimental_decoders.py) and [`src/experimental_boundary_snapping.py`](file:///d:/Evernorth/Clinical-DSS/src/experimental_boundary_snapping.py). The pipeline consists of three sequential post-processing stages applied to raw model logits:
+The candidate implementation was isolated in [`src/experimental_decoders.py`](src/experimental_decoders.py) and [`src/experimental_boundary_snapping.py`](src/experimental_boundary_snapping.py). The pipeline consists of three sequential post-processing stages applied to raw model logits:
 
 ```
 Raw Model Logits (Sequence Length 256)

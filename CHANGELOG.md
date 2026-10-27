@@ -18,7 +18,7 @@ All notable changes made to the Evernorth Clinical Decision Support (CDS) protot
     - Threshold labeled as validation-tuned ($F_1$) and test metrics kept separate.
     - "Transitional Care Trigger" labeled as an illustrative hypothetical workflow that has not been clinically evaluated.
   - **Step 2 (Track B Known Limitations): COMPLETED**
-    - Added visible note directly beneath Track B preset selector: *"Known limitations on these examples: 'life' and 'in a rented house' are false positives; 'access to healthcare' is a truncated span (should read 'poor access to healthcare'). See the Track B error analysis report ([reports/sbdh_error_analysis_experiment_1.md](file:///d:/Evernorth/Clinical-DSS/reports/sbdh_error_analysis_experiment_1.md))."*
+    - Added visible note directly beneath Track B preset selector: *"Known limitations on these examples: 'life' and 'in a rented house' are false positives; 'access to healthcare' is a truncated span (should read 'poor access to healthcare'). See the Track B error analysis report ([reports/sbdh_error_analysis_experiment_1.md](reports/sbdh_error_analysis_experiment_1.md))."*
     - Decoder pipeline (Arm 6A) preserved without modification.
   - **Step 3 (Unit Tests): COMPLETED**
     - Added comprehensive unit test suite in `tests/test_track_a_display.py` (9 tests):
@@ -50,7 +50,32 @@ All notable changes made to the Evernorth Clinical Decision Support (CDS) protot
     - Corrected Arm 7A vs. Arm 7B validation ablation figures in `CHANGELOG.md`: Arm 7A Exact gain is +0.0001 and Relaxed drop is −0.0012; Arm 7B Exact gain is +0.0004 and Relaxed drop is −0.0007.
 - **Test Suite Results:**
   - Before changes: 69 passed, 0 failed.
-  - After changes: **78 passed**, 0 failed in 33.31s. Zero failures.
+  - After changes: **78 passed**, 0 failed in 41.12s. Zero failures.
+- **Repository Hygiene (2026-10-27): COMPLETED**
+  - Replaced all 207 occurrences of hardcoded absolute local file URIs (`file:///<drive>:/Evernorth/Clinical-DSS/`) with repo-relative paths across 16 files, with `%20` decoded and line anchors preserved.
+  - Confirmed 0 remaining local file URI occurrences repository-wide.
+  - Updated `README.md` test badge and heading to match the 78 collected automated tests.
+
+---
+
+## [Unreleased] - 2026-10-27
+
+### Repository Path Relativization & Clean Documentation
+- **Replaced Local Absolute `file:///` Paths with Repo-Relative Links:**
+  - Replaced all 207 occurrences of hardcoded absolute paths matching `file:///<drive>:/Evernorth/Clinical-DSS/` across 16 files (`.md` and `.py` files) with clean paths relative to the repository root (e.g., `reports/sbdh_error_analysis_experiment_1.md`).
+  - Preserved original markdown link text intact.
+  - Decoded URL-encoded `%20` sequences to standard spaces.
+  - Preserved all line number anchors (e.g., `#L406-L481`, `#L35-L80`).
+  - Verified via repository-wide search that zero local file URIs remain.
+  - Affected files: `CHANGELOG.md`, `README.md`, `app/track_b_ui.py`, `reports/baseline_freeze_manifest.md`, `reports/final_evidence_consistency_audit.md`, `reports/final_technical_report.md`, `reports/milestone_2_1_evaluation_integrity.md`, `reports/milestone_2_report.md`, `reports/milestone_3_report.md`, `reports/reproduction_guide.md`, `reports/sbdh_error_analysis_experiment_1.md`, `reports/streamlit_mvp_readme.md`, `reports/track_a_readmission_audit.md`, `reports/experiments/candidate_test_evaluation/candidate_test_evaluation_report.md`, `reports/experiments/decoder_ablation/decoder_ablation_report.md`, and `reports/experiments/span_boundary_ablation/span_boundary_ablation_report.md`.
+
+### Test Count & README Synchronization
+- **Synchronized Test Badges and Documentation:**
+  - Ran `pytest tests/ --collect-only -q` confirming exactly 78 automated tests collected.
+  - Updated `README.md` test badge from `66 Passed` to `78 Passed`.
+  - Updated Section 6 heading from `### Run Full Test Suite (66 Automated Tests)` to `### Run Full Test Suite (78 Automated Tests)`.
+  - Updated Section 6 description and Section 7 architecture test module breakdown to reflect all 78 tests across all 7 test files including `test_track_a_display.py` (9 tests) and `test_streamlit_app.py` (21 tests).
+  - Executed `pytest tests/ -v`: 78 passed, 0 failed in 41.12s.
 
 ---
 

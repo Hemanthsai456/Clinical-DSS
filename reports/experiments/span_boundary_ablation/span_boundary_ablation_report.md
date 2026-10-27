@@ -5,8 +5,8 @@
 **Experiment:** Experiment 2.2 — Span Boundary & Fragmentation Ablation (Inference-Only)  
 **Date:** October 2026  
 **Status:** Educational & Research Prototype — Not for Direct Clinical Use  
-**Artifact Directory:** [`reports/experiments/span_boundary_ablation/`](file:///d:/Evernorth/Clinical-DSS/reports/experiments/span_boundary_ablation/)  
-**Metrics JSON:** [`reports/experiments/span_boundary_ablation/span_boundary_ablation_metrics.json`](file:///d:/Evernorth/Clinical-DSS/reports/experiments/span_boundary_ablation/span_boundary_ablation_metrics.json)  
+**Artifact Directory:** [`reports/experiments/span_boundary_ablation/`](reports/experiments/span_boundary_ablation/)  
+**Metrics JSON:** [`reports/experiments/span_boundary_ablation/span_boundary_ablation_metrics.json`](reports/experiments/span_boundary_ablation/span_boundary_ablation_metrics.json)  
 
 ---
 
@@ -55,12 +55,12 @@ This experiment was strictly inference-only. The authoritative model checkpoint,
 
 | Component | Specification | Verification Status |
 |---|---|:---:|
-| **Model Checkpoint** | [`evernorth_m3_results/models/sbdh_transformer/best_model.pt`](file:///d:/Evernorth/Clinical-DSS/evernorth_m3_results/models/sbdh_transformer/best_model.pt) | **VERIFIED** |
+| **Model Checkpoint** | [`evernorth_m3_results/models/sbdh_transformer/best_model.pt`](evernorth_m3_results/models/sbdh_transformer/best_model.pt) | **VERIFIED** |
 | **Initial Checkpoint SHA-256** | `0cb00010631b089746fdd97ff3f9019e1bcc29012a7c093b33501a9c30186ba4` | **VERIFIED** |
 | **Final Checkpoint SHA-256** | `0cb00010631b089746fdd97ff3f9019e1bcc29012a7c093b33501a9c30186ba4` | **VERIFIED (BITWISE IDENTICAL)** |
 | **Backbone Architecture** | `distilbert/distilroberta-base` (82M parameters, 6 layers, 768 hidden) | **VERIFIED** |
-| **Experimental Module** | [`src/experimental_boundary_snapping.py`](file:///d:/Evernorth/Clinical-DSS/src/experimental_boundary_snapping.py) | **CREATED (ISOLATED)** |
-| **Unit Test Suite** | [`tests/test_boundary_ablation.py`](file:///d:/Evernorth/Clinical-DSS/tests/test_boundary_ablation.py) | **VERIFIED (16 PASSING)** |
+| **Experimental Module** | [`src/experimental_boundary_snapping.py`](src/experimental_boundary_snapping.py) | **CREATED (ISOLATED)** |
+| **Unit Test Suite** | [`tests/test_boundary_ablation.py`](tests/test_boundary_ablation.py) | **VERIFIED (16 PASSING)** |
 | **Validation Dataset** | `synth_sbdh_val.csv` ($N = 876$ notes, 1,443 gold annotations) | **VERIFIED** |
 | **Reviewed Test Set** | `synth_sbdh_test_reviewed.csv` ($N = 1,732$ notes) | **EXCLUDED (ZERO TEST LEAKAGE)** |
 
@@ -79,14 +79,14 @@ graph TD
 ```
 
 ### 3.1 Deterministic Lexical Boundary Snapping
-Implemented in [`src/experimental_boundary_snapping.py:snap_span_boundaries()`](file:///d:/Evernorth/Clinical-DSS/src/experimental_boundary_snapping.py):
+Implemented in [`src/experimental_boundary_snapping.py:snap_span_boundaries()`](src/experimental_boundary_snapping.py):
 1. **Mid-Word Token Boundary Expansion:** If a subword token starts or ends inside an alphanumeric word (`text[s-1].isalnum() and text[s].isalnum()`), the boundary expands outward to the complete word boundary.
 2. **Boundary Whitespace & Punctuation Stripping:** Leading and trailing whitespace and punctuation characters (`.,;:!?"'()[]{}-/`) are trimmed.
 3. **Dangling Preposition & Conjunction Trimming:** If the extracted span ends on an isolated dangling preposition or conjunction (from `{"for", "to", "and", "or", "with", "in", "at", "from", "of", "by", "as", "about", "into", "on", "due"}`), the dangling tail is stripped.  
    *Example:* `"facing possible jail time for"` $\to$ `"facing possible jail time"`.
 
 ### 3.2 Conservative Same-Category Span Fusion
-Implemented in [`src/experimental_boundary_snapping.py:fuse_same_category_spans()`](file:///d:/Evernorth/Clinical-DSS/src/experimental_boundary_snapping.py):
+Implemented in [`src/experimental_boundary_snapping.py:fuse_same_category_spans()`](src/experimental_boundary_snapping.py):
 1. **Category Isolation:** Fusion is strictly prohibited across different SBDH categories ($c_1 = c_2$ required).
 2. **Sentence Boundary Guardrail:** Fusion is strictly blocked if the intervening gap contains sentence terminators (`.`, `?`, `!`, `\n`). Mentions across sentences can never be merged.
 3. **Gap Length & Connective Whitelist:** Character distance $(s_2 - e_1) \le \text{max\_gap}$. The intervening gap text must consist exclusively of whitespace, punctuation, or non-substantive grammatical connectives (`{"and", "or", "her", "his", "their", "the", "a", "an", "of", "to", "in", "for", "with"}`). Substantive words (verbs, nouns, clinical concepts) immediately abort fusion.
@@ -233,10 +233,10 @@ We passed the Experiment 1 synthetic clinical narrative through all experimental
 
 | Artifact Path | Initial SHA-256 | Final SHA-256 | Verification Status |
 |---|---|---|:---:|
-| [`evernorth_m3_results/models/sbdh_transformer/best_model.pt`](file:///d:/Evernorth/Clinical-DSS/evernorth_m3_results/models/sbdh_transformer/best_model.pt) | `0cb00010631b089746fdd97ff3f9019e1bcc29012a7c093b33501a9c30186ba4` | `0cb00010631b089746fdd97ff3f9019e1bcc29012a7c093b33501a9c30186ba4` | **PASS (BIT-IDENTICAL)** |
-| [`models/baseline_a_logreg.joblib`](file:///d:/Evernorth/Clinical-DSS/models/baseline_a_logreg.joblib) | `794cff2d580b0d9b574b62a62c1d2549aad101e283ac65167869f9d1a076d74c` | `794cff2d580b0d9b574b62a62c1d2549aad101e283ac65167869f9d1a076d74c` | **PASS (BIT-IDENTICAL)** |
-| [`reports/readmission_baselines_metrics.json`](file:///d:/Evernorth/Clinical-DSS/reports/readmission_baselines_metrics.json) | `168a73c1c40e841f7992ccf6271d4a1e8a977444a1f44a471344edae6882f114` | `168a73c1c40e841f7992ccf6271d4a1e8a977444a1f44a471344edae6882f114` | **PASS (BIT-IDENTICAL)** |
-| [`reports/sbdh_colab_transformer_metrics_corrected.json`](file:///d:/Evernorth/Clinical-DSS/reports/sbdh_colab_transformer_metrics_corrected.json) | `f20c59f435ca0194c8fdaba7c5ffe548ec35fb34b6bcf6a177f81ab82b090934` | `f20c59f435ca0194c8fdaba7c5ffe548ec35fb34b6bcf6a177f81ab82b090934` | **PASS (BIT-IDENTICAL)** |
+| [`evernorth_m3_results/models/sbdh_transformer/best_model.pt`](evernorth_m3_results/models/sbdh_transformer/best_model.pt) | `0cb00010631b089746fdd97ff3f9019e1bcc29012a7c093b33501a9c30186ba4` | `0cb00010631b089746fdd97ff3f9019e1bcc29012a7c093b33501a9c30186ba4` | **PASS (BIT-IDENTICAL)** |
+| [`models/baseline_a_logreg.joblib`](models/baseline_a_logreg.joblib) | `794cff2d580b0d9b574b62a62c1d2549aad101e283ac65167869f9d1a076d74c` | `794cff2d580b0d9b574b62a62c1d2549aad101e283ac65167869f9d1a076d74c` | **PASS (BIT-IDENTICAL)** |
+| [`reports/readmission_baselines_metrics.json`](reports/readmission_baselines_metrics.json) | `168a73c1c40e841f7992ccf6271d4a1e8a977444a1f44a471344edae6882f114` | `168a73c1c40e841f7992ccf6271d4a1e8a977444a1f44a471344edae6882f114` | **PASS (BIT-IDENTICAL)** |
+| [`reports/sbdh_colab_transformer_metrics_corrected.json`](reports/sbdh_colab_transformer_metrics_corrected.json) | `f20c59f435ca0194c8fdaba7c5ffe548ec35fb34b6bcf6a177f81ab82b090934` | `f20c59f435ca0194c8fdaba7c5ffe548ec35fb34b6bcf6a177f81ab82b090934` | **PASS (BIT-IDENTICAL)** |
 | **Automated PyTest Suite** | 61 passed | 61 passed | **100% PASS** |
 
 **Conclusion:** Zero models were retrained. The production decoder and Streamlit application remain frozen. Experiment 2.2 is fully verified and documented.

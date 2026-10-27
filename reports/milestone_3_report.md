@@ -21,7 +21,7 @@ Milestone 3 implements, validates, and evaluates a pretrained Transformer archit
 2. **Phase 1 (Modeling Formulation):** Formulated multi-label span extraction using a pretrained `distilroberta-base` encoder equipped with **45 independent binary sigmoid classifiers** ($15\text{ categories} \times \{B, I, O\}$). Solved the fundamental limitation of traditional single-label BIO taggers, allowing identical character spans to be assigned multiple co-occurring SBDH categories (e.g. `ex_no 7062`: `financial insecurity` + `barriers to care`).
 3. **Phase 2 (Data & Training Protocol):** Implemented strict partition discipline across training ($N=6,136$), validation ($N=876$), and reviewed test ($N=1,732$). Addressed ambiguous training annotation `ex_no 1192` without guessing by applying candidate token loss masking (`loss_mask = 0.0`). Preserved the 5 unresolved test annotations via dual bounds (resolvable subset vs. conservative worst-case bounds).
 4. **Phase 3 (Rigorous Evaluation & Rules Comparison):** Conducted full-scale evaluation against `synth_sbdh_test_reviewed.csv` ($N=1,732$ notes; 3,340 resolvable gold spans). Directly compared the transformer against the frozen rules baseline, documenting boundary misalignments, repeated mentions, and rare category performance.
-5. **Phase 4 (Deliverables):** Produced reproducible Colab notebook [`notebooks/02_sbdh_transformer.ipynb`](file:///D:/Evernorth/Clinical-DSS/notebooks/02_sbdh_transformer.ipynb), reusable modules under [`src/`](file:///D:/Evernorth/Clinical-DSS/src/), automated tests under [`tests/`](file:///D:/Evernorth/Clinical-DSS/tests/), and machine-readable metrics in [`reports/sbdh_transformer_metrics.json`](file:///D:/Evernorth/Clinical-DSS/reports/sbdh_transformer_metrics.json).
+5. **Phase 4 (Deliverables):** Produced reproducible Colab notebook [`notebooks/02_sbdh_transformer.ipynb`](notebooks/02_sbdh_transformer.ipynb), reusable modules under [`src/`](src/), automated tests under [`tests/`](tests/), and machine-readable metrics in [`reports/sbdh_transformer_metrics.json`](reports/sbdh_transformer_metrics.json).
 
 ---
 
@@ -52,7 +52,7 @@ We constructed an adversarial scenario demonstrating that greedy matching fails 
 Under greedy matching, sorting predictions by descending confidence, text offset, or arbitrary hash changes the resulting F1 score.
 
 ### Maximum Bipartite Matching Solution
-To ensure mathematical integrity and order invariance, we replaced greedy matching with **Maximum Cardinality Bipartite Matching** using Kuhn's augmenting path algorithm in [`src/sbdh_rules_baseline.py`](file:///D:/Evernorth/Clinical-DSS/src/sbdh_rules_baseline.py#L35-L80) and [`src/evaluate_sbdh_transformer.py`](file:///D:/Evernorth/Clinical-DSS/src/evaluate_sbdh_transformer.py#L28).
+To ensure mathematical integrity and order invariance, we replaced greedy matching with **Maximum Cardinality Bipartite Matching** using Kuhn's augmenting path algorithm in [`src/sbdh_rules_baseline.py`](src/sbdh_rules_baseline.py#L35-L80) and [`src/evaluate_sbdh_transformer.py`](src/evaluate_sbdh_transformer.py#L28).
 
 ```text
 Prediction Nodes (U)                     Gold Nodes (V)
@@ -67,7 +67,7 @@ Kuhn's algorithm finds an augmenting path to reroute $P_1$ to $G_2$ when $P_2$ c
 2. **Global Optimality:** Maximizes the size of the 1-to-1 matching subset $|M| \le \min(|P|, |G|)$.
 3. **Category Agreement:** Matches are strictly constrained to pairs where $\text{Category}(p) = \text{Category}(g)$.
 
-This safeguard was verified in automated test [`tests/test_span_matching.py::test_adversarial_bipartite_matching_order_invariance`](file:///D:/Evernorth/Clinical-DSS/tests/test_span_matching.py). All 20 tests in the project test suite pass.
+This safeguard was verified in automated test [`tests/test_span_matching.py::test_adversarial_bipartite_matching_order_invariance`](tests/test_span_matching.py). All 20 tests in the project test suite pass.
 
 ---
 
@@ -82,7 +82,7 @@ Clinical text frequently conveys overlapping social determinants within the exac
 A standard named entity recognition (NER) setup with a single mutually exclusive BIO tag per token (e.g. 15 categories $\times 2 + 1 = 31$ classes with softmax) forces the model to predict either `financial insecurity` or `barriers to care`, systematically truncating recall.
 
 ### 45-Class Independent Sigmoid Architecture
-We implemented [`MultiLabelSBDHTransformer`](file:///D:/Evernorth/Clinical-DSS/src/transformer_model.py#L18-L62):
+We implemented [`MultiLabelSBDHTransformer`](src/transformer_model.py#L18-L62):
 - **Pretrained Encoder:** `distilroberta-base` (82 million parameters, 6 layers, 768 hidden dimension, 12 attention heads).
 - **Classification Head:** A linear projection layer mapping token hidden states $h_t \in \mathbb{R}^{768}$ to $z_t \in \mathbb{R}^{45}$:
   $$\text{Labels} = 15 \text{ SBDH Categories} \times 3 \text{ BIO Tags } (B, I, O) = 45$$
@@ -127,7 +127,7 @@ In training note `ex_no 1192`, the gold annotation specifies `Textspan="pain"`, 
 2. Candidate 2: Character offsets `[61:65]`
 
 Without clinical context indicating which occurrence was intended, arbitrarily selecting one mention would train the model to treat an equally valid occurrence as negative.  
-**Safeguard Implementation:** In [`src/transformer_dataset.py`](file:///D:/Evernorth/Clinical-DSS/src/transformer_dataset.py#L90-L98), we detect `ex_no 1192` and set $M_{t, k} = 0.0$ for all tokens spanning `[10:14]` and `[61:65]` across category `pain`. The candidate tokens are completely excluded from the gradient calculation, eliminating noisy supervision.
+**Safeguard Implementation:** In [`src/transformer_dataset.py`](src/transformer_dataset.py#L90-L98), we detect `ex_no 1192` and set $M_{t, k} = 0.0$ for all tokens spanning `[10:14]` and `[61:65]` across category `pain`. The candidate tokens are completely excluded from the gradient calculation, eliminating noisy supervision.
 
 ### Test Set Ambiguity Policy (Dual Bounds)
 In `synth_sbdh_test_reviewed.csv`, exactly 5 annotations have multiple identical occurrences without unambiguous context (`ex_no 7556`, `7589`, `7843`, `8581`, `8654`).  
@@ -140,7 +140,7 @@ We maintain our established dual-bound policy:
 - **Local Environment:** Windows 11, Intel Core i7 CPU, Python 3.11.3, `torch 2.14.0+cpu`.
   - To verify the complete pipeline, a resource-conscious pilot training run (60 training notes, 50 validation notes, 1 epoch, batch size 16) was executed locally in 24.7s.
   - Full evaluation on all 1,732 notes of `synth_sbdh_test_reviewed.csv` was executed locally on CPU in 4m20s.
-- **Google Colab GPU Configuration:** Detailed in [`notebooks/02_sbdh_transformer.ipynb`](file:///D:/Evernorth/Clinical-DSS/notebooks/02_sbdh_transformer.ipynb):
+- **Google Colab GPU Configuration:** Detailed in [`notebooks/02_sbdh_transformer.ipynb`](notebooks/02_sbdh_transformer.ipynb):
   - Backbone: `distilbert/distilroberta-base`
   - Optimizer: AdamW ($\beta_1=0.9, \beta_2=0.999, \epsilon=10^{-8}$, weight decay $=0.01$)
   - Learning Rate: $3 \times 10^{-5}$ with linear warmup over the first 10% of steps
@@ -153,7 +153,7 @@ We maintain our established dual-bound policy:
 
 ### Full Benchmark Performance on `test_reviewed` ($N=1,732$ notes)
 
-Evaluation was executed across all 1,732 notes using [`src/evaluate_sbdh_transformer.py`](file:///D:/Evernorth/Clinical-DSS/src/evaluate_sbdh_transformer.py) and exported to [`reports/sbdh_transformer_metrics.json`](file:///D:/Evernorth/Clinical-DSS/reports/sbdh_transformer_metrics.json).
+Evaluation was executed across all 1,732 notes using [`src/evaluate_sbdh_transformer.py`](src/evaluate_sbdh_transformer.py) and exported to [`reports/sbdh_transformer_metrics.json`](reports/sbdh_transformer_metrics.json).
 
 | Metric | Rules Baseline (Milestone 2) | Transformer Pilot (CPU Executed) | Transformer Colab GPU (Full Config Target) |
 | :--- | :--- | :--- | :--- |
@@ -224,21 +224,21 @@ Categories like `physical isolation` ($N=71$) and `barriers to care` ($N=107$) r
 All deliverables have been created, tested, and validated:
 
 1. **Colab & Jupyter Notebook:**  
-   [`notebooks/02_sbdh_transformer.ipynb`](file:///D:/Evernorth/Clinical-DSS/notebooks/02_sbdh_transformer.ipynb) — Self-contained, executable notebook with dataset loading, multi-label BIO encoding, model architecture, training loop, evaluator safeguards, and error analysis.
+   [`notebooks/02_sbdh_transformer.ipynb`](notebooks/02_sbdh_transformer.ipynb) — Self-contained, executable notebook with dataset loading, multi-label BIO encoding, model architecture, training loop, evaluator safeguards, and error analysis.
 2. **Multi-Label Dataset & Aligner:**  
-   [`src/transformer_dataset.py`](file:///D:/Evernorth/Clinical-DSS/src/transformer_dataset.py) — 45-class BIO target generation, FastTokenizer offset mapping, `ex_no 1192` loss masking, and span decoding.
+   [`src/transformer_dataset.py`](src/transformer_dataset.py) — 45-class BIO target generation, FastTokenizer offset mapping, `ex_no 1192` loss masking, and span decoding.
 3. **Transformer Model Architecture:**  
-   [`src/transformer_model.py`](file:///D:/Evernorth/Clinical-DSS/src/transformer_model.py) — `MultiLabelSBDHTransformer` with `distilroberta-base` backbone and masked `BCEWithLogitsLoss`.
+   [`src/transformer_model.py`](src/transformer_model.py) — `MultiLabelSBDHTransformer` with `distilroberta-base` backbone and masked `BCEWithLogitsLoss`.
 4. **Training Script:**  
-   [`src/train_sbdh_transformer.py`](file:///D:/Evernorth/Clinical-DSS/src/train_sbdh_transformer.py) — End-to-end training CLI supporting AdamW, linear warmup, validation checkpointing, and sample limits.
+   [`src/train_sbdh_transformer.py`](src/train_sbdh_transformer.py) — End-to-end training CLI supporting AdamW, linear warmup, validation checkpointing, and sample limits.
 5. **Evaluation Script:**  
-   [`src/evaluate_sbdh_transformer.py`](file:///D:/Evernorth/Clinical-DSS/src/evaluate_sbdh_transformer.py) — Evaluation engine computing exact & maximum bipartite relaxed matching, per-category metrics, and error analysis.
+   [`src/evaluate_sbdh_transformer.py`](src/evaluate_sbdh_transformer.py) — Evaluation engine computing exact & maximum bipartite relaxed matching, per-category metrics, and error analysis.
 6. **Automated Test Suite:**  
-   [`tests/test_transformer_alignment.py`](file:///D:/Evernorth/Clinical-DSS/tests/test_transformer_alignment.py) & [`tests/test_span_matching.py`](file:///D:/Evernorth/Clinical-DSS/tests/test_span_matching.py) — 20 passing unit tests.
+   [`tests/test_transformer_alignment.py`](tests/test_transformer_alignment.py) & [`tests/test_span_matching.py`](tests/test_span_matching.py) — 20 passing unit tests.
 7. **Machine-Readable Metrics:**  
-   [`reports/sbdh_transformer_metrics.json`](file:///D:/Evernorth/Clinical-DSS/reports/sbdh_transformer_metrics.json) & [`models/sbdh_transformer/training_curves.json`](file:///D:/Evernorth/Clinical-DSS/models/sbdh_transformer/training_curves.json).
+   [`reports/sbdh_transformer_metrics.json`](reports/sbdh_transformer_metrics.json) & [`models/sbdh_transformer/training_curves.json`](models/sbdh_transformer/training_curves.json).
 8. **Git Configuration:**  
-   [`.gitignore`](file:///D:/Evernorth/Clinical-DSS/.gitignore) — Excludes `models/sbdh_transformer/*.bin`, `*.pt`, and `*.safetensors`.
+   [`.gitignore`](.gitignore) — Excludes `models/sbdh_transformer/*.bin`, `*.pt`, and `*.safetensors`.
 
 ### Automated Test Suite Execution Log
 ```text
@@ -261,7 +261,7 @@ tests\test_transformer_alignment.py .....                                [100%]
 
 To execute the full-scale training run on Google Colab with free T4 GPU acceleration:
 
-1. Open [`notebooks/02_sbdh_transformer.ipynb`](file:///D:/Evernorth/Clinical-DSS/notebooks/02_sbdh_transformer.ipynb) in Google Colab using the badge:  
+1. Open [`notebooks/02_sbdh_transformer.ipynb`](notebooks/02_sbdh_transformer.ipynb) in Google Colab using the badge:  
    [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/hemanthsai/Clinical-DSS/blob/main/notebooks/02_sbdh_transformer.ipynb)
 2. In Colab, navigate to **Runtime > Change runtime type** and select **T4 GPU**.
 3. Run **Section 1: Environment Setup** to install dependencies (`torch`, `transformers`, `datasets`, `accelerate`).

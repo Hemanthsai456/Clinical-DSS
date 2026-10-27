@@ -101,7 +101,7 @@ python scripts/audit_track_a_readmission.py
   - `models/baseline_c_logreg.joblib` (Retrospective Billed Benchmark)
   - `Majority_Class_Baseline` (Statistical baseline)
 - **Output Artifacts Generated:**
-  - [`reports/readmission_calibration_metrics.json`](file:///d:/Evernorth/Clinical-DSS/reports/readmission_calibration_metrics.json)
+  - [`reports/readmission_calibration_metrics.json`](reports/readmission_calibration_metrics.json)
 - **Console Output:**
   ```text
   [MATCH CONFIRMED] Model Baseline_A_No_Disposition_No_Diag reproduced with exact numerical agreement!
@@ -149,7 +149,7 @@ python scripts/evaluate_colab_checkpoint.py
 ```
 - **Execution Time:** ~5 to 7 minutes on multi-core CPU.
 - **Output Artifact:**
-  - [`reports/sbdh_colab_transformer_metrics_corrected.json`](file:///d:/Evernorth/Clinical-DSS/reports/sbdh_colab_transformer_metrics_corrected.json)
+  - [`reports/sbdh_colab_transformer_metrics_corrected.json`](reports/sbdh_colab_transformer_metrics_corrected.json)
 - **Target Metrics:**
   - Exact F1: **0.5105** (Resolvable) / **0.5101** (Worst-case bound)
   - Relaxed F1: **0.8330** (Resolvable) / **0.8324** (Worst-case bound)
@@ -190,7 +190,7 @@ ALL NOTEBOOK PRE-RUN AUDIT CHECKS PASSED (8/8 INVARIANTS VERIFIED)
 
 ### 6.2 Full GPU Re-Training in Google Colab (Optional)
 To retrain the 3-epoch transformer from scratch on an NVIDIA GPU:
-1. Open [`notebooks/02_sbdh_transformer.ipynb`](file:///d:/Evernorth/Clinical-DSS/notebooks/02_sbdh_transformer.ipynb) in Google Colab.
+1. Open [`notebooks/02_sbdh_transformer.ipynb`](notebooks/02_sbdh_transformer.ipynb) in Google Colab.
 2. Select **Runtime > Change runtime type > T4 GPU**.
 3. Run all cells sequentially (**Runtime > Run all**).
 4. Training completes in ~12 minutes across 6,136 notes.
@@ -236,7 +236,7 @@ python scripts/evaluate_candidate_test_set.py
   - Test Set: `D:\Evernorth\Synth-SBDH\synth_sbdh_test_reviewed.csv` ($N = 1,732$ notes)
   - Model Checkpoint: `evernorth_m3_results/models/sbdh_transformer/best_model.pt`
 - **Output Artifacts Generated:**
-  - [`reports/experiments/candidate_test_evaluation/candidate_test_evaluation_metrics.json`](file:///d:/Evernorth/Clinical-DSS/reports/experiments/candidate_test_evaluation/candidate_test_evaluation_metrics.json)
+  - [`reports/experiments/candidate_test_evaluation/candidate_test_evaluation_metrics.json`](reports/experiments/candidate_test_evaluation/candidate_test_evaluation_metrics.json)
 - **Console Output Confirms:**
   - Checkpoint SHA-256 before & after: `0cb00010...ba4` (Bit-identical).
   - Exact Kuhn maximum bipartite matching order-invariance.
@@ -251,7 +251,7 @@ python scripts/run_span_boundary_ablation.py
 
 - **Execution Time:** ~35 seconds (using cached validation logits in `reports/cached_val_notes.pt`).
 - **Output Artifact:**
-  - [`reports/experiments/span_boundary_ablation/span_boundary_ablation_metrics.json`](file:///d:/Evernorth/Clinical-DSS/reports/experiments/span_boundary_ablation/span_boundary_ablation_metrics.json)
+  - [`reports/experiments/span_boundary_ablation/span_boundary_ablation_metrics.json`](reports/experiments/span_boundary_ablation/span_boundary_ablation_metrics.json)
 
 ### 7.4 Metric Traceability Table
 
@@ -287,20 +287,20 @@ Every number reported in Section 12 of the Technical Report traces directly to a
 
 | Artifact Purpose | Path |
 |---|---|
-| Track A Primary Model | [`models/baseline_a_logreg.joblib`](file:///d:/Evernorth/Clinical-DSS/models/baseline_a_logreg.joblib) |
-| Track A Metrics JSON | [`reports/readmission_baselines_metrics.json`](file:///d:/Evernorth/Clinical-DSS/reports/readmission_baselines_metrics.json) |
-| Track A Calibration JSON | [`reports/readmission_calibration_metrics.json`](file:///d:/Evernorth/Clinical-DSS/reports/readmission_calibration_metrics.json) |
-| Track B Colab Weights | [`evernorth_m3_results/models/sbdh_transformer/best_model.pt`](file:///d:/Evernorth/Clinical-DSS/evernorth_m3_results/models/sbdh_transformer/best_model.pt) |
-| Track B Frozen Baseline Metrics JSON | [`reports/sbdh_colab_transformer_metrics_corrected.json`](file:///d:/Evernorth/Clinical-DSS/reports/sbdh_colab_transformer_metrics_corrected.json) |
-| Track B Arm 6A Candidate Metrics JSON | [`reports/experiments/candidate_test_evaluation/candidate_test_evaluation_metrics.json`](file:///d:/Evernorth/Clinical-DSS/reports/experiments/candidate_test_evaluation/candidate_test_evaluation_metrics.json) |
-| Track B Arm 6A Candidate Technical Report | [`reports/experiments/candidate_test_evaluation/candidate_test_evaluation_report.md`](file:///d:/Evernorth/Clinical-DSS/reports/experiments/candidate_test_evaluation/candidate_test_evaluation_report.md) |
-| Track B Validation Ablation Report | [`reports/experiments/span_boundary_ablation/span_boundary_ablation_report.md`](file:///d:/Evernorth/Clinical-DSS/reports/experiments/span_boundary_ablation/span_boundary_ablation_report.md) |
-| Track B Rules Metrics JSON | [`reports/sbdh_rules_metrics_corrected.json`](file:///d:/Evernorth/Clinical-DSS/reports/sbdh_rules_metrics_corrected.json) |
-| Candidate Metric Verification Runner | [`scripts/verify_candidate_test_metrics.py`](file:///d:/Evernorth/Clinical-DSS/scripts/verify_candidate_test_metrics.py) |
-| Candidate Test Set Evaluation Runner | [`scripts/evaluate_candidate_test_set.py`](file:///d:/Evernorth/Clinical-DSS/scripts/evaluate_candidate_test_set.py) |
-| Baseline Freeze Manifest | [`reports/baseline_freeze_manifest.md`](file:///d:/Evernorth/Clinical-DSS/reports/baseline_freeze_manifest.md) |
-| Final Consistency Audit | [`reports/final_evidence_consistency_audit.md`](file:///d:/Evernorth/Clinical-DSS/reports/final_evidence_consistency_audit.md) |
-| Portable Baseline Archive | [`reports/baseline_freeze_archive_20261026.zip`](file:///d:/Evernorth/Clinical-DSS/reports/baseline_freeze_archive_20261026.zip) |
+| Track A Primary Model | [`models/baseline_a_logreg.joblib`](models/baseline_a_logreg.joblib) |
+| Track A Metrics JSON | [`reports/readmission_baselines_metrics.json`](reports/readmission_baselines_metrics.json) |
+| Track A Calibration JSON | [`reports/readmission_calibration_metrics.json`](reports/readmission_calibration_metrics.json) |
+| Track B Colab Weights | [`evernorth_m3_results/models/sbdh_transformer/best_model.pt`](evernorth_m3_results/models/sbdh_transformer/best_model.pt) |
+| Track B Frozen Baseline Metrics JSON | [`reports/sbdh_colab_transformer_metrics_corrected.json`](reports/sbdh_colab_transformer_metrics_corrected.json) |
+| Track B Arm 6A Candidate Metrics JSON | [`reports/experiments/candidate_test_evaluation/candidate_test_evaluation_metrics.json`](reports/experiments/candidate_test_evaluation/candidate_test_evaluation_metrics.json) |
+| Track B Arm 6A Candidate Technical Report | [`reports/experiments/candidate_test_evaluation/candidate_test_evaluation_report.md`](reports/experiments/candidate_test_evaluation/candidate_test_evaluation_report.md) |
+| Track B Validation Ablation Report | [`reports/experiments/span_boundary_ablation/span_boundary_ablation_report.md`](reports/experiments/span_boundary_ablation/span_boundary_ablation_report.md) |
+| Track B Rules Metrics JSON | [`reports/sbdh_rules_metrics_corrected.json`](reports/sbdh_rules_metrics_corrected.json) |
+| Candidate Metric Verification Runner | [`scripts/verify_candidate_test_metrics.py`](scripts/verify_candidate_test_metrics.py) |
+| Candidate Test Set Evaluation Runner | [`scripts/evaluate_candidate_test_set.py`](scripts/evaluate_candidate_test_set.py) |
+| Baseline Freeze Manifest | [`reports/baseline_freeze_manifest.md`](reports/baseline_freeze_manifest.md) |
+| Final Consistency Audit | [`reports/final_evidence_consistency_audit.md`](reports/final_evidence_consistency_audit.md) |
+| Portable Baseline Archive | [`reports/baseline_freeze_archive_20261026.zip`](reports/baseline_freeze_archive_20261026.zip) |
 
 ---
 

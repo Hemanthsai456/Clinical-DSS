@@ -20,7 +20,7 @@ This diagnostic experiment evaluates the frozen, authoritative Track B neural se
 
 | Component | Authoritative Specification | Verification Status |
 |---|---|:---:|
-| **Checkpoint Path** | [`evernorth_m3_results/models/sbdh_transformer/best_model.pt`](file:///d:/Evernorth/Clinical-DSS/evernorth_m3_results/models/sbdh_transformer/best_model.pt) | **VERIFIED** |
+| **Checkpoint Path** | [`evernorth_m3_results/models/sbdh_transformer/best_model.pt`](evernorth_m3_results/models/sbdh_transformer/best_model.pt) | **VERIFIED** |
 | **Initial Checkpoint SHA-256** | `0cb00010631b089746fdd97ff3f9019e1bcc29012a7c093b33501a9c30186ba4` | **VERIFIED** |
 | **Final Checkpoint SHA-256** | `0cb00010631b089746fdd97ff3f9019e1bcc29012a7c093b33501a9c30186ba4` | **VERIFIED (UNCHANGED)** |
 | **Checkpoint File Size** | 328,655,930 bytes | **VERIFIED** |
@@ -28,7 +28,7 @@ This diagnostic experiment evaluates the frozen, authoritative Track B neural se
 | **Output Head** | Linear layer ($768 \to 45$ independent binary sigmoid logits) | **VERIFIED** |
 | **Target Formulation** | 15 SBDH categories $\times$ 3 BIO states ($B, I, O$) | **VERIFIED** |
 | **Tokenizer** | Fast BPE Tokenizer (`AutoTokenizer.from_pretrained`) | **VERIFIED** |
-| **Configuration File** | [`evernorth_m3_results/models/sbdh_transformer/config.json`](file:///d:/Evernorth/Clinical-DSS/evernorth_m3_results/models/sbdh_transformer/config.json) | **VERIFIED** |
+| **Configuration File** | [`evernorth_m3_results/models/sbdh_transformer/config.json`](evernorth_m3_results/models/sbdh_transformer/config.json) | **VERIFIED** |
 | **Decision Threshold** | Frozen $\theta = 0.30$ (calibrated on validation set) | **VERIFIED** |
 | **Execution Environment** | Python 3.11.3 (win32), PyTorch 2.x, Transformers 4.x, Local CPU | **VERIFIED** |
 | **Validation Dataset** | `synth_sbdh_val.csv` ($N = 876$ notes, 1,443 gold annotations) | **VERIFIED** |
@@ -98,7 +98,7 @@ To diagnose why the remaining clinical concepts were not emitted as spans, we au
    - `"difficult to attend medical appointments"`: Token 90 (`attend`) reached $P(I) = 0.3627$; Token 91 (`medical`) reached $P(I) = 0.3864$; Token 92 (`appointments`) reached $P(I) = 0.3813$.
    - `"could not arrange transportation"`: Token 106 (`arrange`) reached $P(I) = 0.4022$; Token 107 (`transportation`) reached $P(I) = 0.4043$.
    - `"cannot afford to refill her prescriptions"`: Token 139 (`refill`) reached $P(I) = 0.3360$; Token 141 (`prescriptions`) reached $P(I) = 0.3192$.
-   - **Why Suppressed?** On all these tokens, the Outside logit remained dominant: $P(O) \in [0.5216, 0.6401]$. In the BIO decoder ([`src/transformer_dataset.py:L247`](file:///d:/Evernorth/Clinical-DSS/src/transformer_dataset.py#L247)), the rule `if P(O) >= max(P(B), P(I)): treat as O` unconditionally suppressed these tokens despite $P(I) > 0.30$!
+   - **Why Suppressed?** On all these tokens, the Outside logit remained dominant: $P(O) \in [0.5216, 0.6401]$. In the BIO decoder ([`src/transformer_dataset.py:L247`](src/transformer_dataset.py#L247)), the rule `if P(O) >= max(P(B), P(I)): treat as O` unconditionally suppressed these tokens despite $P(I) > 0.30$!
 
 2. **`financial insecurity` (Category 1):**
    - The phrase `"paying her rent and utility bills"` was fragmented into three separate spans (`paying`, `rent`, `utility bills`) because the intervening connective tokens had $P(O)$ slightly exceeding $P(I)$:
@@ -264,7 +264,7 @@ graph TD
 ```
 
 ### Confirmed Technical Root Causes:
-1. **The Decoder Outside-Dominance Rule ([`src/transformer_dataset.py:L247`](file:///d:/Evernorth/Clinical-DSS/src/transformer_dataset.py#L247)):**  
+1. **The Decoder Outside-Dominance Rule ([`src/transformer_dataset.py:L247`](src/transformer_dataset.py#L247)):**  
    *Mechanism:* The BIO decoder enforces:  
    $$\text{Outside Condition: } P(O) \ge \max(P(B), P(I)) \quad \text{OR} \quad \max(P(B), P(I)) \le \theta$$  
    In training, non-entity tokens heavily outnumber entity tokens, so the prior $P(O)$ remains between $0.50$ and $0.65$ even when an entity is clearly present. On tokens like `"arrange transportation"` ($P(I) = 0.4043$) and `"refill prescriptions"` ($P(I) = 0.3360$), the active entity probability is well above the threshold ($\theta = 0.30$), but because $P(O) \approx 0.55 > 0.40$, the rule marks the token as Outside (`O`).  
@@ -312,10 +312,10 @@ To ensure complete adherence to project freeze constraints, all authoritative ch
 
 | Artifact Path | Expected Frozen SHA-256 | Verified SHA-256 After Experiment | Integrity Status |
 |---|---|---|:---:|
-| [`evernorth_m3_results/models/sbdh_transformer/best_model.pt`](file:///d:/Evernorth/Clinical-DSS/evernorth_m3_results/models/sbdh_transformer/best_model.pt) | `0cb00010631b089746fdd97ff3f9019e1bcc29012a7c093b33501a9c30186ba4` | `0cb00010631b089746fdd97ff3f9019e1bcc29012a7c093b33501a9c30186ba4` | **PASS (BIT-IDENTICAL)** |
-| [`models/baseline_a_logreg.joblib`](file:///d:/Evernorth/Clinical-DSS/models/baseline_a_logreg.joblib) | `794cff2d580b0d9b574b62a62c1d2549aad101e283ac65167869f9d1a076d74c` | `794cff2d580b0d9b574b62a62c1d2549aad101e283ac65167869f9d1a076d74c` | **PASS (BIT-IDENTICAL)** |
-| [`reports/readmission_baselines_metrics.json`](file:///d:/Evernorth/Clinical-DSS/reports/readmission_baselines_metrics.json) | `168a73c1c40e841f7992ccf6271d4a1e8a977444a1f44a471344edae6882f114` | `168a73c1c40e841f7992ccf6271d4a1e8a977444a1f44a471344edae6882f114` | **PASS (BIT-IDENTICAL)** |
-| [`reports/sbdh_colab_transformer_metrics_corrected.json`](file:///d:/Evernorth/Clinical-DSS/reports/sbdh_colab_transformer_metrics_corrected.json) | `f20c59f435ca0194c8fdaba7c5ffe548ec35fb34b6bcf6a177f81ab82b090934` | `f20c59f435ca0194c8fdaba7c5ffe548ec35fb34b6bcf6a177f81ab82b090934` | **PASS (BIT-IDENTICAL)** |
+| [`evernorth_m3_results/models/sbdh_transformer/best_model.pt`](evernorth_m3_results/models/sbdh_transformer/best_model.pt) | `0cb00010631b089746fdd97ff3f9019e1bcc29012a7c093b33501a9c30186ba4` | `0cb00010631b089746fdd97ff3f9019e1bcc29012a7c093b33501a9c30186ba4` | **PASS (BIT-IDENTICAL)** |
+| [`models/baseline_a_logreg.joblib`](models/baseline_a_logreg.joblib) | `794cff2d580b0d9b574b62a62c1d2549aad101e283ac65167869f9d1a076d74c` | `794cff2d580b0d9b574b62a62c1d2549aad101e283ac65167869f9d1a076d74c` | **PASS (BIT-IDENTICAL)** |
+| [`reports/readmission_baselines_metrics.json`](reports/readmission_baselines_metrics.json) | `168a73c1c40e841f7992ccf6271d4a1e8a977444a1f44a471344edae6882f114` | `168a73c1c40e841f7992ccf6271d4a1e8a977444a1f44a471344edae6882f114` | **PASS (BIT-IDENTICAL)** |
+| [`reports/sbdh_colab_transformer_metrics_corrected.json`](reports/sbdh_colab_transformer_metrics_corrected.json) | `f20c59f435ca0194c8fdaba7c5ffe548ec35fb34b6bcf6a177f81ab82b090934` | `f20c59f435ca0194c8fdaba7c5ffe548ec35fb34b6bcf6a177f81ab82b090934` | **PASS (BIT-IDENTICAL)** |
 | **Automated PyTest Suite** | 45 passed | 45 passed | **100% PASS** |
 
 **Conclusion:** Zero models were retrained. Zero model weights, feature sets, thresholds, baseline manifests, or evaluation metrics were modified. The analysis is complete and fully reproducible.

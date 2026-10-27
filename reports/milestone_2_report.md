@@ -22,7 +22,7 @@ Zero mock values were used. All statistics below represent verified execution on
 
 ### 2.1 Named Test Case Adjudication & Automated Unit Tests
 
-Automated unit tests were established in [`tests/test_span_alignment.py`](file:///d:/Evernorth/Clinical-DSS/tests/test_span_alignment.py) (5 passed in 0.82s):
+Automated unit tests were established in [`tests/test_span_alignment.py`](tests/test_span_alignment.py) (5 passed in 0.82s):
 
 | Test Case | Scenario / Text | Target Challenge | Resolution & Execution Verification |
 |---|---|---|---|
@@ -34,7 +34,7 @@ Automated unit tests were established in [`tests/test_span_alignment.py`](file:/
 
 ### 2.2 Corpus-Wide Alignment Audit Across All Splits
 
-The full audit script [`src/run_span_audit.py`](file:///d:/Evernorth/Clinical-DSS/src/run_span_audit.py) audited all 10,499 notes:
+The full audit script [`src/run_span_audit.py`](src/run_span_audit.py) audited all 10,499 notes:
 
 | Split | Total Notes | Extracted Annotations | Resolved Unique Intervals | Multi-Label Identical Intervals | Casing-Only Normalization | Contextually Adjudicated | Ambiguous Unresolved Spans | Unmatched / Missing Spans |
 |---|---|---|---|---|---|---|---|---|
@@ -45,7 +45,7 @@ The full audit script [`src/run_span_audit.py`](file:///d:/Evernorth/Clinical-DS
 
 ### 2.3 Unresolved Cases Audit Artifact
 
-In accordance with gate criteria, rather than silently guessing, every remaining unresolved ambiguous case was explicitly exported to [`reports/sbdh_alignment/unresolved_alignment_cases.json`](file:///d:/Evernorth/Clinical-DSS/reports/sbdh_alignment/unresolved_alignment_cases.json) (exactly 6 cases across the entire corpus):
+In accordance with gate criteria, rather than silently guessing, every remaining unresolved ambiguous case was explicitly exported to [`reports/sbdh_alignment/unresolved_alignment_cases.json`](reports/sbdh_alignment/unresolved_alignment_cases.json) (exactly 6 cases across the entire corpus):
 1. `train` (`ex_no 1192`): Span `'pain'` (2 candidates in `"Patient's pain is severe and has been prescribed opioids for pain management"`).
 2. `test_reviewed` (`ex_no 7556`): Span `'pain'` (2 candidates in text, one nested inside `'chronic pain due to arthritis'`).
 3. `test_reviewed` (`ex_no 7589`): Span `'home'` (2 candidates in text, one nested as substring of `'homeless'`).
@@ -127,8 +127,8 @@ $$\text{Precision} = \frac{TP}{TP + FP}, \quad \text{Recall} = \frac{TP}{TP + FN
 ### 3.6 Sensitivity Analysis Findings
 1. **Disposition Impact:** Incorporating `discharge_disposition_id` improves AUROC from **0.6324 to 0.6599** (+0.0275 lift) and PR-AUC from **0.1925 to 0.2176** (+0.0251 lift). This demonstrates that post-acute placement (e.g. SNF, Home Health, Rehab) carries significant predictive correlation, but risks circular placement confounding if used at bedside before placement is settled.
 2. **Diagnosis Impact:** Adding discharge ICD-9 diagnosis codes yields a minor additional lift of **+0.0067 AUROC** (0.6599 to 0.6666) and **+0.0037 PR-AUC**. This confirms that in-hospital medication titrations, procedure intensity, and prior utilization provide the primary clinical signal, while post-discharge billed diagnoses contribute only marginal incremental lift.
-3. **Saved Models:** Exported to [`models/baseline_a_logreg.joblib`](file:///d:/Evernorth/Clinical-DSS/models/baseline_a_logreg.joblib), [`models/baseline_b_logreg.joblib`](file:///d:/Evernorth/Clinical-DSS/models/baseline_b_logreg.joblib), [`models/baseline_c_logreg.joblib`](file:///d:/Evernorth/Clinical-DSS/models/baseline_c_logreg.joblib).
-4. **Machine-Readable Metrics:** Exported to [`reports/readmission_baselines_metrics.json`](file:///d:/Evernorth/Clinical-DSS/reports/readmission_baselines_metrics.json).
+3. **Saved Models:** Exported to [`models/baseline_a_logreg.joblib`](models/baseline_a_logreg.joblib), [`models/baseline_b_logreg.joblib`](models/baseline_b_logreg.joblib), [`models/baseline_c_logreg.joblib`](models/baseline_c_logreg.joblib).
+4. **Machine-Readable Metrics:** Exported to [`reports/readmission_baselines_metrics.json`](reports/readmission_baselines_metrics.json).
 
 ---
 
@@ -180,7 +180,7 @@ $$\text{Precision} = \frac{TP}{TP + FP}, \quad \text{Recall} = \frac{TP}{TP + FN
 ### 4.4 Regulatory & Methodological Limitations
 - **Rules Baseline Limitation:** This rules-based baseline is a deterministic heuristic keyword/regex system, **not** a machine learning or deep-learning model.
 - **Synthetic Data Disclaimer:** Synth-SBDH notes are synthetically generated via LLM prompt templates and exhibit uniform grammatical phrasing. High synthetic-data benchmark performance does **not** establish real-world clinical validity or generalizability to genuine, noisy electronic health records containing dictation typos, acronyms, and fragmented shorthand.
-- **Machine-Readable Metrics:** Exported to [`reports/sbdh_rules_metrics.json`](file:///d:/Evernorth/Clinical-DSS/reports/sbdh_rules_metrics.json).
+- **Machine-Readable Metrics:** Exported to [`reports/sbdh_rules_metrics.json`](reports/sbdh_rules_metrics.json).
 
 ---
 
@@ -188,14 +188,14 @@ $$\text{Precision} = \frac{TP}{TP + FP}, \quad \text{Recall} = \frac{TP}{TP + FN
 
 | Artifact | Location | Description |
 |---|---|---|
-| **Span Alignment Engine** | [`src/span_alignment.py`](file:///d:/Evernorth/Clinical-DSS/src/span_alignment.py) | Module implementing multi-label identical span recovery, contextual adjudication, and ambiguity review flagging. |
-| **Span Unit Tests** | [`tests/test_span_alignment.py`](file:///d:/Evernorth/Clinical-DSS/tests/test_span_alignment.py) | Automated test suite for ex_no 7411, 7062, 7611, multi-label tokens, and casing differences (100% passed). |
-| **Readmission Evaluation Tests** | [`tests/test_readmission_evaluation.py`](file:///d:/Evernorth/Clinical-DSS/tests/test_readmission_evaluation.py) | Automated mathematical consistency assertions between confusion matrices and reported metrics (100% passed). |
-| **Span Matching & Bounds Tests** | [`tests/test_span_matching.py`](file:///d:/Evernorth/Clinical-DSS/tests/test_span_matching.py) | Hand-constructed unit tests for exact/relaxed 1-to-1 span matching, multi-label retention, and worst-case bounds (100% passed). |
-| **Unresolved Cases Export** | [`reports/sbdh_alignment/unresolved_alignment_cases.json`](file:///d:/Evernorth/Clinical-DSS/reports/sbdh_alignment/unresolved_alignment_cases.json) | Exhaustive JSON export of all 6 ambiguous repeated mentions across the corpus. |
-| **Span Alignment Audit Report** | [`reports/sbdh_alignment/alignment_audit_report.json`](file:///d:/Evernorth/Clinical-DSS/reports/sbdh_alignment/alignment_audit_report.json) | Machine-readable breakdown of resolved intervals across all splits. |
-| **Readmission Baseline Script** | [`src/train_readmission_baseline.py`](file:///d:/Evernorth/Clinical-DSS/src/train_readmission_baseline.py) | Script training Majority Baseline and Baselines A, B, and C with frozen validation thresholds and mathematical assertions. |
-| **Fitted Model Artifacts** | [`models/baseline_a_logreg.joblib`](file:///d:/Evernorth/Clinical-DSS/models/baseline_a_logreg.joblib) <br> [`models/baseline_b_logreg.joblib`](file:///d:/Evernorth/Clinical-DSS/models/baseline_b_logreg.joblib) <br> [`models/baseline_c_logreg.joblib`](file:///d:/Evernorth/Clinical-DSS/models/baseline_c_logreg.joblib) | Serialized scikit-learn preprocessing and logistic regression pipelines. |
-| **Readmission Metrics JSON** | [`reports/readmission_baselines_metrics.json`](file:///d:/Evernorth/Clinical-DSS/reports/readmission_baselines_metrics.json) | Complete validation and test metrics with mathematical consistency verification. |
-| **SBDH Rules Baseline Script** | [`src/sbdh_rules_baseline.py`](file:///d:/Evernorth/Clinical-DSS/src/sbdh_rules_baseline.py) | Script running frozen multi-label rule extraction, 1-to-1 span matching, and worst-case bounds. |
-| **SBDH Rules Metrics JSON** | [`reports/sbdh_rules_metrics.json`](file:///d:/Evernorth/Clinical-DSS/reports/sbdh_rules_metrics.json) | Machine-readable note-level and span-level exact/relaxed metrics and ambiguous case audit. |
+| **Span Alignment Engine** | [`src/span_alignment.py`](src/span_alignment.py) | Module implementing multi-label identical span recovery, contextual adjudication, and ambiguity review flagging. |
+| **Span Unit Tests** | [`tests/test_span_alignment.py`](tests/test_span_alignment.py) | Automated test suite for ex_no 7411, 7062, 7611, multi-label tokens, and casing differences (100% passed). |
+| **Readmission Evaluation Tests** | [`tests/test_readmission_evaluation.py`](tests/test_readmission_evaluation.py) | Automated mathematical consistency assertions between confusion matrices and reported metrics (100% passed). |
+| **Span Matching & Bounds Tests** | [`tests/test_span_matching.py`](tests/test_span_matching.py) | Hand-constructed unit tests for exact/relaxed 1-to-1 span matching, multi-label retention, and worst-case bounds (100% passed). |
+| **Unresolved Cases Export** | [`reports/sbdh_alignment/unresolved_alignment_cases.json`](reports/sbdh_alignment/unresolved_alignment_cases.json) | Exhaustive JSON export of all 6 ambiguous repeated mentions across the corpus. |
+| **Span Alignment Audit Report** | [`reports/sbdh_alignment/alignment_audit_report.json`](reports/sbdh_alignment/alignment_audit_report.json) | Machine-readable breakdown of resolved intervals across all splits. |
+| **Readmission Baseline Script** | [`src/train_readmission_baseline.py`](src/train_readmission_baseline.py) | Script training Majority Baseline and Baselines A, B, and C with frozen validation thresholds and mathematical assertions. |
+| **Fitted Model Artifacts** | [`models/baseline_a_logreg.joblib`](models/baseline_a_logreg.joblib) <br> [`models/baseline_b_logreg.joblib`](models/baseline_b_logreg.joblib) <br> [`models/baseline_c_logreg.joblib`](models/baseline_c_logreg.joblib) | Serialized scikit-learn preprocessing and logistic regression pipelines. |
+| **Readmission Metrics JSON** | [`reports/readmission_baselines_metrics.json`](reports/readmission_baselines_metrics.json) | Complete validation and test metrics with mathematical consistency verification. |
+| **SBDH Rules Baseline Script** | [`src/sbdh_rules_baseline.py`](src/sbdh_rules_baseline.py) | Script running frozen multi-label rule extraction, 1-to-1 span matching, and worst-case bounds. |
+| **SBDH Rules Metrics JSON** | [`reports/sbdh_rules_metrics.json`](reports/sbdh_rules_metrics.json) | Machine-readable note-level and span-level exact/relaxed metrics and ambiguous case audit. |

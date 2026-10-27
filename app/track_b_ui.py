@@ -243,7 +243,7 @@ def render_track_b_page():
     st.info(
         "**Known limitations on these examples:** 'life' and 'in a rented house' are false positives; "
         "'access to healthcare' is a truncated span (should read 'poor access to healthcare'). "
-        "See the Track B error analysis report ([reports/sbdh_error_analysis_experiment_1.md](file:///d:/Evernorth/Clinical-DSS/reports/sbdh_error_analysis_experiment_1.md))."
+        "See the Track B error analysis report ([reports/sbdh_error_analysis_experiment_1.md](reports/sbdh_error_analysis_experiment_1.md))."
     )
 
     default_text = ""

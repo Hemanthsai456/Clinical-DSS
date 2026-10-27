@@ -5,7 +5,7 @@
 [![Open In Colab (Milestone 1 Data Audit)](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/hemanthsai/Clinical-DSS/blob/main/notebooks/01_data_audit.ipynb)
 [![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Tests: 66 Passed](https://img.shields.io/badge/tests-66%20passed-brightgreen.svg)](tests/)
+[![Tests: 78 Passed](https://img.shields.io/badge/tests-78%20passed-brightgreen.svg)](tests/)
 
 > **Important Regulatory & Scope Notice:**  
 > This project is an **educational research prototype** investigating the application of deep learning and natural language processing (NLP) to clinical decision support problems. It is **not** a medical device, is **not** clinically validated, and must **not** be used for clinical diagnosis, patient management, or medical decision-making. Never upload protected health information (PHI) or commit raw patient datasets to version control.
@@ -109,7 +109,7 @@ To maintain repository hygiene and avoid storing large binaries in Git, model we
 | **Track A Baseline A** | `models/baseline_a_logreg.joblib` | ~2.5 KB | `794cff2d580b0d9b574b62a62c1d2549aad101e283ac65167869f9d1a076d74c` |
 
 ### How to Acquire the Model Checkpoint:
-1. **From Colab Training Run:** Run [`notebooks/02_sbdh_transformer.ipynb`](file:///d:/Evernorth/Clinical-DSS/notebooks/02_sbdh_transformer.ipynb). The final cell packages the trained model and tokenizer into `evernorth_m3_results.zip`. Unzip this file into the repository root so that `evernorth_m3_results/models/sbdh_transformer/best_model.pt` is present.
+1. **From Colab Training Run:** Run [`notebooks/02_sbdh_transformer.ipynb`](notebooks/02_sbdh_transformer.ipynb). The final cell packages the trained model and tokenizer into `evernorth_m3_results.zip`. Unzip this file into the repository root so that `evernorth_m3_results/models/sbdh_transformer/best_model.pt` is present.
 2. **From Baseline Archive:** Extract `best_model.pt` from `reports/baseline_freeze_archive_20261026.zip` into `evernorth_m3_results/models/sbdh_transformer/`.
 3. **Automated Discovery:** The model loader in `app/model_loader.py` automatically checks both `evernorth_m3_results/models/sbdh_transformer` and `models/sbdh_transformer`.
 
@@ -127,12 +127,13 @@ cd Clinical-DSS
 pip install -r requirements.txt
 ```
 
-### Run Full Test Suite (66 Automated Tests)
+### Run Full Test Suite (78 Automated Tests)
 ```bash
 pytest tests/ -v
 ```
-All 66 tests pass in ~18 seconds, verifying:
+All 78 tests pass in ~25 seconds, verifying:
 - Track A readmission evaluation integrity, zero-leakage split, and confusion matrices.
+- Track A risk panel dynamic metrics computation, plain-statement derivation, and relative risk scaling.
 - Track B 45-class multi-label BIO alignment and loss masking (`ex_no 1192`).
 - Kuhn's maximum bipartite 1-to-1 matching and adversarial order-invariance.
 - Candidate boundary snapping, balanced delimiter protection, and fusion regression tests.
@@ -171,7 +172,8 @@ Clinical-DSS/
 │   ├── test_readmission_evaluation.py  # 9 tests for readmission metric integrity & confusion matrices
 │   ├── test_span_alignment.py          # 9 tests for multi-label span alignment & ambiguity handling
 │   ├── test_span_matching.py           # 6 tests for Kuhn's bipartite 1-to-1 matching
-│   ├── test_streamlit_app.py           # 18 tests for Streamlit UI, Arm 6A pipeline, fallback, & smoke
+│   ├── test_streamlit_app.py           # 21 tests for Streamlit UI, Arm 6A pipeline, fallback, & smoke
+│   ├── test_track_a_display.py         # 9 tests for dynamic risk panel metrics & precision formula
 │   └── test_transformer_alignment.py   # 8 tests for 45-class BIO tagger, loss masking, & Colab hash
 ├── src/
 │   ├── experimental_boundary_snapping.py # Lexical boundary snapping & conservative fusion

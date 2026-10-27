@@ -5,8 +5,8 @@
 **Experiment:** Experiment 2.1 — BIO Decoder Ablation (Inference-Only)  
 **Date:** October 2026  
 **Status:** Educational & Research Prototype — Not for Direct Clinical Use  
-**Artifact Directory:** [`reports/experiments/decoder_ablation/`](file:///d:/Evernorth/Clinical-DSS/reports/experiments/decoder_ablation/)  
-**Metrics JSON:** [`reports/experiments/decoder_ablation/decoder_ablation_metrics.json`](file:///d:/Evernorth/Clinical-DSS/reports/experiments/decoder_ablation/decoder_ablation_metrics.json)  
+**Artifact Directory:** [`reports/experiments/decoder_ablation/`](reports/experiments/decoder_ablation/)  
+**Metrics JSON:** [`reports/experiments/decoder_ablation/decoder_ablation_metrics.json`](reports/experiments/decoder_ablation/decoder_ablation_metrics.json)  
 
 ---
 
@@ -43,13 +43,13 @@ This experiment is strictly inference-only. Model weights, baseline manifests, a
 
 | Component | Specification | Verification Status |
 |---|---|:---:|
-| **Model Checkpoint** | [`evernorth_m3_results/models/sbdh_transformer/best_model.pt`](file:///d:/Evernorth/Clinical-DSS/evernorth_m3_results/models/sbdh_transformer/best_model.pt) | **VERIFIED** |
+| **Model Checkpoint** | [`evernorth_m3_results/models/sbdh_transformer/best_model.pt`](evernorth_m3_results/models/sbdh_transformer/best_model.pt) | **VERIFIED** |
 | **Initial Checkpoint SHA-256** | `0cb00010631b089746fdd97ff3f9019e1bcc29012a7c093b33501a9c30186ba4` | **VERIFIED** |
 | **Final Checkpoint SHA-256** | `0cb00010631b089746fdd97ff3f9019e1bcc29012a7c093b33501a9c30186ba4` | **VERIFIED (BITWISE IDENTICAL)** |
 | **Backbone Architecture** | `distilbert/distilroberta-base` (82M parameters, 6 layers, 768 hidden) | **VERIFIED** |
 | **Output Head** | 45 independent binary sigmoid logits (15 SBDH categories $\times$ 3 BIO states) | **VERIFIED** |
-| **Experimental Module** | [`src/experimental_decoders.py`](file:///d:/Evernorth/Clinical-DSS/src/experimental_decoders.py) | **CREATED (SEPARATE FROM PRODUCTION)** |
-| **Runner Script** | [`scripts/run_decoder_ablation.py`](file:///d:/Evernorth/Clinical-DSS/scripts/run_decoder_ablation.py) | **VERIFIED & REPRODUCIBLE** |
+| **Experimental Module** | [`src/experimental_decoders.py`](src/experimental_decoders.py) | **CREATED (SEPARATE FROM PRODUCTION)** |
+| **Runner Script** | [`scripts/run_decoder_ablation.py`](scripts/run_decoder_ablation.py) | **VERIFIED & REPRODUCIBLE** |
 | **Validation Dataset** | `synth_sbdh_val.csv` ($N = 876$ notes, 1,443 gold annotations) | **VERIFIED** |
 | **Reviewed Test Set** | `synth_sbdh_test_reviewed.csv` ($N = 1,732$ notes) | **EXCLUDED (ZERO TEST LEAKAGE)** |
 
@@ -214,10 +214,10 @@ We passed the Experiment 1 synthetic narrative through all three decoder configu
 
 | Artifact Path | Initial SHA-256 | Final SHA-256 | Verification Status |
 |---|---|---|:---:|
-| [`evernorth_m3_results/models/sbdh_transformer/best_model.pt`](file:///d:/Evernorth/Clinical-DSS/evernorth_m3_results/models/sbdh_transformer/best_model.pt) | `0cb00010631b089746fdd97ff3f9019e1bcc29012a7c093b33501a9c30186ba4` | `0cb00010631b089746fdd97ff3f9019e1bcc29012a7c093b33501a9c30186ba4` | **PASS (BIT-IDENTICAL)** |
-| [`models/baseline_a_logreg.joblib`](file:///d:/Evernorth/Clinical-DSS/models/baseline_a_logreg.joblib) | `794cff2d580b0d9b574b62a62c1d2549aad101e283ac65167869f9d1a076d74c` | `794cff2d580b0d9b574b62a62c1d2549aad101e283ac65167869f9d1a076d74c` | **PASS (BIT-IDENTICAL)** |
-| [`reports/readmission_baselines_metrics.json`](file:///d:/Evernorth/Clinical-DSS/reports/readmission_baselines_metrics.json) | `168a73c1c40e841f7992ccf6271d4a1e8a977444a1f44a471344edae6882f114` | `168a73c1c40e841f7992ccf6271d4a1e8a977444a1f44a471344edae6882f114` | **PASS (BIT-IDENTICAL)** |
-| [`reports/sbdh_colab_transformer_metrics_corrected.json`](file:///d:/Evernorth/Clinical-DSS/reports/sbdh_colab_transformer_metrics_corrected.json) | `f20c59f435ca0194c8fdaba7c5ffe548ec35fb34b6bcf6a177f81ab82b090934` | `f20c59f435ca0194c8fdaba7c5ffe548ec35fb34b6bcf6a177f81ab82b090934` | **PASS (BIT-IDENTICAL)** |
+| [`evernorth_m3_results/models/sbdh_transformer/best_model.pt`](evernorth_m3_results/models/sbdh_transformer/best_model.pt) | `0cb00010631b089746fdd97ff3f9019e1bcc29012a7c093b33501a9c30186ba4` | `0cb00010631b089746fdd97ff3f9019e1bcc29012a7c093b33501a9c30186ba4` | **PASS (BIT-IDENTICAL)** |
+| [`models/baseline_a_logreg.joblib`](models/baseline_a_logreg.joblib) | `794cff2d580b0d9b574b62a62c1d2549aad101e283ac65167869f9d1a076d74c` | `794cff2d580b0d9b574b62a62c1d2549aad101e283ac65167869f9d1a076d74c` | **PASS (BIT-IDENTICAL)** |
+| [`reports/readmission_baselines_metrics.json`](reports/readmission_baselines_metrics.json) | `168a73c1c40e841f7992ccf6271d4a1e8a977444a1f44a471344edae6882f114` | `168a73c1c40e841f7992ccf6271d4a1e8a977444a1f44a471344edae6882f114` | **PASS (BIT-IDENTICAL)** |
+| [`reports/sbdh_colab_transformer_metrics_corrected.json`](reports/sbdh_colab_transformer_metrics_corrected.json) | `f20c59f435ca0194c8fdaba7c5ffe548ec35fb34b6bcf6a177f81ab82b090934` | `f20c59f435ca0194c8fdaba7c5ffe548ec35fb34b6bcf6a177f81ab82b090934` | **PASS (BIT-IDENTICAL)** |
 | **Automated PyTest Suite** | 45 passed | 45 passed | **100% PASS** |
 
 **Conclusion:** Zero models were retrained. The production decoder and Streamlit application remain frozen. Experiment 2.1 is fully documented and mathematically verified.

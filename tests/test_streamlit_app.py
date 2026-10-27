@@ -405,3 +405,101 @@ def test_track_b_deterministic_fixed_input_smoke_test():
         assert 0 <= s < e <= len(smoke_text)
         assert smoke_text[s:e] == smoke_text[s:e].strip()
 
+
+def test_track_a_low_risk_preset_admission_type_id():
+    """Verify that the Low-Risk preset correctly sets and submits admission_type_id '3' (Elective)."""
+    low_risk_preset_key = "Low-Risk Inpatient Profile (Elective, Single Stay, Stable)"
+    assert low_risk_preset_key in PRESETS
+    encounter_data = build_default_encounter_dict()
+    encounter_data.update(PRESETS[low_risk_preset_key])
+
+    # Check preset data contains "3"
+    assert encounter_data["admission_type_id"] == "3"
+
+    # Verify UI selectbox index calculation based on keys
+    adm_types = {"1": "1 - Emergency", "2": "2 - Urgent", "3": "3 - Elective", "4": "4 - Newborn", "5": "5 - Not Available", "7": "7 - Trauma Center"}
+    adm_keys = list(adm_types.keys())
+    idx_adm = adm_keys.index(encounter_data["admission_type_id"]) if encounter_data["admission_type_id"] in adm_keys else 0
+    selected_adm_type = adm_keys[idx_adm]
+    assert selected_adm_type == "3", f"Expected admission_type_id '3', got '{selected_adm_type}'"
+
+    # Verify DataFrame submission retains "3"
+    df_input = pd.DataFrame([encounter_data])
+    df_input["admission_type_id"] = df_input["admission_type_id"].astype(str)
+    assert df_input["admission_type_id"].values[0] == "3"
+
+    # Verify pipeline accepts the input and computes probability
+    pipeline = load_track_a_pipeline()
+    prob = float(pipeline.predict_proba(df_input[NUMERICAL_COLS + BASE_CATEGORICAL_COLS])[:, 1][0])
+    assert 0.0 <= prob <= 1.0
+
+
+def test_track_b_displayed_span_scores_above_threshold():
+    """Unit test: verify every displayed span has score >= the decision threshold."""
+    from src.transformer_dataset import get_label_indices, CAT_TO_IDX
+    model, tokenizer = load_track_b_model_and_tokenizer()
+    threshold = 0.30
+    for preset_name, narrative_text in NOTE_PRESETS.items():
+        extracted_spans, logits, offset_mapping, active_mask = extract_sbdh_spans(
+            text=narrative_text,
+            model=model,
+            tokenizer=tokenizer,
+            threshold=threshold,
+            decoder_mode="Arm 6A (Promoted Release Pipeline)",
+        )
+        if not extracted_spans:
+            continue
+
+        probs = 1.0 / (1.0 + np.exp(-np.clip(logits, -20.0, 20.0)))
+        for s_char, e_char, cat in extracted_spans:
+            cat_idx = CAT_TO_IDX[cat]
+            b_idx, i_idx, _ = get_label_indices(cat_idx)
+            rel_tokens = [
+                t for t in range(len(offset_mapping))
+                if active_mask[t] == 1.0 and max(offset_mapping[t][0], s_char) < min(offset_mapping[t][1], e_char)
+            ]
+            assert len(rel_tokens) > 0, f"Span [{s_char}:{e_char}] ({cat}) must match active tokens"
+            max_token_probs = np.maximum(probs[rel_tokens, b_idx], probs[rel_tokens, i_idx])
+            span_score = float(np.max(max_token_probs))
+            assert span_score >= threshold, (
+                f"Displayed span score ({span_score:.4f}) must be >= decision threshold ({threshold}) "
+                f"for [{s_char}:{e_char}] '{narrative_text[s_char:e_char]}' ({cat})"
+            )
+
+
+def test_render_highlighted_text_exact_character_preservation():
+    """Verify that render_highlighted_text contains each character of the input text exactly once without duplication."""
+    import re
+    import html as html_lib
+
+    # Multi-label overlap scenario where previous implementation duplicated text
+    text = "Patient has severe pain and cannot afford to continue physical therapy."
+    spans = [
+        (19, 23, "pain"),
+        (28, 70, "financial insecurity"),
+        (28, 70, "barriers to care"),
+    ]
+    html_out = render_highlighted_text(text, spans)
+
+    # 1. Verify badges for all categories are present
+    assert "[financial insecurity]" in html_out
+    assert "[barriers to care]" in html_out
+    assert "[pain]" in html_out
+
+    # 2. Strip badge text (<span ...>[category]</span>) and all HTML tags
+    cleaned = re.sub(r"<span[^>]*>\[.*?\]</span>", "", html_out)
+    text_content = re.sub(r"<[^>]+>", "", cleaned)
+    unescaped_text = html_lib.unescape(text_content)
+
+    # 3. Exact character-for-character reconstruction: each character appears exactly once in order
+    assert unescaped_text == text, (
+        f"Reconstructed text differs from input text.\nExpected: {text!r}\nGot:      {unescaped_text!r}"
+    )
+
+    # 4. Specifically verify the overlapping substring occurs exactly once, not twice
+    overlap_phrase = "cannot afford to continue physical therapy"
+    assert unescaped_text.count(overlap_phrase) == 1
+    content_matches = re.findall(rf">{overlap_phrase}<span", html_out)
+    assert len(content_matches) == 1, f"Expected {overlap_phrase!r} to appear once as content, found {len(content_matches)}"
+
+

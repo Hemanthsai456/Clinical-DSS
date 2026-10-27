@@ -58,7 +58,7 @@ The project investigates two completely independent datasets, each designed for 
 |---|---|---|
 | **Data Modality** | Tabular, structured electronic health records | Unstructured narrative text notes |
 | **Study Period** | Historical (1999–2008, 10-year collection window) | Contemporary synthetic dataset (published 2024) |
-| **Source / Provenance** | 130 participating non-profit hospitals in the US; hosted by UCI Machine Learning Repository (Dataset ID 296; Strack et al., 2014) | BioNLP Lab, University of Massachusetts Amherst (Hugging Face: `bio-nlp-umass/Synth-SBDH`; Soni et al., 2024) |
+| **Source / Provenance** | 130 participating non-profit hospitals in the US; hosted by UCI Machine Learning Repository (Dataset ID 296; Strack et al., 2014) | BioNLP Lab, University of Massachusetts Amherst (Hugging Face: `bio-nlp-umass/Synth-SBDH`; Mitra et al., 2025) |
 | **Patient Population** | Real historical diabetic inpatient encounters | **100% Synthetic LLM-generated clinical notes** simulating discharge summaries and social work notes |
 | **Volume (Raw)** | 101,766 encounters across 71,518 unique patients | 8,744 total synthetic notes (Train: 6,136; Val: 876; Test: 1,732) |
 | **Eligible / Evaluated** | 99,343 encounters (69,990 patients) after mortality/hospice exclusions | 1,732 expert-reviewed test notes (`synth_sbdh_test_reviewed.csv`; 3,345 raw annotations) |
@@ -478,7 +478,7 @@ Both modeling tracks are frozen, documented, and packaged with a local interacti
 1. **UCI Diabetes 130-US Hospitals (Dataset ID 296):**  
    Strack, B., DeShazo, J. P., Gennings, C., Olmo, J. L., Balasubramanian, S., Higgins, K. A., & Cios, K. J. (2014). *Impact of HbA1c Measurement on Hospital Readmission Rates: Analysis of 70,000 Clinical Database Records*. BioMed Research International, 2014, 781670. DOI: `10.1155/2014/781670`.
 2. **Synth-SBDH Benchmark:**  
-   Soni, S., Roberts, K., & UMass BioNLP. (2024). *Synth-SBDH: A Synthetic Benchmark for Extracting Social and Behavioral Determinants of Health from Clinical Text*. Hugging Face Dataset: `bio-nlp-umass/Synth-SBDH`.
+   Mitra, A., Yang, Z., Druhl, E., Goodwin, R., & Yu, H. (2025). *Synth-SBDH: A Synthetic Dataset of Social and Behavioral Determinants of Health for Clinical Text*. arXiv:2406.06056 (EMNLP 2025). Dataset: `huggingface.co/datasets/bio-nlp-umass/Synth-SBDH`.
 3. **DistilRoBERTa Encoder:**  
    Sanh, V., Debut, L., Chaumond, J., & Wolf, T. (2019). *DistilBERT, a distilled version of BERT: smaller, faster, cheaper and lighter*. arXiv preprint arXiv:1910.01108.
 4. **Maximum Bipartite Matching:**  

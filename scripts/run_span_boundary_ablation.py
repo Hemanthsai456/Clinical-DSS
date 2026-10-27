@@ -11,6 +11,7 @@ Evaluates 6 experimental arms across all 876 validation notes (synth_sbdh_val.cs
 
 Exports complete metrics to reports/experiments/span_boundary_ablation/span_boundary_ablation_metrics.json.
 """
+from typing import Optional, Set
 import os
 import sys
 import time
@@ -32,6 +33,8 @@ from src.experimental_decoders import (
 from src.experimental_boundary_snapping import (
     snap_span_boundaries,
     fuse_same_category_spans,
+    filter_stopword_spans,
+    EXTENDED_BLOCKED_PUNCTUATION,
 )
 from src.utils import save_json
 
@@ -57,6 +60,8 @@ def evaluate_arm(
     do_snap: bool = False,
     do_fuse: bool = False,
     max_gap: int = 6,
+    blocked_punctuation: Optional[Set[str]] = None,
+    do_filter_stopwords: bool = False,
 ):
     """Evaluates an experimental arm across all 876 cached validation notes."""
     all_cats = sorted(SBDH_CATEGORIES)
@@ -117,7 +122,9 @@ def evaluate_arm(
             preds = set(snapped)
 
         elif do_fuse and not do_snap:
-            preds, m_cnt, m_recs = fuse_same_category_spans(preds, text, max_gap=max_gap)
+            preds, m_cnt, m_recs = fuse_same_category_spans(
+                preds, text, max_gap=max_gap, blocked_punctuation=blocked_punctuation
+            )
             total_merges += m_cnt
             all_merge_records.extend(m_recs)
 
@@ -135,9 +142,14 @@ def evaluate_arm(
                         "after_text": text[sp[0]:sp[1]],
                     })
                 snapped.append(sp)
-            preds, m_cnt, m_recs = fuse_same_category_spans(set(snapped), text, max_gap=max_gap)
+            preds, m_cnt, m_recs = fuse_same_category_spans(
+                set(snapped), text, max_gap=max_gap, blocked_punctuation=blocked_punctuation
+            )
             total_merges += m_cnt
             all_merge_records.extend(m_recs)
+
+        if do_filter_stopwords:
+            preds = filter_stopword_spans(preds, text)
 
         preds = sorted(list(preds))
         total_preds += len(preds)
@@ -316,17 +328,19 @@ def main():
 
     # Arms to evaluate
     arms_config = [
-        ("arm_1_strategy_a_control", "Arm 1: Strategy A (Control, th=0.30)", decode_strategy_a_control, {"threshold": 0.30}, False, False, 0),
-        ("arm_2_strategy_b_th_0.30", "Arm 2: Strategy B (th=0.30, raw)", decode_strategy_b_active_threshold, {"threshold": 0.30}, False, False, 0),
-        ("arm_3_strategy_b_th_0.40", "Arm 3: Strategy B (th=0.40, raw)", decode_strategy_b_active_threshold, {"threshold": 0.40}, False, False, 0),
-        ("arm_4_strategy_b_snap_only", "Arm 4: Strategy B (th=0.30) + Snapping Only", decode_strategy_b_active_threshold, {"threshold": 0.30}, True, False, 0),
-        ("arm_5_strategy_b_fuse_gap2", "Arm 5A: Strategy B (th=0.30) + Fusion Only (gap=2)", decode_strategy_b_active_threshold, {"threshold": 0.30}, False, True, 2),
-        ("arm_5_strategy_b_fuse_gap6", "Arm 5B: Strategy B (th=0.30) + Fusion Only (gap=6)", decode_strategy_b_active_threshold, {"threshold": 0.30}, False, True, 6),
-        ("arm_6_strategy_b_snap_fuse_gap2", "Arm 6A: Strategy B (th=0.30) + Snap & Fuse (gap=2)", decode_strategy_b_active_threshold, {"threshold": 0.30}, True, True, 2),
-        ("arm_6_strategy_b_snap_fuse_gap6", "Arm 6B: Strategy B (th=0.30) + Snap & Fuse (gap=6)", decode_strategy_b_active_threshold, {"threshold": 0.30}, True, True, 6),
+        ("arm_1_strategy_a_control", "Arm 1: Strategy A (Control, th=0.30)", decode_strategy_a_control, {"threshold": 0.30}, False, False, 0, None, False),
+        ("arm_2_strategy_b_th_0.30", "Arm 2: Strategy B (th=0.30, raw)", decode_strategy_b_active_threshold, {"threshold": 0.30}, False, False, 0, None, False),
+        ("arm_3_strategy_b_th_0.40", "Arm 3: Strategy B (th=0.40, raw)", decode_strategy_b_active_threshold, {"threshold": 0.40}, False, False, 0, None, False),
+        ("arm_4_strategy_b_snap_only", "Arm 4: Strategy B (th=0.30) + Snapping Only", decode_strategy_b_active_threshold, {"threshold": 0.30}, True, False, 0, None, False),
+        ("arm_5_strategy_b_fuse_gap2", "Arm 5A: Strategy B (th=0.30) + Fusion Only (gap=2)", decode_strategy_b_active_threshold, {"threshold": 0.30}, False, True, 2, None, False),
+        ("arm_5_strategy_b_fuse_gap6", "Arm 5B: Strategy B (th=0.30) + Fusion Only (gap=6)", decode_strategy_b_active_threshold, {"threshold": 0.30}, False, True, 6, None, False),
+        ("arm_6_strategy_b_snap_fuse_gap2", "Arm 6A: Strategy B (th=0.30) + Snap & Fuse (gap=2)", decode_strategy_b_active_threshold, {"threshold": 0.30}, True, True, 2, None, False),
+        ("arm_6_strategy_b_snap_fuse_gap6", "Arm 6B: Strategy B (th=0.30) + Snap & Fuse (gap=6)", decode_strategy_b_active_threshold, {"threshold": 0.30}, True, True, 6, None, False),
+        ("arm_7a_extended_punctuation_blockers", "Arm 7A: Arm 6A + Extended Punctuation Blockers (,, ;, :)", decode_strategy_b_active_threshold, {"threshold": 0.30}, True, True, 2, EXTENDED_BLOCKED_PUNCTUATION, False),
+        ("arm_7b_stopwords_filter", "Arm 7B: Arm 7A + Stopword Filter (life, home, stay, care)", decode_strategy_b_active_threshold, {"threshold": 0.30}, True, True, 2, EXTENDED_BLOCKED_PUNCTUATION, True),
     ]
 
-    for arm_id, arm_label, fn, kwargs, d_snap, d_fuse, gap in arms_config:
+    for arm_id, arm_label, fn, kwargs, d_snap, d_fuse, gap, b_punct, d_stop in arms_config:
         print(f"\nEvaluating {arm_label}...")
         res = evaluate_arm(
             cached_notes=cached_notes,
@@ -336,6 +350,8 @@ def main():
             do_snap=d_snap,
             do_fuse=d_fuse,
             max_gap=gap,
+            blocked_punctuation=b_punct,
+            do_filter_stopwords=d_stop,
         )
         results[arm_id] = res
         print(f"  Exact F1={res['exact_matching']['f1_score']:.4f} (TP={res['exact_matching']['tp']}, FP={res['exact_matching']['fp']}, FN={res['exact_matching']['fn']})")
@@ -364,17 +380,24 @@ def main():
     offsets = inputs["offset_mapping"][0].cpu().numpy()
 
     narrative_eval = {}
-    for arm_id, arm_label, fn, kwargs, d_snap, d_fuse, gap in arms_config:
+    for arm_id, arm_label, fn, kwargs, d_snap, d_fuse, gap, b_punct, d_stop in arms_config:
         p_raw = fn(narrative_logits, active_mask, offsets, NARRATIVE, **kwargs)
         p = p_raw
         if d_snap and not d_fuse:
             snapped = [snap_span_boundaries(x, NARRATIVE)[0] for x in p]
             p = set(snapped)
         elif d_fuse and not d_snap:
-            p, _, _ = fuse_same_category_spans(p, NARRATIVE, max_gap=gap)
+            p, _, _ = fuse_same_category_spans(
+                p, NARRATIVE, max_gap=gap, blocked_punctuation=b_punct
+            )
         elif d_snap and d_fuse:
             snapped = [snap_span_boundaries(x, NARRATIVE)[0] for x in p]
-            p, _, _ = fuse_same_category_spans(set(snapped), NARRATIVE, max_gap=gap)
+            p, _, _ = fuse_same_category_spans(
+                set(snapped), NARRATIVE, max_gap=gap, blocked_punctuation=b_punct
+            )
+
+        if d_stop:
+            p = filter_stopword_spans(p, NARRATIVE)
 
         sorted_spans = sorted(list(p), key=lambda x: (x[0], x[1]))
         unique_cats = sorted(list({c for (_, _, c) in sorted_spans}))

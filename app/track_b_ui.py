@@ -7,11 +7,12 @@ Performs 100% local CPU inference without sending clinical text to external netw
 """
 from typing import Set, Tuple, Dict, Any, Optional
 import html
+import logging
 import streamlit as st
 import numpy as np
 import torch
 import pandas as pd
-from model_loader import load_track_b_model_and_tokenizer, TRACK_B_FROZEN_THRESHOLD
+from model_loader import load_track_b_model_and_tokenizer, TRACK_B_FROZEN_THRESHOLD, get_track_b_base_model_name
 
 from src.transformer_dataset import (
     decode_predictions_to_spans,
@@ -143,55 +144,86 @@ def extract_sbdh_spans(
 
 
 def render_highlighted_text(text: str, extracted_spans):
-    """Render text with color-coded highlight tags for extracted SBDH spans."""
+    """
+    Render text with color-coded highlight tags for extracted SBDH spans.
+    Splits the narrative at all span boundaries so each segment is rendered
+    exactly once, with all covering categories displayed as stacked badges.
+    """
+    if not text:
+        return "<div style='padding: 12px; background: #F9FAFB; border-radius: 8px;'></div>"
     if not extracted_spans:
-        return f"<div style='padding: 12px; background: #F9FAFB; border-radius: 8px; line-height: 1.8; color: #111827;'>{html.escape(text)}</div>"
+        return (
+            f"<div style='padding: 14px; background: #F8FAFC; border: 1px solid #E2E8F0; "
+            f"border-radius: 8px; line-height: 2.0; font-family: sans-serif; font-size: 1.05rem; "
+            f"color: #0F172A;'>{html.escape(text)}</div>"
+        )
 
-    # Sort spans by start_char ascending
-    sorted_spans = sorted(extracted_spans, key=lambda s: (s[0], s[1]))
-    
-    # Merge overlapping or identical intervals for visual markup
-    intervals = []
-    for s_char, e_char, cat in sorted_spans:
-        intervals.append({
-            "start": max(0, min(s_char, len(text))),
-            "end": max(0, min(e_char, len(text))),
-            "category": cat,
-            "text": text[s_char:e_char]
-        })
+    # Collect all unique cut points within [0, len(text)]
+    cut_points = {0, len(text)}
+    for s_char, e_char, _ in extracted_spans:
+        s_clamped = max(0, min(s_char, len(text)))
+        e_clamped = max(0, min(e_char, len(text)))
+        if s_clamped < e_clamped:
+            cut_points.add(s_clamped)
+            cut_points.add(e_clamped)
 
-    # Render HTML spans
+    sorted_points = sorted(cut_points)
+
     out = []
-    last_idx = 0
-    for item in intervals:
-        s = item["start"]
-        e = item["end"]
-        cat = item["category"]
-        color = CATEGORY_COLORS.get(cat, "#4B5563")
+    for i in range(len(sorted_points) - 1):
+        p_start = sorted_points[i]
+        p_end = sorted_points[i + 1]
+        seg_text = text[p_start:p_end]
+        if not seg_text:
+            continue
 
-        if s > last_idx:
-            out.append(html.escape(text[last_idx:s]))
-        
-        span_content = html.escape(text[s:e])
-        badge = f"<mark style='background-color: {color}22; border-bottom: 3px solid {color}; padding: 2px 4px; border-radius: 4px; font-weight: 500;' title='{cat}'>{span_content} <span style='font-size: 0.72rem; color: {color}; font-weight: bold;'>[{cat}]</span></mark>"
-        out.append(badge)
-        last_idx = max(last_idx, e)
+        # Find all categories covering this segment
+        covering_cats = sorted(list(set(
+            cat for s, e, cat in extracted_spans
+            if s <= p_start and p_end <= e
+        )))
 
-    if last_idx < len(text):
-        out.append(html.escape(text[last_idx:]))
+        if not covering_cats:
+            out.append(html.escape(seg_text))
+        else:
+            primary_cat = covering_cats[0]
+            color = CATEGORY_COLORS.get(primary_cat, "#4B5563")
 
-    return f"<div style='padding: 14px; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px; line-height: 2.0; font-family: sans-serif; font-size: 1.05rem; color: #0F172A;'>{''.join(out)}</div>"
+            # Stacked badges for all covering categories with CSS margin-left for spacing
+            badges_html = "".join([
+                f"<span style='margin-left: 4px; font-size: 0.70rem; color: {CATEGORY_COLORS.get(cat, '#4B5563')}; "
+                f"font-weight: bold;'>[{cat}]</span>"
+                for cat in covering_cats
+            ])
+
+            seg_escaped = html.escape(seg_text)
+            title_cats = html.escape(", ".join(covering_cats))
+            mark_html = (
+                f"<mark style='background-color: {color}22; border-bottom: 3px solid {color}; "
+                f"padding: 2px 4px; border-radius: 4px; font-weight: 500;' "
+                f"title='{title_cats}'>"
+                f"{seg_escaped}{badges_html}</mark>"
+            )
+            out.append(mark_html)
+
+    rendered_body = "".join(out)
+    return (
+        f"<div style='padding: 14px; background: #F8FAFC; border: 1px solid #E2E8F0; "
+        f"border-radius: 8px; line-height: 2.0; font-family: sans-serif; font-size: 1.05rem; "
+        f"color: #0F172A;'>{rendered_body}</div>"
+    )
 
 
 def render_track_b_page():
+    base_model_name = get_track_b_base_model_name()
     st.header("Track B — Social & Behavioral Determinants of Health (SBDH) Extraction")
     st.markdown(
-        """
+        f"""
         **Clinical CDS Setting:** Unstructured Narrative SBDH Extraction (Discharge Summaries & Social Work Notes).  
-        **Model Architecture:** Multi-Label BIO Sequence Tagger (`distilbert/distilroberta-base`, 45 independent binary sigmoid logits).  
+        **Model Architecture:** Multi-Label BIO Sequence Tagger (`{base_model_name}`, 45 independent binary sigmoid logits).  
         **Active Release Pipeline:** **Arm 6A** (Strategy B Active-Threshold + Delimiter-Protected Lexical Snapping + Conservative Gap $\\le 2$ Fusion).  
         **Multi-Label Capability:** Explicitly supports multiple concurrent SBDH categories mapped to identical character intervals.  
-        **Privacy Guarantee:** 100% Local In-Memory Inference. No user narrative is transmitted over any external network or cloud service.
+        **Privacy Guarantee:** 100% Local In-Memory Inference. When run locally, no narrative is transmitted over any external network or cloud service.
         """
     )
 
@@ -206,6 +238,12 @@ def render_track_b_page():
     preset_choice = st.selectbox(
         "Select an illustrative clinical note preset or enter custom narrative below:",
         ["Custom Manual Entry"] + list(NOTE_PRESETS.keys())
+    )
+
+    st.info(
+        "**Known limitations on these examples:** 'life' and 'in a rented house' are false positives; "
+        "'access to healthcare' is a truncated span (should read 'poor access to healthcare'). "
+        "See the Track B error analysis report ([reports/sbdh_error_analysis_experiment_1.md](file:///d:/Evernorth/Clinical-DSS/reports/sbdh_error_analysis_experiment_1.md))."
     )
 
     default_text = ""
@@ -245,22 +283,30 @@ def render_track_b_page():
             st.markdown(
                 """
                 **Active Pipeline: Arm 6A (Promoted Release)**
-                - **Exact Span F1:** **0.5173** (+0.0068 vs baseline)
-                - **Relaxed Span F1:** **0.8414** (+0.0084 vs baseline)
-                - **Note-Level Micro F1:** **0.8949** (+0.0061 vs baseline)
-                - **Decoders & Post-Processing:** Strategy B active-threshold + lexical snapping + fusion ($gap \\le 2$, no fusion across and/or)
-                - **Status:** Evaluated on reviewed test set ($N=1,732$)
+                - **Evaluation Protocols on Reviewed Test Set ($N=1,732$ notes):**
+                  - **Resolvable Protocol ($N=3,340$ gold annotations):**
+                    - Exact Span F1: **0.5173** (Precision: 0.5265, Recall: 0.5084)
+                    - Relaxed Span F1: **0.8414** (Precision: 0.8564, Recall: 0.8269)
+                    - Note-Level Micro F1: **0.8949**
+                  - **Conservative Worst-Case Lower Bound ($N=3,345$ gold annotations; 5 unresolved annotations penalised as False Negatives):**
+                    - Exact Span F1: **0.5169** (Recall: 0.5076)
+                    - Relaxed Span F1: **0.8408** (Recall: 0.8257)
+                - **Post-Processing Modules:** Strategy B active-threshold decoding at 0.30, lexical boundary snapping, and conservative fusion ($gap \\le 2$, no fusion across 'and/or')
                 """
             )
         else:
             st.markdown(
                 """
                 **Active Pipeline: Strategy A (Frozen Baseline Control)**
-                - **Exact Span F1:** **0.5105**
-                - **Relaxed Span F1:** **0.8330**
-                - **Note-Level Micro F1:** **0.8888**
-                - **Decoders & Post-Processing:** Strategy A Outside-dominance rule (no boundary snapping or fusion)
-                - **Status:** Authoritative frozen baseline
+                - **Evaluation Protocols on Reviewed Test Set ($N=1,732$ notes):**
+                  - **Resolvable Protocol ($N=3,340$ gold annotations):**
+                    - Exact Span F1: **0.5105** (Precision: 0.5403, Recall: 0.4838)
+                    - Relaxed Span F1: **0.8330** (Precision: 0.8816, Recall: 0.7895)
+                    - Note-Level Micro F1: **0.8888**
+                  - **Conservative Worst-Case Lower Bound ($N=3,345$ gold annotations; 5 unresolved annotations penalised as False Negatives):**
+                    - Exact Span F1: **0.5101** (Recall: 0.4831)
+                    - Relaxed Span F1: **0.8324** (Recall: 0.7883)
+                - **Post-Processing Modules:** Strategy A Outside-dominance rule (no boundary snapping or fusion)
                 """
             )
 
@@ -306,24 +352,32 @@ def render_track_b_page():
             for s_char, e_char, cat in sorted(extracted_spans, key=lambda x: (x[0], x[1])):
                 span_text = cleaned_text[s_char:e_char]
                 cat_idx = CAT_TO_IDX[cat]
-                b_idx, _, _ = get_label_indices(cat_idx)
-                
-                # Compute token-level max confidence for the span
+                b_idx, i_idx, _ = get_label_indices(cat_idx)
+
+                # Compute token-level max confidence for the span over overlapping active tokens
                 rel_tokens = [
                     t for t in range(len(offset_mapping))
                     if active_mask[t] == 1.0 and max(offset_mapping[t][0], s_char) < min(offset_mapping[t][1], e_char)
                 ]
-                conf = float(np.max(probs[rel_tokens, b_idx])) if rel_tokens else 0.50
+                if rel_tokens:
+                    max_token_probs = np.maximum(probs[rel_tokens, b_idx], probs[rel_tokens, i_idx])
+                    span_score = float(np.max(max_token_probs))
+                    score_display = f"{span_score:.2%}"
+                else:
+                    logging.warning(
+                        f"No active tokens matched span [{s_char}:{e_char}] '{span_text}' for category '{cat}'."
+                    )
+                    score_display = "n/a"
 
                 table_rows.append({
                     "Character Range": f"[{s_char}:{e_char}]",
                     "Extracted Text Span": span_text,
                     "SBDH Category": cat,
-                    "Model Confidence": f"{conf:.2%}",
+                    "Span score (max token probability)": score_display,
                     "Pipeline": pipeline_label,
                 })
 
-            st.dataframe(pd.DataFrame(table_rows), use_container_width=True)
+            st.dataframe(pd.DataFrame(table_rows), width="stretch")
         else:
             st.info(f"[{pipeline_label}] No social determinants of health identified above decision threshold {threshold:.2f}.")
 

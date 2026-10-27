@@ -30,6 +30,13 @@ DEFAULT_ALLOWED_CONNECTIVES = {
     "and", "or", "her", "his", "their", "my", "the", "a", "an", "of", "to", "in", "for", "with"
 }
 
+# Boundary punctuation blockers for span fusion
+DEFAULT_BLOCKED_PUNCTUATION = {".", "!", "?", "\n"}
+EXTENDED_BLOCKED_PUNCTUATION = {".", "!", "?", "\n", ",", ";", ":"}
+
+# Non-specific generic stopwords for validation ablation testing
+SBDH_STOPWORDS = {"life", "home", "stay", "care"}
+
 
 def _is_trimmable_trailing_punct(char: str, s: int, e: int, text: str) -> bool:
     """
@@ -148,13 +155,14 @@ def fuse_same_category_spans(
     text: Optional[str] = None,
     max_gap: int = 6,
     allowed_connectives: Optional[Set[str]] = None,
+    blocked_punctuation: Optional[Set[str]] = None,
 ) -> Tuple[Set[Tuple[int, int, str]], int, List[Dict[str, Any]]]:
     """
     Applies conservative same-category span fusion to a set of spans.
 
     Rules:
     - Only spans of the identical category are candidates.
-    - Spans must reside within the same sentence (no '.', '?', '!', '\\n' in gap).
+    - Spans must reside within the same sentence (no blocked punctuation in gap).
     - Character gap (next_start - curr_end) must be <= max_gap (or abutting/overlapping).
     - Intervening gap text must be strictly whitespace, punctuation (e.g. hyphens),
       or whitelisted short grammatical connectives.
@@ -167,6 +175,9 @@ def fuse_same_category_spans(
 
     if allowed_connectives is None:
         allowed_connectives = DEFAULT_ALLOWED_CONNECTIVES
+
+    if blocked_punctuation is None:
+        blocked_punctuation = DEFAULT_BLOCKED_PUNCTUATION
 
     sorted_spans = sorted(list(spans), key=lambda x: (x[2], x[0], x[1]))
     fused_spans: List[Tuple[int, int, str]] = []
@@ -206,8 +217,8 @@ def fuse_same_category_spans(
             gap = next_s - curr_e
             if gap <= max_gap:
                 gap_text = text[curr_e:next_s]
-                # Sentence boundary check
-                if any(punct in gap_text for punct in [".", "!", "?", "\n"]):
+                # Sentence / clause boundary check
+                if any(punct in gap_text for punct in blocked_punctuation):
                     break
 
                 # Connective check
@@ -241,3 +252,25 @@ def fuse_same_category_spans(
         i = j
 
     return set(fused_spans), merges_count, merge_records
+
+
+def filter_stopword_spans(
+    spans: Set[Tuple[int, int, str]],
+    text: Optional[str] = None,
+    stopwords: Optional[Set[str]] = None,
+) -> Set[Tuple[int, int, str]]:
+    """
+    Validation-only ablation filter: removes single-word generic stopwords
+    (e.g., 'life', 'home', 'stay', 'care') that lack SBDH specificity.
+    """
+    if not spans or not text:
+        return spans
+    if stopwords is None:
+        stopwords = SBDH_STOPWORDS
+    filtered = set()
+    for s, e, c in spans:
+        span_str = text[s:e].strip().lower()
+        if span_str in stopwords:
+            continue
+        filtered.add((s, e, c))
+    return filtered

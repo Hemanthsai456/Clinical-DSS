@@ -8,7 +8,18 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
-from model_loader import load_track_a_pipeline, TRACK_A_FROZEN_THRESHOLD
+from model_loader import (
+    load_track_a_pipeline,
+    load_track_a_metrics,
+    compute_track_a_plain_statement,
+    compute_relative_risk,
+    classify_readmission_risk,
+    TRACK_A_FROZEN_THRESHOLD,
+)
+
+# Load frozen baseline metrics once at startup; fails immediately if file or keys are missing
+TRACK_A_METRICS = load_track_a_metrics()
+
 
 
 # Exactly 40 features matching Baseline A
@@ -135,17 +146,22 @@ def render_track_a_page():
         with c1:
             age_options = ["[0-10)", "[10-20)", "[20-30)", "[30-40)", "[40-50)", "[50-60)", "[60-70)", "[70-80)", "[80-90)", "[90-100)"]
             encounter_data["age"] = st.selectbox("Age Range", age_options, index=age_options.index(encounter_data["age"]))
-            encounter_data["gender"] = st.selectbox("Gender", ["Female", "Male", "Unknown/Invalid"], index=0 if encounter_data["gender"] == "Female" else 1)
+            gender_options = ["Female", "Male", "Unknown/Invalid"]
+            idx_g = gender_options.index(encounter_data["gender"]) if encounter_data["gender"] in gender_options else 0
+            encounter_data["gender"] = st.selectbox("Gender", gender_options, index=idx_g)
         with c2:
             race_options = ["Caucasian", "AfricanAmerican", "Hispanic", "Asian", "Other", "Missing"]
             idx_r = race_options.index(encounter_data["race"]) if encounter_data["race"] in race_options else 0
             encounter_data["race"] = st.selectbox("Race / Ethnicity", race_options, index=idx_r)
             adm_types = {"1": "1 - Emergency", "2": "2 - Urgent", "3": "3 - Elective", "4": "4 - Newborn", "5": "5 - Not Available", "7": "7 - Trauma Center"}
-            encounter_data["admission_type_id"] = st.selectbox("Admission Type", list(adm_types.keys()), format_func=lambda x: adm_types.get(x, x), index=0 if encounter_data["admission_type_id"] == "1" else 1)
+            adm_keys = list(adm_types.keys())
+            idx_adm = adm_keys.index(encounter_data["admission_type_id"]) if encounter_data["admission_type_id"] in adm_keys else 0
+            encounter_data["admission_type_id"] = st.selectbox("Admission Type", adm_keys, format_func=lambda x: adm_types.get(x, x), index=idx_adm)
         with c3:
             adm_src = {"1": "1 - Physician Referral", "7": "7 - Emergency Room", "2": "2 - Clinic Referral", "4": "4 - Transfer from Hospital", "6": "6 - Transfer from SNF"}
-            cur_src = encounter_data["admission_source_id"] if encounter_data["admission_source_id"] in adm_src else "1"
-            encounter_data["admission_source_id"] = st.selectbox("Admission Source", list(adm_src.keys()), format_func=lambda x: adm_src.get(x, x), index=list(adm_src.keys()).index(cur_src))
+            adm_src_keys = list(adm_src.keys())
+            idx_src = adm_src_keys.index(encounter_data["admission_source_id"]) if encounter_data["admission_source_id"] in adm_src_keys else 0
+            encounter_data["admission_source_id"] = st.selectbox("Admission Source", adm_src_keys, format_func=lambda x: adm_src.get(x, x), index=idx_src)
 
     with tab_util:
         u1, u2, u3, u4 = st.columns(4)
@@ -163,19 +179,38 @@ def render_track_a_page():
             encounter_data["number_diagnoses"] = st.number_input("Entered Diagnoses Count", min_value=1, max_value=16, value=int(encounter_data["number_diagnoses"]))
 
     with tab_meds:
-        m1, m2, m3 = st.columns(3)
+        m1, m2 = st.columns(2)
         with m1:
             glu_opts = ["None", "Norm", ">200", ">300"]
             encounter_data["max_glu_serum"] = st.selectbox("Max Glucose Serum Test", glu_opts, index=glu_opts.index(encounter_data["max_glu_serum"]))
             a1c_opts = ["None", "Norm", ">7", ">8"]
             encounter_data["A1Cresult"] = st.selectbox("HbA1c Lab Test Result", a1c_opts, index=a1c_opts.index(encounter_data["A1Cresult"]))
         with m2:
-            med_levels = ["No", "Steady", "Up", "Down"]
-            encounter_data["insulin"] = st.selectbox("Insulin Order / Titration", med_levels, index=med_levels.index(encounter_data["insulin"]))
-            encounter_data["metformin"] = st.selectbox("Metformin", med_levels, index=med_levels.index(encounter_data["metformin"]))
-        with m3:
             encounter_data["change"] = st.selectbox("Any Diabetes Med Changed?", ["No", "Ch"], index=0 if encounter_data["change"] == "No" else 1)
             encounter_data["diabetesMed"] = st.selectbox("Any Diabetes Med Prescribed?", ["Yes", "No"], index=0 if encounter_data["diabetesMed"] == "Yes" else 1)
+
+        st.markdown("---")
+        with st.expander("All 23 Diabetes Medications (Exposed — Default: 'No')", expanded=True):
+            st.caption("All 23 inpatient diabetes medications are configurable below. Each defaults to **No** unless prescribed or loaded via preset.")
+            all_23_meds = [
+                "metformin", "repaglinide", "nateglinide", "chlorpropamide", "glimepiride",
+                "acetohexamide", "glipizide", "glyburide", "tolbutamide", "pioglitazone",
+                "rosiglitazone", "acarbose", "miglitol", "troglitazone", "tolazamide",
+                "examide", "citoglipton", "insulin", "glyburide-metformin", "glipizide-metformin",
+                "glimepiride-pioglitazone", "metformin-rosiglitazone", "metformin-pioglitazone"
+            ]
+            med_levels = ["No", "Steady", "Up", "Down"]
+            med_cols = st.columns(3)
+            for i, med in enumerate(all_23_meds):
+                col = med_cols[i % 3]
+                cur_val = encounter_data.get(med, "No")
+                idx_m = med_levels.index(cur_val) if cur_val in med_levels else 0
+                encounter_data[med] = col.selectbox(
+                    f"{med} (Default: No)",
+                    med_levels,
+                    index=idx_m,
+                    key=f"med_sel_{med}"
+                )
 
     # Prediction Action
     st.subheader("3. Risk Stratification")
@@ -188,27 +223,54 @@ def render_track_a_page():
 
         # Predict probability
         prob = float(pipeline.predict_proba(df_input[NUMERICAL_COLS + BASE_CATEGORICAL_COLS])[:, 1][0])
-        is_elevated = prob >= TRACK_A_FROZEN_THRESHOLD
+        tau = TRACK_A_FROZEN_THRESHOLD
+        risk_class = classify_readmission_risk(prob, tau)
+        is_elevated = (risk_class == "ELEVATED")
+        base_rate = TRACK_A_METRICS["base_rate"]  # 0.1111 from JSON
+        relative_risk = compute_relative_risk(prob, base_rate)
+        precision = TRACK_A_METRICS["precision"]  # 0.1806 from JSON
+        recall = TRACK_A_METRICS["recall"]        # 0.38 from JSON
+        specificity = TRACK_A_METRICS["specificity"]  # 0.7846 from JSON
+        auroc = TRACK_A_METRICS["auroc"]          # 0.6324 from JSON
 
-        res_col1, res_col2, res_col3 = st.columns(3)
+        res_col1, res_col2, res_col3, res_col4 = st.columns(4)
         with res_col1:
-            st.metric("Predicted 30-Day Readmission Risk", f"{prob * 100:.2f}%")
+            st.metric("Predicted 30-Day Risk", f"{prob * 100:.2f}%")
         with res_col2:
-            st.metric("Validation-Tuned Decision Threshold (F1)", f"{TRACK_A_FROZEN_THRESHOLD * 100:.1f}%")
+            st.metric("Population Base Rate", f"{base_rate * 100:.2f}%")
         with res_col3:
+            st.metric("Relative Risk", f"{relative_risk:.2f}x")
+        with res_col4:
             if is_elevated:
-                st.error("Classification: ELEVATED READMISSION RISK")
+                st.error("Classification: ELEVATED RISK")
             else:
                 st.success("Classification: STANDARD RISK")
 
-        st.progress(min(prob, 1.0))
+        st.progress(
+            min(prob, 1.0),
+            text=f"Estimated Readmission Probability: {prob * 100:.2f}% (Statistical probability estimate, NOT a patient safety score)"
+        )
+
+        plain_statement = compute_track_a_plain_statement(precision=precision, tau=tau)
+
+        st.warning(
+            f"**Population Operating Context (Flagged Group Test Performance):**  \n"
+            f"{plain_statement}  \n\n"
+            "*(This statement describes historical test-set cohort performance for all encounters flagged at this threshold. "
+            "It is a population operating characteristic and not an individualized forecast for the specific patient on screen.)*"
+        )
 
         st.info(
-            f"""
-            **Clinical Context & Calibration:**
-            - **Baseline Population Prevalence:** $11.11\%$ (1 in 9 diabetic inpatients readmitted within 30 days).
-            - **Model Operating Range:** At $\\tau = {TRACK_A_FROZEN_THRESHOLD}$, Baseline A operates at **$38.00\\%$ recall** and **$18.06\\%$ precision** (Specificity: $78.46\\%$, AUROC: $0.6324$).
-            - **Transitional Care Trigger:** In research simulations, patients above $\\tau = 0.130$ qualify for proactive post-discharge nurse outreach, 7-day primary care visit scheduling, and pharmacist medication reconciliation.
+            rf"""
+            **Decision Threshold vs. Evaluated Test Metrics (Model Operating Range):**
+            - **Classification Rule:** Patient encounter flagged as ELEVATED RISK if predicted probability $\ge \tau = {tau:.3f}$; otherwise STANDARD RISK.
+            - **Validation-Tuned Decision Threshold:** $\tau = {tau:.3f}$ (calibrated on the validation partition to optimize $F_1$-score; threshold selection is kept strictly separate from test evaluation metrics).
+            - **Model Operating Range on Frozen Test Set (at $\tau = {tau:.3f}$):**
+              - **Recall:** {recall:.2%}
+              - **Precision:** {precision:.2%}
+              - **Specificity:** {specificity:.2%}
+              - **AUROC:** {auroc:.4f}
+            - **Transitional Care Trigger (Hypothetical Example Workflow — NOT Evaluated):** In simulated research workflows, patients above $\tau = {tau:.3f}$ are assigned to post-discharge nurse outreach, early primary care visits, and medication reconciliation. This operational protocol is illustrative and has **not** been prospectively or clinically evaluated.
             """
         )
 

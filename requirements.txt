@@ -20,5 +20,5 @@ transformers>=4.30.0
 scipy>=1.10.0
 
 # Interactive Prototype (Milestone 4)
-streamlit>=1.30.0
+streamlit==1.56.0
 

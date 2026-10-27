@@ -49,8 +49,8 @@ def render_provenance_page():
             - **Fitted Checkpoint:** `{ta['model_path']}`
             - **Calibrated Threshold:** `\\tau = {ta['threshold']:.3f}`
             - **AUROC:** **{ta['auroc']:.4f}**
-            - **PR-AUC (Average Precision):** **{ta['pr_auc']:.4f}** (Prevalence: $11.11\%$)
-            - **F1-Score:** **{ta['f1_score']:.4f}** (Recall: $38.00\%$, Precision: $18.06\%$)
+            - **PR-AUC (Average Precision):** **{ta['pr_auc']:.4f}** (Prevalence: ${ta['base_rate'] * 100:.2f}\\%$)
+            - **F1-Score:** **{ta['f1_score']:.4f}** (Recall: ${ta['recall']:.2%}$, Precision: ${ta['precision']:.2%}$)
             - **Brier Score:** **{ta['brier_score']:.4f}** | **ECE:** **{ta['ece']:.4f}**
             - **Training Population:** Historical 1999–2008 UCI Diabetes (99,343 encounters)
             - **Patient Isolation:** Zero patient leakage between Train, Val, and Test

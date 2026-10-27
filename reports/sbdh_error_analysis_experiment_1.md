@@ -128,7 +128,7 @@ To diagnose why the remaining clinical concepts were not emitted as spans, we au
 
 ## 4. Official Category Mapping & Scope Decisions
 
-To evaluate this error profile rigorously, we audited the official annotation guidelines of the **Synth-SBDH** benchmark (`bio-nlp-umass/Synth-SBDH`; Soni et al., 2024). Informal clinical intuition often assumes categories that do not exist in the gold schema or expects clinical narrative elements that fall outside the annotation scope.
+To evaluate this error profile rigorously, we audited the official annotation guidelines of the **Synth-SBDH** benchmark (`bio-nlp-umass/Synth-SBDH`; Mitra et al., 2025). Informal clinical intuition often assumes categories that do not exist in the gold schema or expects clinical narrative elements that fall outside the annotation scope.
 
 | Narrative Concept / Phrase | Official SBDH Category Mapping | Expected Annotation Status | Scope Rationale & Dataset Evidence |
 |---|---|:---:|---|

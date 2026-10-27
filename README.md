@@ -217,7 +217,19 @@ Clinical-DSS/
 
 ---
 
-## 9. License & Attribution
-- **Synth-SBDH Dataset:** Provided by bio-nlp-umass under its designated research license.
-- **UCI Diabetes 130-US Hospitals:** Clore, J., Cios, K., DeShazo, J., & Strack, B. (2014).
-- **Codebase:** Distributed under the MIT License.
+## 9. License & Data Governance
+
+### Data Licenses
+- **UCI Diabetes 130-US Hospitals Dataset:** Creative Commons Attribution 4.0 International ([CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)). Hosted by the UCI Machine Learning Repository (Dataset ID 296; Clore, J., Cios, K., DeShazo, J., & Strack, B., 2014).
+- **Synth-SBDH Benchmark Dataset:** **UNVERIFIED** (License is not explicitly declared in the Hugging Face dataset card metadata tag). Provided by UMass BioNLP Lab (`bio-nlp-umass/Synth-SBDH`).
+- **Data Privacy & Commitment Guarantee:** **Confirmed: Zero raw patient or synthetic dataset records are committed to this repository.** All raw datasets (`.csv`, `.tsv`, `.parquet`, `.zip`, `.tar.gz`) are strictly excluded by `.gitignore` and must be dynamically downloaded or cached in local ignored directories.
+
+### Code Licenses
+- **Evernorth Clinical DSS Application Codebase:** This repository's code is distributed under the **MIT License** (see [`LICENSE`](LICENSE)).
+- **Synth-SBDH Benchmark Code:** Distributed under the **Apache-2.0 License** (as released by the official bio-nlp-umass repository).
+
+### Citations
+- **Synth-SBDH Benchmark:**  
+  Mitra, A., Yang, Z., Druhl, E., Goodwin, R., & Yu, H. (2025). *Synth-SBDH: A Synthetic Dataset of Social and Behavioral Determinants of Health for Clinical Text*. arXiv:2406.06056 (EMNLP 2025). Dataset: [huggingface.co/datasets/bio-nlp-umass/Synth-SBDH](https://huggingface.co/datasets/bio-nlp-umass/Synth-SBDH).
+- **UCI Diabetes 130-US Hospitals (Dataset ID 296):**  
+  Strack, B., DeShazo, J. P., Gennings, C., Olmo, J. L., Balasubramanian, S., Higgins, K. A., & Cios, K. J. (2014). *Impact of HbA1c Measurement on Hospital Readmission Rates: Analysis of 70,000 Clinical Database Records*. BioMed Research International, 2014, 781670. DOI: `10.1155/2014/781670`.

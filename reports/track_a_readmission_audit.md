@@ -16,7 +16,7 @@ This independent methodological and code audit examined the end-to-end Track A r
 1. **Target Formulation Verified (PASS):** `<30` is strictly defined as positive (1); `>30` and `NO` are negative (0). Crucially, `NO` indicates *no recorded readmission in the 130 participating hospitals during the 1999–2008 dataset window*, not proof that the patient was never hospitalized elsewhere.
 2. **Zero Patient Leakage Confirmed (PASS):** Patient-grouped partitioning via `GroupShuffleSplit` on `patient_nbr` strictly isolates all encounters of a given patient into one split (Train: 48,992 patients; Val: 10,499 patients; Test: 10,499 patients; pairwise patient overlap is exactly 0).
 3. **Preprocessing Isolation Confirmed (PASS):** All imputers, scalers, and encoders are fitted exclusively on `X_train` within an encapsulated `scikit-learn` `Pipeline`. Test data is evaluated via `predict_proba` with zero fitting.
-4. **Exact Metric Reproduction (PASS):** All saved models ([`models/baseline_a_logreg.joblib`](models/baseline_a_logreg.joblib), [`models/baseline_b_logreg.joblib`](models/baseline_b_logreg.joblib), [`models/baseline_c_logreg.joblib`](models/baseline_c_logreg.joblib)) were re-evaluated against `test_feat`. Every metric (AUROC, PR-AUC, confusion matrix cells, F1, precision, recall, specificity, Brier score) matched [`reports/readmission_baselines_metrics.json`](reports/readmission_baselines_metrics.json) with exact numerical agreement ($< 10^{-4}$).
+4. **Exact Metric Reproduction (PASS):** All saved models ([`models/baseline_a_logreg.joblib`](../models/baseline_a_logreg.joblib), [`models/baseline_b_logreg.joblib`](../models/baseline_b_logreg.joblib), [`models/baseline_c_logreg.joblib`](../models/baseline_c_logreg.joblib)) were re-evaluated against `test_feat`. Every metric (AUROC, PR-AUC, confusion matrix cells, F1, precision, recall, specificity, Brier score) matched [`reports/readmission_baselines_metrics.json`](../reports/readmission_baselines_metrics.json) with exact numerical agreement ($< 10^{-4}$).
 5. **Defensible Primary Prediction Scenario Established (PASS):** **Baseline A** (Clinical Features *excluding* `discharge_disposition_id` and *excluding* discharge ICD-9 diagnoses) is defined as the defensible primary real-time prediction model for discharge planning. Baseline C (highest test score: AUROC 0.6666 vs 0.6324 for A) relies on post-discharge billing codes (`diag_1`, `diag_2`, `diag_3`) and cannot be treated as the best real-time bedside model.
 6. **Calibration Characterized (PASS):** Probability calibration was assessed without altering the locked test protocol. Baseline A demonstrates strong calibration in the operational risk region ($[0.0, 0.30]$ where $98.5\%$ of encounters reside), achieving an overall Test Brier Score of **0.0961** (vs. Majority Baseline **0.0988**) and an Expected Calibration Error (ECE) of **0.0061** ($0.61\%$).
 
@@ -26,19 +26,19 @@ This independent methodological and code audit examined the end-to-end Track A r
 
 | Audit Dimension | Status | Evidence / Verification Method | Notes & Findings |
 |---|---|---|---|
-| **1. Data Loader & Missing Values** | **PASS** | [`src/data_loaders.py`](src/data_loaders.py) | `na_values=['?', '']` with `keep_default_na=False`. Only genuine missing-value markers are converted to NaN. |
-| **2. Lab Test 'None' Category** | **PASS** | [`src/data_loaders.py`](src/data_loaders.py#L159-L163) | Explicit assertions verify 0 NaNs and confirm preservation of literal `'None'` (96,420 in `max_glu_serum`; 84,748 in `A1Cresult`) as "test not performed". |
-| **3. Target Definition** | **PASS** | [`src/audit_uci.py`](src/audit_uci.py#L318-L336) | `<30` is positive ($N=11,314, 11.39\%$); `>30` and `NO` are negative ($N=88,029, 88.61\%$). Documented that `NO` means no recorded readmission. |
-| **4. Cohort Exclusions** | **PASS** | [`src/audit_uci.py`](src/audit_uci.py#L125-L256) | 2,423 encounters excluded (codes 11, 13, 14, 19, 20, 21). 86 hospice encounters with `<30`/`>30` investigated and confirmed non-miscoded (palliative crises). |
-| **5. Patient-Grouped Split** | **PASS** | [`src/audit_uci.py`](src/audit_uci.py#L406-L481) | `GroupShuffleSplit` on `patient_nbr`. Zero overlap between Train (48,992), Val (10,499), and Test (10,499). Verified by automated assertions. |
-| **6. Preprocessing Isolation** | **PASS** | [`src/train_readmission_baseline.py`](src/train_readmission_baseline.py#L363-L379) | `ColumnTransformer` embedded in `Pipeline`. `pipe.fit()` executed strictly on `X_train`. Zero test data leak into imputers, scalers, or encoders. |
-| **7. Feature Taxonomy & Timing** | **PASS** | [`src/audit_uci.py`](src/audit_uci.py#L21-L88) | Full classification into Admission, Inpatient Stay, and Discharge/Post-Discharge. Identifier exclusion enforced. |
+| **1. Data Loader & Missing Values** | **PASS** | [`src/data_loaders.py`](../src/data_loaders.py) | `na_values=['?', '']` with `keep_default_na=False`. Only genuine missing-value markers are converted to NaN. |
+| **2. Lab Test 'None' Category** | **PASS** | [`src/data_loaders.py`](../src/data_loaders.py#L159-L163) | Explicit assertions verify 0 NaNs and confirm preservation of literal `'None'` (96,420 in `max_glu_serum`; 84,748 in `A1Cresult`) as "test not performed". |
+| **3. Target Definition** | **PASS** | [`src/audit_uci.py`](../src/audit_uci.py#L318-L336) | `<30` is positive ($N=11,314, 11.39\%$); `>30` and `NO` are negative ($N=88,029, 88.61\%$). Documented that `NO` means no recorded readmission. |
+| **4. Cohort Exclusions** | **PASS** | [`src/audit_uci.py`](../src/audit_uci.py#L125-L256) | 2,423 encounters excluded (codes 11, 13, 14, 19, 20, 21). 86 hospice encounters with `<30`/`>30` investigated and confirmed non-miscoded (palliative crises). |
+| **5. Patient-Grouped Split** | **PASS** | [`src/audit_uci.py`](../src/audit_uci.py#L406-L481) | `GroupShuffleSplit` on `patient_nbr`. Zero overlap between Train (48,992), Val (10,499), and Test (10,499). Verified by automated assertions. |
+| **6. Preprocessing Isolation** | **PASS** | [`src/train_readmission_baseline.py`](../src/train_readmission_baseline.py#L363-L379) | `ColumnTransformer` embedded in `Pipeline`. `pipe.fit()` executed strictly on `X_train`. Zero test data leak into imputers, scalers, or encoders. |
+| **7. Feature Taxonomy & Timing** | **PASS** | [`src/audit_uci.py`](../src/audit_uci.py#L21-L88) | Full classification into Admission, Inpatient Stay, and Discharge/Post-Discharge. Identifier exclusion enforced. |
 | **8. Primary Scenario Formulation** | **PASS** | Section 4 of this report | Real-time bedside CDS at discharge planning. Baseline A chosen as primary; Baselines B and C designated as retrospective upper-bound benchmarks. |
-| **9. Validation-Only Tuning** | **PASS** | [`src/train_readmission_baseline.py`](src/train_readmission_baseline.py#L177-L188) | Thresholds tuned on Validation only to maximize F1 ($\tau = 0.130, 0.145, 0.135$); frozen and applied directly to Test. Hyperparameters unadjusted on Test. |
+| **9. Validation-Only Tuning** | **PASS** | [`src/train_readmission_baseline.py`](../src/train_readmission_baseline.py#L177-L188) | Thresholds tuned on Validation only to maximize F1 ($\tau = 0.130, 0.145, 0.135$); frozen and applied directly to Test. Hyperparameters unadjusted on Test. |
 | **10. Historical Test-Set Exposure** | **PASS** | Section 6 of this report | Explicitly disclosed that Test set was evaluated in Milestones 2 and 2.1 to generate baseline tables. Acknowledged as frozen historical evaluation. |
-| **11. Baseline Reproduction** | **PASS** | [`scripts/audit_track_a_readmission.py`](scripts/audit_track_a_readmission.py) | 100% exact numerical agreement across AUROC, PR-AUC, confusion matrices, F1, and Brier scores between saved `.joblib` models and JSON metrics. |
-| **12. Probability Calibration** | **PASS** | [`reports/readmission_calibration_metrics.json`](reports/readmission_calibration_metrics.json) | Brier score (0.0961) and ECE (0.0061) computed across 10 deciles without modifying the locked evaluation protocol. |
-| **13. Repository Automated Tests** | **PASS** | [`tests/test_readmission_evaluation.py`](tests/test_readmission_evaluation.py) | 31/31 pytest unit/integration tests passing (including 9 Track A specific tests). |
+| **11. Baseline Reproduction** | **PASS** | [`scripts/audit_track_a_readmission.py`](../scripts/audit_track_a_readmission.py) | 100% exact numerical agreement across AUROC, PR-AUC, confusion matrices, F1, and Brier scores between saved `.joblib` models and JSON metrics. |
+| **12. Probability Calibration** | **PASS** | [`reports/readmission_calibration_metrics.json`](../reports/readmission_calibration_metrics.json) | Brier score (0.0961) and ECE (0.0061) computed across 10 deciles without modifying the locked evaluation protocol. |
+| **13. Repository Automated Tests** | **PASS** | [`tests/test_readmission_evaluation.py`](../tests/test_readmission_evaluation.py) | 31/31 pytest unit/integration tests passing (including 9 Track A specific tests). |
 
 ---
 
@@ -86,7 +86,7 @@ Features available in the UCI Diabetes dataset originate from different administ
 
 ## 5. Replicated Baseline Performance Metrics
 
-All metrics below were reproduced directly from the serialized model artifacts ([`models/baseline_a_logreg.joblib`](models/baseline_a_logreg.joblib), [`models/baseline_b_logreg.joblib`](models/baseline_b_logreg.joblib), [`models/baseline_c_logreg.joblib`](models/baseline_c_logreg.joblib)) against the locked Test and Validation sets:
+All metrics below were reproduced directly from the serialized model artifacts ([`models/baseline_a_logreg.joblib`](../models/baseline_a_logreg.joblib), [`models/baseline_b_logreg.joblib`](../models/baseline_b_logreg.joblib), [`models/baseline_c_logreg.joblib`](../models/baseline_c_logreg.joblib)) against the locked Test and Validation sets:
 
 ### Test Partition Replicated Metrics ($N = 14,851; Positives = 1,650; Prevalence = 11.11\%$)
 
@@ -174,13 +174,13 @@ Calibration reflects whether predicted probabilities correspond to true empirica
 
 ## 8. Files Inspected & Verified
 
-- [`src/data_loaders.py`](src/data_loaders.py): Verified robust local dataset resolution, `keep_default_na=False`, and literal `'None'` category preservation in lab tests.
-- [`src/audit_uci.py`](src/audit_uci.py): Verified eligible cohort exclusion (2,423 encounters), investigation of the 86 hospice encounters, and patient-grouped splitting with zero overlap.
-- [`src/train_readmission_baseline.py`](src/train_readmission_baseline.py): Verified pipeline encapsulation, fitting strictly on training data, validation-only threshold tuning, and automated mathematical consistency assertions.
-- [`tests/test_readmission_evaluation.py`](tests/test_readmission_evaluation.py): Verified 9 targeted unit and integration tests covering label definitions, zero patient leakage, feature isolation, and confusion matrix derivations.
-- [`reports/readmission_baselines_metrics.json`](reports/readmission_baselines_metrics.json): Verified numerical consistency of original exported metrics.
-- [`reports/readmission_calibration_metrics.json`](reports/readmission_calibration_metrics.json): Generated separate calibration artifact recording decile reliability curves and Brier scores.
-- [`scripts/audit_track_a_readmission.py`](scripts/audit_track_a_readmission.py): Created stand-alone replication and calibration auditing script.
+- [`src/data_loaders.py`](../src/data_loaders.py): Verified robust local dataset resolution, `keep_default_na=False`, and literal `'None'` category preservation in lab tests.
+- [`src/audit_uci.py`](../src/audit_uci.py): Verified eligible cohort exclusion (2,423 encounters), investigation of the 86 hospice encounters, and patient-grouped splitting with zero overlap.
+- [`src/train_readmission_baseline.py`](../src/train_readmission_baseline.py): Verified pipeline encapsulation, fitting strictly on training data, validation-only threshold tuning, and automated mathematical consistency assertions.
+- [`tests/test_readmission_evaluation.py`](../tests/test_readmission_evaluation.py): Verified 9 targeted unit and integration tests covering label definitions, zero patient leakage, feature isolation, and confusion matrix derivations.
+- [`reports/readmission_baselines_metrics.json`](../reports/readmission_baselines_metrics.json): Verified numerical consistency of original exported metrics.
+- [`reports/readmission_calibration_metrics.json`](../reports/readmission_calibration_metrics.json): Generated separate calibration artifact recording decile reliability curves and Brier scores.
+- [`scripts/audit_track_a_readmission.py`](../scripts/audit_track_a_readmission.py): Created stand-alone replication and calibration auditing script.
 
 ---
 

@@ -154,7 +154,7 @@ Although Baseline C achieves higher retrospective discrimination (AUROC 0.6666 v
 ### 7.1 Architecture: 45-Class Independent Sigmoid Tagging
 Traditional named entity recognition taggers use a single mutually exclusive BIO softmax over all classes ($2C + 1$ outputs). In clinical text, social determinants frequently co-occur within the exact same phrase (e.g., `"cannot afford to continue physical therapy"` is annotated with both `financial insecurity` and `barriers to care`). A single-label softmax forces the model to drop one valid category.
 
-Our architecture ([src/transformer_model.py](src/transformer_model.py)) employs:
+Our architecture ([src/transformer_model.py](../src/transformer_model.py)) employs:
 - **Encoder:** `distilbert/distilroberta-base` (82M parameters, 6 layers, hidden dimension 768).
 - **Classification Head:** Linear projection layer ($768 \to 45$ outputs: 15 SBDH categories $\times \{B, I, O\}$).
 - **Activation:** Element-wise independent sigmoid $\sigma(z_{t, c, tag})$.
@@ -166,7 +166,7 @@ In training note `ex_no 1192`, the gold annotation specifies `span="pain"`, but 
 **Safeguard:** For `ex_no 1192`, candidate tokens across both intervals receive $M_{t, k} = 0.0$ for category `pain`. The candidate tokens are masked out of the gradient calculation entirely.
 
 ### 7.3 Evaluator Safeguard: Maximum Bipartite Matching
-In relaxed span evaluation, greedy sequential matching is sensitive to prediction ordering when predicted spans overlap multiple gold intervals. We implemented **Kuhn's augmenting path algorithm for Maximum Bipartite Matching** ([src/sbdh_rules_baseline.py](src/sbdh_rules_baseline.py)):
+In relaxed span evaluation, greedy sequential matching is sensitive to prediction ordering when predicted spans overlap multiple gold intervals. We implemented **Kuhn's augmenting path algorithm for Maximum Bipartite Matching** ([src/sbdh_rules_baseline.py](../src/sbdh_rules_baseline.py)):
 - **Order Invariance:** Permuting predictions yields identical True Positive counts.
 - **Global Optimality:** Maximizes the cardinality of valid 1-to-1 matches under category agreement.
 
@@ -298,13 +298,13 @@ All results are verifiable using the existing frozen environment and automated t
 > **EXPERIMENTAL DESIGNATION & PRODUCTION BASELINE INVARIANCE:**  
 > The post-processing optimization described in this section is designated strictly as an **experimental candidate (Arm 6A)**, **NOT** the production model.  
 > 
-> - The production MVP (`app/app.py`, `src/transformer_dataset.py`, `models/baseline_a_logreg.joblib`) and the authoritative baseline metrics artifact ([`reports/sbdh_colab_transformer_metrics_corrected.json`](reports/sbdh_colab_transformer_metrics_corrected.json)) remain **100% untouched and unchanged**.
+> - The production MVP (`app/app.py`, `src/transformer_dataset.py`, `models/baseline_a_logreg.joblib`) and the authoritative baseline metrics artifact ([`reports/sbdh_colab_transformer_metrics_corrected.json`](../reports/sbdh_colab_transformer_metrics_corrected.json)) remain **100% untouched and unchanged**.
 > - Model checkpoint weights (`evernorth_m3_results/models/sbdh_transformer/best_model.pt`) remain bit-identical before and after evaluation (`SHA-256: 0cb00010631b089746fdd97ff3f9019e1bcc29012a7c093b33501a9c30186ba4`).
 > - Zero retraining was performed. All gains stem exclusively from post-processing inference logic on frozen model logits.
 
 ### 12.1 Candidate Architecture & Validation Selection (Arm 6A)
 
-In validation ablation experiments across 876 validation notes ([`reports/experiments/span_boundary_ablation/span_boundary_ablation_report.md`](reports/experiments/span_boundary_ablation/span_boundary_ablation_report.md)), the original decoder's Outside-dominance rule was found to prematurely terminate or suppress SBDH spans when the background Outside logit exceeded SBDH category logits, even if SBDH logits were elevated ($\ge 0.30$). Furthermore, subword tokenization frequently clipped leading/trailing letters or fragmented phrases.
+In validation ablation experiments across 876 validation notes ([`reports/experiments/span_boundary_ablation/span_boundary_ablation_report.md`](../reports/experiments/span_boundary_ablation/span_boundary_ablation_report.md)), the original decoder's Outside-dominance rule was found to prematurely terminate or suppress SBDH spans when the background Outside logit exceeded SBDH category logits, even if SBDH logits were elevated ($\ge 0.30$). Furthermore, subword tokenization frequently clipped leading/trailing letters or fragmented phrases.
 
 To address these failure modes without retraining, the **Arm 6A Candidate Pipeline** was constructed and validated:
 1. **Strategy B Active-Threshold Decoder ($\theta = 0.30$):** Decouples Begin and Inside activations, allowing SBDH token spans whenever category logits exceed 0.30 regardless of Outside dominance.
@@ -313,7 +313,7 @@ To address these failure modes without retraining, the **Arm 6A Candidate Pipeli
 
 ### 12.2 Single Final Test Set Evaluation Results
 
-The candidate pipeline was evaluated **once** on the reviewed test set (`synth_sbdh_test_reviewed.csv`, $N = 1,732$ notes, 3,345 raw annotations, 3,340 resolvable annotations, 3,303 unique intervals). All 10 mathematical metrics were audited and verified directly from the saved JSON artifact ([`reports/experiments/candidate_test_evaluation/candidate_test_evaluation_metrics.json`](reports/experiments/candidate_test_evaluation/candidate_test_evaluation_metrics.json)).
+The candidate pipeline was evaluated **once** on the reviewed test set (`synth_sbdh_test_reviewed.csv`, $N = 1,732$ notes, 3,345 raw annotations, 3,340 resolvable annotations, 3,303 unique intervals). All 10 mathematical metrics were audited and verified directly from the saved JSON artifact ([`reports/experiments/candidate_test_evaluation/candidate_test_evaluation_metrics.json`](../reports/experiments/candidate_test_evaluation/candidate_test_evaluation_metrics.json)).
 
 #### Side-by-Side Test Benchmark Comparison
 
@@ -485,13 +485,13 @@ Both modeling tracks are frozen, documented, and packaged with a local interacti
    Kuhn, H. W. (1955). *The Hungarian Method for the Assignment Problem*. Naval Research Logistics Quarterly, 2(1‐2), 83-97.
 
 ### Artifact Inventory:
-- **Baseline Freeze Manifest:** [`reports/baseline_freeze_manifest.md`](reports/baseline_freeze_manifest.md)
-- **Reproduction Guide:** [`reports/reproduction_guide.md`](reports/reproduction_guide.md)
-- **Track A Model Pipeline:** [`models/baseline_a_logreg.joblib`](models/baseline_a_logreg.joblib) (SHA256: `794cff2d...`)
-- **Track B Neural Weights:** [`evernorth_m3_results/models/sbdh_transformer/best_model.pt`](evernorth_m3_results/models/sbdh_transformer/best_model.pt) (SHA256: `0cb00010...`)
-- **Track A Metrics JSON:** [`reports/readmission_baselines_metrics.json`](reports/readmission_baselines_metrics.json) (SHA256: `168a73c1...`)
-- **Track B Frozen Baseline Metrics JSON:** [`reports/sbdh_colab_transformer_metrics_corrected.json`](reports/sbdh_colab_transformer_metrics_corrected.json) (SHA256: `f20c59f4...`)
-- **Track B Arm 6A Candidate Metrics JSON:** [`reports/experiments/candidate_test_evaluation/candidate_test_evaluation_metrics.json`](reports/experiments/candidate_test_evaluation/candidate_test_evaluation_metrics.json)
-- **Track B Arm 6A Candidate Technical Report:** [`reports/experiments/candidate_test_evaluation/candidate_test_evaluation_report.md`](reports/experiments/candidate_test_evaluation/candidate_test_evaluation_report.md)
-- **Portable Baseline Archive:** [`reports/baseline_freeze_archive_20261026.zip`](reports/baseline_freeze_archive_20261026.zip) (SHA256: `34b5ab8b...`)
+- **Baseline Freeze Manifest:** [`reports/baseline_freeze_manifest.md`](../reports/baseline_freeze_manifest.md)
+- **Reproduction Guide:** [`reports/reproduction_guide.md`](../reports/reproduction_guide.md)
+- **Track A Model Pipeline:** [`models/baseline_a_logreg.joblib`](../models/baseline_a_logreg.joblib) (SHA256: `794cff2d...`)
+- **Track B Neural Weights:** local-only artifact, not committed to the repository (SHA256: `0cb00010...`)
+- **Track A Metrics JSON:** [`reports/readmission_baselines_metrics.json`](../reports/readmission_baselines_metrics.json) (SHA256: `168a73c1...`)
+- **Track B Frozen Baseline Metrics JSON:** [`reports/sbdh_colab_transformer_metrics_corrected.json`](../reports/sbdh_colab_transformer_metrics_corrected.json) (SHA256: `f20c59f4...`)
+- **Track B Arm 6A Candidate Metrics JSON:** [`reports/experiments/candidate_test_evaluation/candidate_test_evaluation_metrics.json`](../reports/experiments/candidate_test_evaluation/candidate_test_evaluation_metrics.json)
+- **Track B Arm 6A Candidate Technical Report:** [`reports/experiments/candidate_test_evaluation/candidate_test_evaluation_report.md`](../reports/experiments/candidate_test_evaluation/candidate_test_evaluation_report.md)
+- **Portable Baseline Archive:** [`reports/baseline_freeze_archive_20261026.zip`](../reports/baseline_freeze_archive_20261026.zip) (SHA256: `34b5ab8b...`)
 

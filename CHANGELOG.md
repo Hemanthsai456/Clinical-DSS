@@ -77,6 +77,21 @@ All notable changes made to the Evernorth Clinical Decision Support (CDS) protot
   - Updated Section 6 description and Section 7 architecture test module breakdown to reflect all 78 tests across all 7 test files including `test_track_a_display.py` (9 tests) and `test_streamlit_app.py` (21 tests).
   - Executed `pytest tests/ -v`: 78 passed, 0 failed in 41.12s.
 
+### Broken Relative Link Fixes & Checkpoint Plain Text Substitution
+- **Relative Markdown Link Resolution in `reports/**/*.md`:**
+  - Audited all relative markdown links across reports documentation.
+  - Adjusted 187 links pointing to repo-root paths by prepending the appropriate relative directory depth (`../` for `reports/x.md`, `../../../` for `reports/experiments/<name>/x.md`) so links resolve relative to each file's containing folder.
+  - Preserved all anchors and link text intact.
+  - Audited all 196 relative links across 15 files in `reports/`: confirmed 100% resolve with **0 broken links**.
+- **Local-Only Checkpoint Links Plain Text Replacement:**
+  - Replaced all 17 markdown links pointing to uncommitted local checkpoint artifacts (`evernorth_m3_results/`) with plain text: `"local-only artifact, not committed to the repository"`, preventing dead 404 links on remote repositories.
+- **Track B Known Limitations Link Absolute URL:**
+  - Updated the "Known limitations" error analysis report link in `app/track_b_ui.py` to point to the canonical GitHub URL: `https://github.com/Hemanthsai456/clinical-dss/blob/main/reports/sbdh_error_analysis_experiment_1.md`.
+- **Repository URI Audit:**
+  - Confirmed zero links across the entire repository point to `file:///` URIs (only the historical fix descriptions in `CHANGELOG.md` mention the prefix as plain text).
+- **Test Suite Verification:**
+  - Executed `pytest tests/ -v`: 78 passed, 0 failed in 24.11s.
+
 ---
 
 ## [Unreleased] - 2026-10-26

@@ -52,7 +52,7 @@ http://localhost:8501
 The application is structured into four modular views accessible from the sidebar navigation:
 
 ### Page 1: Track A — Inpatient 30-Day Readmission Risk
-- **Model:** Primary Bedside Model (**Baseline A**; [`models/baseline_a_logreg.joblib`](models/baseline_a_logreg.joblib)).
+- **Model:** Primary Bedside Model (**Baseline A**; [`models/baseline_a_logreg.joblib`](../models/baseline_a_logreg.joblib)).
 - **Input Constraints:** Strictly restricted to 40 clinical features legitimately accessible during discharge planning (8 numerical inpatient intensity/utilization features and 32 categorical admission, demographic, and glycemic/medication features).
 - **Leakage Isolation:** Completely excludes post-acute placement (`discharge_disposition_id`) and retrospective billing ICD-9 codes (`diag_1`, `diag_2`, `diag_3`).
 - **Features & Presets:**
@@ -63,7 +63,7 @@ The application is structured into four modular views accessible from the sideba
 - **Output:** Calibrated readmission probability, frozen decision threshold ($\tau = 0.130$), research risk tier (`Standard Transition` vs. `Elevated Care-Coordination Risk`), and explicit clinical advisories.
 
 ### Page 2: Track B — SBDH Narrative Text Extraction
-- **Model:** 3-Epoch Colab GPU Transformer Checkpoint ([`evernorth_m3_results/models/sbdh_transformer/best_model.pt`](evernorth_m3_results/models/sbdh_transformer/best_model.pt)).
+- **Model:** 3-Epoch Colab GPU Transformer Checkpoint (local-only artifact, not committed to the repository).
 - **Architecture:** `distilbert/distilroberta-base` with 45 independent binary sigmoid logits (15 SBDH categories $\times$ $\{B, I, O\}$).
 - **Multi-Label Capability:** Correctly identifies multiple co-occurring social determinants mapped to identical character intervals (e.g., `"cannot afford physical therapy"` tagged as both `financial insecurity` and `barriers to care`).
 - **Privacy & Security:** 100% in-memory local CPU inference. Clinical text is never transmitted over external networks.
